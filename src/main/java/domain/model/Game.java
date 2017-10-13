@@ -22,8 +22,6 @@ public class Game {
 
     private Board gameBoard;
 
-    private InputOutput gameInterface;
-
     public Game(Player player) {
         Role playerRole = player.getPlayerRole();
         gameBreaker = playerRole == Role.BREAKER ?
@@ -34,6 +32,9 @@ public class Game {
         gameMakerName = gameMaker.getName();
         gameBreakerName = gameBreaker.getName();
 
-        gameInterface = MainController.getInstance().getGameInterface();
+    }
+
+    private InputOutput getGameInterface() {
+        return MainController.getInstance().getGameInterface();
     }
 }

@@ -6,6 +6,7 @@ import domain.model.io.TerminalIO;
 
 public class MainController {
     private static MainController mInstance = new MainController();
+    private static InputOutput mGameInterface = new TerminalIO();
 
     public static MainController getInstance() {
         return mInstance;
@@ -20,6 +21,6 @@ public class MainController {
     }
 
     public InputOutput getGameInterface() {
-        return new TerminalIO();
+        return mGameInterface;
     }
 }
