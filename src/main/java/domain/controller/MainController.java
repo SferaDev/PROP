@@ -1,6 +1,6 @@
 package domain.controller;
 
-import data.UserControllerRealm;
+import data.UserControllerJSON;
 import domain.model.io.InputOutput;
 import domain.model.io.TerminalIO;
 
@@ -16,7 +16,7 @@ public class MainController {
     }
 
     public UserController getUserController() {
-        return UserControllerRealm.getInstance();
+        return UserControllerJSON.getInstance();
     }
 
     public InputOutput getGameInterface() {

@@ -5,14 +5,14 @@ import domain.model.User;
 
 import java.util.Set;
 
-public class UserControllerRealm implements UserController {
-    private static UserControllerRealm mInstance = new UserControllerRealm();
+public class UserControllerJSON implements UserController {
+    private static UserControllerJSON mInstance = new UserControllerJSON();
 
-    public static UserControllerRealm getInstance() {
+    public static UserControllerJSON getInstance() {
         return mInstance;
     }
 
-    private UserControllerRealm() {
+    private UserControllerJSON() {
         // Should never be instantiated
     }
 
