@@ -7,5 +7,5 @@ import java.util.Set;
 public interface UserController {
     User getUser(String name);
     boolean exists(String name);
-    Set<User> all();
+    boolean insert(User user);
 }

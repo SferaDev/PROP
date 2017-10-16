@@ -13,5 +13,8 @@ public class Constants {
     static final int HELP_MENU = 4;
     static final String HELP_MENU_TITLE = "Ajuda";
 
+    static final int EXIT_MENU = 5;
+    static final String EXIT_MENU_TITLE = "Surt";
+
     static final String ERROR_USER_NOT_FOUND = "Usuari no registrat";
 }

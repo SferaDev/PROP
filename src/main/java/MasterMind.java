@@ -29,6 +29,7 @@ public class MasterMind {
                 System.out.println(Constants.LOGIN_MENU    + ". " + Constants.LOGIN_MENU_TITLE);
                 System.out.println(Constants.STATS_MENU    + ". " + Constants.STATS_MENU_TITLE);
                 System.out.println(Constants.HELP_MENU     + ". " + Constants.HELP_MENU_TITLE);
+                System.out.println(Constants.EXIT_MENU     + ". " + Constants.EXIT_MENU_TITLE);
 
                 switch (scanner.nextInt()) {
                     case Constants.REGISTER_MENU:
@@ -41,12 +42,15 @@ public class MasterMind {
                         break;
                     case Constants.HELP_MENU:
                         break;
+                    case Constants.EXIT_MENU:
+                        System.exit(0);
+                        break;
                     default:
-                        System.err.println();
+                        System.err.println("Introdueixi una opció de la llista");
                         break;
                 }
 
-            } while (scanner.hasNext());
+            } while (true);
         } else {
             // GFX Mode
         }
@@ -69,6 +73,7 @@ public class MasterMind {
             password = scanner.next();
         }
 
+        // Play Menu
     }
 
     private void register() {
@@ -84,6 +89,10 @@ public class MasterMind {
         } while (!password1.equals(password2));
 
         User user = new User(username, password1);
+        if (userController.insert(user)) {
+            // Play Menu
+        } else {
+            System.err.println("Ja existeix l'usuari");
+        }
     }
-
 }
