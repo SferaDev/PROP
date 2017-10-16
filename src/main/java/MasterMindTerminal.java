@@ -82,9 +82,9 @@ class MasterMindTerminal {
     private void showPlayMenu(User user) {
         Scanner scanner = new Scanner(System.in);
         do {
-            println(Constants.MAIN_MENU_SEPARATOR + "\n" +
+            println(Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_MENU_TITLE     + "\n" +
-                    Constants.MAIN_MENU_SEPARATOR + "\n" +
+                    Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_NEW_GAME       + ". " + Constants.PLAY_NEW_GAME_TITLE  + "\n" +
                     Constants.PLAY_PREV_GAME      + ". " + Constants.PLAY_PREV_GAME_TITLE + "\n" +
                     Constants.PLAY_STATS          + ". " + Constants.PLAY_STATS_TITLE     + "\n" +
