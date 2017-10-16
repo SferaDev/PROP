@@ -1,11 +1,25 @@
 import domain.controller.MainController;
+import domain.controller.UserController;
 import domain.model.User;
+import domain.model.io.InputOutput;
 
 import java.util.Scanner;
 
 public class MasterMind {
-    public static void mainmenu() {
-        System.out.println("Benvolgut/da marqui una opció");
+    private MainController mainController;
+    private InputOutput gameInterface;
+
+    public static void main(String[] args) {
+        MasterMind application = new MasterMind();
+        // TODO: Args should define if terminal mode or gfx mode
+        application.startApplication(true);
+    }
+
+    private void startApplication(boolean terminalMode) {
+        mainController = MainController.getInstance();
+        gameInterface = mainController.getGameInterface();
+
+        System.out.println("Mastermind Menu");
         System.out.println("1. Regristrar-se");
         System.out.println("2. Identificar-se");
         System.out.println("3. Veure rankings");
@@ -14,20 +28,31 @@ public class MasterMind {
         Scanner sc = new Scanner(System.in);
         int op = sc.nextInt();
 
-        if (op == 1) logIn();
-        else if (op == 2) identify();
+        switch (sc.nextInt()) {
+            case 1:
+                login();
+                break;
+            case 2:
+                identify();
+                break;
+            default:
+                break;
+        }
     }
 
-    public static void logIn() {
+    private void login() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Introdueixi el seu nom d'usuari");
         String username =  sc.next();
 
-        MainController Mc = MainController.getInstance();
-        domain.controller.UserController Uc = Mc.getUserController();
-        User user  = Uc.getUser(username);
+        UserController userController = mainController.getUserController();
+        User user = userController.getUser(username);
 
-        System.out.println("Introdueixi la seva contrasenya1");
+        if (user == null) {
+            gameInterface.outputError("Usuari no registrat");
+        }
+
+        System.out.println("Introdueixi la seva contrasenya");
         String password =  sc.next();
         boolean correctp = user.login(password);
         while (!correctp) {
@@ -38,7 +63,7 @@ public class MasterMind {
 
     }
 
-    public static void identify() {
+    private void identify() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Crei el seu nom d'usuari");
         String username =  sc.next();
@@ -58,10 +83,6 @@ public class MasterMind {
             else incorrectp = false;
         }
         User user = new User(username, password);
-    }
-
-    public static void main (String[] args) {
-        mainmenu();
     }
 
 }
