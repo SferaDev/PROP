@@ -12,5 +12,4 @@ public interface InputOutput {
     // Outputs
     void outputControlRow(Row<ControlPeg> row);
     void outputColorRow(Row<ColorPeg> row);
-    void outputError(String errorMessage);
 }

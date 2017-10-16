@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class MasterMind {
     private MainController mainController;
+    private UserController userController;
     private InputOutput gameInterface;
 
     public static void main(String[] args) {
@@ -17,72 +18,72 @@ public class MasterMind {
 
     private void startApplication(boolean terminalMode) {
         mainController = MainController.getInstance();
+        userController = mainController.getUserController();
         gameInterface = mainController.getGameInterface();
 
-        System.out.println("Mastermind Menu");
-        System.out.println("1. Regristrar-se");
-        System.out.println("2. Identificar-se");
-        System.out.println("3. Veure rankings");
-        System.out.println("4. Ajuda");
+        if (terminalMode) {
+            Scanner scanner = new Scanner(System.in);
+            do {
+                System.out.println(Constants.MAIN_MENU_TITLE);
+                System.out.println(Constants.REGISTER_MENU + ". " + Constants.REGISTER_MENU_TITLE);
+                System.out.println(Constants.LOGIN_MENU    + ". " + Constants.LOGIN_MENU_TITLE);
+                System.out.println(Constants.STATS_MENU    + ". " + Constants.STATS_MENU_TITLE);
+                System.out.println(Constants.HELP_MENU     + ". " + Constants.HELP_MENU_TITLE);
 
-        Scanner sc = new Scanner(System.in);
-        int op = sc.nextInt();
+                switch (scanner.nextInt()) {
+                    case Constants.REGISTER_MENU:
+                        register();
+                        break;
+                    case Constants.LOGIN_MENU:
+                        login();
+                        break;
+                    case Constants.STATS_MENU:
+                        break;
+                    case Constants.HELP_MENU:
+                        break;
+                    default:
+                        System.err.println();
+                        break;
+                }
 
-        switch (sc.nextInt()) {
-            case 1:
-                login();
-                break;
-            case 2:
-                identify();
-                break;
-            default:
-                break;
+            } while (scanner.hasNext());
+        } else {
+            // GFX Mode
         }
     }
 
     private void login() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Introdueixi el seu nom d'usuari");
-        String username =  sc.next();
-
-        UserController userController = mainController.getUserController();
-        User user = userController.getUser(username);
+        Scanner scanner = new Scanner(System.in);
+        User user = userController.getUser(scanner.next());
 
         if (user == null) {
-            gameInterface.outputError("Usuari no registrat");
+            System.err.println(Constants.ERROR_USER_NOT_FOUND);
+            return;
         }
 
         System.out.println("Introdueixi la seva contrasenya");
-        String password =  sc.next();
-        boolean correctp = user.login(password);
-        while (!correctp) {
-            correctp = user.login(password);
-            System.out.println("Contrasenya incorrecta, si us plau torni a escriure-la");
-            password =  sc.next();
+        String password = scanner.next();
+        while (!user.testPassword(password)) {
+            System.err.println("Contrasenya incorrecta, si us plau torni a escriure-la");
+            password = scanner.next();
         }
 
     }
 
-    private void identify() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Crei el seu nom d'usuari");
-        String username =  sc.next();
-        System.out.println("Crei la seva contrasenya");
-        boolean incorrectp = true;
-        String password =  sc.next();
-        String password2;
-
-        while (incorrectp){
+    private void register() {
+        System.out.println("Introdueixi el seu nom d'usuari");
+        Scanner scanner = new Scanner(System.in);
+        String username =  scanner.next();
+        String password1, password2;
+        do {
+            System.out.println("Introdueixi la seva contrasenya");
+            password1 = scanner.next();
             System.out.println("Repeteixi la seva contrasenya");
-            password2 = sc.next();
+            password2 = scanner.next();
+        } while (!password1.equals(password2));
 
-            if (!password.equals(password2)) {
-                System.out.println("Les contrasenyes no coincideixen, si us plau torni a introduir la seva contrasenya");
-                password =  sc.next();
-            }
-            else incorrectp = false;
-        }
-        User user = new User(username, password);
+        User user = new User(username, password1);
     }
 
 }

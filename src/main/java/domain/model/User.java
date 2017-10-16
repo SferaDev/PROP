@@ -19,7 +19,7 @@ public class User {
         return playerName;
     }
 
-    public boolean login(String passwordAttempt) {
+    public boolean testPassword(String passwordAttempt) {
         return playerPassword.equals(passwordAttempt);
     }
 
