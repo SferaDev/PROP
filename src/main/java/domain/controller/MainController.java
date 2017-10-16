@@ -1,5 +1,6 @@
 package domain.controller;
 
+import data.StatsControllerJSON;
 import data.UserControllerJSON;
 import domain.model.InputOutput;
 
@@ -17,6 +18,10 @@ public class MainController {
 
     public UserController getUserController() {
         return UserControllerJSON.getInstance();
+    }
+
+    public StatsController getStatsController() {
+        return StatsControllerJSON.getInstance();
     }
 
     public InputOutput getGameInterface() {
