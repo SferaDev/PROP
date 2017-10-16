@@ -1,5 +1,4 @@
 public class Constants {
-
     static final int MAIN_REGISTER = 1;
     static final int MAIN_LOGIN = 2;
     static final int MAIN_STATS = 3;

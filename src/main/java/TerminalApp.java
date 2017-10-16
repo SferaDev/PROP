@@ -8,7 +8,7 @@ import domain.model.peg.ControlPeg;
 
 import java.util.Scanner;
 
-class MasterMindTerminal {
+class TerminalApp {
     private MainController mainController;
     private UserController userController;
 
