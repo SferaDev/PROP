@@ -46,12 +46,14 @@ class MasterMindTerminal {
     private void showMainMenu() {
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println(Constants.MAIN_MENU_TITLE);
-            System.out.println(Constants.MAIN_REGISTER + ". " + Constants.MAIN_REGISTER_TITLE);
-            System.out.println(Constants.MAIN_LOGIN + ". " + Constants.MAIN_LOGIN_TITLE);
-            System.out.println(Constants.MAIN_STATS + ". " + Constants.MAIN_STATS_TITLE);
-            System.out.println(Constants.MAIN_HELP + ". " + Constants.MAIN_HELP_TITLE);
-            System.out.println(Constants.MAIN_EXIT + ". " + Constants.MAIN_EXIT_TITLE);
+            println(Constants.MAIN_MENU_SEPARATOR + "\n" +
+                    Constants.MAIN_MENU_TITLE     + "\n" +
+                    Constants.MAIN_MENU_SEPARATOR + "\n" +
+                    Constants.MAIN_REGISTER       + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
+                    Constants.MAIN_LOGIN          + ". " + Constants.MAIN_LOGIN_TITLE    + "\n" +
+                    Constants.MAIN_STATS          + ". " + Constants.MAIN_STATS_TITLE    + "\n" +
+                    Constants.MAIN_HELP           + ". " + Constants.MAIN_HELP_TITLE     + "\n" +
+                    Constants.MAIN_EXIT           + ". " + Constants.MAIN_EXIT_TITLE);
 
             switch (scanner.nextInt()) {
                 case Constants.MAIN_REGISTER:
@@ -70,7 +72,7 @@ class MasterMindTerminal {
                     System.exit(0);
                     break;
                 default:
-                    System.err.println("Introdueixi una opció de la llista");
+                    errorln("Introdueixi una opció de la llista");
                     break;
             }
 
@@ -80,18 +82,20 @@ class MasterMindTerminal {
     private void showPlayMenu(User user) {
         Scanner scanner = new Scanner(System.in);
         do {
-            System.out.println("Mastermind: Play Game");
-            System.out.println(Constants.PLAY_NEW_GAME + ". " + Constants.PLAY_NEW_GAME_TITLE);
-            System.out.println(Constants.PLAY_CONTINUE_GAME + ". " + Constants.PLAY_CONTINUE_GAME_TITLE);
-            System.out.println(Constants.PLAY_STATS + ". " + Constants.PLAY_STATS_TITLE);
-            System.out.println(Constants.PLAY_HELP + ". " + Constants.PLAY_HELP_TITLE);
-            System.out.println(Constants.PLAY_BACK + ". " + Constants.PLAY_BACK_TITLE);
+            println(Constants.MAIN_MENU_SEPARATOR + "\n" +
+                    Constants.PLAY_MENU_TITLE     + "\n" +
+                    Constants.MAIN_MENU_SEPARATOR + "\n" +
+                    Constants.PLAY_NEW_GAME       + ". " + Constants.PLAY_NEW_GAME_TITLE  + "\n" +
+                    Constants.PLAY_PREV_GAME      + ". " + Constants.PLAY_PREV_GAME_TITLE + "\n" +
+                    Constants.PLAY_STATS          + ". " + Constants.PLAY_STATS_TITLE     + "\n" +
+                    Constants.PLAY_HELP           + ". " + Constants.PLAY_HELP_TITLE      + "\n" +
+                    Constants.PLAY_BACK           + ". " + Constants.PLAY_BACK_TITLE);
 
             switch (scanner.nextInt()) {
                 case Constants.PLAY_NEW_GAME:
                     newGame(user);
                     break;
-                case Constants.PLAY_CONTINUE_GAME:
+                case Constants.PLAY_PREV_GAME:
                     continueGame(user);
                     break;
                 case Constants.PLAY_STATS:
@@ -103,7 +107,7 @@ class MasterMindTerminal {
                 case Constants.PLAY_BACK:
                     return;
                 default:
-                    System.err.println("Introdueixi una opció de la llista");
+                    errorln("Introdueixi una opció de la llista");
                     break;
             }
         } while (true);
@@ -126,36 +130,36 @@ class MasterMindTerminal {
     }
 
     private void login() {
-        System.out.println("Introdueixi el seu nom d'usuari");
+        println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
         String username = scanner.next();
 
         if (!userController.exists(username)) {
-            System.err.println(Constants.ERROR_USER_NOT_FOUND);
+            errorln(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
 
         User user = null;
         for (int i = 0; user == null && i < 3; i++) {
-            if (i > 0) System.err.println("Contrasenya erronea!");
-            System.out.println("Introdueixi la seva contrasenya");
+            if (i > 0) errorln("Contrasenya erronea!");
+            println("Introdueixi la seva contrasenya");
             user = userController.login(username, scanner.next());
         }
 
         if (user == null) {
-            System.err.println("Contrasenya erronea 3 cops");
+            errorln("Contrasenya erronea 3 cops");
         } else showPlayMenu(user);
     }
 
     private void register() {
-        System.out.println("Introdueixi el seu nom d'usuari");
+        println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
         String username =  scanner.next();
         String password1, password2;
         do {
-            System.out.println("Introdueixi la seva contrasenya");
+            println("Introdueixi la seva contrasenya");
             password1 = scanner.next();
-            System.out.println("Repeteixi la seva contrasenya");
+            println("Repeteixi la seva contrasenya");
             password2 = scanner.next();
         } while (!password1.equals(password2));
 
@@ -163,7 +167,17 @@ class MasterMindTerminal {
         if (userController.insert(user)) {
             showPlayMenu(user);
         } else {
-            System.err.println("Ja existeix l'usuari");
+            errorln("Ja existeix l'usuari");
         }
+    }
+
+    private void println(String string) {
+        System.out.println(string);
+        System.out.flush();
+    }
+
+    private void errorln(String string) {
+        System.err.println(string);
+        System.err.flush();
     }
 }
