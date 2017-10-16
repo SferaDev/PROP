@@ -24,8 +24,11 @@ public class UserControllerJSON implements UserController {
     }
 
     @Override
-    public User getUser(String name) {
-        if (exists(name)) return mUsers.get(name);
+    public User login(String name, String pass) {
+        if (exists(name)) {
+            User user = mUsers.get(name);
+            if (user.getPassword().equals(pass)) return user;
+        }
         return null;
     }
 
