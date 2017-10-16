@@ -6,12 +6,12 @@ import domain.model.peg.ControlPeg;
 
 public class TerminalIO implements InputOutput {
     @Override
-    public Row<ControlPeg> requestControlRow() {
+    public Row<ControlPeg> inputControlRow() {
         return null;
     }
 
     @Override
-    public Row<ColorPeg> requestColorRow() {
+    public Row<ColorPeg> inputColorRow() {
         return null;
     }
 
@@ -23,5 +23,10 @@ public class TerminalIO implements InputOutput {
     @Override
     public void outputColorRow(Row<ColorPeg> row) {
 
+    }
+
+    @Override
+    public void outputError(String errorMessage) {
+        System.err.println(errorMessage);
     }
 }
