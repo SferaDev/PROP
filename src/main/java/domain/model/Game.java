@@ -1,7 +1,6 @@
 package domain.model;
 
 import domain.controller.MainController;
-import domain.model.io.InputOutput;
 import domain.model.peg.ColorPeg;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;

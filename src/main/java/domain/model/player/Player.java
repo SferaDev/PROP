@@ -3,7 +3,6 @@ package domain.model.player;
 import domain.model.Game;
 import domain.model.Role;
 import domain.model.Row;
-import domain.model.io.InputOutput;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 

@@ -1,6 +1,10 @@
 import domain.controller.MainController;
 import domain.controller.UserController;
+import domain.model.InputOutput;
+import domain.model.Row;
 import domain.model.User;
+import domain.model.peg.ColorPeg;
+import domain.model.peg.ControlPeg;
 
 import java.util.Scanner;
 
@@ -11,6 +15,30 @@ class MasterMindTerminal {
     void startApplication() {
         mainController = MainController.getInstance();
         userController = mainController.getUserController();
+
+        mainController.setGameInterface(new InputOutput() {
+            @Override
+            public Row<ControlPeg> inputControlRow() {
+                // TODO
+                return null;
+            }
+
+            @Override
+            public Row<ColorPeg> inputColorRow() {
+                // TODO
+                return null;
+            }
+
+            @Override
+            public void outputControlRow(Row<ControlPeg> row) {
+                // TODO
+            }
+
+            @Override
+            public void outputColorRow(Row<ColorPeg> row) {
+                // TODO
+            }
+        });
 
         showMainMenu();
     }

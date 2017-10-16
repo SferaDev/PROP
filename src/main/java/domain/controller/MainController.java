@@ -1,12 +1,11 @@
 package domain.controller;
 
 import data.UserControllerJSON;
-import domain.model.io.InputOutput;
-import domain.model.io.TerminalIO;
+import domain.model.InputOutput;
 
 public class MainController {
     private static MainController mInstance = new MainController();
-    private static InputOutput mGameInterface = new TerminalIO();
+    private static InputOutput mGameInterface;
 
     public static MainController getInstance() {
         return mInstance;
@@ -22,5 +21,9 @@ public class MainController {
 
     public InputOutput getGameInterface() {
         return mGameInterface;
+    }
+
+    public void setGameInterface(InputOutput gameInterface) {
+        mGameInterface = gameInterface;
     }
 }
