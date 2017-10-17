@@ -31,9 +31,9 @@ public abstract class Player {
 
     public abstract String getName();
 
-    public abstract Row<ColorPeg> makeInitialGuess();
+    public abstract Row<ColorPeg> makeInitialGuess(int size);
 
-    public abstract Row<ColorPeg> makeGuess();
+    public abstract Row<ColorPeg> makeGuess(int size);
 
     public abstract Row<ControlPeg> scoreGuess(Row<ColorPeg> guess);
 }

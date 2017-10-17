@@ -17,12 +17,12 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public Row<ColorPeg> makeInitialGuess() {
+    public Row<ColorPeg> makeInitialGuess(int size) {
         return null;
     }
 
     @Override
-    public Row<ColorPeg> makeGuess() {
+    public Row<ColorPeg> makeGuess(int size) {
         return null;
     }
 

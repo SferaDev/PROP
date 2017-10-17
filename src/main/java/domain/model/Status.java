@@ -1,5 +1,5 @@
 package domain.model;
 
 public enum Status {
-    START, GUESS, RESPONSE, FINISHED
+    START, GUESS, RESPONSE, CORRECT, QUIT
 }

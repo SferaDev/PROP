@@ -5,9 +5,9 @@ import domain.model.peg.ControlPeg;
 
 public interface InputOutput {
     // Inputs
-    Row<ControlPeg> inputControlRow();
+    Row<ControlPeg> inputControlRow(int size);
 
-    Row<ColorPeg> inputColorRow();
+    Row<ColorPeg> inputColorRow(int size);
 
     // Outputs
     void outputControlRow(Row<ControlPeg> row);

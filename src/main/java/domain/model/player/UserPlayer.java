@@ -1,5 +1,6 @@
 package domain.model.player;
 
+import domain.controller.MainController;
 import domain.model.Role;
 import domain.model.Row;
 import domain.model.User;
@@ -21,17 +22,17 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public Row<ColorPeg> makeInitialGuess() {
-        return null;
+    public Row<ColorPeg> makeInitialGuess(int size) {
+        return MainController.getInstance().getGameInterface().inputColorRow(size);
     }
 
     @Override
-    public Row<ColorPeg> makeGuess() {
-        return null;
+    public Row<ColorPeg> makeGuess(int size) {
+        return MainController.getInstance().getGameInterface().inputColorRow(size);
     }
 
     @Override
     public Row<ControlPeg> scoreGuess(Row<ColorPeg> guess) {
-        return null;
+        return MainController.getInstance().getGameInterface().inputControlRow(guess.size());
     }
 }

@@ -30,11 +30,7 @@ public class Game {
         gameMaker = ownerRole == Role.MAKER ?
                 player : new ComputerPlayer(Role.BREAKER, this);
 
-        gameStatus = Status.GUESS;
-    }
-
-    private InputOutput getGameInterface() {
-        return MainController.getInstance().getGameInterface();
+        gameStatus = Status.START;
     }
 
     @Override
@@ -43,10 +39,23 @@ public class Game {
     }
 
     public void startGame() {
-
+        while (gameStatus != Status.CORRECT && gameStatus != Status.QUIT) {
+            switch (gameStatus) {
+                case START:
+                    correctGuess = gameMaker.makeInitialGuess();
+                    gameStatus = Status.GUESS;
+                    break;
+                case GUESS:
+                    Row<ColorPeg> input = gameBreaker.makeGuess();
+                    gameStatus = input.equals(correctGuess) ? Status.CORRECT : Status.RESPONSE;
+                    break;
+                case RESPONSE:
+                    break;
+            }
+        }
     }
 
-    public void setStatus(Status status) {
+    private void setStatus(Status status) {
         gameStatus = status;
     }
 }
