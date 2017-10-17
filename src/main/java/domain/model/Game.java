@@ -12,6 +12,8 @@ public class Game {
     private String ownerName;
     private Role ownerRole;
 
+    private Status gameStatus;
+
     private Player gameMaker;
     private Player gameBreaker;
 
@@ -27,6 +29,8 @@ public class Game {
                 player : new ComputerPlayer(Role.MAKER, this);
         gameMaker = ownerRole == Role.MAKER ?
                 player : new ComputerPlayer(Role.BREAKER, this);
+
+        gameStatus = Status.GUESS;
     }
 
     private InputOutput getGameInterface() {
@@ -40,5 +44,9 @@ public class Game {
 
     public void startGame() {
 
+    }
+
+    public void setStatus(Status status) {
+        gameStatus = status;
     }
 }

@@ -1,5 +1,7 @@
 package domain.controller;
 
+import com.afollestad.ason.Ason;
+
 public interface DataController<E> {
     boolean exists(String key);
 
@@ -7,5 +9,5 @@ public interface DataController<E> {
 
     void remove(E item);
 
-    E get(String key);
+    E get(String key, Class cls);
 }

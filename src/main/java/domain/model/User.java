@@ -4,6 +4,10 @@ public class User {
     private String playerName;
     private String playerPassword;
 
+    public User() {
+        // noop
+    }
+
     public User(String name, String password) {
         playerName = name;
         playerPassword = password;

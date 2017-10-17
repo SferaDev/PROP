@@ -1,5 +1,6 @@
 package data.model;
 
+import com.afollestad.ason.Ason;
 import data.JSONController;
 import domain.controller.UserController;
 import domain.model.User;
@@ -23,7 +24,7 @@ public class UserData extends JSONController implements UserController {
     @Override
     public User login(String name, String pass) {
         if (exists(name)) {
-            User user = (User) mData.get(name);
+            User user = (User) get(name, User.class);
             if (user.getPassword().equals(pass)) return user;
         }
         return null;
