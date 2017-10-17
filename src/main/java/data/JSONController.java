@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class JSONController implements DataController {
-    Map<String, Object> mData = new HashMap<>();
+    protected Map<String, Object> mData = new HashMap<>();
 
     private Gson gson = new Gson();
 
-    JSONController() {
+    protected JSONController() {
         ArrayList<String> files = FileUtils.listFiles(getFolderPath());
         for (String file : files) {
             mData.put(file, null);

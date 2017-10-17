@@ -1,8 +1,8 @@
 package domain.controller;
 
-import data.GameData;
-import data.StatData;
-import data.UserData;
+import data.model.GameData;
+import data.model.StatData;
+import data.model.UserData;
 import domain.model.InputOutput;
 
 public class MainController {

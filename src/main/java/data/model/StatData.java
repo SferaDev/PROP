@@ -1,4 +1,6 @@
-package data;
+package data.model;
+
+import data.JSONController;
 
 public class StatData extends JSONController {
     private static StatData mInstance = new StatData();

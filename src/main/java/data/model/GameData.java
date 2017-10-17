@@ -1,4 +1,6 @@
-package data;
+package data.model;
+
+import data.JSONController;
 
 public class GameData extends JSONController {
     private static GameData mInstance = new GameData();

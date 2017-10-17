@@ -1,15 +1,8 @@
-package data;
+package data.model;
 
-import com.google.gson.Gson;
-import data.utils.FileUtils;
-import domain.controller.DataController;
+import data.JSONController;
 import domain.controller.UserController;
 import domain.model.User;
-
-import javax.xml.crypto.Data;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
-import java.util.*;
 
 public class UserData extends JSONController implements UserController {
     private static UserData mInstance = new UserData();
