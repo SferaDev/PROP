@@ -42,11 +42,11 @@ public class Game {
         while (gameStatus != Status.CORRECT && gameStatus != Status.QUIT) {
             switch (gameStatus) {
                 case START:
-                    correctGuess = gameMaker.makeInitialGuess();
+                    correctGuess = gameMaker.makeInitialGuess(4);
                     gameStatus = Status.GUESS;
                     break;
                 case GUESS:
-                    Row<ColorPeg> input = gameBreaker.makeGuess();
+                    Row<ColorPeg> input = gameBreaker.makeGuess(4);
                     gameStatus = input.equals(correctGuess) ? Status.CORRECT : Status.RESPONSE;
                     break;
                 case RESPONSE:

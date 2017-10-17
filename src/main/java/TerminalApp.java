@@ -17,13 +17,13 @@ class TerminalApp {
 
         mainController.setGameInterface(new InputOutput() {
             @Override
-            public Row<ControlPeg> inputControlRow() {
+            public Row<ControlPeg> inputControlRow(int size) {
                 // TODO
                 return null;
             }
 
             @Override
-            public Row<ColorPeg> inputColorRow() {
+            public Row<ColorPeg> inputColorRow(int size) {
                 // TODO
                 return null;
             }
