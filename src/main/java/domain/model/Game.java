@@ -37,4 +37,8 @@ public class Game {
     public String toString() {
         return ownerName + "-" + ownerRole + "-" + startTime.toString();
     }
+
+    public void startGame() {
+
+    }
 }

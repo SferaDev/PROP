@@ -1,10 +1,9 @@
 import domain.controller.MainController;
 import domain.controller.UserController;
-import domain.model.InputOutput;
-import domain.model.Row;
-import domain.model.User;
+import domain.model.*;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
+import domain.model.player.UserPlayer;
 
 import java.util.Scanner;
 
@@ -114,7 +113,36 @@ class TerminalApp {
     }
 
     private void newGame(User user) {
+        Scanner scanner = new Scanner(System.in);
+        Role role = null;
+        do {
+            println(Constants.NEW_MENU_SEPARATOR + "\n" +
+                    Constants.NEW_MENU_TITLE + "\n" +
+                    Constants.NEW_MENU_SEPARATOR + "\n" +
+                    Constants.NEW_BREAKER_GAME + ". " + Constants.NEW_BREAKER_GAME_TITLE + "\n" +
+                    Constants.NEW_MAKER_GAME + ". " + Constants.NEW_MAKER_GAME_TITLE + "\n" +
+                    Constants.NEW_BACK + ". " + Constants.NEW_BACK_TITLE);
 
+            switch (scanner.nextInt()) {
+                case Constants.NEW_BREAKER_GAME:
+                    role = Role.BREAKER;
+                    break;
+                case Constants.NEW_MAKER_GAME:
+                    role = Role.MAKER;
+                    break;
+                case Constants.NEW_BACK:
+                    return;
+                default:
+                    errorln("Introdueixi una opció de la llista");
+                    break;
+            }
+        } while (role == null);
+
+        Game currentGame = new Game(new UserPlayer(user, role));
+        currentGame.startGame();
+        /*if (currentGame.getStatus() != Status.FINISHED) {
+            // Offer to save!
+        }*/
     }
 
     private void continueGame(User user) {
