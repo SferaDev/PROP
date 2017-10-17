@@ -7,12 +7,12 @@ import domain.model.User;
 public class UserData extends JSONController implements UserController {
     private static UserData mInstance = new UserData();
 
-    public static UserData getInstance() {
-        return mInstance;
-    }
-
     private UserData() {
         super();
+    }
+
+    public static UserData getInstance() {
+        return mInstance;
     }
 
     @Override

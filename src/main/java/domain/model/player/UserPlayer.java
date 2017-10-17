@@ -1,9 +1,8 @@
 package domain.model.player;
 
-import domain.model.User;
-import domain.model.player.Player;
 import domain.model.Role;
 import domain.model.Row;
+import domain.model.User;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 

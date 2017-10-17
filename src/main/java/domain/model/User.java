@@ -1,9 +1,5 @@
 package domain.model;
 
-import domain.model.player.UserPlayer;
-
-import java.util.ArrayList;
-
 public class User {
     private String playerName;
     private String playerPassword;

@@ -9,12 +9,12 @@ public class MainController {
     private static MainController mInstance = new MainController();
     private static InputOutput mGameInterface;
 
-    public static MainController getInstance() {
-        return mInstance;
-    }
-
     private MainController() {
         // Should never be instantiated
+    }
+
+    public static MainController getInstance() {
+        return mInstance;
     }
 
     public UserController getUserController() {

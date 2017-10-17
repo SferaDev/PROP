@@ -1,4 +1,3 @@
-import domain.controller.DataController;
 import domain.controller.MainController;
 import domain.controller.UserController;
 import domain.model.InputOutput;
@@ -48,13 +47,13 @@ class TerminalApp {
         Scanner scanner = new Scanner(System.in);
         do {
             println(Constants.MAIN_MENU_SEPARATOR + "\n" +
-                    Constants.MAIN_MENU_TITLE     + "\n" +
+                    Constants.MAIN_MENU_TITLE + "\n" +
                     Constants.MAIN_MENU_SEPARATOR + "\n" +
-                    Constants.MAIN_REGISTER       + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
-                    Constants.MAIN_LOGIN          + ". " + Constants.MAIN_LOGIN_TITLE    + "\n" +
-                    Constants.MAIN_STATS          + ". " + Constants.MAIN_STATS_TITLE    + "\n" +
-                    Constants.MAIN_HELP           + ". " + Constants.MAIN_HELP_TITLE     + "\n" +
-                    Constants.MAIN_EXIT           + ". " + Constants.MAIN_EXIT_TITLE);
+                    Constants.MAIN_REGISTER + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
+                    Constants.MAIN_LOGIN + ". " + Constants.MAIN_LOGIN_TITLE + "\n" +
+                    Constants.MAIN_STATS + ". " + Constants.MAIN_STATS_TITLE + "\n" +
+                    Constants.MAIN_HELP + ". " + Constants.MAIN_HELP_TITLE + "\n" +
+                    Constants.MAIN_EXIT + ". " + Constants.MAIN_EXIT_TITLE);
 
             switch (scanner.nextInt()) {
                 case Constants.MAIN_REGISTER:
@@ -84,13 +83,13 @@ class TerminalApp {
         Scanner scanner = new Scanner(System.in);
         do {
             println(Constants.PLAY_MENU_SEPARATOR + "\n" +
-                    Constants.PLAY_MENU_TITLE     + "\n" +
+                    Constants.PLAY_MENU_TITLE + "\n" +
                     Constants.PLAY_MENU_SEPARATOR + "\n" +
-                    Constants.PLAY_NEW_GAME       + ". " + Constants.PLAY_NEW_GAME_TITLE  + "\n" +
-                    Constants.PLAY_PREV_GAME      + ". " + Constants.PLAY_PREV_GAME_TITLE + "\n" +
-                    Constants.PLAY_STATS          + ". " + Constants.PLAY_STATS_TITLE     + "\n" +
-                    Constants.PLAY_HELP           + ". " + Constants.PLAY_HELP_TITLE      + "\n" +
-                    Constants.PLAY_BACK           + ". " + Constants.PLAY_BACK_TITLE);
+                    Constants.PLAY_NEW_GAME + ". " + Constants.PLAY_NEW_GAME_TITLE + "\n" +
+                    Constants.PLAY_PREV_GAME + ". " + Constants.PLAY_PREV_GAME_TITLE + "\n" +
+                    Constants.PLAY_STATS + ". " + Constants.PLAY_STATS_TITLE + "\n" +
+                    Constants.PLAY_HELP + ". " + Constants.PLAY_HELP_TITLE + "\n" +
+                    Constants.PLAY_BACK + ". " + Constants.PLAY_BACK_TITLE);
 
             switch (scanner.nextInt()) {
                 case Constants.PLAY_NEW_GAME:
@@ -155,7 +154,7 @@ class TerminalApp {
     private void register() {
         println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
-        String username =  scanner.next();
+        String username = scanner.next();
         String password1, password2;
         do {
             println("Introdueixi la seva contrasenya");
