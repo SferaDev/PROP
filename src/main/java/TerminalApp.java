@@ -1,3 +1,4 @@
+import domain.controller.DataController;
 import domain.controller.MainController;
 import domain.controller.UserController;
 import domain.model.InputOutput;
@@ -143,7 +144,7 @@ class TerminalApp {
         for (int i = 0; user == null && i < 3; i++) {
             if (i > 0) errorln("Contrasenya erronea!");
             println("Introdueixi la seva contrasenya");
-            user = userController.login(username, scanner.next());
+            user = (User) userController.login(username, scanner.next());
         }
 
         if (user == null) {

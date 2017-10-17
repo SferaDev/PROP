@@ -9,31 +9,32 @@ import java.util.Date;
 
 public class Game {
     private Date startTime = new Date();
+    private String ownerName;
+    private Role ownerRole;
 
     private Player gameMaker;
     private Player gameBreaker;
-
-
-    private String gameMakerName;
-    private String gameBreakerName;
 
     private Row<ColorPeg> correctGuess;
 
     private Board gameBoard;
 
     public Game(Player player) {
-        Role playerRole = player.getPlayerRole();
-        gameBreaker = playerRole == Role.BREAKER ?
+        ownerName = player.getName();
+        ownerRole = player.getPlayerRole();
+
+        gameBreaker = ownerRole == Role.BREAKER ?
                 player : new ComputerPlayer(Role.MAKER, this);
-        gameMaker = playerRole == Role.MAKER ?
+        gameMaker = ownerRole == Role.MAKER ?
                 player : new ComputerPlayer(Role.BREAKER, this);
-
-        gameMakerName = gameMaker.getName();
-        gameBreakerName = gameBreaker.getName();
-
     }
 
     private InputOutput getGameInterface() {
         return MainController.getInstance().getGameInterface();
+    }
+
+    @Override
+    public String toString() {
+        return ownerName + "-" + ownerRole + "-" + startTime.toString();
     }
 }

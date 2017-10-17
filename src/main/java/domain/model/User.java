@@ -21,4 +21,9 @@ public class User {
         return playerPassword;
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
+
 }
