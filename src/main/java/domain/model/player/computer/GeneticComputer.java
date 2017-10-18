@@ -47,7 +47,7 @@ public class GeneticComputer extends ComputerPlayer {
 
     @Override
     public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
-        if (pegs == 4) {
+        if (pegs == 4 && colors >= 3) {
             Row<ColorPeg> firstAttempt = new Row<>();
             firstAttempt.add(new ColorPeg(1));
             firstAttempt.add(new ColorPeg(1));
@@ -56,7 +56,7 @@ public class GeneticComputer extends ComputerPlayer {
             return firstAttempt;
         } else {
             // Random entry
-            return makerGuess(pegs, colors);
+            return randomRow(pegs, colors);
         }
     }
 
