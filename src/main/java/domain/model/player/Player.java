@@ -20,7 +20,7 @@ public abstract class Player {
 
     public abstract String getName();
 
-    public abstract Row makerGuess(int pegs, int colors);
+    public abstract Row<ColorPeg> makerGuess(int pegs, int colors);
 
     public abstract Row<ColorPeg> breakerInitialGuess(int pegs, int colors);
 
