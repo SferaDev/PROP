@@ -43,7 +43,6 @@ public class GeneticComputer extends ComputerPlayer {
         return makerCorrectGuess;
     }
 
-    @Override
     public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
         if (pegs == 4 && colors >= 3) {
             Row<ColorPeg> firstAttempt = new Row<>();
@@ -63,7 +62,7 @@ public class GeneticComputer extends ComputerPlayer {
 
     @Override
     public Row<ColorPeg> breakerGuess(int pegs, int colors) {
-        currentTurn += 1;
+        if (currentTurn == 1) return breakerInitialGuess(pegs, colors);
         int generation = 1;
 
         initPopulation(pegs, colors);
@@ -98,6 +97,7 @@ public class GeneticComputer extends ComputerPlayer {
                 whites[currentTurn] += 1;
             }
         }
+        currentTurn += 1;
     }
 
     private void initPopulation(int pegs, int colors) {

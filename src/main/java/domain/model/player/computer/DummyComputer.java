@@ -25,11 +25,6 @@ public class DummyComputer extends ComputerPlayer {
     }
 
     @Override
-    public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
-        return randomRow(pegs, colors);
-    }
-
-    @Override
     public Row<ColorPeg> breakerGuess(int pegs, int colors) {
         return randomRow(pegs, colors);
     }

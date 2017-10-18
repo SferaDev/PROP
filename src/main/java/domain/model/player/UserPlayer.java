@@ -27,11 +27,6 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
-        return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
-    }
-
-    @Override
     public Row<ColorPeg> breakerGuess(int pegs, int colors) {
         return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
     }

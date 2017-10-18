@@ -22,8 +22,6 @@ public abstract class Player {
 
     public abstract Row<ColorPeg> makerGuess(int pegs, int colors);
 
-    public abstract Row<ColorPeg> breakerInitialGuess(int pegs, int colors);
-
     public abstract Row<ColorPeg> breakerGuess(int pegs, int colors);
 
     public abstract Row<ControlPeg> scoreGuess(Row<ColorPeg> guess);

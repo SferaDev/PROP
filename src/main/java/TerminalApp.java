@@ -18,23 +18,48 @@ class TerminalApp {
         mainController.setGameInterface(new InputOutput() {
             @Override
             public Row<ControlPeg> inputControlRow(int pegs) {
-                return null;
+                Row<ControlPeg> result = new Row<>();
+                println("Introdueixi combinació de " + pegs + " fitxes de control");
+                Scanner scanner = new Scanner(System.in);
+                // TODO: Valid!
+                String[] input = scanner.next().split(" ");
+                for (String peg : input) {
+                    if (peg.equals("B")) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
+                    if (peg.equals("W")) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
+                }
+                return result;
             }
 
             @Override
             public Row<ColorPeg> inputColorRow(int pegs, int colors) {
-                // TODO
-                return null;
+                Row<ColorPeg> result = new Row<>();
+                println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
+                Scanner scanner = new Scanner(System.in);
+                // TODO: Valid!
+                for (int i = 0; i < pegs; i++) {
+                    result.add(new ColorPeg(scanner.nextInt()));
+                }
+                return result;
             }
 
             @Override
             public void outputControlRow(Row<ControlPeg> row) {
-                // TODO
+                StringBuilder output = new StringBuilder();
+                for (ControlPeg peg : row) {
+                    if (peg.getType() == ControlPeg.TYPE.BLACK) output.append("B ");
+                    if (peg.getType() == ControlPeg.TYPE.WHITE) output.append("W ");
+                    if (peg.getType() == ControlPeg.TYPE.EMPTY) output.append("- ");
+                }
+                println(output.toString());
             }
 
             @Override
             public void outputColorRow(Row<ColorPeg> row) {
-                // TODO
+                StringBuilder output = new StringBuilder();
+                for (ColorPeg peg : row) {
+                    output.append(peg.getColor()).append(" ");
+                }
+                println(output.toString());
             }
         });
 
