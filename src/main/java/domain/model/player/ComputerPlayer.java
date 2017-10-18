@@ -6,28 +6,24 @@ import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 
-public class ComputerPlayer extends Player {
-    public ComputerPlayer(Role role, Game game) {
-        super(role, game);
+public abstract class ComputerPlayer extends Player {
+    public ComputerPlayer(Role role) {
+        super(role);
     }
 
-    @Override
-    public String getName() {
-        return "CPU";
-    }
-
-    @Override
-    public Row<ColorPeg> makeInitialGuess(int size) {
-        return null;
-    }
-
-    @Override
-    public Row<ColorPeg> makeGuess(int size) {
-        return null;
-    }
-
-    @Override
-    public Row<ControlPeg> scoreGuess(Row<ColorPeg> guess) {
-        return null;
+    public static Row<ControlPeg> compareGuess(Row<ColorPeg> correct, Row<ColorPeg> guess) {
+        Row<ControlPeg> result = new Row<>();
+        for (int i = 0; i < guess.size(); i++) {
+            for (int j = 0; j < correct.size(); j++) {
+                if (correct.get(j).equals(guess.get(i))) {
+                    if (j == i) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
+                    else result.add(new ControlPeg(ControlPeg.TYPE.WHITE));
+                }
+            }
+        }
+        for (int i = result.size(); i <= correct.size(); ++i) {
+            result.add(new ControlPeg(ControlPeg.TYPE.EMPTY));
+        }
+        return result;
     }
 }

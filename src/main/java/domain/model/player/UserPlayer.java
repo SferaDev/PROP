@@ -22,17 +22,28 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public Row<ColorPeg> makeInitialGuess(int size) {
-        return MainController.getInstance().getGameInterface().inputColorRow(size);
+    public Row<ColorPeg> makerGuess(int pegs, int colors) {
+        return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
     }
 
     @Override
-    public Row<ColorPeg> makeGuess(int size) {
-        return MainController.getInstance().getGameInterface().inputColorRow(size);
+    public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
+        return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
+    }
+
+    @Override
+    public Row<ColorPeg> breakerGuess(int pegs, int colors) {
+        return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
     }
 
     @Override
     public Row<ControlPeg> scoreGuess(Row<ColorPeg> guess) {
+        MainController.getInstance().getGameInterface().outputColorRow(guess);
         return MainController.getInstance().getGameInterface().inputControlRow(guess.size());
+    }
+
+    @Override
+    public void receiveControl(Row<ControlPeg> control) {
+        MainController.getInstance().getGameInterface().outputControlRow(control);
     }
 }

@@ -17,13 +17,12 @@ class TerminalApp {
 
         mainController.setGameInterface(new InputOutput() {
             @Override
-            public Row<ControlPeg> inputControlRow(int size) {
-                // TODO
+            public Row<ControlPeg> inputControlRow(int pegs) {
                 return null;
             }
 
             @Override
-            public Row<ColorPeg> inputColorRow(int size) {
+            public Row<ColorPeg> inputColorRow(int pegs, int colors) {
                 // TODO
                 return null;
             }
@@ -138,7 +137,13 @@ class TerminalApp {
             }
         } while (role == null);
 
-        Game currentGame = new Game(new UserPlayer(user, role));
+        int pegs, colors, turns;
+        // TODO
+        pegs = 4;
+        colors = 6;
+        turns = 12;
+
+        Game currentGame = new Game(new UserPlayer(user, role), pegs, colors, turns);
         currentGame.startGame();
         /*if (currentGame.getStatus() != Status.FINISHED) {
             // Offer to save!

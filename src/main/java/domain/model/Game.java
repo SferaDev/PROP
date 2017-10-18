@@ -4,6 +4,7 @@ import domain.controller.MainController;
 import domain.model.peg.ColorPeg;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
+import domain.model.player.computer.GeneticComputer;
 
 import java.util.Date;
 
@@ -14,21 +15,24 @@ public class Game {
 
     private Status gameStatus;
 
-    private Player gameMaker;
-    private Player gameBreaker;
+    private Player gameMaker, gameBreaker;
 
     private Row<ColorPeg> correctGuess;
 
-    private Board gameBoard;
+    private int mPegs, mColors, mTurns;
 
-    public Game(Player player) {
+    public Game(Player player, int pegs, int colors, int turns) {
         ownerName = player.getName();
         ownerRole = player.getPlayerRole();
 
         gameBreaker = ownerRole == Role.BREAKER ?
-                player : new ComputerPlayer(Role.MAKER, this);
+                player : new GeneticComputer(Role.MAKER, mPegs, mColors, mTurns);
         gameMaker = ownerRole == Role.MAKER ?
-                player : new ComputerPlayer(Role.BREAKER, this);
+                player : new GeneticComputer(Role.BREAKER, mPegs, mColors, mTurns);
+
+        mPegs = pegs;
+        mColors = colors;
+        mTurns = turns;
 
         gameStatus = Status.START;
     }
@@ -42,11 +46,11 @@ public class Game {
         while (gameStatus != Status.CORRECT && gameStatus != Status.QUIT) {
             switch (gameStatus) {
                 case START:
-                    correctGuess = gameMaker.makeInitialGuess(4);
+                    correctGuess = gameMaker.breakerInitialGuess(mPegs, mColors);
                     gameStatus = Status.GUESS;
                     break;
                 case GUESS:
-                    Row<ColorPeg> input = gameBreaker.makeGuess(4);
+                    Row<ColorPeg> input = gameBreaker.breakerGuess(mPegs, mColors);
                     gameStatus = input.equals(correctGuess) ? Status.CORRECT : Status.RESPONSE;
                     break;
                 case RESPONSE:
