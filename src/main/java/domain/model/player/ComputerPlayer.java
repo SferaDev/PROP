@@ -1,6 +1,5 @@
 package domain.model.player;
 
-import domain.model.Game;
 import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
@@ -18,13 +17,13 @@ public abstract class ComputerPlayer extends Player {
         for (int i = 0; i < guess.size(); i++) {
             for (int j = 0; j < correct.size(); j++) {
                 if (correct.get(j).equals(guess.get(i))) {
-                    if (j == i) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
-                    else result.add(new ControlPeg(ControlPeg.TYPE.WHITE));
+                    if (j == i) result.add(new ControlPeg(ControlPeg.Type.BLACK));
+                    else result.add(new ControlPeg(ControlPeg.Type.WHITE));
                 }
             }
         }
         for (int i = result.size(); i <= correct.size(); ++i) {
-            result.add(new ControlPeg(ControlPeg.TYPE.EMPTY));
+            result.add(new ControlPeg(ControlPeg.Type.EMPTY));
         }
         return result;
     }

@@ -1,7 +1,5 @@
 package domain.controller;
 
-import com.afollestad.ason.Ason;
-
 public interface DataController<E> {
     boolean exists(String key);
 

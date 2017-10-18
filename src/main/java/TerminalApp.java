@@ -24,8 +24,8 @@ class TerminalApp {
                 // TODO: Valid!
                 String[] input = scanner.next().split(" ");
                 for (String peg : input) {
-                    if (peg.equals("B")) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
-                    if (peg.equals("W")) result.add(new ControlPeg(ControlPeg.TYPE.BLACK));
+                    if (peg.equals("B")) result.add(new ControlPeg(ControlPeg.Type.BLACK));
+                    if (peg.equals("W")) result.add(new ControlPeg(ControlPeg.Type.BLACK));
                 }
                 return result;
             }
@@ -46,9 +46,9 @@ class TerminalApp {
             public void outputControlRow(Row<ControlPeg> row) {
                 StringBuilder output = new StringBuilder();
                 for (ControlPeg peg : row) {
-                    if (peg.getType() == ControlPeg.TYPE.BLACK) output.append("B ");
-                    if (peg.getType() == ControlPeg.TYPE.WHITE) output.append("W ");
-                    if (peg.getType() == ControlPeg.TYPE.EMPTY) output.append("- ");
+                    if (peg.getType() == ControlPeg.Type.BLACK) output.append("B ");
+                    if (peg.getType() == ControlPeg.Type.WHITE) output.append("W ");
+                    if (peg.getType() == ControlPeg.Type.EMPTY) output.append("- ");
                 }
                 println(output.toString());
             }
@@ -214,7 +214,9 @@ class TerminalApp {
         Scanner scanner = new Scanner(System.in);
         String username = scanner.next();
         String password1, password2;
+        int i = 1;
         do {
+            if (i++ > 1) errorln("No coincideixen!");
             println("Introdueixi la seva contrasenya");
             password1 = scanner.next();
             println("Repeteixi la seva contrasenya");

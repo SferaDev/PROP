@@ -1,17 +1,17 @@
 package domain.model.peg;
 
 public class ControlPeg extends Peg {
-    public enum TYPE {
+    public enum Type {
         BLACK, WHITE, EMPTY
     }
 
-    private TYPE mType;
+    private Type mType;
 
-    public ControlPeg(TYPE type) {
+    public ControlPeg(Type type) {
         mType = type;
     }
 
-    public TYPE getType() {
+    public Type getType() {
         return mType;
     }
 }

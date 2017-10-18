@@ -7,7 +7,6 @@ import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GeneticComputer extends ComputerPlayer {
     private final int POPULATION_SIZE = 2000;
@@ -43,7 +42,7 @@ public class GeneticComputer extends ComputerPlayer {
         return makerCorrectGuess;
     }
 
-    public Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
+    private Row<ColorPeg> breakerInitialGuess(int pegs, int colors) {
         if (pegs == 4 && colors >= 3) {
             Row<ColorPeg> firstAttempt = new Row<>();
             firstAttempt.add(new ColorPeg(1));
@@ -71,8 +70,8 @@ public class GeneticComputer extends ComputerPlayer {
         while (feasibleCodes.isEmpty()) {
             while (generation <= GENERATION_SIZE && feasibleCodes.size() <= FEASIBLE_CODES_MAX) {
                 // evolvePopulation
-                // calculateFitness
-                // sort
+                calculateFitness();
+                sortFeasibleByFitness(fitness, population);
                 // addToFeasible
                 generation++;
             }
@@ -91,9 +90,9 @@ public class GeneticComputer extends ComputerPlayer {
     public void receiveControl(Row<ControlPeg> control) {
         blacks[currentTurn] = whites[currentTurn] = 0;
         for (ControlPeg peg : control) {
-            if (peg.getType() == ControlPeg.TYPE.BLACK) {
+            if (peg.getType() == ControlPeg.Type.BLACK) {
                 blacks[currentTurn] += 1;
-            } else if (peg.getType() == ControlPeg.TYPE.WHITE) {
+            } else if (peg.getType() == ControlPeg.Type.WHITE) {
                 whites[currentTurn] += 1;
             }
         }
@@ -116,8 +115,8 @@ public class GeneticComputer extends ComputerPlayer {
                 int black = 0;
                 int white = 0;
                 for (ControlPeg peg : compare) {
-                    if (peg.getType() == ControlPeg.TYPE.BLACK) black += 1;
-                    if (peg.getType() == ControlPeg.TYPE.WHITE) white += 1;
+                    if (peg.getType() == ControlPeg.Type.BLACK) black += 1;
+                    if (peg.getType() == ControlPeg.Type.WHITE) white += 1;
                 }
                 x += Math.abs(black - blacks[j]);
                 y += Math.abs(white - whites[j]);
