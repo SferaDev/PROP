@@ -1,17 +1,21 @@
+package presentation;
+
 import domain.controller.MainController;
 import domain.controller.UserController;
 import domain.model.*;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 import domain.model.player.UserPlayer;
+import presentation.Constants;
+import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
 
-class TerminalApp {
+public class TerminalApp {
     private MainController mainController;
     private UserController userController;
 
-    void startApplication() {
+    public void startApplication() {
         mainController = MainController.getInstance();
         userController = mainController.getUserController();
 
@@ -19,7 +23,7 @@ class TerminalApp {
             @Override
             public Row<ControlPeg> inputControlRow(int pegs) {
                 Row<ControlPeg> result = new Row<>();
-                println("Introdueixi combinació de " + pegs + " fitxes de control [B B W -]");
+                TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes de control [B B W -]");
                 Scanner scanner = new Scanner(System.in);
                 String input = scanner.next().replace(" ", "");
                 for (int i = 0; i < pegs; ++i) {
@@ -28,9 +32,9 @@ class TerminalApp {
                     else result.add(new ControlPeg(ControlPeg.Type.EMPTY));
                 }
                 if (MainController.DEBUG) {
-                    println("--- DEBUG ---");
+                    TerminalUtils.println("--- DEBUG ---");
                     outputControlRow(result);
-                    println("--- DEBUG ---");
+                    TerminalUtils.println("--- DEBUG ---");
                 }
                 return result;
             }
@@ -38,7 +42,7 @@ class TerminalApp {
             @Override
             public Row<ColorPeg> inputColorRow(int pegs, int colors) {
                 Row<ColorPeg> result = new Row<>();
-                println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
+                TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
                 Scanner scanner = new Scanner(System.in);
                 while (result.size() < pegs) {
                     String input = scanner.next().replaceAll("[^1-" + colors + "]", "");
@@ -47,9 +51,9 @@ class TerminalApp {
                     }
                 }
                 if (MainController.DEBUG) {
-                    println("--- DEBUG ---");
+                    TerminalUtils.println("--- DEBUG ---");
                     outputColorRow(result);
-                    println("--- DEBUG ---");
+                    TerminalUtils.println("--- DEBUG ---");
                 }
                 return result;
             }
@@ -62,7 +66,7 @@ class TerminalApp {
                     if (peg.getType() == ControlPeg.Type.WHITE) output.append("W ");
                     if (peg.getType() == ControlPeg.Type.EMPTY) output.append("- ");
                 }
-                println(output.toString());
+                TerminalUtils.println(output.toString());
             }
 
             @Override
@@ -71,7 +75,7 @@ class TerminalApp {
                 for (ColorPeg peg : row) {
                     output.append(peg.getColor()).append(" ");
                 }
-                println(output.toString());
+                TerminalUtils.println(output.toString());
             }
         });
 
@@ -81,7 +85,7 @@ class TerminalApp {
     private void showMainMenu() {
         Scanner scanner = new Scanner(System.in);
         do {
-            println(Constants.MAIN_MENU_SEPARATOR + "\n" +
+            TerminalUtils.println(Constants.MAIN_MENU_SEPARATOR + "\n" +
                     Constants.MAIN_MENU_TITLE + "\n" +
                     Constants.MAIN_MENU_SEPARATOR + "\n" +
                     Constants.MAIN_REGISTER + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
@@ -107,7 +111,7 @@ class TerminalApp {
                     System.exit(0);
                     break;
                 default:
-                    errorln("Introdueixi una opció de la llista");
+                    TerminalUtils.errorln("Introdueixi una opció de la llista");
                     break;
             }
 
@@ -117,7 +121,7 @@ class TerminalApp {
     private void showPlayMenu(User user) {
         Scanner scanner = new Scanner(System.in);
         do {
-            println(Constants.PLAY_MENU_SEPARATOR + "\n" +
+            TerminalUtils.println(Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_MENU_TITLE + "\n" +
                     Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_NEW_GAME + ". " + Constants.PLAY_NEW_GAME_TITLE + "\n" +
@@ -142,7 +146,7 @@ class TerminalApp {
                 case Constants.PLAY_BACK:
                     return;
                 default:
-                    errorln("Introdueixi una opció de la llista");
+                    TerminalUtils.errorln("Introdueixi una opció de la llista");
                     break;
             }
         } while (true);
@@ -152,7 +156,7 @@ class TerminalApp {
         Scanner scanner = new Scanner(System.in);
         Role role = null;
         do {
-            println(Constants.NEW_MENU_SEPARATOR + "\n" +
+            TerminalUtils.println(Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_MENU_TITLE + "\n" +
                     Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_BREAKER_GAME + ". " + Constants.NEW_BREAKER_GAME_TITLE + "\n" +
@@ -169,7 +173,7 @@ class TerminalApp {
                 case Constants.NEW_BACK:
                     return;
                 default:
-                    errorln("Introdueixi una opció de la llista");
+                    TerminalUtils.errorln("Introdueixi una opció de la llista");
                     break;
             }
         } while (role == null);
@@ -200,38 +204,38 @@ class TerminalApp {
     }
 
     private void login() {
-        println("Introdueixi el seu nom d'usuari");
+        TerminalUtils.println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
         String username = scanner.next();
 
         if (!userController.exists(username)) {
-            errorln(Constants.ERROR_USER_NOT_FOUND);
+            TerminalUtils.errorln(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
 
         User user = null;
         for (int i = 0; user == null && i < 3; i++) {
-            if (i > 0) errorln("Contrasenya erronea!");
-            println("Introdueixi la seva contrasenya");
+            if (i > 0) TerminalUtils.errorln("Contrasenya erronea!");
+            TerminalUtils.println("Introdueixi la seva contrasenya");
             user = (User) userController.login(username, scanner.next());
         }
 
         if (user == null) {
-            errorln("Contrasenya erronea 3 cops");
+            TerminalUtils.errorln("Contrasenya erronea 3 cops");
         } else showPlayMenu(user);
     }
 
     private void register() {
-        println("Introdueixi el seu nom d'usuari");
+        TerminalUtils.println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
         String username = scanner.next();
         String password1, password2;
         int i = 1;
         do {
-            if (i++ > 1) errorln("No coincideixen!");
-            println("Introdueixi la seva contrasenya");
+            if (i++ > 1) TerminalUtils.errorln("No coincideixen!");
+            TerminalUtils.println("Introdueixi la seva contrasenya");
             password1 = scanner.next();
-            println("Repeteixi la seva contrasenya");
+            TerminalUtils.println("Repeteixi la seva contrasenya");
             password2 = scanner.next();
         } while (!password1.equals(password2));
 
@@ -239,17 +243,7 @@ class TerminalApp {
         if (userController.insert(user)) {
             showPlayMenu(user);
         } else {
-            errorln("Ja existeix l'usuari");
+            TerminalUtils.errorln("Ja existeix l'usuari");
         }
-    }
-
-    private void println(String string) {
-        System.out.println(string);
-        System.out.flush();
-    }
-
-    private void errorln(String string) {
-        System.err.println(string);
-        System.err.flush();
     }
 }
