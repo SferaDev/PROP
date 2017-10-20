@@ -173,7 +173,7 @@ public class GeneticComputer extends ComputerPlayer {
 
         Row<ColorPeg>[] newPopulation = new Row[POPULATION_SIZE];
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            newPopulation[i] = new Row<ColorPeg>(pegs);
+            newPopulation[i] = new Row<ColorPeg>();
         }
         for (int i = 0; i < POPULATION_SIZE; i += 2) {
             if ((int) (Math.random() * 2) == 0) {
@@ -224,20 +224,20 @@ public class GeneticComputer extends ComputerPlayer {
 
         for (int j = 0; j < pegs; j++) {
             if (j <= sep) {
-                newPopulation[child1Pos].setColorAtPos(j,
-                        population[mother].get(j).getColor());
-                newPopulation[child2Pos].setColorAtPos(j,
-                        population[father].get(j).getColor());
+                newPopulation[child1Pos].add(j,
+                        population[mother].get(j));
+                newPopulation[child2Pos].add(j,
+                        population[father].get(j));
             } else {
-                newPopulation[child1Pos].setColorAtPos(j,
-                        population[father].get(j).getColor());
-                newPopulation[child2Pos].setColorAtPos(j,
-                        population[mother].get(j).getColor());
+                newPopulation[child1Pos].add(j,
+                        population[father].get(j));
+                newPopulation[child2Pos].add(j,
+                        population[mother].get(j));
             }
         }
     }
 
-    private void xOver2(Row[] newPopulation, int child1Pos, int child2Pos, int pegs) {
+    private void xOver2(Row<ColorPeg>[] newPopulation, int child1Pos, int child2Pos, int pegs) {
         int mother = getParentPos();
         int father = getParentPos();
         int sep1;
@@ -254,15 +254,15 @@ public class GeneticComputer extends ComputerPlayer {
 
         for (int i = 0; i < pegs; i++) {
             if (i <= sep1 || i > sep2) {
-                newPopulation[child1Pos].setColorAtPos(i,
-                        population[mother].get(i).getColor());
-                newPopulation[child2Pos].setColorAtPos(i,
-                        population[father].get(i).getColor());
+                newPopulation[child1Pos].add(i,
+                        population[mother].get(i));
+                newPopulation[child2Pos].add(i,
+                        population[father].get(i));
             } else {
-                newPopulation[child1Pos].setColorAtPos(i,
-                        population[father].get(i).getColor());
-                newPopulation[child2Pos].setColorAtPos(i,
-                        population[mother].get(i).getColor());
+                newPopulation[child1Pos].add(i,
+                        population[father].get(i));
+                newPopulation[child2Pos].add(i,
+                        population[mother].get(i));
             }
         }
 
@@ -278,21 +278,21 @@ public class GeneticComputer extends ComputerPlayer {
         return parentPos;
     }
 
-    private void mutation(Row[] newPopulation, int popPos, int pegs, int colors) {
-        newPopulation[popPos].setColorAtPos((int) (Math.random() * pegs),
-                (int) (Math.random() * colors));
+    private void mutation(Row<ColorPeg>[] newPopulation, int popPos, int pegs, int colors) {
+        newPopulation[popPos].add((int) (Math.random() * pegs),
+                new ColorPeg((int) (Math.random() * colors)));
     }
 
-    private void permutation(Row[] newPopulation, int popPos, int pegs) {
+    private void permutation(Row<ColorPeg>[] newPopulation, int popPos, int pegs) {
         int pos1 = (int) (Math.random() * pegs);
         int pos2 = (int) (Math.random() * pegs);
-        int tmp = newPopulation[popPos].getColorAtPos(pos1);
-        newPopulation[popPos].setColorAtPos(pos1,
-                newPopulation[popPos].getColorAtPos(pos2));
-        newPopulation[popPos].setColorAtPos(pos2, tmp);
+        ColorPeg tmp = new ColorPeg(newPopulation[popPos].get(pos1).getColor());
+        newPopulation[popPos].add(pos1,
+                newPopulation[popPos].get(pos2));
+        newPopulation[popPos].add(pos2, tmp);
     }
 
-    private void inversion(Row[] newPopulation, int popPos, int pegs) {
+    private void inversion(Row<ColorPeg>[] newPopulation, int popPos, int pegs) {
         int pos1 = (int) (Math.random() * pegs);
         int pos2 = (int) (Math.random() * pegs);
 
@@ -303,14 +303,14 @@ public class GeneticComputer extends ComputerPlayer {
         }
 
         for (int i = 0; i < (pos2 - pos1)/2; i++) {
-            int tmp = newPopulation[popPos].getColorAtPos(pos1 + i);
-            newPopulation[popPos].setColorAtPos(pos1 + i,
-                    newPopulation[popPos].getColorAtPos(pos2 - i));
-            newPopulation[popPos].setColorAtPos(pos2 - i, tmp);
+            ColorPeg tmp = new ColorPeg(newPopulation[popPos].get(pos1 + i).getColor());
+            newPopulation[popPos].add(pos1 + i,
+                    newPopulation[popPos].get(pos2 - i));
+            newPopulation[popPos].add(pos2 - i, tmp);
         }
     }
 
-    private void doubleToRnd(Row[] newPopulation, int pegs, int colors) {
+    private void doubleToRnd(Row<ColorPeg>[] newPopulation, int pegs, int colors) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             if (lookForSame(newPopulation, i)) {
                 newPopulation[i] = randomRow(pegs, colors);
@@ -318,7 +318,7 @@ public class GeneticComputer extends ComputerPlayer {
         }
     }
 
-    private boolean lookForSame(Row[] newPopulation, int popPos) {
+    private boolean lookForSame(Row<ColorPeg>[] newPopulation, int popPos) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             if (population[popPos].equals(newPopulation[popPos])) {
                 return true;
