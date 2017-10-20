@@ -6,6 +6,8 @@ import data.model.UserData;
 import domain.model.InputOutput;
 
 public class MainController {
+    public static final boolean DEBUG = true;
+
     private static MainController mInstance = new MainController();
     private static InputOutput mGameInterface;
 

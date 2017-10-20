@@ -19,13 +19,18 @@ class TerminalApp {
             @Override
             public Row<ControlPeg> inputControlRow(int pegs) {
                 Row<ControlPeg> result = new Row<>();
-                println("Introdueixi combinació de " + pegs + " fitxes de control");
+                println("Introdueixi combinació de " + pegs + " fitxes de control [B B W -]");
                 Scanner scanner = new Scanner(System.in);
-                // TODO: Valid!
-                String[] input = scanner.next().split(" ");
-                for (String peg : input) {
-                    if (peg.equals("B")) result.add(new ControlPeg(ControlPeg.Type.BLACK));
-                    if (peg.equals("W")) result.add(new ControlPeg(ControlPeg.Type.BLACK));
+                String input = scanner.next().replace(" ", "");
+                for (int i = 0; i < pegs; ++i) {
+                    if (i < input.length() && input.charAt(i) == 'B') result.add(new ControlPeg(ControlPeg.Type.BLACK));
+                    else if (i < input.length() && input.charAt(i) == 'W') result.add(new ControlPeg(ControlPeg.Type.WHITE));
+                    else result.add(new ControlPeg(ControlPeg.Type.EMPTY));
+                }
+                if (MainController.DEBUG) {
+                    println("--- DEBUG ---");
+                    outputControlRow(result);
+                    println("--- DEBUG ---");
                 }
                 return result;
             }
@@ -33,11 +38,18 @@ class TerminalApp {
             @Override
             public Row<ColorPeg> inputColorRow(int pegs, int colors) {
                 Row<ColorPeg> result = new Row<>();
-                println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
+                println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
                 Scanner scanner = new Scanner(System.in);
-                // TODO: Valid!
-                for (int i = 0; i < pegs; i++) {
-                    result.add(new ColorPeg(scanner.nextInt()));
+                while (result.size() < pegs) {
+                    String input = scanner.next().replaceAll("[^1-" + colors + "]", "");
+                    for (int i = 0; i < input.length(); i++) {
+                        result.add(new ColorPeg(Integer.parseInt(String.valueOf(input.charAt(i)))));
+                    }
+                }
+                if (MainController.DEBUG) {
+                    println("--- DEBUG ---");
+                    outputColorRow(result);
+                    println("--- DEBUG ---");
                 }
                 return result;
             }
