@@ -4,6 +4,7 @@ import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
+import domain.model.peg.Peg;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,7 +16,35 @@ public abstract class ComputerPlayer extends Player {
 
     public static Row<ControlPeg> compareGuess(Row<ColorPeg> correct, Row<ColorPeg> guess) {
         Row<ControlPeg> result = new Row<>();
-        // TODO
+        Row<ColorPeg> correctCopy = (Row<ColorPeg>) correct.clone();
+        Row<ColorPeg> guessCopy = (Row<ColorPeg>) guess.clone();
+
+        // Calculate Blacks
+        for (int i = 0; i < correctCopy.size(); ++i) {
+            if (correct.get(i).equals(guess.get(i))) {
+                result.add(new ControlPeg(ControlPeg.Type.BLACK));
+                correctCopy.set(i, null);
+                guessCopy.set(i, null);
+            }
+        }
+
+        // Calculate Whites
+        for (int i = 0; i < correctCopy.size(); ++i) {
+            boolean found = false;
+            for (int j = 0; j < guessCopy.size(); ++j) {
+                if (!found && guessCopy.get(j) != null) {
+                    if (guessCopy.get(j).equals(correctCopy.get(i))) {
+                        result.add(new ControlPeg(ControlPeg.Type.WHITE));
+                        found = true;
+                        guessCopy.set(j, null);
+                    }
+                }
+            }
+        }
+
+        // Add missing emptys
+        for (int i = result.size(); i < correct.size(); ++i)
+            result.add(new ControlPeg(ControlPeg.Type.EMPTY));
         return result;
     }
 

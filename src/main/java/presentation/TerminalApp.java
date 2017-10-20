@@ -31,11 +31,6 @@ public class TerminalApp {
                     else if (i < input.length() && input.charAt(i) == 'W') result.add(new ControlPeg(ControlPeg.Type.WHITE));
                     else result.add(new ControlPeg(ControlPeg.Type.EMPTY));
                 }
-                if (MainController.DEBUG) {
-                    TerminalUtils.println("--- DEBUG ---");
-                    outputControlRow(result);
-                    TerminalUtils.println("--- DEBUG ---");
-                }
                 return result;
             }
 
@@ -49,11 +44,6 @@ public class TerminalApp {
                     for (int i = 0; i < input.length(); i++) {
                         result.add(new ColorPeg(Integer.parseInt(String.valueOf(input.charAt(i)))));
                     }
-                }
-                if (MainController.DEBUG) {
-                    TerminalUtils.println("--- DEBUG ---");
-                    outputColorRow(result);
-                    TerminalUtils.println("--- DEBUG ---");
                 }
                 return result;
             }
