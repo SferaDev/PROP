@@ -14,4 +14,14 @@ public class ControlPeg extends Peg {
     public Type getType() {
         return mType;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ControlPeg controlPeg = (ControlPeg) o;
+
+        return mType == controlPeg.mType;
+    }
 }

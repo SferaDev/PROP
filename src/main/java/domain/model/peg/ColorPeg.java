@@ -10,4 +10,14 @@ public class ColorPeg extends Peg {
     public int getColor() {
         return mColor;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ColorPeg colorPeg = (ColorPeg) o;
+
+        return mColor == colorPeg.mColor;
+    }
 }
