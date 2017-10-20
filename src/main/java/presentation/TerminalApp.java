@@ -1,5 +1,6 @@
 package presentation;
 
+import com.afollestad.ason.Ason;
 import domain.controller.MainController;
 import domain.controller.UserController;
 import domain.model.*;
@@ -15,6 +16,8 @@ public class TerminalApp {
     private MainController mainController;
     private UserController userController;
 
+    private Game currentGame;
+
     public void startApplication() {
         mainController = MainController.getInstance();
         userController = mainController.getUserController();
@@ -25,7 +28,16 @@ public class TerminalApp {
                 Row<ControlPeg> result = new Row<>();
                 TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes de control [B B W -]");
                 Scanner scanner = new Scanner(System.in);
-                String input = scanner.next().replace(" ", "");
+                String input = scanner.next();
+                // TODO: Improve
+                if (input.equals("exit") || input.equals("quit")) {
+                    //currentGame.endGame();
+                }
+                if (input.equals("save")) {
+                    MainController.getInstance().getGameController().insert(currentGame);
+                    TerminalUtils.println("Saving game!");
+                }
+                input.replace(" ", "");
                 for (int i = 0; i < pegs; ++i) {
                     if (i < input.length() && input.charAt(i) == 'B') result.add(new ControlPeg(ControlPeg.Type.BLACK));
                     else if (i < input.length() && input.charAt(i) == 'W') result.add(new ControlPeg(ControlPeg.Type.WHITE));
@@ -40,7 +52,18 @@ public class TerminalApp {
                 TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
                 Scanner scanner = new Scanner(System.in);
                 while (result.size() < pegs) {
-                    String input = scanner.next().replaceAll("[^1-" + colors + "]", "");
+                    String input = scanner.next();
+                    // TODO: Improve
+                    if (input.equals("exit") || input.equals("quit")) {
+                        //currentGame.endGame();
+                    }
+                    if (input.equals("save")) {
+                        TerminalUtils.println(currentGame.toString());
+                        TerminalUtils.println(Ason.serialize(currentGame).toString());
+                        MainController.getInstance().getGameController().insert(currentGame);
+                        TerminalUtils.println("Saving game!");
+                    }
+                    input.replaceAll("[^1-" + colors + "]", "");
                     for (int i = 0; i < input.length(); i++) {
                         result.add(new ColorPeg(Integer.parseInt(String.valueOf(input.charAt(i)))));
                     }
@@ -174,11 +197,8 @@ public class TerminalApp {
         colors = 6;
         turns = 12;
 
-        Game currentGame = new Game(new UserPlayer(user, role), pegs, colors, turns);
+        currentGame = new Game(new UserPlayer(user, role), pegs, colors, turns);
         currentGame.startGame();
-        /*if (currentGame.getStatus() != Status.FINISHED) {
-            // Offer to save!
-        }*/
     }
 
     private void continueGame(User user) {

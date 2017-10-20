@@ -1,5 +1,6 @@
 package domain.model;
 
+import com.afollestad.ason.AsonIgnore;
 import domain.controller.MainController;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
@@ -17,6 +18,7 @@ public class Game {
 
     private Status gameStatus;
 
+    @AsonIgnore
     private Player gameMaker, gameBreaker;
 
     private Row<ColorPeg> correctGuess;
