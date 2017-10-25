@@ -1,8 +1,8 @@
 package data.model;
 
-import data.JSONController;
+import data.JSONData;
 
-public class StatData extends JSONController {
+public class StatData extends JSONData {
     private static StatData mInstance = new StatData();
 
     private StatData() {

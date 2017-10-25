@@ -1,8 +1,8 @@
 package data.model;
 
-import data.JSONController;
+import data.JSONData;
 
-public class GameData extends JSONController {
+public class GameData extends JSONData {
     private static GameData mInstance = new GameData();
 
     private GameData() {

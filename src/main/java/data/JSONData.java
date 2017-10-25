@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class JSONController implements DataController {
+public abstract class JSONData implements DataController {
     private Map<String, Ason> mData = new HashMap<>();
 
-    protected JSONController() {
+    protected JSONData() {
         ArrayList<String> files = FileUtils.listFiles(getFolderPath());
         for (String file : files) {
             mData.put(file, null);
