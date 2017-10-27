@@ -98,15 +98,9 @@ public class Game {
     public static class GameInfo {
         int mPegs, mColors, mTurns;
 
-        public void setPegs(int pegs) {
+        public GameInfo(int pegs, int colors, int turns) {
             mPegs = pegs;
-        }
-
-        public void setColors(int colors) {
             mColors = colors;
-        }
-
-        public void setTurns(int turns) {
             mTurns = turns;
         }
     }
