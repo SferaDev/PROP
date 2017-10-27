@@ -14,8 +14,8 @@ public abstract class ComputerPlayer extends Player {
 
     public static Row<ControlPeg> compareGuess(Row<ColorPeg> correct, Row<ColorPeg> guess) {
         Row<ControlPeg> result = new Row<>();
-        Row<ColorPeg> correctCopy = (Row<ColorPeg>) correct.clone();
-        Row<ColorPeg> guessCopy = (Row<ColorPeg>) guess.clone();
+        Row<ColorPeg> correctCopy = new Row<>(correct);
+        Row<ColorPeg> guessCopy = new Row<>(guess);
 
         // Calculate Blacks
         for (int i = 0; i < correctCopy.size(); ++i) {
