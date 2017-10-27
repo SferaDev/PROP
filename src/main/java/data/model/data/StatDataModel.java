@@ -1,18 +1,15 @@
 package data.model.data;
 
-public class StatDataModel extends DataModel {
+import domain.model.Stat;
+
+public class StatDataModel<E extends Stat> extends DataModel<E> {
     private static StatDataModel mInstance = new StatDataModel();
 
     private StatDataModel() {
-        super();
+        super("data/stats/");
     }
 
     public static StatDataModel getInstance() {
         return mInstance;
-    }
-
-    @Override
-    protected String getFolderPath() {
-        return "data/stats/";
     }
 }

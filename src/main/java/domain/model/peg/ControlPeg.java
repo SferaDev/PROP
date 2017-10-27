@@ -1,10 +1,6 @@
 package domain.model.peg;
 
 public class ControlPeg extends Peg {
-    public enum Type {
-        BLACK, WHITE, EMPTY
-    }
-
     private Type mType;
 
     public ControlPeg(Type type) {
@@ -23,5 +19,9 @@ public class ControlPeg extends Peg {
         ControlPeg controlPeg = (ControlPeg) o;
 
         return mType == controlPeg.mType;
+    }
+
+    public enum Type {
+        BLACK, WHITE, EMPTY
     }
 }

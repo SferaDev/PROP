@@ -3,11 +3,11 @@ package data.model.data;
 import domain.controller.data.UserController;
 import domain.model.User;
 
-public class UserDataModel extends DataModel implements UserController {
+public class UserDataModel<E extends User> extends DataModel<E> implements UserController<E> {
     private static UserDataModel mInstance = new UserDataModel();
 
     private UserDataModel() {
-        super();
+        super("data/users/");
     }
 
     public static UserDataModel getInstance() {
@@ -15,15 +15,10 @@ public class UserDataModel extends DataModel implements UserController {
     }
 
     @Override
-    protected String getFolderPath() {
-        return "data/users/";
-    }
-
-    @Override
-    public User login(String name, String pass) {
+    public E login(String name, String pass) {
         if (exists(name)) {
-            User user = (User) get(name, User.class);
-            if (user.getPassword().equals(pass)) return user;
+            User user = get(name, User.class);
+            if (user.getPassword().equals(pass)) return (E) user;
         }
         return null;
     }

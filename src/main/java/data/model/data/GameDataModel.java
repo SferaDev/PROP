@@ -1,18 +1,15 @@
 package data.model.data;
 
-public class GameDataModel extends DataModel {
+import domain.model.Game;
+
+public class GameDataModel<E extends Game> extends DataModel<E> {
     private static GameDataModel mInstance = new GameDataModel();
 
     private GameDataModel() {
-        super();
+        super("data/games/");
     }
 
     public static GameDataModel getInstance() {
         return mInstance;
-    }
-
-    @Override
-    protected String getFolderPath() {
-        return "data/games/";
     }
 }

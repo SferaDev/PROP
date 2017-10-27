@@ -7,11 +7,11 @@ import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 
 public class FiveGuessComputer extends ComputerPlayer {
+    private Row<ColorPeg> correctMakerGuess;
+
     public FiveGuessComputer(Role role) {
         super(role);
     }
-
-    private Row<ColorPeg> correctMakerGuess;
 
     @Override
     public String getName() {

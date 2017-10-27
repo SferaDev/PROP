@@ -38,7 +38,8 @@ public class TerminalApp {
                 input.replace(" ", "");
                 for (int i = 0; i < pegs; ++i) {
                     if (i < input.length() && input.charAt(i) == 'B') result.add(new ControlPeg(ControlPeg.Type.BLACK));
-                    else if (i < input.length() && input.charAt(i) == 'W') result.add(new ControlPeg(ControlPeg.Type.WHITE));
+                    else if (i < input.length() && input.charAt(i) == 'W')
+                        result.add(new ControlPeg(ControlPeg.Type.WHITE));
                     else result.add(new ControlPeg(ControlPeg.Type.EMPTY));
                 }
                 return result;
@@ -193,7 +194,7 @@ public class TerminalApp {
         colors = 6;
         turns = 12;
 
-        currentGame = new Game(new UserPlayer(user, role), pegs, colors, turns);
+        currentGame = new Game(new UserPlayer(user.getName(), role), pegs, colors, turns);
         currentGame.startGame();
     }
 

@@ -33,7 +33,7 @@ public class Constants {
     static final int NEW_MAKER_GAME = 2;
     static final int NEW_BACK = 3;
 
-    static final String NEW_MENU_TITLE =  "  " + "Mastermind: Nou joc" + "  ";
+    static final String NEW_MENU_TITLE = "  " + "Mastermind: Nou joc" + "  ";
     static final String NEW_MENU_SEPARATOR = new String(new char[NEW_MENU_TITLE.length()]).replace('\0', '=');
     static final String NEW_BREAKER_GAME_TITLE = "Breaker";
     static final String NEW_MAKER_GAME_TITLE = "Maker";
