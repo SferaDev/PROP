@@ -16,7 +16,7 @@ public class Game {
 
     private Player gameMaker, gameBreaker;
 
-    private int mPegs, mColors, mTurns;
+    private GameInfo gameInfo;
 
     private Row<ColorPeg> correctGuess;
     private ArrayList<Row<ColorPeg>> mGuess = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Game {
 
     private int gameTurn = 1;
 
-    public Game(Player player, int pegs, int colors, int turns) {
+    public Game(Player player, GameInfo info) {
         String ownerName = player.getName();
         Player.Role ownerRole = player.getPlayerRole();
         Date startTime = new Date();
@@ -41,9 +41,7 @@ public class Game {
                 break;
         }
 
-        mPegs = pegs;
-        mColors = colors;
-        mTurns = turns;
+        gameInfo = info;
 
         gameStatus = Status.START;
     }
@@ -52,11 +50,11 @@ public class Game {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
-                    correctGuess = gameMaker.makerGuess(mPegs, mColors);
+                    correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
                     gameStatus = Status.GUESS;
                     break;
                 case GUESS:
-                    Row<ColorPeg> input = gameBreaker.breakerGuess(mPegs, mColors);
+                    Row<ColorPeg> input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
                     mGuess.add(input);
                     Row<ControlPeg> control = gameMaker.scoreGuess(input);
                     Row<ControlPeg> correctControl = ComputerPlayer.compareGuess(correctGuess, input);
@@ -70,7 +68,7 @@ public class Game {
 
                     if (input.equals(correctGuess)) {
                         gameStatus = Status.CORRECT;
-                    } else if ((gameTurn + 1) >= mTurns) {
+                    } else if ((gameTurn + 1) >= gameInfo.mTurns) {
                         gameStatus = Status.FINISHED;
                     } else {
                         gameTurn++;
@@ -95,5 +93,21 @@ public class Game {
 
     public enum Status {
         START, GUESS, CORRECT, FINISHED
+    }
+
+    public static class GameInfo {
+        int mPegs, mColors, mTurns;
+
+        public void setPegs(int pegs) {
+            mPegs = pegs;
+        }
+
+        public void setColors(int colors) {
+            mColors = colors;
+        }
+
+        public void setTurns(int turns) {
+            mTurns = turns;
+        }
     }
 }

@@ -195,7 +195,11 @@ public class TerminalApp {
         colors = 6;
         turns = 12;
 
-        currentGame = new Game(new UserPlayer(user.getName(), role), pegs, colors, turns);
+        Game.GameInfo gameInfo = new Game.GameInfo();
+        gameInfo.setPegs(pegs);
+        gameInfo.setColors(colors);
+        gameInfo.setTurns(turns);
+        currentGame = new Game(new UserPlayer(user.getName(), role), gameInfo);
         currentGame.startGame();
     }
 
