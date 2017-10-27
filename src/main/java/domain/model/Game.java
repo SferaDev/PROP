@@ -2,17 +2,26 @@ package domain.model;
 
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
+import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Game {
     private String gameTitle;
+
     private Status gameStatus;
+
     private Player gameMaker, gameBreaker;
+
     private int mPegs, mColors, mTurns;
+
     private Row<ColorPeg> correctGuess;
+    private ArrayList<Row<ColorPeg>> mGuess = new ArrayList<>();
+    private ArrayList<Row<ControlPeg>> mControl = new ArrayList<>();
+
     private int gameTurn = 1;
 
     public Game(Player player, int pegs, int colors, int turns) {
@@ -40,7 +49,7 @@ public class Game {
     }
 
     public void startGame() {
-        while (gameStatus != Status.CORRECT && gameStatus != Status.QUIT) {
+        while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
                     correctGuess = gameMaker.makerGuess(mPegs, mColors);
@@ -48,14 +57,35 @@ public class Game {
                     break;
                 case GUESS:
                     Row<ColorPeg> input = gameBreaker.breakerGuess(mPegs, mColors);
+                    mGuess.add(input);
                     Row<ControlPeg> control = gameMaker.scoreGuess(input);
-                    gameBreaker.receiveControl(control);
-                    // TODO: Check if is a liar!
-                    gameStatus = input.equals(correctGuess) ? Status.CORRECT : Status.GUESS;
-                    gameTurn++;
+                    Row<ControlPeg> correctControl = ComputerPlayer.compareGuess(correctGuess, input);
+
+                    if (!correctControl.equals(control)) {
+                        // TODO: Notify User is a liar
+                    }
+
+                    gameBreaker.receiveControl(correctControl);
+                    mControl.add(correctControl);
+
+                    if (input.equals(correctGuess)) {
+                        gameStatus = Status.CORRECT;
+                    } else if ((gameTurn + 1) >= mTurns) {
+                        gameStatus = Status.FINISHED;
+                    } else {
+                        gameTurn++;
+                    }
                     break;
             }
         }
+    }
+
+    public Row<ColorPeg> getColorRow(int turn) {
+        return mGuess.get(turn - 1);
+    }
+
+    public Row<ControlPeg> getControlRow(int turn) {
+        return mControl.get(turn - 1);
     }
 
     @Override
@@ -64,6 +94,6 @@ public class Game {
     }
 
     public enum Status {
-        START, GUESS, CORRECT, QUIT
+        START, GUESS, CORRECT, FINISHED
     }
 }
