@@ -1,4 +1,4 @@
-package data.model.data;
+package data;
 
 import com.google.gson.Gson;
 import data.utils.FileUtils;

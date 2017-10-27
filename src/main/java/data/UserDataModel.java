@@ -1,4 +1,4 @@
-package data.model.data;
+package data;
 
 import domain.controller.data.UserController;
 import domain.model.User;
