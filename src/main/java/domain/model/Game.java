@@ -9,20 +9,11 @@ import java.util.Date;
 
 public class Game {
     private String gameTitle;
-
     private Status gameStatus;
-
     private Player gameMaker, gameBreaker;
-
     private int mPegs, mColors, mTurns;
-
     private Row<ColorPeg> correctGuess;
-
     private int gameTurn = 1;
-
-    public Game(String title, Status status, Player maker, Player breaker, int pegs, int colors, int turns) {
-
-    }
 
     public Game(Player player, int pegs, int colors, int turns) {
         String ownerName = player.getName();
@@ -67,12 +58,12 @@ public class Game {
         }
     }
 
-    private void setStatus(Status status) {
-        gameStatus = status;
-    }
-
     @Override
     public String toString() {
         return gameTitle;
+    }
+
+    public enum Status {
+        START, GUESS, CORRECT, QUIT
     }
 }
