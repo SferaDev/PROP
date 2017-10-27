@@ -27,11 +27,11 @@ public abstract class ComputerPlayer extends Player {
         }
 
         // Calculate Whites
-        for (int i = 0; i < correctCopy.size(); ++i) {
+        for (ColorPeg colorPeg : correctCopy) {
             boolean found = false;
             for (int j = 0; j < guessCopy.size(); ++j) {
                 if (!found && guessCopy.get(j) != null) {
-                    if (guessCopy.get(j).equals(correctCopy.get(i))) {
+                    if (guessCopy.get(j).equals(colorPeg)) {
                         result.add(new ControlPeg(ControlPeg.Type.WHITE));
                         found = true;
                         guessCopy.set(j, null);
