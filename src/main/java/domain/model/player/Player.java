@@ -1,6 +1,5 @@
 package domain.model.player;
 
-import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
@@ -27,4 +26,8 @@ public abstract class Player {
     public abstract Row<ControlPeg> scoreGuess(Row<ColorPeg> guess);
 
     public abstract void receiveControl(Row<ControlPeg> control);
+
+    public enum Role {
+        BREAKER, MAKER
+    }
 }

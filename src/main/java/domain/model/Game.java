@@ -26,17 +26,17 @@ public class Game {
 
     public Game(Player player, int pegs, int colors, int turns) {
         String ownerName = player.getName();
-        Role ownerRole = player.getPlayerRole();
+        Player.Role ownerRole = player.getPlayerRole();
         Date startTime = new Date();
         gameTitle = ownerName + "-" + ownerRole + "-" + startTime.toString();
 
         switch (ownerRole) {
             case BREAKER:
                 gameBreaker = player;
-                gameMaker = new DummyComputer(Role.MAKER);
+                gameMaker = new DummyComputer(Player.Role.MAKER);
                 break;
             case MAKER:
-                gameBreaker = new DummyComputer(Role.BREAKER);
+                gameBreaker = new DummyComputer(Player.Role.BREAKER);
                 gameMaker = player;
                 break;
         }

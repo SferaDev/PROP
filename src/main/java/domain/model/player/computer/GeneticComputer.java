@@ -1,13 +1,11 @@
 package domain.model.player.computer;
 
-import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GeneticComputer extends ComputerPlayer {
     private final int POPULATION_SIZE = 1296;

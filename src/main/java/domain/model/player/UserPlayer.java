@@ -1,9 +1,7 @@
 package domain.model.player;
 
 import domain.controller.MainController;
-import domain.model.Role;
 import domain.model.Row;
-import domain.model.User;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 

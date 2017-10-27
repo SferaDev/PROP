@@ -5,6 +5,7 @@ import domain.controller.data.UserController;
 import domain.model.*;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
+import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import presentation.utils.TerminalUtils;
 
@@ -164,7 +165,7 @@ public class TerminalApp {
 
     private void newGame(User user) {
         Scanner scanner = new Scanner(System.in);
-        Role role = null;
+        Player.Role role = null;
         do {
             TerminalUtils.println(Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_MENU_TITLE + "\n" +
@@ -175,10 +176,10 @@ public class TerminalApp {
 
             switch (scanner.nextInt()) {
                 case Constants.NEW_BREAKER_GAME:
-                    role = Role.BREAKER;
+                    role = Player.Role.BREAKER;
                     break;
                 case Constants.NEW_MAKER_GAME:
-                    role = Role.MAKER;
+                    role = Player.Role.MAKER;
                     break;
                 case Constants.NEW_BACK:
                     return;
