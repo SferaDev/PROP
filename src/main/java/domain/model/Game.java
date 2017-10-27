@@ -1,51 +1,51 @@
 package domain.model;
 
-import com.afollestad.ason.AsonIgnore;
-import domain.controller.MainController;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
-import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
-import domain.model.player.computer.GeneticComputer;
 
 import java.util.Date;
 
 public class Game {
-    private Date startTime = new Date();
-    private String ownerName;
-    private Role ownerRole;
+    private String gameTitle;
 
     private Status gameStatus;
 
-    @AsonIgnore
     private Player gameMaker, gameBreaker;
-
-    private Row<ColorPeg> correctGuess;
 
     private int mPegs, mColors, mTurns;
 
+    private Row<ColorPeg> correctGuess;
+
     private int gameTurn = 1;
 
-    public Game(Player player, int pegs, int colors, int turns) {
-        ownerName = player.getName();
-        ownerRole = player.getPlayerRole();
+    public Game(String title, Status status, Player maker, Player breaker, int pegs, int colors, int turns) {
 
-        gameBreaker = ownerRole == Role.BREAKER ?
-                player : new DummyComputer(Role.MAKER);
-        gameMaker = ownerRole == Role.MAKER ?
-                player : new DummyComputer(Role.BREAKER);
+    }
+
+    public Game(Player player, int pegs, int colors, int turns) {
+        String ownerName = player.getName();
+        Role ownerRole = player.getPlayerRole();
+        Date startTime = new Date();
+        gameTitle = ownerName + "-" + ownerRole + "-" + startTime.toString();
+
+        switch (ownerRole) {
+            case BREAKER:
+                gameBreaker = player;
+                gameMaker = new DummyComputer(Role.MAKER);
+                break;
+            case MAKER:
+                gameBreaker = new DummyComputer(Role.BREAKER);
+                gameMaker = player;
+                break;
+        }
 
         mPegs = pegs;
         mColors = colors;
         mTurns = turns;
 
         gameStatus = Status.START;
-    }
-
-    @Override
-    public String toString() {
-        return ownerName + "-" + ownerRole + "-" + startTime.toString();
     }
 
     public void startGame() {
@@ -69,5 +69,10 @@ public class Game {
 
     private void setStatus(Status status) {
         gameStatus = status;
+    }
+
+    @Override
+    public String toString() {
+        return gameTitle;
     }
 }

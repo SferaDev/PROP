@@ -1,17 +1,16 @@
-package data.model;
+package data.model.data;
 
-import data.JSONData;
-import domain.controller.UserController;
+import domain.controller.data.UserController;
 import domain.model.User;
 
-public class UserData extends JSONData implements UserController {
-    private static UserData mInstance = new UserData();
+public class UserDataModel extends DataModel implements UserController {
+    private static UserDataModel mInstance = new UserDataModel();
 
-    private UserData() {
+    private UserDataModel() {
         super();
     }
 
-    public static UserData getInstance() {
+    public static UserDataModel getInstance() {
         return mInstance;
     }
 

@@ -1,8 +1,10 @@
 package domain.controller;
 
-import data.model.GameData;
-import data.model.StatData;
-import data.model.UserData;
+import data.model.data.GameDataModel;
+import data.model.data.StatDataModel;
+import data.model.data.UserDataModel;
+import domain.controller.data.DataController;
+import domain.controller.data.UserController;
 import domain.model.InputOutput;
 
 public class MainController {
@@ -20,15 +22,15 @@ public class MainController {
     }
 
     public UserController getUserController() {
-        return UserData.getInstance();
+        return UserDataModel.getInstance();
     }
 
     public DataController getGameController() {
-        return GameData.getInstance();
+        return GameDataModel.getInstance();
     }
 
     public DataController getStatsController() {
-        return StatData.getInstance();
+        return StatDataModel.getInstance();
     }
 
     public InputOutput getGameInterface() {

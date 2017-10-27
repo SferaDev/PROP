@@ -9,8 +9,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: com.afollestad:ason:1.4.16" level="project" />
-    <orderEntry type="library" name="Gradle: org.json:json:20160810" level="project" />
-    <orderEntry type="library" name="Gradle: com.intellij:annotations:12.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.2" level="project" />
   </component>
 </module>

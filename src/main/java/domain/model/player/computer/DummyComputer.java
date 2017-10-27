@@ -12,7 +12,7 @@ public class DummyComputer extends ComputerPlayer {
         super(role);
     }
 
-    Row<ColorPeg> correctMakerGuess;
+    private Row<ColorPeg> correctMakerGuess;
 
     @Override
     public String getName() {

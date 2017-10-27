@@ -1,13 +1,11 @@
 package presentation;
 
-import com.afollestad.ason.Ason;
 import domain.controller.MainController;
-import domain.controller.UserController;
+import domain.controller.data.UserController;
 import domain.model.*;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 import domain.model.player.UserPlayer;
-import presentation.Constants;
 import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
@@ -58,8 +56,6 @@ public class TerminalApp {
                         //currentGame.endGame();
                     }
                     if (input.equals("save")) {
-                        TerminalUtils.println(currentGame.toString());
-                        TerminalUtils.println(Ason.serialize(currentGame).toString());
                         MainController.getInstance().getGameController().insert(currentGame);
                         TerminalUtils.println("Saving game!");
                     }

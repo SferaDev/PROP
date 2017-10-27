@@ -5,7 +5,7 @@ public class User {
     private String playerPassword;
 
     public User() {
-        // noop
+        // Empty constructor
     }
 
     public User(String name, String password) {
@@ -25,5 +25,4 @@ public class User {
     public String toString() {
         return getName();
     }
-
 }
