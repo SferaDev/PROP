@@ -1,24 +1,22 @@
 package domain.model.player;
 
 import domain.controller.MainController;
-import domain.model.Role;
 import domain.model.Row;
-import domain.model.User;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 
 public class UserPlayer extends Player {
 
-    private User parentUser;
+    private String parentUser;
 
-    public UserPlayer(User user, Role role) {
+    public UserPlayer(String user, Role role) {
         super(role);
         parentUser = user;
     }
 
     @Override
     public String getName() {
-        return parentUser.getName();
+        return parentUser;
     }
 
     @Override

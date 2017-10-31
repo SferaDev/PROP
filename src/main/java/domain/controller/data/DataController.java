@@ -1,4 +1,4 @@
-package domain.controller;
+package domain.controller.data;
 
 public interface DataController<E> {
     boolean exists(String key);
@@ -7,5 +7,5 @@ public interface DataController<E> {
 
     void remove(E item);
 
-    E get(String key, Class cls);
+    E get(String key, Class<E> cls);
 }

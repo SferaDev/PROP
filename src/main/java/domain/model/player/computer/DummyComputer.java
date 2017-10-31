@@ -1,18 +1,17 @@
 package domain.model.player.computer;
 
 import domain.controller.MainController;
-import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 
 public class DummyComputer extends ComputerPlayer {
+    private Row<ColorPeg> correctMakerGuess;
+
     public DummyComputer(Role role) {
         super(role);
     }
-
-    Row<ColorPeg> correctMakerGuess;
 
     @Override
     public String getName() {

@@ -1,74 +1,17 @@
 package presentation;
 
 import domain.controller.MainController;
-import domain.controller.UserController;
-import domain.model.*;
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
-import domain.model.player.UserPlayer;
-import presentation.Constants;
+import presentation.model.TerminalInputOutput;
 import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
 
 public class TerminalApp {
-    private MainController mainController;
-    private UserController userController;
+
+    private MainController mainController = MainController.getInstance();
 
     public void startApplication() {
-        mainController = MainController.getInstance();
-        userController = mainController.getUserController();
-
-        mainController.setGameInterface(new InputOutput() {
-            @Override
-            public Row<ControlPeg> inputControlRow(int pegs) {
-                Row<ControlPeg> result = new Row<>();
-                TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes de control [B B W -]");
-                Scanner scanner = new Scanner(System.in);
-                String input = scanner.next().replace(" ", "");
-                for (int i = 0; i < pegs; ++i) {
-                    if (i < input.length() && input.charAt(i) == 'B') result.add(new ControlPeg(ControlPeg.Type.BLACK));
-                    else if (i < input.length() && input.charAt(i) == 'W') result.add(new ControlPeg(ControlPeg.Type.WHITE));
-                    else result.add(new ControlPeg(ControlPeg.Type.EMPTY));
-                }
-                return result;
-            }
-
-            @Override
-            public Row<ColorPeg> inputColorRow(int pegs, int colors) {
-                Row<ColorPeg> result = new Row<>();
-                TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
-                Scanner scanner = new Scanner(System.in);
-                while (result.size() < pegs) {
-                    String input = scanner.next().replaceAll("[^1-" + colors + "]", "");
-                    for (int i = 0; i < input.length(); i++) {
-                        result.add(new ColorPeg(Integer.parseInt(String.valueOf(input.charAt(i)))));
-                    }
-                }
-                return result;
-            }
-
-            @Override
-            public void outputControlRow(Row<ControlPeg> row) {
-                StringBuilder output = new StringBuilder();
-                for (ControlPeg peg : row) {
-                    if (peg.getType() == ControlPeg.Type.BLACK) output.append("B ");
-                    if (peg.getType() == ControlPeg.Type.WHITE) output.append("W ");
-                    if (peg.getType() == ControlPeg.Type.EMPTY) output.append("- ");
-                }
-                TerminalUtils.println(output.toString());
-            }
-
-            @Override
-            public void outputColorRow(Row<ColorPeg> row) {
-                StringBuilder output = new StringBuilder();
-                for (ColorPeg peg : row) {
-                    output.append(peg.getColor()).append(" ");
-                }
-                TerminalUtils.println(output.toString());
-            }
-        });
-
+        mainController.setGameInterface(new TerminalInputOutput());
         showMainMenu();
     }
 
@@ -108,7 +51,7 @@ public class TerminalApp {
         } while (true);
     }
 
-    private void showPlayMenu(User user) {
+    private void showPlayMenu(String userName) {
         Scanner scanner = new Scanner(System.in);
         do {
             TerminalUtils.println(Constants.PLAY_MENU_SEPARATOR + "\n" +
@@ -122,10 +65,10 @@ public class TerminalApp {
 
             switch (scanner.nextInt()) {
                 case Constants.PLAY_NEW_GAME:
-                    newGame(user);
+                    newGame(userName);
                     break;
                 case Constants.PLAY_PREV_GAME:
-                    continueGame(user);
+                    continueGame(userName);
                     break;
                 case Constants.PLAY_STATS:
                     showStatsMenu();
@@ -142,9 +85,9 @@ public class TerminalApp {
         } while (true);
     }
 
-    private void newGame(User user) {
+    private void newGame(String userName) {
         Scanner scanner = new Scanner(System.in);
-        Role role = null;
+        String role = null;
         do {
             TerminalUtils.println(Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_MENU_TITLE + "\n" +
@@ -155,10 +98,10 @@ public class TerminalApp {
 
             switch (scanner.nextInt()) {
                 case Constants.NEW_BREAKER_GAME:
-                    role = Role.BREAKER;
+                    role = "BREAKER";
                     break;
                 case Constants.NEW_MAKER_GAME:
-                    role = Role.MAKER;
+                    role = "MAKER";
                     break;
                 case Constants.NEW_BACK:
                     return;
@@ -174,14 +117,10 @@ public class TerminalApp {
         colors = 6;
         turns = 12;
 
-        Game currentGame = new Game(new UserPlayer(user, role), pegs, colors, turns);
-        currentGame.startGame();
-        /*if (currentGame.getStatus() != Status.FINISHED) {
-            // Offer to save!
-        }*/
+        mainController.startNewGame(userName, role, pegs, colors, turns);
     }
 
-    private void continueGame(User user) {
+    private void continueGame(String userName) {
 
     }
 
@@ -196,23 +135,23 @@ public class TerminalApp {
     private void login() {
         TerminalUtils.println("Introdueixi el seu nom d'usuari");
         Scanner scanner = new Scanner(System.in);
-        String username = scanner.next();
+        String userName = scanner.next();
 
-        if (!userController.exists(username)) {
+        if (!mainController.existsUser(userName)) {
             TerminalUtils.errorln(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
 
-        User user = null;
-        for (int i = 0; user == null && i < 3; i++) {
+        boolean login = false;
+        for (int i = 0; !login && i < 3; i++) {
             if (i > 0) TerminalUtils.errorln("Contrasenya erronea!");
             TerminalUtils.println("Introdueixi la seva contrasenya");
-            user = (User) userController.login(username, scanner.next());
+            login = mainController.loginUser(userName, scanner.next());
         }
 
-        if (user == null) {
+        if (!login) {
             TerminalUtils.errorln("Contrasenya erronea 3 cops");
-        } else showPlayMenu(user);
+        } else showPlayMenu(userName);
     }
 
     private void register() {
@@ -229,9 +168,8 @@ public class TerminalApp {
             password2 = scanner.next();
         } while (!password1.equals(password2));
 
-        User user = new User(username, password1);
-        if (userController.insert(user)) {
-            showPlayMenu(user);
+        if (mainController.createUser(username, password1)) {
+            showPlayMenu(username);
         } else {
             TerminalUtils.errorln("Ja existeix l'usuari");
         }

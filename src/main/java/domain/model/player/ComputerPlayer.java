@@ -1,12 +1,9 @@
 package domain.model.player;
 
-import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
-import domain.model.peg.Peg;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class ComputerPlayer extends Player {
@@ -16,8 +13,8 @@ public abstract class ComputerPlayer extends Player {
 
     public static Row<ControlPeg> compareGuess(Row<ColorPeg> correct, Row<ColorPeg> guess) {
         Row<ControlPeg> result = new Row<>();
-        Row<ColorPeg> correctCopy = (Row<ColorPeg>) correct.clone();
-        Row<ColorPeg> guessCopy = (Row<ColorPeg>) guess.clone();
+        Row<ColorPeg> correctCopy = new Row<>(correct);
+        Row<ColorPeg> guessCopy = new Row<>(guess);
 
         // Calculate Blacks
         for (int i = 0; i < correctCopy.size(); ++i) {
@@ -29,11 +26,11 @@ public abstract class ComputerPlayer extends Player {
         }
 
         // Calculate Whites
-        for (int i = 0; i < correctCopy.size(); ++i) {
+        for (ColorPeg colorPeg : correctCopy) {
             boolean found = false;
             for (int j = 0; j < guessCopy.size(); ++j) {
                 if (!found && guessCopy.get(j) != null) {
-                    if (guessCopy.get(j).equals(correctCopy.get(i))) {
+                    if (guessCopy.get(j).equals(colorPeg)) {
                         result.add(new ControlPeg(ControlPeg.Type.WHITE));
                         found = true;
                         guessCopy.set(j, null);

@@ -3,16 +3,17 @@ package domain.model;
 import domain.model.peg.Peg;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Row<E extends Peg> extends ArrayList<E> {
-    public void order() {
-        sort(new Comparator<E>() {
-            @Override
-            public int compare(E e1, E e2) {
+    public Row() {
+        super();
+    }
 
-                return 0;
-            }
-        });
+    public Row(int size) {
+        super(size);
+    }
+
+    public Row(Row<E> original) {
+        super(original);
     }
 }

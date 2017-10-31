@@ -1,6 +1,5 @@
 package domain.model.player.computer;
 
-import domain.model.Role;
 import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
@@ -11,10 +10,13 @@ import java.util.ArrayList;
 
 
 public class FiveGuessComputer extends ComputerPlayer {
+    private Row<ColorPeg> correctMakerGuess;
+
     public FiveGuessComputer(Role role) {
         super(role);
     }
 
+<<<<<<< HEAD
     private Row<ColorPeg> correctMakerGuess;
 
     //private Row<ControlPeg> controlguess;
@@ -36,6 +38,8 @@ public class FiveGuessComputer extends ComputerPlayer {
     private int turn;
 
 
+=======
+>>>>>>> 55755b6e662bbff6267f77dd07425689af4ae9e0
     @Override
     public String getName() {
         return "FiveGuess";
