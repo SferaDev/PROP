@@ -5,6 +5,7 @@ import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
+import domain.model.player.computer.GeneticComputer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class Game {
                 gameMaker = new DummyComputer(Player.Role.MAKER);
                 break;
             case MAKER:
-                gameBreaker = new DummyComputer(Player.Role.BREAKER);
+                gameBreaker = new GeneticComputer(Player.Role.BREAKER, info.mPegs, info.mColors, info.mTurns);
                 gameMaker = player;
                 break;
         }

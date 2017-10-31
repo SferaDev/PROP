@@ -191,9 +191,6 @@ public class GeneticComputer extends ComputerPlayer {
             } else if ((int) (Math.random() * 100) < 2) {
                 inversion(newPopulation, i, pegs);
             }
-            if (newPopulation[i].size() != pegs) {
-                System.out.print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            }
         }
 
         doubleToRnd(newPopulation, pegs, colors);
