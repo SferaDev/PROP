@@ -52,7 +52,43 @@ public class GeneticComputer extends ComputerPlayer {
             firstAttempt.add(new ColorPeg(3));
             gameGuesses.add(firstAttempt);
             return firstAttempt;
+
+        } else if (pegs == 5 && colors >= 8) {
+            Row<ColorPeg> firstAttempt = new Row<>();
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(2));
+            firstAttempt.add(new ColorPeg(3));
+            firstAttempt.add(new ColorPeg(4));
+            gameGuesses.add(firstAttempt);
+            return firstAttempt;
+
+        } else if (pegs == 6 && colors >= 9) {
+            Row<ColorPeg> firstAttempt = new Row<>();
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(2));
+            firstAttempt.add(new ColorPeg(2));
+            firstAttempt.add(new ColorPeg(3));
+            firstAttempt.add(new ColorPeg(4));
+            gameGuesses.add(firstAttempt);
+            return firstAttempt;
+
+        } else if (pegs == 8 && colors >= 12) {
+            Row<ColorPeg> firstAttempt = new Row<>();
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(1));
+            firstAttempt.add(new ColorPeg(2));
+            firstAttempt.add(new ColorPeg(2));
+            firstAttempt.add(new ColorPeg(3));
+            firstAttempt.add(new ColorPeg(3));
+            firstAttempt.add(new ColorPeg(4));
+            firstAttempt.add(new ColorPeg(5));
+            gameGuesses.add(firstAttempt);
+            return firstAttempt;
+
         } else {
+
             // Random entry
             Row<ColorPeg> firstAttempt = randomRow(pegs, colors);
             gameGuesses.add(firstAttempt);
