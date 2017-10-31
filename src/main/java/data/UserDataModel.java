@@ -1,9 +1,9 @@
 package data;
 
-import domain.controller.data.UserController;
+import domain.controller.data.UserDataController;
 import domain.model.User;
 
-public class UserDataModel<E extends User> extends DataModel<E> implements UserController<E> {
+public class UserDataModel<E extends User> extends DataModel<E> implements UserDataController<E> {
     private static UserDataModel mInstance = new UserDataModel();
 
     private UserDataModel() {

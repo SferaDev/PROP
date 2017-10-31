@@ -3,7 +3,7 @@ package domain.controller;
 import data.GameDataModel;
 import data.UserDataModel;
 import domain.controller.data.DataController;
-import domain.controller.data.UserController;
+import domain.controller.data.UserDataController;
 import domain.model.Game;
 import domain.model.User;
 import domain.model.player.Player;
@@ -16,7 +16,7 @@ public class MainController {
     private static InputOutput mGameInterface;
 
     private DataController gameController = GameDataModel.getInstance();
-    private UserController userController = UserDataModel.getInstance();
+    private UserDataController userController = UserDataModel.getInstance();
 
     private Game currentGame;
 
