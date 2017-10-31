@@ -4,19 +4,18 @@ import domain.model.Row;
 import domain.model.peg.ColorPeg;
 import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
-import jdk.internal.util.xml.impl.Pair;
+
 
 import java.util.ArrayList;
 
 
 public class FiveGuessComputer extends ComputerPlayer {
-    private Row<ColorPeg> correctMakerGuess;
 
     public FiveGuessComputer(Role role) {
         super(role);
     }
 
-<<<<<<< HEAD
+
     private Row<ColorPeg> correctMakerGuess;
 
     //private Row<ControlPeg> controlguess;
@@ -35,11 +34,10 @@ public class FiveGuessComputer extends ComputerPlayer {
 
     private Row<ColorPeg> maximhitcombination;
 
-    private int turn;
 
 
-=======
->>>>>>> 55755b6e662bbff6267f77dd07425689af4ae9e0
+
+
     @Override
     public String getName() {
         return "FiveGuess";
@@ -125,7 +123,6 @@ public class FiveGuessComputer extends ComputerPlayer {
                 res.increasewhites();
             }
         }
-        turn = 2;
         return res;
     }
 
@@ -149,13 +146,6 @@ public class FiveGuessComputer extends ComputerPlayer {
                 Row<ControlPeg> aux = compareGuess(combination, guess);
                 ControlPair obtainedcontrol = converttoPair(aux);
                 if (!obtainedcontrol.equals(controlpair)) {
-                   /* Row<ColorPeg> prova = new Row<>();
-                    prova.add(new ColorPeg(3));
-                    prova.add(new ColorPeg(4));
-                    prova.add(new ColorPeg(5));
-                    prova.add(new ColorPeg(6));
-                    */
-
                     possibleCombinations.remove(combination);
                 }
 
@@ -200,7 +190,5 @@ public class FiveGuessComputer extends ComputerPlayer {
     @Override
     public void receiveControl(Row<ControlPeg> control) {
         controlpair = converttoPair(control);
-        System.out.print(controlpair.getFirst());
-        System.out.println(controlpair.getSecond());
     }
 }
