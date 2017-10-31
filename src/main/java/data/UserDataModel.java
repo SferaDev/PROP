@@ -15,11 +15,11 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserC
     }
 
     @Override
-    public E login(String name, String pass) {
+    public boolean login(String name, String pass) {
         if (exists(name)) {
             User user = get(name, User.class);
-            if (user.getPassword().equals(pass)) return (E) user;
+            if (user.getPassword().equals(pass)) return true;
         }
-        return null;
+        return false;
     }
 }

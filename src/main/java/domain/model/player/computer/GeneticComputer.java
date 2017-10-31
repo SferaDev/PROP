@@ -225,8 +225,7 @@ public class GeneticComputer extends ComputerPlayer {
                         return false;
                     }
                 }
-            }
-            else {
+            } else {
                 // E is full.
                 return false;
             }
@@ -334,11 +333,11 @@ public class GeneticComputer extends ComputerPlayer {
             pos1 = tmp;
         }
 
-        for (int i = 0; i < (pos2 - pos1)/2; i++) {
+        for (int i = 0; i < (pos2 - pos1) / 2; i++) {
             ColorPeg tmp = new ColorPeg(newPopulation[popPos].get(pos1 + i).getColor());
             newPopulation[popPos].add(pos1 + i,
                     newPopulation[popPos].get(pos2 - i));
-            newPopulation[popPos].remove(pos1 + i +1);
+            newPopulation[popPos].remove(pos1 + i + 1);
             //newPopulation[popPos].remove(pos2 - i);
             newPopulation[popPos].add(pos2 - i, tmp);
             newPopulation[popPos].remove(pos2 - i + 1);
