@@ -42,4 +42,9 @@ public class TerminalInputOutput implements InputOutput {
         }
         TerminalUtils.println(output.toString());
     }
+
+    @Override
+    public void outputMessage(String message) {
+        TerminalUtils.println(message);
+    }
 }

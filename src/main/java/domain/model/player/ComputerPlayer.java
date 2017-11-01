@@ -1,12 +1,15 @@
 package domain.model.player;
 
+import domain.model.player.computer.DummyComputer;
+import domain.model.player.computer.FiveGuessComputer;
+import domain.model.player.computer.GeneticComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
 import java.util.Random;
 
 public abstract class ComputerPlayer extends Player {
-    protected ColorRow makerCorrectGuess;
+    private ColorRow makerCorrectGuess;
 
     public ComputerPlayer(Role role) {
         super(role);
@@ -51,6 +54,19 @@ public abstract class ComputerPlayer extends Player {
             row.add(new ColorRow.ColorPeg(rand.nextInt(colors) + 1));
         }
         return row;
+    }
+
+    public static ComputerPlayer computerByName(String computerName, Role computerRole) {
+        // If we could only use Reflection...
+        switch (computerName) {
+            case "GeneticComputer":
+                return new GeneticComputer(computerRole);
+            case "FiveGuessComputer":
+                return new FiveGuessComputer(computerRole);
+            case "DummyComputer":
+            default:
+                return new DummyComputer(computerRole);
+        }
     }
 
     @Override

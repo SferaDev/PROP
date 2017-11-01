@@ -13,4 +13,6 @@ public interface InputOutput {
     void outputControlRow(ControlRow row);
 
     void outputColorRow(ColorRow row);
+
+    void outputMessage(String message);
 }

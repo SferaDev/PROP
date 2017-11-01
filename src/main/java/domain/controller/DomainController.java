@@ -10,8 +10,6 @@ import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import domain.model.player.computer.FiveGuessComputer;
-import domain.model.player.computer.GeneticComputer;
 
 public class DomainController {
     public static final boolean DEBUG = true;
@@ -58,25 +56,20 @@ public class DomainController {
 
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
         Player.Role userRole = Player.Role.valueOf(role);
-        Player.Role computerRole = Player.oppositeRole(userRole);
 
-        // If we could only use Reflection...
-        ComputerPlayer computer;
-        switch (computerName) {
-            case "GeneticComputer":
-                computer = new GeneticComputer(computerRole, pegs, colors, turns);
-                break;
-            case "FiveGuessComputer":
-                computer = new FiveGuessComputer(computerRole);
-                break;
-            case "DummyComputer":
-            default:
-                computer = new DummyComputer(computerRole);
-                break;
-        }
+        Player.Role computerRole = Player.oppositeRole(userRole);
+        ComputerPlayer computer = ComputerPlayer.computerByName(computerName, computerRole);
 
         currentGame = new Game(new UserPlayer(userName, userRole), computer,
                 new Game.GameInfo(userName, userRole, pegs, colors, turns));
+        currentGame.startGame();
+    }
+
+    public void startNewGame(String computerName, int pegs, int colors, int turns) {
+        ComputerPlayer computer = ComputerPlayer.computerByName(computerName, Player.Role.BREAKER);
+
+        currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
+                new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
         currentGame.startGame();
     }
 

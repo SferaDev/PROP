@@ -7,12 +7,12 @@ import domain.model.row.ControlRow;
 import java.util.ArrayList;
 
 public class GeneticComputer extends ComputerPlayer {
-    private final int POPULATION_SIZE = 1296;
-    private final int GENERATION_SIZE = 500;
-    private final int FEASIBLE_CODES_MAX = 1;
+    private static final int POPULATION_SIZE = 1296;
+    private static final int GENERATION_SIZE = 500;
+    private static final int FEASIBLE_CODES_MAX = 1;
 
-    private int currentTurn = 0;
-    private int[] blacks, whites;
+    private ArrayList<Integer> turnBlacks = new ArrayList<>();
+    private ArrayList<Integer> turnWhites = new ArrayList<>();
 
     private ColorRow[] population = new ColorRow[POPULATION_SIZE];
     private int[] fitness = new int[POPULATION_SIZE];
@@ -22,11 +22,8 @@ public class GeneticComputer extends ComputerPlayer {
 
     private int parentPos = 0;
 
-    public GeneticComputer(Role role, int pegs, int colors, int turns) {
+    public GeneticComputer(Role role) {
         super(role);
-
-        blacks = new int[turns]; // blacks[i] = numero de negres en el torn i;
-        whites = new int[turns]; // whites[i] = numero de blanques en el torn i;
     }
 
     @Override
@@ -34,62 +31,13 @@ public class GeneticComputer extends ComputerPlayer {
         return "Genetic";
     }
 
-    private ColorRow breakerInitialGuess(int pegs, int colors) {
-        if (pegs == 4 && colors >= 3) {
-            ColorRow firstAttempt = new ColorRow();
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            gameGuesses.add(firstAttempt);
-            return firstAttempt;
-
-        } else if (pegs == 5 && colors >= 8) {
-            ColorRow firstAttempt = new ColorRow();
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-            gameGuesses.add(firstAttempt);
-            return firstAttempt;
-
-        } else if (pegs == 6 && colors >= 9) {
-            ColorRow firstAttempt = new ColorRow();
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-            gameGuesses.add(firstAttempt);
-            return firstAttempt;
-
-        } else if (pegs == 8 && colors >= 12) {
-            ColorRow firstAttempt = new ColorRow();
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-            firstAttempt.add(new ColorRow.ColorPeg(5));
-            gameGuesses.add(firstAttempt);
-            return firstAttempt;
-
-        } else {
-
-            // Random entry
-            ColorRow firstAttempt = randomRow(pegs, colors);
-            gameGuesses.add(firstAttempt);
-            return firstAttempt;
-        }
-    }
-
     @Override
     public ColorRow breakerGuess(int pegs, int colors) {
-        if (currentTurn == 0) return breakerInitialGuess(pegs, colors);
+        if (turnBlacks.size() == 0 && turnWhites.size() == 0) {
+            ColorRow initialGuess = breakerInitialGuess(pegs, colors);
+            gameGuesses.add(initialGuess);
+            return initialGuess;
+        }
         int generation = 0;
         boolean doCalc = true;
         initPopulation(pegs, colors);
@@ -101,20 +49,54 @@ public class GeneticComputer extends ComputerPlayer {
                 calculateFitness();
                 sortFeasibleByFitness(fitness, population);
                 doCalc = addToFeasibleCodes();
-                generation++;
+                generation += 1;
             }
         }
         ColorRow guess = feasibleCodes.get((int) (Math.random() * feasibleCodes.size()));
         gameGuesses.add(guess);
-        //++currentTurn;
         return guess;
     }
 
     @Override
     public void receiveControl(ControlRow control) {
-        blacks[currentTurn] = control.getBlacks();
-        whites[currentTurn] = control.getWhites();
-        ++currentTurn;
+        turnBlacks.add(control.getBlacks());
+        turnWhites.add(control.getWhites());
+    }
+
+    private ColorRow breakerInitialGuess(int pegs, int colors) {
+        ColorRow firstAttempt = new ColorRow();
+        if (pegs == 4 && colors >= 3) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+        } else if (pegs == 5 && colors >= 8) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+            firstAttempt.add(new ColorRow.ColorPeg(4));
+        } else if (pegs == 6 && colors >= 9) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+            firstAttempt.add(new ColorRow.ColorPeg(4));
+
+        } else if (pegs == 8 && colors >= 12) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+            firstAttempt.add(new ColorRow.ColorPeg(4));
+            firstAttempt.add(new ColorRow.ColorPeg(5));
+        } else {
+            return randomRow(pegs, colors);
+        }
+        return firstAttempt;
     }
 
     private void initPopulation(int pegs, int colors) {
@@ -130,8 +112,8 @@ public class GeneticComputer extends ComputerPlayer {
             int y = 0;
             for (int j = 0; j < gameGuesses.size(); j++) {
                 ControlRow compare = compareGuess(population[i], gameGuesses.get(j));
-                x += Math.abs(compare.getBlacks() - blacks[j]);
-                y += Math.abs(compare.getWhites() - whites[j]);
+                x += Math.abs(compare.getBlacks() - turnBlacks.get(j));
+                y += Math.abs(compare.getWhites() - turnWhites.get(j));
             }
             fitness[i] = (x + y);
         }
@@ -211,10 +193,10 @@ public class GeneticComputer extends ComputerPlayer {
     private boolean addToFeasibleCodes() {
         outer:
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            for (int j = 0; j < currentTurn; j++) {
+            for (int j = 0; j < turnBlacks.size() && j < turnWhites.size(); j++) {
                 ControlRow compare = compareGuess(population[i], gameGuesses.get(j));
 
-                if (compare.getBlacks() != blacks[j] || compare.getWhites() != whites[j]) {
+                if (compare.getBlacks() != turnBlacks.get(j) || compare.getWhites() != turnWhites.get(j)) {
                     continue outer;
                 }
             }
@@ -320,10 +302,8 @@ public class GeneticComputer extends ComputerPlayer {
 
         for (int i = 0; i < (pos2 - pos1) / 2; i++) {
             ColorRow.ColorPeg tmp = new ColorRow.ColorPeg(newPopulation[popPos].get(pos1 + i).getColor());
-            newPopulation[popPos].add(pos1 + i,
-                    newPopulation[popPos].get(pos2 - i));
+            newPopulation[popPos].add(pos1 + i, newPopulation[popPos].get(pos2 - i));
             newPopulation[popPos].remove(pos1 + i + 1);
-            //newPopulation[popPos].remove(pos2 - i);
             newPopulation[popPos].add(pos2 - i, tmp);
             newPopulation[popPos].remove(pos2 - i + 1);
         }

@@ -10,7 +10,7 @@ public class FiveGuessComputer extends ComputerPlayer {
 
     private int totalCombinations;
 
-    private ColorRow guess = new ColorRow();
+    private ColorRow lastGuess;
 
     private ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
     private ArrayList<ColorRow> possibleGuess;
@@ -33,8 +33,7 @@ public class FiveGuessComputer extends ComputerPlayer {
             possibleCombinations.add(combination);
         } else {
             for (int i = 1; i <= colors; ++i) {
-                ColorRow newCombination = new ColorRow();
-                newCombination.addAll(combination);
+                ColorRow newCombination = new ColorRow(combination);
                 newCombination.add(position, new ColorRow.ColorPeg(i));
                 backtracking(position + 1, pegs, colors, newCombination);
             }
@@ -43,14 +42,12 @@ public class FiveGuessComputer extends ComputerPlayer {
     }
 
     private void maxScore(ColorRow nextGuess) {
-        int count = 0;
         ArrayList<ControlScore> allScores = new ArrayList<>();
 
         for (ColorRow combination : possibleCombinations) {
             ControlRow control = compareGuess(combination, nextGuess);
             if (allScores.isEmpty()) {
-                ControlScore controlScore = new ControlScore(control, 1);
-                allScores.add(controlScore);
+                allScores.add(new ControlScore(control, 1));
             } else {
                 boolean exists = false;
                 for (ControlScore a : allScores) {
@@ -61,8 +58,8 @@ public class FiveGuessComputer extends ComputerPlayer {
                     }
                 }
                 if (!exists) {
-                    ControlScore scorecontrol = new ControlScore(control, 1);
-                    allScores.add(scorecontrol);
+                    ControlScore controlScore = new ControlScore(control, 1);
+                    allScores.add(controlScore);
                 }
             }
         }
@@ -76,11 +73,7 @@ public class FiveGuessComputer extends ComputerPlayer {
 
         if (max > maxHit) {
             maxHit = max;
-            maxHitCombination = new ColorRow();
-            maxHitCombination.add(0, nextGuess.get(0));
-            maxHitCombination.add(1, nextGuess.get(1));
-            maxHitCombination.add(2, nextGuess.get(2));
-            maxHitCombination.add(3, nextGuess.get(3));
+            maxHitCombination = new ColorRow(nextGuess);
         }
 
     }
@@ -92,15 +85,12 @@ public class FiveGuessComputer extends ComputerPlayer {
             backtracking(0, pegs, colors, combination);
             possibleGuess = new ArrayList<>(possibleCombinations);
             totalCombinations = possibleCombinations.size();
-            guess.add(new ColorRow.ColorPeg(1));
-            guess.add(new ColorRow.ColorPeg(1));
-            guess.add(new ColorRow.ColorPeg(2));
-            guess.add(new ColorRow.ColorPeg(2));
+            lastGuess = breakerInitialGuess(pegs, colors);
         } else {
             int guessScore = 0;
-            ArrayList<ColorRow> auxiliarcombinations = new ArrayList<>(possibleCombinations);
-            for (ColorRow combination : auxiliarcombinations) {
-                ControlRow control = compareGuess(combination, guess);
+            ArrayList<ColorRow> auxCombinations = new ArrayList<>(possibleCombinations);
+            for (ColorRow combination : auxCombinations) {
+                ControlRow control = compareGuess(combination, lastGuess);
                 if (!control.equals(controlRow)) {
                     possibleCombinations.remove(combination);
                 }
@@ -114,29 +104,40 @@ public class FiveGuessComputer extends ComputerPlayer {
                 int minEliminated = totalCombinations - maxHit;
                 if (guessScore < minEliminated) {
                     guessScore = minEliminated;
-                    guess = new ColorRow();
-                    guess.add(maxHitCombination.get(0));
-                    guess.add(maxHitCombination.get(1));
-                    guess.add(maxHitCombination.get(2));
-                    guess.add(maxHitCombination.get(3));
-                } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(guess)) && possibleCombinations.contains(maxHitCombination)) {
+                    lastGuess = new ColorRow(maxHitCombination);
+                } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(lastGuess)) && possibleCombinations.contains(maxHitCombination)) {
                     guessScore = minEliminated;
-                    guess = new ColorRow();
-                    guess.add(0, maxHitCombination.get(0));
-                    guess.add(1, maxHitCombination.get(1));
-                    guess.add(2, maxHitCombination.get(2));
-                    guess.add(3, maxHitCombination.get(3));
+                    lastGuess = new ColorRow(maxHitCombination);
                 }
             }
         }
 
-        possibleGuess.remove(guess);
-        return guess;
+        possibleGuess.remove(lastGuess);
+        return lastGuess;
     }
 
     @Override
     public void receiveControl(ControlRow control) {
         controlRow = control;
+    }
+
+    private ColorRow breakerInitialGuess(int pegs, int colors) {
+        ColorRow firstAttempt = new ColorRow();
+        if (pegs == 4 && colors >= 3) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+        } else if (pegs == 5 && colors >= 8) {
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(1));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(2));
+            firstAttempt.add(new ColorRow.ColorPeg(3));
+        } else {
+            return randomRow(pegs, colors);
+        }
+        return firstAttempt;
     }
 
     public class ControlScore {
