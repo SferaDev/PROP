@@ -1,7 +1,7 @@
 package domain.model.player.computer;
 
-import domain.model.row.ColorRow;
 import domain.model.player.ComputerPlayer;
+import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
 import java.util.ArrayList;

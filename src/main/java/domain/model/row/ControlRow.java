@@ -23,19 +23,19 @@ public class ControlRow {
         return mBlacks == controlRow.getBlacks() && mWhites == controlRow.getWhites();
     }
 
-    public void setBlacks(int blacks) {
-        mBlacks = blacks;
-    }
-
-    public void setWhites(int whites) {
-        mWhites = whites;
-    }
-
     public int getBlacks() {
         return mBlacks;
     }
 
+    public void setBlacks(int blacks) {
+        mBlacks = blacks;
+    }
+
     public int getWhites() {
         return mWhites;
+    }
+
+    public void setWhites(int whites) {
+        mWhites = whites;
     }
 }

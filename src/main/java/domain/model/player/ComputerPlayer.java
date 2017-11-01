@@ -12,17 +12,6 @@ public abstract class ComputerPlayer extends Player {
         super(role);
     }
 
-    @Override
-    public ControlRow scoreGuess(ColorRow guess) {
-        return ComputerPlayer.compareGuess(makerCorrectGuess, guess);
-    }
-
-    @Override
-    public ColorRow makerGuess(int pegs, int colors) {
-        makerCorrectGuess = randomRow(pegs, colors);
-        return makerCorrectGuess;
-    }
-
     public static ControlRow compareGuess(ColorRow correct, ColorRow guess) {
         int blacks, whites;
         blacks = whites = 0;
@@ -62,5 +51,16 @@ public abstract class ComputerPlayer extends Player {
             row.add(new ColorRow.ColorPeg(rand.nextInt(colors) + 1));
         }
         return row;
+    }
+
+    @Override
+    public ControlRow scoreGuess(ColorRow guess) {
+        return ComputerPlayer.compareGuess(makerCorrectGuess, guess);
+    }
+
+    @Override
+    public ColorRow makerGuess(int pegs, int colors) {
+        makerCorrectGuess = randomRow(pegs, colors);
+        return makerCorrectGuess;
     }
 }
