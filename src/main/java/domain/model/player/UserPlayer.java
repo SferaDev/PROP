@@ -1,9 +1,8 @@
 package domain.model.player;
 
 import domain.controller.MainController;
-import domain.model.Row;
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
+import domain.model.row.ColorRow;
+import domain.model.row.ControlRow;
 
 public class UserPlayer extends Player {
 
@@ -20,23 +19,23 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public Row<ColorPeg> makerGuess(int pegs, int colors) {
+    public ColorRow makerGuess(int pegs, int colors) {
         return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
     }
 
     @Override
-    public Row<ColorPeg> breakerGuess(int pegs, int colors) {
+    public ColorRow breakerGuess(int pegs, int colors) {
         return MainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
     }
 
     @Override
-    public Row<ControlPeg> scoreGuess(Row<ColorPeg> guess) {
+    public ControlRow scoreGuess(ColorRow guess) {
         MainController.getInstance().getGameInterface().outputColorRow(guess);
         return MainController.getInstance().getGameInterface().inputControlRow(guess.size());
     }
 
     @Override
-    public void receiveControl(Row<ControlPeg> control) {
+    public void receiveControl(ControlRow control) {
         MainController.getInstance().getGameInterface().outputControlRow(control);
     }
 }

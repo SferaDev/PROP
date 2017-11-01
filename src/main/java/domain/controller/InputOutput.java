@@ -1,17 +1,16 @@
 package domain.controller;
 
-import domain.model.Row;
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
+import domain.model.row.ColorRow;
+import domain.model.row.ControlRow;
 
 public interface InputOutput {
     // Inputs
-    Row<ControlPeg> inputControlRow(int pegs);
+    ControlRow inputControlRow(int pegs);
 
-    Row<ColorPeg> inputColorRow(int pegs, int colors);
+    ColorRow inputColorRow(int pegs, int colors);
 
     // Outputs
-    void outputControlRow(Row<ControlPeg> row);
+    void outputControlRow(ControlRow row);
 
-    void outputColorRow(Row<ColorPeg> row);
+    void outputColorRow(ColorRow row);
 }

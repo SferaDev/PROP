@@ -1,11 +1,11 @@
 package domain.model;
 
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
 import domain.model.player.computer.GeneticComputer;
+import domain.model.row.ColorRow;
+import domain.model.row.ControlRow;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +19,9 @@ public class Game {
 
     private GameInfo gameInfo;
 
-    private Row<ColorPeg> correctGuess;
-    private ArrayList<Row<ColorPeg>> mGuess = new ArrayList<>();
-    private ArrayList<Row<ControlPeg>> mControl = new ArrayList<>();
+    private ColorRow correctGuess;
+    private ArrayList<ColorRow> mGuess = new ArrayList<>();
+    private ArrayList<ControlRow> mControl = new ArrayList<>();
 
     private int gameTurn = 1;
 
@@ -55,10 +55,10 @@ public class Game {
                     gameStatus = Status.GUESS;
                     break;
                 case GUESS:
-                    Row<ColorPeg> input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
+                    ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
                     mGuess.add(input);
-                    Row<ControlPeg> control = gameMaker.scoreGuess(input);
-                    Row<ControlPeg> correctControl = ComputerPlayer.compareGuess(correctGuess, input);
+                    ControlRow control = gameMaker.scoreGuess(input);
+                    ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, input);
 
                     if (!correctControl.equals(control)) {
                         // TODO: Notify User is a liar
@@ -79,11 +79,11 @@ public class Game {
         }
     }
 
-    public Row<ColorPeg> getColorRow(int turn) {
+    public ColorRow getColorRow(int turn) {
         return mGuess.get(turn - 1);
     }
 
-    public Row<ControlPeg> getControlRow(int turn) {
+    public ControlRow getControlRow(int turn) {
         return mControl.get(turn - 1);
     }
 

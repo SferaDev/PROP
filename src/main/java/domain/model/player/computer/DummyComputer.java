@@ -1,13 +1,10 @@
 package domain.model.player.computer;
 
-import domain.controller.MainController;
-import domain.model.Row;
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
 import domain.model.player.ComputerPlayer;
+import domain.model.row.ColorRow;
+import domain.model.row.ControlRow;
 
 public class DummyComputer extends ComputerPlayer {
-    private Row<ColorPeg> correctMakerGuess;
 
     public DummyComputer(Role role) {
         super(role);
@@ -19,31 +16,12 @@ public class DummyComputer extends ComputerPlayer {
     }
 
     @Override
-    public Row<ColorPeg> makerGuess(int pegs, int colors) {
-        correctMakerGuess = randomRow(pegs, colors);
-        if (MainController.DEBUG) {
-            System.out.println("DummyComputer: Correct guess is:");
-            StringBuilder output = new StringBuilder();
-            for (ColorPeg peg : correctMakerGuess) {
-                output.append(peg.getColor()).append(" ");
-            }
-            System.out.println(output.toString());
-        }
-        return correctMakerGuess;
-    }
-
-    @Override
-    public Row<ColorPeg> breakerGuess(int pegs, int colors) {
+    public ColorRow breakerGuess(int pegs, int colors) {
         return randomRow(pegs, colors);
     }
 
     @Override
-    public Row<ControlPeg> scoreGuess(Row<ColorPeg> guess) {
-        return compareGuess(correctMakerGuess, guess);
-    }
-
-    @Override
-    public void receiveControl(Row<ControlPeg> control) {
+    public void receiveControl(ControlRow control) {
         // I don't care, I love it!
     }
 }

@@ -1,8 +1,7 @@
 package domain.model.player;
 
-import domain.model.Row;
-import domain.model.peg.ColorPeg;
-import domain.model.peg.ControlPeg;
+import domain.model.row.ColorRow;
+import domain.model.row.ControlRow;
 
 public abstract class Player {
     // Role is defined upon creation, only has a getter
@@ -19,13 +18,13 @@ public abstract class Player {
 
     public abstract String getName();
 
-    public abstract Row<ColorPeg> makerGuess(int pegs, int colors);
+    public abstract ColorRow makerGuess(int pegs, int colors);
 
-    public abstract Row<ColorPeg> breakerGuess(int pegs, int colors);
+    public abstract ColorRow breakerGuess(int pegs, int colors);
 
-    public abstract Row<ControlPeg> scoreGuess(Row<ColorPeg> guess);
+    public abstract ControlRow scoreGuess(ColorRow guess);
 
-    public abstract void receiveControl(Row<ControlPeg> control);
+    public abstract void receiveControl(ControlRow control);
 
     public enum Role {
         BREAKER, MAKER
