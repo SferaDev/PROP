@@ -2,8 +2,6 @@ package domain.model;
 
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
-import domain.model.player.computer.DummyComputer;
-import domain.model.player.computer.GeneticComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -11,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Game {
-    private String gameTitle;
-
     private Status gameStatus;
 
     private Player gameMaker, gameBreaker;
@@ -25,23 +21,9 @@ public class Game {
 
     private int gameTurn = 1;
 
-    public Game(Player player, GameInfo info) {
-        String ownerName = player.getName();
-        Player.Role ownerRole = player.getPlayerRole();
-        Date startTime = new Date();
-        gameTitle = ownerName + "-" + ownerRole + "-" + startTime.toString();
-
-        switch (ownerRole) {
-            case BREAKER:
-                gameBreaker = player;
-                gameMaker = new DummyComputer(Player.Role.MAKER);
-                break;
-            case MAKER:
-                gameBreaker = new GeneticComputer(Player.Role.BREAKER, info.mPegs, info.mColors, info.mTurns);
-                gameMaker = player;
-                break;
-        }
-
+    public Game(Player maker, Player breaker, GameInfo info) {
+        gameMaker = maker;
+        gameBreaker = breaker;
         gameInfo = info;
 
         gameStatus = Status.START;
@@ -89,7 +71,7 @@ public class Game {
 
     @Override
     public String toString() {
-        return gameTitle;
+        return gameInfo.mGameTitle;
     }
 
     public enum Status {
@@ -97,9 +79,11 @@ public class Game {
     }
 
     public static class GameInfo {
-        int mPegs, mColors, mTurns;
+        private String mGameTitle;
+        private int mPegs, mColors, mTurns;
 
-        public GameInfo(int pegs, int colors, int turns) {
+        public GameInfo(String name, Player.Role role, int pegs, int colors, int turns) {
+            mGameTitle = name + "-" + role + "-" + new Date().toString();
             mPegs = pegs;
             mColors = colors;
             mTurns = turns;

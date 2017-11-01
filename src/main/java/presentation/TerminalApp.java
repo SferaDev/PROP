@@ -1,6 +1,6 @@
 package presentation;
 
-import domain.controller.MainController;
+import domain.controller.DomainController;
 import presentation.model.TerminalInputOutput;
 import presentation.utils.TerminalUtils;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class TerminalApp {
 
-    private MainController mainController = MainController.getInstance();
+    private DomainController mainController = DomainController.getInstance();
 
     public void startApplication() {
         mainController.setGameInterface(new TerminalInputOutput());
@@ -116,8 +116,9 @@ public class TerminalApp {
         pegs = 4;
         colors = 6;
         turns = 12;
+        String computerName = "FiveGuessComputer";
 
-        mainController.startNewGame(userName, role, pegs, colors, turns);
+        mainController.startNewGame(userName, computerName, role, pegs, colors, turns);
     }
 
     private void continueGame(String userName) {

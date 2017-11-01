@@ -6,13 +6,17 @@ import domain.controller.data.DataController;
 import domain.controller.data.UserDataController;
 import domain.model.Game;
 import domain.model.User;
+import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
+import domain.model.player.computer.DummyComputer;
+import domain.model.player.computer.FiveGuessComputer;
+import domain.model.player.computer.GeneticComputer;
 
-public class MainController {
+public class DomainController {
     public static final boolean DEBUG = true;
 
-    private static MainController mInstance = new MainController();
+    private static DomainController mInstance = new DomainController();
     private static InputOutput mGameInterface;
 
     private DataController gameController = GameDataModel.getInstance();
@@ -20,11 +24,11 @@ public class MainController {
 
     private Game currentGame;
 
-    private MainController() {
+    private DomainController() {
         // Should never be instantiated
     }
 
-    public static MainController getInstance() {
+    public static DomainController getInstance() {
         return mInstance;
     }
 
@@ -52,9 +56,27 @@ public class MainController {
         return userController.exists(userName);
     }
 
-    public void startNewGame(String userName, String role, int pegs, int colors, int turns) {
-        currentGame = new Game(new UserPlayer(userName, Player.Role.valueOf(role)),
-                new Game.GameInfo(pegs, colors, turns));
+    public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
+        Player.Role userRole = Player.Role.valueOf(role);
+        Player.Role computerRole = Player.oppositeRole(userRole);
+
+        // If we could only use Reflection...
+        ComputerPlayer computer;
+        switch (computerName) {
+            case "GeneticComputer":
+                computer = new GeneticComputer(computerRole, pegs, colors, turns);
+                break;
+            case "FiveGuessComputer":
+                computer = new FiveGuessComputer(computerRole);
+                break;
+            case "DummyComputer":
+            default:
+                computer = new DummyComputer(computerRole);
+                break;
+        }
+
+        currentGame = new Game(new UserPlayer(userName, userRole), computer,
+                new Game.GameInfo(userName, userRole, pegs, colors, turns));
         currentGame.startGame();
     }
 

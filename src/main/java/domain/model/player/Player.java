@@ -12,6 +12,11 @@ public abstract class Player {
         playerRole = role;
     }
 
+    public static Role oppositeRole(Role role) {
+        if (role == Role.BREAKER) return Role.MAKER;
+        else return Role.BREAKER;
+    }
+
     public Role getPlayerRole() {
         return playerRole;
     }
@@ -27,6 +32,6 @@ public abstract class Player {
     public abstract void receiveControl(ControlRow control);
 
     public enum Role {
-        BREAKER, MAKER
+        BREAKER, MAKER;
     }
 }
