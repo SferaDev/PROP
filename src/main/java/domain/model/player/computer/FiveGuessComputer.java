@@ -13,7 +13,7 @@ public class FiveGuessComputer extends ComputerPlayer {
     private ColorRow lastGuess;
 
     private ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
-    private ArrayList<ColorRow> possibleGuess;
+    private ArrayList<ColorRow> availableGuess;
 
     private ControlRow controlRow;
     private int maxHit;
@@ -83,7 +83,7 @@ public class FiveGuessComputer extends ComputerPlayer {
         if (possibleCombinations.isEmpty()) {
             ColorRow combination = new ColorRow();
             backtracking(0, pegs, colors, combination);
-            possibleGuess = new ArrayList<>(possibleCombinations);
+            availableGuess = new ArrayList<>(possibleCombinations);
             totalCombinations = possibleCombinations.size();
             lastGuess = breakerInitialGuess(pegs, colors);
         } else {
@@ -98,7 +98,7 @@ public class FiveGuessComputer extends ComputerPlayer {
 
             maxHitCombination = new ColorRow();
 
-            for (ColorRow combination : possibleGuess) {
+            for (ColorRow combination : availableGuess) {
                 maxHit = 0;
                 maxScore(combination);
                 int minEliminated = totalCombinations - maxHit;
@@ -112,7 +112,7 @@ public class FiveGuessComputer extends ComputerPlayer {
             }
         }
 
-        possibleGuess.remove(lastGuess);
+        availableGuess.remove(lastGuess);
         return lastGuess;
     }
 
