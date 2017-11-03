@@ -1,6 +1,7 @@
 package domain.model.player.computer;
 
 import domain.controller.DomainController;
+import domain.controller.InputOutput;
 import domain.model.player.ComputerPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
@@ -30,10 +31,12 @@ public class DummyComputer extends ComputerPlayer {
     @Override
     public ControlRow scoreGuess(ColorRow guess) {
         ControlRow score = super.scoreGuess(guess);
-        if (DomainController.DEBUG) {
-            DomainController.getInstance().getGameInterface().outputColorRow(guess);
-            DomainController.getInstance().getGameInterface().outputControlRow(score);
-            DomainController.getInstance().getGameInterface().outputMessage("");
+        DomainController domainController = DomainController.getInstance();
+        if (domainController.isDebugBuild()) {
+            InputOutput gameInterface = domainController.getGameInterface();
+            gameInterface.outputColorRow(guess);
+            gameInterface.outputControlRow(score);
+            gameInterface.outputMessage("");
         }
         return score;
     }
@@ -41,12 +44,14 @@ public class DummyComputer extends ComputerPlayer {
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
         ColorRow initialGuess = super.makerGuess(pegs, colors);
-        if (DomainController.DEBUG) {
-            DomainController.getInstance().getGameInterface().outputMessage("Pegs: " + pegs);
-            DomainController.getInstance().getGameInterface().outputMessage("Colors: " + colors);
-            DomainController.getInstance().getGameInterface().outputMessage("Correct Guess is:");
-            DomainController.getInstance().getGameInterface().outputColorRow(initialGuess);
-            DomainController.getInstance().getGameInterface().outputMessage("");
+        DomainController domainController = DomainController.getInstance();
+        if (DomainController.getInstance().isDebugBuild()) {
+            InputOutput gameInterface = domainController.getGameInterface();
+            gameInterface.outputMessage("Pegs: " + pegs);
+            gameInterface.outputMessage("Colors: " + colors);
+            gameInterface.outputMessage("Correct Guess is:");
+            gameInterface.outputColorRow(initialGuess);
+            gameInterface.outputMessage("");
         }
         return initialGuess;
     }
