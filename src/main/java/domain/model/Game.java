@@ -74,6 +74,10 @@ public class Game {
         return gameInfo.mGameTitle;
     }
 
+    public String getGameStatus() {
+        return gameStatus.toString();
+    }
+
     public enum Status {
         START, GUESS, CORRECT, FINISHED
     }

@@ -84,4 +84,8 @@ public class DomainController {
     public void setDebugBuild(boolean debug) {
         mDebug = debug;
     }
+
+    public String getGameStatus() {
+        return currentGame.getGameStatus();
+    }
 }
