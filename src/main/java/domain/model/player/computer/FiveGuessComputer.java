@@ -122,18 +122,11 @@ public class FiveGuessComputer extends ComputerPlayer {
     }
 
     private ColorRow breakerInitialGuess(int pegs, int colors) {
-        ColorRow firstAttempt = new ColorRow();
-        if (pegs == 4 && colors >= 3) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-        } else if (pegs == 5 && colors >= 8) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
+        ColorRow firstAttempt;
+        if (pegs == 4 && colors >= 2) {
+            firstAttempt = new ColorRow(1, 1, 2, 2);
+        } else if (pegs == 5 && colors >= 3) {
+            firstAttempt = new ColorRow(1, 1, 2, 2, 3);
         } else {
             return randomRow(pegs, colors);
         }
