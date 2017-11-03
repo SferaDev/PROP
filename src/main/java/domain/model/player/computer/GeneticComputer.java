@@ -64,35 +64,15 @@ public class GeneticComputer extends ComputerPlayer {
     }
 
     private ColorRow breakerInitialGuess(int pegs, int colors) {
-        ColorRow firstAttempt = new ColorRow();
+        ColorRow firstAttempt;
         if (pegs == 4 && colors >= 3) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-        } else if (pegs == 5 && colors >= 8) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-        } else if (pegs == 6 && colors >= 9) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-
-        } else if (pegs == 8 && colors >= 12) {
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(1));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(2));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(3));
-            firstAttempt.add(new ColorRow.ColorPeg(4));
-            firstAttempt.add(new ColorRow.ColorPeg(5));
+            firstAttempt = new ColorRow(1, 1, 2, 3);
+        } else if (pegs == 5 && colors >= 4) {
+            firstAttempt = new ColorRow(1, 1, 2, 3, 4);
+        } else if (pegs == 6 && colors >= 4) {
+            firstAttempt = new ColorRow(1, 1, 2, 2, 3, 4);
+        } else if (pegs == 8 && colors >= 5) {
+            firstAttempt = new ColorRow(1, 1, 2, 2, 3, 3, 4, 5);
         } else {
             return randomRow(pegs, colors);
         }
