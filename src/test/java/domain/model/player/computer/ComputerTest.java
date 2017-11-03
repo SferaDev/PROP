@@ -35,6 +35,7 @@ public class ComputerTest {
     @Before
     public void setUp() throws Exception {
         DomainController.getInstance().setGameInterface(new TerminalInputOutput());
+        DomainController.getInstance().setDebugBuild(true);
     }
 
     @Test

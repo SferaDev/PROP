@@ -12,7 +12,7 @@ import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
 
 public class DomainController {
-    public static final boolean DEBUG = true;
+    private boolean mDebug = false;
 
     private static DomainController mInstance = new DomainController();
     private static InputOutput mGameInterface;
@@ -75,5 +75,13 @@ public class DomainController {
 
     public void saveCurrentGame() {
         gameController.insert(currentGame);
+    }
+
+    public boolean isDebugBuild() {
+        return mDebug;
+    }
+
+    public void setDebugBuild(boolean debug) {
+        mDebug = debug;
     }
 }
