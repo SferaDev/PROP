@@ -2,6 +2,7 @@ package domain.model;
 
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
+import domain.model.player.UserPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -43,7 +44,7 @@ public class Game {
                     ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, input);
 
                     if (!correctControl.equals(control)) {
-                        // TODO: Notify User is a liar
+                        gameMaker.notifyInvalidInput();
                     }
 
                     gameBreaker.receiveControl(correctControl);

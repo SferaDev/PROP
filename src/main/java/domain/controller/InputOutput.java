@@ -15,4 +15,6 @@ public interface InputOutput {
     void outputColorRow(ColorRow row);
 
     void outputMessage(String message);
+
+    void notifyInvalidInput();
 }

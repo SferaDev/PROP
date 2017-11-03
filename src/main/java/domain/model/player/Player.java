@@ -31,6 +31,10 @@ public abstract class Player {
 
     public abstract void receiveControl(ControlRow control);
 
+    public void notifyInvalidInput() {
+        // Should never happen unless UserPlayer
+    }
+
     public enum Role {
         BREAKER, MAKER;
     }

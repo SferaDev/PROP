@@ -47,4 +47,9 @@ public class TerminalInputOutput implements InputOutput {
     public void outputMessage(String message) {
         TerminalUtils.println(message);
     }
+
+    @Override
+    public void notifyInvalidInput() {
+        TerminalUtils.println("Això és mentida! Tranqui tots ho fem :)");
+    }
 }

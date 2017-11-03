@@ -38,4 +38,9 @@ public class UserPlayer extends Player {
     public void receiveControl(ControlRow control) {
         DomainController.getInstance().getGameInterface().outputControlRow(control);
     }
+
+    @Override
+    public void notifyInvalidInput() {
+        DomainController.getInstance().getGameInterface().notifyInvalidInput();
+    }
 }

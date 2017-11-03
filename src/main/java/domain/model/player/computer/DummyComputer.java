@@ -29,6 +29,11 @@ public class DummyComputer extends ComputerPlayer {
     }
 
     @Override
+    public void notifyInvalidInput() {
+        // Should never happen
+    }
+
+    @Override
     public ControlRow scoreGuess(ColorRow guess) {
         ControlRow score = super.scoreGuess(guess);
         DomainController domainController = DomainController.getInstance();
@@ -43,16 +48,27 @@ public class DummyComputer extends ComputerPlayer {
 
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
-        ColorRow initialGuess = super.makerGuess(pegs, colors);
+        ColorRow correctGuess = super.makerGuess(pegs, colors);
         DomainController domainController = DomainController.getInstance();
         if (DomainController.getInstance().isDebugBuild()) {
             InputOutput gameInterface = domainController.getGameInterface();
             gameInterface.outputMessage("Pegs: " + pegs);
             gameInterface.outputMessage("Colors: " + colors);
             gameInterface.outputMessage("Correct Guess is:");
-            gameInterface.outputColorRow(initialGuess);
+            gameInterface.outputColorRow(correctGuess);
             gameInterface.outputMessage("");
         }
-        return initialGuess;
+        return correctGuess;
+    }
+
+    // TODO: Check if it works
+    public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
+        ColorRow helpAttempt;
+        ControlRow controlRow;
+        do {
+            helpAttempt = randomRow(pegs, colors);
+            controlRow = scoreGuess(helpAttempt);
+        } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
+        return helpAttempt;
     }
 }
