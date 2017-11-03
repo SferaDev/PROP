@@ -11,6 +11,12 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> {
         super(size);
     }
 
+    public ColorRow(int... values) {
+        for (int i : values) {
+            add(new ColorPeg(i));
+        }
+    }
+
     public ColorRow(ColorRow original) {
         super(original);
     }
