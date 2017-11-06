@@ -5,6 +5,8 @@ import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FiveGuessComputer extends ComputerPlayer {
 
@@ -42,32 +44,31 @@ public class FiveGuessComputer extends ComputerPlayer {
     }
 
     private void maxScore(ColorRow nextGuess) {
-        ArrayList<ControlScore> allScores = new ArrayList<>();
+        Map<ControlRow, Integer> allScores = new HashMap<>();
 
         for (ColorRow combination : possibleCombinations) {
             ControlRow control = compareGuess(combination, nextGuess);
             if (allScores.isEmpty()) {
-                allScores.add(new ControlScore(control, 1));
+                allScores.put(control, 1);
             } else {
                 boolean exists = false;
-                for (ControlScore a : allScores) {
-                    if (a.getControlRow().equals(control)) {
-                        a.setScore(a.getScore() + 1);
+                for (Map.Entry<ControlRow, Integer> a : allScores.entrySet()) {
+                    if (a.getKey().equals(control)) {
+                        a.setValue(a.getValue() + 1);
                         exists = true;
                         break;
                     }
                 }
                 if (!exists) {
-                    ControlScore controlScore = new ControlScore(control, 1);
-                    allScores.add(controlScore);
+                    allScores.put(control, 1);
                 }
             }
         }
 
         int max = 0;
-        for (ControlScore a : allScores) {
-            if (a.getScore() > max) {
-                max = a.getScore();
+        for (Map.Entry<ControlRow, Integer> a : allScores.entrySet()) {
+            if (a.getValue() > max) {
+                max = a.getValue();
             }
         }
 
@@ -132,27 +133,5 @@ public class FiveGuessComputer extends ComputerPlayer {
             return randomRow(pegs, colors);
         }
         return firstAttempt;
-    }
-
-    public class ControlScore {
-        private ControlRow mControlRow;
-        private int mScore;
-
-        ControlScore(ControlRow control, int score) {
-            mControlRow = new ControlRow(control.getBlacks(), control.getWhites());
-            mScore = score;
-        }
-
-        ControlRow getControlRow() {
-            return mControlRow;
-        }
-
-        int getScore() {
-            return mScore;
-        }
-
-        void setScore(int score) {
-            mScore = score;
-        }
     }
 }
