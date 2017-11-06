@@ -22,9 +22,24 @@ public class Game {
 
     private int gameTurn = 1;
 
-    public Game(Player maker, Player breaker, GameInfo info) {
-        gameMaker = maker;
-        gameBreaker = breaker;
+    public Game(Player user1, Player user2, GameInfo info) {
+        switch (user1.getPlayerRole()) {
+            case MAKER:
+                if (user2.getPlayerRole() == Player.Role.MAKER) {
+                    // TODO: Throw exception
+                }
+                gameMaker = user1;
+                gameBreaker = user2;
+                break;
+            case BREAKER:
+                if (user2.getPlayerRole() == Player.Role.BREAKER) {
+                    // TODO: Throw exception
+                }
+                gameBreaker = user1;
+                gameMaker = user2;
+                break;
+        }
+
         gameInfo = info;
 
         gameStatus = Status.START;

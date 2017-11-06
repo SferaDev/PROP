@@ -56,7 +56,7 @@ public abstract class ComputerPlayer extends Player {
         return row;
     }
 
-    public static ComputerPlayer computerByName(String computerName, Role computerRole) {
+    public static ComputerPlayer newComputerByName(String computerName, Role computerRole) {
         // If we could only use Reflection...
         switch (computerName) {
             case "GeneticComputer":

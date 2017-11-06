@@ -58,7 +58,7 @@ public class DomainController {
         Player.Role userRole = Player.Role.valueOf(role);
 
         Player.Role computerRole = Player.oppositeRole(userRole);
-        ComputerPlayer computer = ComputerPlayer.computerByName(computerName, computerRole);
+        ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, computerRole);
 
         currentGame = new Game(new UserPlayer(userName, userRole), computer,
                 new Game.GameInfo(userName, userRole, pegs, colors, turns));
@@ -66,7 +66,7 @@ public class DomainController {
     }
 
     public void startNewGame(String computerName, int pegs, int colors, int turns) {
-        ComputerPlayer computer = ComputerPlayer.computerByName(computerName, Player.Role.BREAKER);
+        ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.BREAKER);
 
         currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
                 new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
