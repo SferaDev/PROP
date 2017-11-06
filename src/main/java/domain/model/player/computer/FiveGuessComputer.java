@@ -11,11 +11,11 @@ public class FiveGuessComputer extends ComputerPlayer {
     private int totalCombinations;
 
     private ColorRow lastGuess;
+    private ControlRow currentControl;
 
     private ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
-    private ArrayList<ColorRow> availableGuess;
+    private ArrayList<ColorRow> availableGuesses;
 
-    private ControlRow controlRow;
     private int maxHit;
     private ColorRow maxHitCombination;
 
@@ -83,7 +83,7 @@ public class FiveGuessComputer extends ComputerPlayer {
         if (possibleCombinations.isEmpty()) {
             ColorRow combination = new ColorRow();
             backtracking(0, pegs, colors, combination);
-            availableGuess = new ArrayList<>(possibleCombinations);
+            availableGuesses = new ArrayList<>(possibleCombinations);
             totalCombinations = possibleCombinations.size();
             lastGuess = breakerInitialGuess(pegs, colors);
         } else {
@@ -91,34 +91,35 @@ public class FiveGuessComputer extends ComputerPlayer {
             ArrayList<ColorRow> auxCombinations = new ArrayList<>(possibleCombinations);
             for (ColorRow combination : auxCombinations) {
                 ControlRow control = compareGuess(combination, lastGuess);
-                if (!control.equals(controlRow)) {
+                if (!control.equals(currentControl)) {
                     possibleCombinations.remove(combination);
                 }
             }
 
             maxHitCombination = new ColorRow();
 
-            for (ColorRow combination : availableGuess) {
+            for (ColorRow combination : availableGuesses) {
                 maxHit = 0;
                 maxScore(combination);
                 int minEliminated = totalCombinations - maxHit;
                 if (guessScore < minEliminated) {
                     guessScore = minEliminated;
                     lastGuess = new ColorRow(maxHitCombination);
-                } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(lastGuess)) && possibleCombinations.contains(maxHitCombination)) {
+                } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(lastGuess))
+                        && possibleCombinations.contains(maxHitCombination)) {
                     guessScore = minEliminated;
                     lastGuess = new ColorRow(maxHitCombination);
                 }
             }
         }
 
-        availableGuess.remove(lastGuess);
+        availableGuesses.remove(lastGuess);
         return lastGuess;
     }
 
     @Override
     public void receiveControl(ControlRow control) {
-        controlRow = control;
+        currentControl = control;
     }
 
     private ColorRow breakerInitialGuess(int pegs, int colors) {
