@@ -14,8 +14,8 @@ public class GeneticComputer extends ComputerPlayer {
     private ArrayList<Integer> turnBlacks = new ArrayList<>();
     private ArrayList<Integer> turnWhites = new ArrayList<>();
 
-    private ColorRow[] population = new ColorRow[POPULATION_SIZE];
-    private int[] fitness = new int[POPULATION_SIZE];
+    private ArrayList<ColorRow> population = new ArrayList<>(POPULATION_SIZE);
+    private ArrayList<Integer> fitness = new ArrayList<>(POPULATION_SIZE);
 
     private ArrayList<ColorRow> feasibleCodes = new ArrayList<>();
     private ArrayList<ColorRow> gameGuesses = new ArrayList<>();
@@ -81,8 +81,11 @@ public class GeneticComputer extends ComputerPlayer {
 
     private void initPopulation(int pegs, int colors) {
         feasibleCodes.clear();
+        population.clear();
+        fitness.clear();
         for (int i = 0; i < POPULATION_SIZE; ++i) {
-            population[i] = randomRow(pegs, colors);
+            population.add(i, randomRow(pegs, colors));
+            fitness.add(i, 0);
         }
     }
 
@@ -91,20 +94,20 @@ public class GeneticComputer extends ComputerPlayer {
             int x = 0;
             int y = 0;
             for (int j = 0; j < gameGuesses.size(); j++) {
-                ControlRow compare = compareGuess(population[i], gameGuesses.get(j));
+                ControlRow compare = compareGuess(population.get(i), gameGuesses.get(j));
                 x += Math.abs(compare.getBlacks() - turnBlacks.get(j));
                 y += Math.abs(compare.getWhites() - turnWhites.get(j));
             }
-            fitness[i] = (x + y);
+            fitness.set(i, x + y);
         }
 
     }
 
-    private void sortFeasibleByFitness(int[] fitness, ColorRow[] pop) {
-        sort(fitness, pop, 0, fitness.length - 1);
+    private void sortFeasibleByFitness(ArrayList<Integer> fitness, ArrayList<ColorRow> pop) {
+        sort(fitness, pop, 0, fitness.size() - 1);
     }
 
-    private void sort(int[] fitness, ColorRow[] pop, int low, int up) {
+    private void sort(ArrayList<Integer> fitness, ArrayList<ColorRow> pop, int low, int up) {
         int p = (low + up) / 2;
         if (up > low) {
             int pn = divide(fitness, pop, low, up, p);
@@ -113,45 +116,44 @@ public class GeneticComputer extends ComputerPlayer {
         }
     }
 
-    private int divide(int[] fitness, ColorRow[] pop, int low, int up, int pivot) {
+    private int divide(ArrayList<Integer> fitness, ArrayList<ColorRow> pop, int low, int up, int pivot) {
         int pn = low;
-        int pv = fitness[pivot];
-        swap(fitness, pivot, up);
-        swap(pop, pivot, up);
+        int pv = fitness.get(pivot);
+        swapInteger(fitness, pivot, up);
+        swapColorRow(pop, pivot, up);
         for (int i = low; i < up; i++) {
-            if (fitness[i] <= pv) {
-                swap(fitness, pn, i);
-                swap(pop, pn++, i);
+            if (fitness.get(i) <= pv) {
+                swapInteger(fitness, pn, i);
+                swapColorRow(pop, pn++, i);
             }
-            swap(fitness, up, pn);
-            swap(pop, up, pn);
+            swapInteger(fitness, up, pn);
+            swapColorRow(pop, up, pn);
         }
         return pn;
     }
 
-    private void swap(int[] fitness, int a, int b) {
-        int tmp = fitness[a];
-        fitness[a] = fitness[b];
-        fitness[b] = tmp;
+    private void swapInteger(ArrayList<Integer> fitness, int a, int b) {
+        int tmp = fitness.get(a);
+        fitness.set(a, fitness.get(b));
+        fitness.set(b, tmp);
     }
 
-    private void swap(ColorRow[] pop, int a, int b) {
-        ColorRow tmp = pop[a];
-        pop[a] = pop[b];
-        pop[b] = tmp;
+    private void swapColorRow(ArrayList<ColorRow> pop, int a, int b) {
+        ColorRow tmp = pop.get(a);
+        pop.set(a, pop.get(b));
+        pop.set(b, tmp );
     }
 
     private void evolvePopulation(int pegs, int colors) {/**/
-
-        ColorRow[] newPopulation = new ColorRow[POPULATION_SIZE];
+        ArrayList<ColorRow> newPopulation = new ArrayList<>(POPULATION_SIZE);
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            newPopulation[i] = new ColorRow();
+            newPopulation.add(i, new ColorRow());
         }
         for (int i = 0; i < POPULATION_SIZE; i += 2) {
             if ((int) (Math.random() * 2) == 0) {
-                xOver1(newPopulation, i, i + 1, pegs);
+                crossover1Point(newPopulation, i, i + 1, pegs);
             } else {
-                xOver2(newPopulation, i, i + 1, pegs);
+                crossover2Points(newPopulation, i, i + 1, pegs);
             }
         }
 
@@ -174,7 +176,7 @@ public class GeneticComputer extends ComputerPlayer {
         outer:
         for (int i = 0; i < POPULATION_SIZE; i++) {
             for (int j = 0; j < turnBlacks.size() && j < turnWhites.size(); j++) {
-                ControlRow compare = compareGuess(population[i], gameGuesses.get(j));
+                ControlRow compare = compareGuess(population.get(i), gameGuesses.get(j));
 
                 if (compare.getBlacks() != turnBlacks.get(j) || compare.getWhites() != turnWhites.get(j)) {
                     continue outer;
@@ -182,8 +184,8 @@ public class GeneticComputer extends ComputerPlayer {
             }
 
             if (feasibleCodes.size() < FEASIBLE_CODES_MAX) {
-                if (!feasibleCodes.contains(population[i])) {
-                    feasibleCodes.add(population[i]);
+                if (!feasibleCodes.contains(population.get(i))) {
+                    feasibleCodes.add(population.get(i));
                     if (feasibleCodes.size() < FEASIBLE_CODES_MAX) {
                         return false;
                     }
@@ -196,23 +198,23 @@ public class GeneticComputer extends ComputerPlayer {
         return true;
     }
 
-    private void xOver1(ColorRow[] newPopulation, int child1Pos, int child2Pos, int pegs) {
+    private void crossover1Point(ArrayList<ColorRow> newPopulation, int child1Pos, int child2Pos, int pegs) {
         int mother = getParentPos();
         int father = getParentPos();
         int sep = ((int) (Math.random() * pegs)) + 1;
 
         for (int j = 0; j < pegs; j++) {
             if (j <= sep) {
-                newPopulation[child1Pos].add(j, population[mother].get(j));
-                newPopulation[child2Pos].add(j, population[father].get(j));
+                newPopulation.get(child1Pos).add(j, population.get(mother).get(j));
+                newPopulation.get(child2Pos).add(j, population.get(father).get(j));
             } else {
-                newPopulation[child1Pos].add(j, population[father].get(j));
-                newPopulation[child2Pos].add(j, population[mother].get(j));
+                newPopulation.get(child1Pos).add(j, population.get(father).get(j));
+                newPopulation.get(child2Pos).add(j, population.get(mother).get(j));
             }
         }
     }
 
-    private void xOver2(ColorRow[] newPopulation, int child1Pos, int child2Pos, int pegs) {
+    private void crossover2Points(ArrayList<ColorRow> newPopulation, int child1Pos, int child2Pos, int pegs) {
         int mother = getParentPos();
         int father = getParentPos();
         int sep1;
@@ -229,11 +231,12 @@ public class GeneticComputer extends ComputerPlayer {
 
         for (int i = 0; i < pegs; i++) {
             if (i <= sep1 || i > sep2) {
-                newPopulation[child1Pos].add(i, population[mother].get(i));
-                newPopulation[child2Pos].add(i, population[father].get(i));
+                newPopulation.get(child1Pos).add(i, population.get(mother).get(i));
+                newPopulation.get(child2Pos).add(i, population.get(father).get(i));
+
             } else {
-                newPopulation[child1Pos].add(i, population[father].get(i));
-                newPopulation[child2Pos].add(i, population[mother].get(i));
+                newPopulation.get(child1Pos).add(i, population.get(father).get(i));
+                newPopulation.get(child2Pos).add(i, population.get(mother).get(i));
             }
         }
 
@@ -249,28 +252,28 @@ public class GeneticComputer extends ComputerPlayer {
         return parentPos;
     }
 
-    private void mutation(ColorRow[] newPopulation, int popPos, int pegs, int colors) {
+    private void mutation(ArrayList<ColorRow> newPopulation, int popPos, int pegs, int colors) {
         int pos = (int) (Math.random() * pegs);
-        newPopulation[popPos].remove(pos);
-        newPopulation[popPos].add(pos, new ColorRow.ColorPeg((int) (Math.random() * colors)));
+        newPopulation.get(popPos).remove(pos);
+        newPopulation.get(popPos).add(pos, new ColorRow.ColorPeg((int) (Math.random() * colors)));
     }
 
-    private void permutation(ColorRow[] newPopulation, int popPos, int pegs) {
+    private void permutation(ArrayList<ColorRow> newPopulation, int popPos, int pegs) {
         int pos1 = (int) (Math.random() * pegs);
         int pos2 = (int) (Math.random() * pegs);
-        ColorRow.ColorPeg tmp = new ColorRow.ColorPeg(newPopulation[popPos].get(pos1).getColor());
+        ColorRow.ColorPeg tmp = new ColorRow.ColorPeg(newPopulation.get(popPos).get(pos1).getColor());
         ColorRow tempRow = new ColorRow();
         for (int aux = 0; aux < pegs; ++aux) {
-            tempRow.add(new ColorRow.ColorPeg(newPopulation[popPos].get(aux).getColor()));
+            tempRow.add(new ColorRow.ColorPeg(newPopulation.get(popPos).get(aux).getColor()));
         }
-        newPopulation[popPos].remove(pos1);
-        newPopulation[popPos].add(pos1,
+        newPopulation.get(popPos).remove(pos1);
+        newPopulation.get(popPos).add(pos1,
                 tempRow.get(pos2));
-        newPopulation[popPos].remove(pos2);
-        newPopulation[popPos].add(pos2, tmp);
+        newPopulation.get(popPos).remove(pos2);
+        newPopulation.get(popPos).add(pos2, tmp);
     }
 
-    private void inversion(ColorRow[] newPopulation, int popPos, int pegs) {
+    private void inversion(ArrayList<ColorRow> newPopulation, int popPos, int pegs) {
         int pos1 = (int) (Math.random() * pegs);
         int pos2 = (int) (Math.random() * pegs);
 
@@ -281,25 +284,25 @@ public class GeneticComputer extends ComputerPlayer {
         }
 
         for (int i = 0; i < (pos2 - pos1) / 2; i++) {
-            ColorRow.ColorPeg tmp = new ColorRow.ColorPeg(newPopulation[popPos].get(pos1 + i).getColor());
-            newPopulation[popPos].add(pos1 + i, newPopulation[popPos].get(pos2 - i));
-            newPopulation[popPos].remove(pos1 + i + 1);
-            newPopulation[popPos].add(pos2 - i, tmp);
-            newPopulation[popPos].remove(pos2 - i + 1);
+            ColorRow.ColorPeg tmp = new ColorRow.ColorPeg(newPopulation.get(popPos).get(pos1 + i).getColor());
+            newPopulation.get(popPos).add(pos1 + i, newPopulation.get(popPos).get(pos2 - i));
+            newPopulation.get(popPos).remove(pos1 + i + 1);
+            newPopulation.get(popPos).add(pos2 - i, tmp);
+            newPopulation.get(popPos).remove(pos2 - i + 1);
         }
     }
 
-    private void doubleToRnd(ColorRow[] newPopulation, int pegs, int colors) {
+    private void doubleToRnd(ArrayList<ColorRow> newPopulation, int pegs, int colors) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             if (lookForSame(newPopulation, i)) {
-                newPopulation[i] = randomRow(pegs, colors);
+                newPopulation.set(i, randomRow(pegs, colors));
             }
         }
     }
 
-    private boolean lookForSame(ColorRow[] newPopulation, int popPos) {
+    private boolean lookForSame(ArrayList<ColorRow> newPopulation, int popPos) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            if (population[popPos].equals(newPopulation[popPos])) {
+            if (population.get(popPos).equals(newPopulation.get(popPos))) {
                 return true;
             }
         }
