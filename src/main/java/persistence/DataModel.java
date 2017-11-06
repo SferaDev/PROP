@@ -17,7 +17,7 @@ public abstract class DataModel<E> implements DataController<E> {
 
     private Gson gson = new Gson();
 
-    DataModel(String path) {
+    public DataModel(String path) {
         mPath = path;
 
         ArrayList<String> files = FileUtils.listFiles(mPath);
