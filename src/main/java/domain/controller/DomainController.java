@@ -1,7 +1,7 @@
 package domain.controller;
 
-import data.GameDataModel;
-import data.UserDataModel;
+import persistence.GameDataModel;
+import persistence.UserDataModel;
 import domain.controller.data.DataController;
 import domain.controller.data.UserDataController;
 import domain.model.Game;

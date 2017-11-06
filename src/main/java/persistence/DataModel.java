@@ -1,7 +1,7 @@
-package data;
+package persistence;
 
 import com.google.gson.Gson;
-import data.utils.FileUtils;
+import persistence.utils.FileUtils;
 import domain.controller.data.DataController;
 
 import java.io.FileNotFoundException;

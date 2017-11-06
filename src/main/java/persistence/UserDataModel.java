@@ -1,4 +1,4 @@
-package data;
+package persistence;
 
 import domain.controller.data.UserDataController;
 import domain.model.User;

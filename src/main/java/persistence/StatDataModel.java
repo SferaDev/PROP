@@ -1,4 +1,4 @@
-package data;
+package persistence;
 
 import domain.model.Stat;
 
