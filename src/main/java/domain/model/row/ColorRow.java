@@ -21,6 +21,15 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> {
         super(original);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        for (ColorPeg peg : this) {
+            output.append(peg.getColor()).append(" ");
+        }
+        return output.toString();
+    }
+
     public static class ColorPeg {
         private int mColor;
 

@@ -1,8 +1,6 @@
 package presentation.model;
 
 import domain.controller.InputOutput;
-import domain.model.row.ColorRow;
-import domain.model.row.ControlRow;
 import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
@@ -11,36 +9,40 @@ import java.util.Scanner;
 
 public class TerminalInputOutput implements InputOutput {
     @Override
-    public ControlRow inputControlRow(int pegs) {
-        TerminalUtils.println("Introdueixi el numero de Negres i Blanques [3 1]");
+    public int inputControlBlacks(int pegs) {
+        TerminalUtils.println("Introdueixi el numero de Negres");
         Scanner scanner = new Scanner(System.in);
 
-        return new ControlRow(scanner.nextInt(), scanner.nextInt());
+        return scanner.nextInt();
     }
 
     @Override
-    public ColorRow inputColorRow(int pegs, int colors) {
-        ColorRow result = new ColorRow();
+    public int inputControlWhites(int pegs) {
+        TerminalUtils.println("Introdueixi el numero de Blanques");
+        Scanner scanner = new Scanner(System.in);
+
+        return scanner.nextInt();
+    }
+
+    @Override
+    public int[] inputColorRow(int pegs, int colors) {
+        int[] result = new int[pegs];
         TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
         Scanner scanner = new Scanner(System.in);
-        while (result.size() < pegs) {
-            result.add(new ColorRow.ColorPeg(scanner.nextInt()));
+        for (int i = 0; i < pegs; ++i) {
+            result[i] = scanner.nextInt();
         }
         return result;
     }
 
     @Override
-    public void outputControlRow(ControlRow row) {
-        TerminalUtils.println("Blacks: " + row.getBlacks() + " | Whites: " + row.getWhites());
+    public void outputControlRow(int blacks, int whites) {
+        TerminalUtils.println("Blacks: " + blacks + " | Whites: " + whites);
     }
 
     @Override
-    public void outputColorRow(ColorRow row) {
-        StringBuilder output = new StringBuilder();
-        for (ColorRow.ColorPeg peg : row) {
-            output.append(peg.getColor()).append(" ");
-        }
-        TerminalUtils.println(output.toString());
+    public void outputColorRow(String row) {
+        TerminalUtils.println(row);
     }
 
     @Override

@@ -20,23 +20,25 @@ public class UserPlayer extends Player {
 
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
-        return DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
+        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
     public ColorRow breakerGuess(int pegs, int colors) {
-        return DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
+        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
     public ControlRow scoreGuess(ColorRow guess) {
-        DomainController.getInstance().getGameInterface().outputColorRow(guess);
-        return DomainController.getInstance().getGameInterface().inputControlRow(guess.size());
+        DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
+        int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks(guess.size());
+        int whites = DomainController.getInstance().getGameInterface().inputControlWhites(guess.size());
+        return new ControlRow(blacks, whites);
     }
 
     @Override
     public void receiveControl(ControlRow control) {
-        DomainController.getInstance().getGameInterface().outputControlRow(control);
+        DomainController.getInstance().getGameInterface().outputControlRow(control.getBlacks(), control.getWhites());
     }
 
     @Override

@@ -39,8 +39,8 @@ public class DummyComputer extends ComputerPlayer {
         DomainController domainController = DomainController.getInstance();
         if (domainController.isDebugBuild()) {
             InputOutput gameInterface = domainController.getGameInterface();
-            gameInterface.outputColorRow(guess);
-            gameInterface.outputControlRow(score);
+            gameInterface.outputColorRow(guess.toString());
+            gameInterface.outputControlRow(score.getBlacks(), score.getWhites());
             gameInterface.outputMessage("");
         }
         return score;
@@ -55,7 +55,7 @@ public class DummyComputer extends ComputerPlayer {
             gameInterface.outputMessage("Pegs: " + pegs);
             gameInterface.outputMessage("Colors: " + colors);
             gameInterface.outputMessage("Correct Guess is:");
-            gameInterface.outputColorRow(correctGuess);
+            gameInterface.outputColorRow(correctGuess.toString());
             gameInterface.outputMessage("");
         }
         return correctGuess;

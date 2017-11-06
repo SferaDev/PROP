@@ -1,18 +1,16 @@
 package domain.controller;
 
-import domain.model.row.ColorRow;
-import domain.model.row.ControlRow;
-
 public interface InputOutput {
     // Inputs
-    ControlRow inputControlRow(int pegs);
+    int inputControlBlacks(int pegs);
+    int inputControlWhites(int pegs);
 
-    ColorRow inputColorRow(int pegs, int colors);
+    int[] inputColorRow(int pegs, int colors);
 
     // Outputs
-    void outputControlRow(ControlRow row);
+    void outputControlRow(int blacks, int whites);
 
-    void outputColorRow(ColorRow row);
+    void outputColorRow(String row);
 
     void outputMessage(String message);
 
