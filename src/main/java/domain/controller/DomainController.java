@@ -1,6 +1,8 @@
 package domain.controller;
 
+import domain.controller.data.StatDataController;
 import persistence.model.GameDataModel;
+import persistence.model.StatDataModel;
 import persistence.model.UserDataModel;
 import domain.controller.data.DataController;
 import domain.controller.data.UserDataController;
@@ -19,6 +21,7 @@ public class DomainController {
 
     private DataController gameController = GameDataModel.getInstance();
     private UserDataController userController = UserDataModel.getInstance();
+    private StatDataController statController = StatDataModel.getInstance();
 
     private Game currentGame;
 
@@ -43,6 +46,10 @@ public class DomainController {
         if (userController.exists(username)) return false;
         userController.insert(new User(username, password));
         return true;
+    }
+
+    public String showRanking(){
+        return statController.Ranking();
     }
 
     public boolean loginUser(String userName, String password) {

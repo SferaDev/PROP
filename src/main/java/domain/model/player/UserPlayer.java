@@ -45,4 +45,9 @@ public class UserPlayer extends Player {
     public void notifyInvalidInput() {
         DomainController.getInstance().getGameInterface().notifyInvalidInput();
     }
+
+    @Override
+    public void notifyScore(int score) {
+        DomainController.getInstance().getGameInterface().notifyScore(score);
+    }
 }

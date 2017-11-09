@@ -15,4 +15,7 @@ public interface InputOutput {
     void outputMessage(String message);
 
     void notifyInvalidInput();
+
+    void notifyScore(int score);
+
 }
