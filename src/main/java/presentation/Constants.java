@@ -39,5 +39,17 @@ public class Constants {
     static final String NEW_MAKER_GAME_TITLE = "Maker";
     static final String NEW_BACK_TITLE = MAIN_EXIT_TITLE;
 
+    static final int NEW_FIVEGUESS_GAME = 1;
+    static final int NEW_GENETIC_GAME = 2;
+    static final int NEW_DUMMY_GAME = 3;
+    static final int NEW_BACK_ALGORITHM = 4;
+
+    static final String NEW_FIVEGUESS_GAME_TITLE = "FiveGuessComputer";
+    static final String NEW_GENETIC_GAME_TITLE = "GeneticComputer";
+    static final String NEW_DUMMY_GAME_TITLE = "DummyComputer";
+    static final String NEW_BACK_ALGORITHM_TITLE = MAIN_EXIT_TITLE;
+
     static final String ERROR_USER_NOT_FOUND = "Usuari no registrat";
+
+
 }

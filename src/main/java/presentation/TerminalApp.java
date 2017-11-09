@@ -65,6 +65,7 @@ public class TerminalApp {
 
             switch (scanner.nextInt()) {
                 case Constants.PLAY_NEW_GAME:
+                    showNewGameMenu(userName);
                     newGame(userName);
                     break;
                 case Constants.PLAY_PREV_GAME:
@@ -83,6 +84,10 @@ public class TerminalApp {
                     break;
             }
         } while (true);
+    }
+
+    private void showNewGameMenu(String userName) {
+
     }
 
     private void newGame(String userName) {
@@ -112,11 +117,43 @@ public class TerminalApp {
         } while (role == null);
 
         int pegs, colors, turns;
+
+        TerminalUtils.println("Introdueixi el nombre de fitxes d'una combinació");
+        pegs = scanner.nextInt();
+        TerminalUtils.println("Introdueixi el nombre de colors possibles");
+        colors = scanner.nextInt();
+
+        String computerName = null;
+        if (role == "MAKER") {
+            do {
+                TerminalUtils.println(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
+                        Constants.NEW_GENETIC_GAME + ". " + Constants.NEW_GENETIC_GAME_TITLE + "\n" +
+                        Constants.NEW_DUMMY_GAME + ". " + Constants.NEW_DUMMY_GAME_TITLE + "\n" +
+                        Constants.NEW_BACK_ALGORITHM + ". " + Constants.NEW_BACK_ALGORITHM_TITLE);
+
+                switch (scanner.nextInt()) {
+                    case Constants.NEW_FIVEGUESS_GAME:
+                        computerName = "FiveGuessComputer";
+                        break;
+                    case Constants.NEW_GENETIC_GAME:
+                        computerName = "GeneticComputer";
+                        break;
+                    case Constants.NEW_DUMMY_GAME:
+                        computerName = "DummyComputer";
+                        break;
+                    case Constants.NEW_BACK_ALGORITHM:
+                        return;
+                    default:
+                        TerminalUtils.errorln("Introdueixi una opció de la llista");
+                        break;
+                }
+            } while (computerName == null);
+        }
+
         // TODO
-        pegs = 4;
-        colors = 6;
+
         turns = 12;
-        String computerName = "FiveGuessComputer";
+
 
         mainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, turns);
     }
