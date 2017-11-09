@@ -7,10 +7,11 @@ import domain.model.row.ControlRow;
 import java.util.ArrayList;
 
 public class GeneticComputer extends ComputerPlayer {
-    private static final int POPULATION_SIZE = 1296;
+    private static final int POPULATION_SIZE = 2000;
     private static final int GENERATION_SIZE = 500;
     private static final int FEASIBLE_CODES_MAX = 1;
 
+    private ArrayList<ColorRow> gameGuesses = new ArrayList<>();
     private ArrayList<Integer> turnBlacks = new ArrayList<>();
     private ArrayList<Integer> turnWhites = new ArrayList<>();
 
@@ -18,12 +19,20 @@ public class GeneticComputer extends ComputerPlayer {
     private ArrayList<Integer> fitness = new ArrayList<>(POPULATION_SIZE);
 
     private ArrayList<ColorRow> feasibleCodes = new ArrayList<>();
-    private ArrayList<ColorRow> gameGuesses = new ArrayList<>();
+
 
     private int parentPos = 0;
 
     public GeneticComputer(Role role) {
         super(role);
+    }
+
+    ArrayList<Integer> getTurnBlacks() {
+        return turnBlacks;
+    }
+
+    ArrayList<Integer> getTurnWhites() {
+        return turnWhites;
     }
 
     @Override
@@ -39,16 +48,16 @@ public class GeneticComputer extends ComputerPlayer {
             return initialGuess;
         }
         int generation = 0;
-        boolean doCalc = true;
+        boolean feasibleNotFull = true;
         initPopulation(pegs, colors);
         calculateFitness();
         sortFeasibleByFitness(fitness, population);
         while (feasibleCodes.isEmpty()) {
-            while (doCalc && generation <= GENERATION_SIZE && feasibleCodes.size() <= FEASIBLE_CODES_MAX) {
+            while (feasibleNotFull && generation <= GENERATION_SIZE) { //eliminat una condicio
                 evolvePopulation(pegs, colors);
                 calculateFitness();
                 sortFeasibleByFitness(fitness, population);
-                doCalc = addToFeasibleCodes();
+                feasibleNotFull = addToFeasibleCodes();
                 generation += 1;
             }
         }
@@ -167,7 +176,7 @@ public class GeneticComputer extends ComputerPlayer {
             }
         }
 
-        doubleToRnd(newPopulation, pegs, colors);
+        repetitionsToRandom(newPopulation, pegs, colors);
 
         population = newPopulation;
     }
@@ -177,7 +186,6 @@ public class GeneticComputer extends ComputerPlayer {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             for (int j = 0; j < turnBlacks.size() && j < turnWhites.size(); j++) {
                 ControlRow compare = compareGuess(population.get(i), gameGuesses.get(j));
-
                 if (compare.getBlacks() != turnBlacks.get(j) || compare.getWhites() != turnWhites.get(j)) {
                     continue outer;
                 }
@@ -217,11 +225,8 @@ public class GeneticComputer extends ComputerPlayer {
     private void crossover2Points(ArrayList<ColorRow> newPopulation, int child1Pos, int child2Pos, int pegs) {
         int mother = getParentPos();
         int father = getParentPos();
-        int sep1;
-        int sep2;
-
-        sep1 = ((int) (Math.random() * pegs)) + 1;
-        sep2 = ((int) (Math.random() * pegs)) + 1;
+        int sep1 = ((int) (Math.random() * pegs)) + 1;
+        int sep2 = ((int) (Math.random() * pegs)) + 1;
 
         if (sep1 > sep2) {
             int temp = sep1;
@@ -292,15 +297,15 @@ public class GeneticComputer extends ComputerPlayer {
         }
     }
 
-    private void doubleToRnd(ArrayList<ColorRow> newPopulation, int pegs, int colors) {
+    private void repetitionsToRandom(ArrayList<ColorRow> newPopulation, int pegs, int colors) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            if (lookForSame(newPopulation, i)) {
+            if (isARepetition(newPopulation, i)) {
                 newPopulation.set(i, randomRow(pegs, colors));
             }
         }
     }
 
-    private boolean lookForSame(ArrayList<ColorRow> newPopulation, int popPos) {
+    private boolean isARepetition(ArrayList<ColorRow> newPopulation, int popPos) {
         for (int i = 0; i < POPULATION_SIZE; i++) {
             if (population.get(popPos).equals(newPopulation.get(popPos))) {
                 return true;
