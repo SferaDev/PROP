@@ -1,6 +1,5 @@
 package domain.model;
 
-//import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -9,8 +8,6 @@ import java.util.stream.Collectors;
 
 import domain.controller.data.StatDataController;
 import persistence.model.StatDataModel;
-
-import domain.model.Game.GameInfo;
 
 public class Stat {
     private static Map<Game,Integer> ranking;
@@ -26,8 +23,8 @@ public class Stat {
         return instance;
     }
 
-    public static Map<Game, Integer> sortByValue(Map<Game,Integer> map) {
-        return map.entrySet()
+    private static void sortByValue(Map<Game, Integer> map) {
+        map.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
                 .collect(Collectors.toMap(
@@ -39,10 +36,10 @@ public class Stat {
     }
 
 
-   public void addScore(Game game, int score) {
+   void addScore(Game game, int score) {
        ranking.put(game, score);
        sortByValue(ranking);
-       statController.update(ranking); //esto no lo he acabado de hacer, mi idea era actualizar en la capa de datos
+       //statController.update(ranking); //esto no lo he acabado de hacer, mi idea era actualizar en la capa de datos
 
    }
 

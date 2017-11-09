@@ -19,10 +19,10 @@ public class StatDataModel<E extends Stat> extends DataModel<E> implements StatD
     }
 
     public String Ranking(){
-        String ranking = readDisk("data/stats/");
-        return ranking;
+        //String ranking = readDisk("data/stats/");
+        //return ranking;
         //Holi Alexis, se que esto así no funciona pero has dicho que te pase lo que tengo
-
+return null;
     }
 
     public void update(Map<Game,Integer> ranking) {
