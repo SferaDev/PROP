@@ -9,6 +9,8 @@ import domain.model.row.ControlRow;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.lang.Math.pow;
+
 public class Game {
     private Status gameStatus;
 
@@ -21,6 +23,8 @@ public class Game {
     private ArrayList<ControlRow> mControl = new ArrayList<>();
 
     private int gameTurn = 1;
+
+    private int score = 0;
 
     public Game(Player user1, Player user2, GameInfo info) {
         switch (user1.getPlayerRole()) {
@@ -46,7 +50,7 @@ public class Game {
     }
 
     public void startGame() {
-        while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
+        while (gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
                     correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
@@ -73,7 +77,14 @@ public class Game {
                         gameTurn++;
                     }
                     break;
+
+                case CORRECT:
+                    score = ((int)pow(gameInfo.mColors, gameInfo.mPegs))- gameTurn;
+                    gameBreaker.notifyScore(score);
+                    gameStatus = Status.FINISHED;
+                    break;
             }
+            Stat.getInstance().addScore(this,score);
         }
     }
 
@@ -108,5 +119,6 @@ public class Game {
             mColors = colors;
             mTurns = turns;
         }
+
     }
 }

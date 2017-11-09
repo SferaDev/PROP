@@ -37,7 +37,7 @@ public class TerminalInputOutput implements InputOutput {
 
     @Override
     public void outputControlRow(int blacks, int whites) {
-        TerminalUtils.println("Blacks: " + blacks + " | Whites: " + whites);
+        TerminalUtils.println("Negres: " + blacks + " | Blanques: " + whites);
     }
 
     @Override
@@ -53,5 +53,11 @@ public class TerminalInputOutput implements InputOutput {
     @Override
     public void notifyInvalidInput() {
         TerminalUtils.println("Això és mentida! Tranqui tots ho fem :)");
+    }
+
+    public void notifyScore(int score) {
+        TerminalUtils.println("Enhorabona, has guanyat!");
+        TerminalUtils.println("La teva puntuació és: " + score);
+
     }
 }

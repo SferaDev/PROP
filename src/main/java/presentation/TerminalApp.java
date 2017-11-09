@@ -71,7 +71,7 @@ public class TerminalApp {
                     continueGame(userName);
                     break;
                 case Constants.PLAY_STATS:
-                    showStatsMenu();
+                    showStats();
                     break;
                 case Constants.PLAY_HELP:
                     showHelpMenu();
@@ -175,4 +175,12 @@ public class TerminalApp {
             TerminalUtils.errorln("Ja existeix l'usuari");
         }
     }
+
+    private void showStats() {
+        mainController.showRanking();
+
+
+    }
+
+
 }
