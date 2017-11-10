@@ -114,15 +114,15 @@ public class TerminalApp {
 
         int pegs, colors, turns;
 
-        TerminalUtils.println("Introdueixi el nombre de fitxes d'una combinació");
+        TerminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
         pegs = scanner.nextInt();
-        TerminalUtils.println("Introdueixi el nombre de colors possibles");
+        TerminalUtils.printLine("Introdueixi el nombre de colors possibles");
         colors = scanner.nextInt();
 
         String computerName = null;
-        if (role == "MAKER") {
+        if (role.equals("MAKER")) {
             do {
-                TerminalUtils.println(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
+                TerminalUtils.printLine(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
                         Constants.NEW_GENETIC_GAME + ". " + Constants.NEW_GENETIC_GAME_TITLE + "\n" +
                         Constants.NEW_DUMMY_GAME + ". " + Constants.NEW_DUMMY_GAME_TITLE + "\n" +
                         Constants.NEW_BACK_ALGORITHM + ". " + Constants.NEW_BACK_ALGORITHM_TITLE);
@@ -140,7 +140,7 @@ public class TerminalApp {
                     case Constants.NEW_BACK_ALGORITHM:
                         return;
                     default:
-                        TerminalUtils.errorln("Introdueixi una opció de la llista");
+                        TerminalUtils.errorLine("Introdueixi una opció de la llista");
                         break;
                 }
             } while (computerName == null);
@@ -163,7 +163,7 @@ public class TerminalApp {
     }
 
     private void showHelpMenu() {
-        TerminalUtils.println("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
+        TerminalUtils.printLine("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
         // TODO add exit
 
     }
