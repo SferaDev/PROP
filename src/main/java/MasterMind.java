@@ -18,7 +18,7 @@ public class MasterMind {
          "bash", "-c", "tput lines 2> /dev/tty" });
          BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
          // Can be null
-         System.out.println(in.readLine());
+         System.out.printLine(in.readLine());
          } catch (IOException e) {
          e.printStackTrace();
          }**/

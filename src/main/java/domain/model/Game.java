@@ -50,7 +50,7 @@ public class Game implements java.io.Serializable {
     }
 
     public void startGame() {
-        while (gameStatus != Status.FINISHED) {
+        while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
                     correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
@@ -77,15 +77,14 @@ public class Game implements java.io.Serializable {
                         gameTurn++;
                     }
                     break;
-
-                case CORRECT:
-                    score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
-                    gameBreaker.notifyScore(score);
-                    StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
-                            score, gameInfo.getElapsedTime());
-                    gameStatus = Status.FINISHED;
-                    break;
             }
+        }
+
+        if (gameStatus == Status.CORRECT) {
+            score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
+            gameBreaker.notifyScore(score);
+            StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
+                    score, gameInfo.getElapsedTime());
         }
     }
 
@@ -103,6 +102,10 @@ public class Game implements java.io.Serializable {
 
     public String getGameTitle() {
         return gameInfo.getGameTitle();
+    }
+
+    public void finishGame() {
+        gameStatus = Status.FINISHED;
     }
 
     public enum Status {

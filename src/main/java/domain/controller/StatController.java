@@ -18,6 +18,9 @@ public class StatController {
     private StatController() {
         pointRanking = (HashMap<String, Long>) statDataController.get("pointRanking");
         timeRanking = (HashMap<String, Long>) statDataController.get("timeRanking");
+
+        if (pointRanking == null) pointRanking = new HashMap<>();
+        if (timeRanking == null) timeRanking = new HashMap<>();
     }
 
     public static StatController getInstance() {
@@ -36,10 +39,12 @@ public class StatController {
                 ));
     }
 
-
-    public void addScore(String userName, String gameTitle, int points, long time) {
-        pointRanking.replace(userName, pointRanking.containsKey(userName) ?
-                pointRanking.get(userName) + points : points);
+    public void addScore(String userName, String gameTitle, long points, long time) {
+        if (pointRanking.containsKey(userName)) {
+            pointRanking.replace(userName, pointRanking.get(userName) + points);
+        } else {
+            pointRanking.put(userName, points);
+        }
         timeRanking.put(gameTitle, time);
 
         sortByValue(pointRanking);

@@ -10,6 +10,8 @@ import persistence.model.GameDataModel;
 
 public class GameController {
     private static GameController mInstance = new GameController();
+    private Game currentGame;
+    private DataController gameDataController = GameDataModel.getInstance();
 
     private GameController() {
         // Empty Constructor
@@ -18,10 +20,6 @@ public class GameController {
     public static GameController getInstance() {
         return mInstance;
     }
-
-    private Game currentGame;
-
-    private DataController gameDataController = GameDataModel.getInstance();
 
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
         Player.Role userRole = Player.Role.valueOf(role);
@@ -42,11 +40,15 @@ public class GameController {
         currentGame.startGame();
     }
 
+    public String getGameStatus() {
+        return currentGame.getGameStatus();
+    }
+
     public void saveCurrentGame() {
         gameDataController.insert(currentGame.getGameTitle(), currentGame);
     }
 
-    public String getGameStatus() {
-        return currentGame.getGameStatus();
+    public void stopCurrentGame() {
+        currentGame.finishGame();
     }
 }

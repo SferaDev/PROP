@@ -6,6 +6,7 @@ import persistence.model.UserDataModel;
 
 public class UserController {
     private static UserController mInstance = new UserController();
+    private UserDataController userDataController = UserDataModel.getInstance();
 
     private UserController() {
         // Empty Constructor
@@ -14,8 +15,6 @@ public class UserController {
     public static UserController getInstance() {
         return mInstance;
     }
-
-    private UserDataController userDataController = UserDataModel.getInstance();
 
     public boolean createUser(String username, String password) {
         // TODO: Use exceptions!!

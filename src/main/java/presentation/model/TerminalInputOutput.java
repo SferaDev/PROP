@@ -5,12 +5,11 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
 
-// TODO: EXIT and SAVE commands
-
 public class TerminalInputOutput implements InputOutput {
+
     @Override
     public int inputControlBlacks(int pegs) {
-        TerminalUtils.println("Introdueixi el numero de Negres");
+        TerminalUtils.printLine("Introdueixi el numero de Negres");
         Scanner scanner = new Scanner(System.in);
 
         return scanner.nextInt();
@@ -18,7 +17,7 @@ public class TerminalInputOutput implements InputOutput {
 
     @Override
     public int inputControlWhites(int pegs) {
-        TerminalUtils.println("Introdueixi el numero de Blanques");
+        TerminalUtils.printLine("Introdueixi el numero de Blanques");
         Scanner scanner = new Scanner(System.in);
 
         return scanner.nextInt();
@@ -27,7 +26,7 @@ public class TerminalInputOutput implements InputOutput {
     @Override
     public int[] inputColorRow(int pegs, int colors) {
         int[] result = new int[pegs];
-        TerminalUtils.println("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
+        TerminalUtils.printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
         Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < pegs; ++i) {
             result[i] = scanner.nextInt();
@@ -37,27 +36,27 @@ public class TerminalInputOutput implements InputOutput {
 
     @Override
     public void outputControlRow(int blacks, int whites) {
-        TerminalUtils.println("Negres: " + blacks + " | Blanques: " + whites);
+        TerminalUtils.printLine("Negres: " + blacks + " | Blanques: " + whites);
     }
 
     @Override
     public void outputColorRow(String row) {
-        TerminalUtils.println(row);
+        TerminalUtils.printLine(row);
     }
 
     @Override
     public void outputMessage(String message) {
-        TerminalUtils.println(message);
+        TerminalUtils.printLine(message);
     }
 
     @Override
     public void notifyInvalidInput() {
-        TerminalUtils.println("Això és mentida! Tranqui tots ho fem :)");
+        TerminalUtils.printLine("Això és mentida! Tranqui tots ho fem :)");
     }
 
     public void notifyScore(int score) {
-        TerminalUtils.println("Enhorabona, has guanyat!");
-        TerminalUtils.println("La teva puntuació és: " + score);
+        TerminalUtils.printLine("Enhorabona, has guanyat!");
+        TerminalUtils.printLine("La teva puntuació és: " + score);
 
     }
 }
