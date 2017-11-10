@@ -1,5 +1,7 @@
 package domain;
 
+import domain.model.exceptions.FinishGameException;
+
 /**
  * The interface Input output.
  */
@@ -11,7 +13,7 @@ public interface InputOutput {
      * @return the int
      */
 // Inputs
-    int inputControlBlacks(int pegs);
+    int inputControlBlacks(int pegs) throws FinishGameException;
 
     /**
      * Input control whites int.
@@ -19,7 +21,7 @@ public interface InputOutput {
      * @param pegs the pegs
      * @return the int
      */
-    int inputControlWhites(int pegs);
+    int inputControlWhites(int pegs) throws FinishGameException;
 
     /**
      * Input color row int [ ].
@@ -28,7 +30,7 @@ public interface InputOutput {
      * @param colors the colors
      * @return the int [ ]
      */
-    int[] inputColorRow(int pegs, int colors);
+    int[] inputColorRow(int pegs, int colors) throws FinishGameException;
 
     /**
      * Output control row.

@@ -1,6 +1,7 @@
 package domain.model.player;
 
 import domain.controller.DomainController;
+import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -28,17 +29,17 @@ public class UserPlayer extends Player {
     }
 
     @Override
-    public ColorRow makerGuess(int pegs, int colors) {
+    public ColorRow makerGuess(int pegs, int colors) throws FinishGameException {
         return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
-    public ColorRow breakerGuess(int pegs, int colors) {
+    public ColorRow breakerGuess(int pegs, int colors) throws FinishGameException {
         return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
-    public ControlRow scoreGuess(ColorRow guess) {
+    public ControlRow scoreGuess(ColorRow guess) throws FinishGameException {
         DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
         int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks(guess.size());
         int whites = DomainController.getInstance().getGameInterface().inputControlWhites(guess.size());

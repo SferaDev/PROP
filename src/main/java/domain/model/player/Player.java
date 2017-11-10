@@ -1,5 +1,6 @@
 package domain.model.player;
 
+import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -54,7 +55,7 @@ public abstract class Player {
      * @param colors the colors
      * @return the color row
      */
-    public abstract ColorRow makerGuess(int pegs, int colors);
+    public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException;
 
     /**
      * Breaker guess color row.
@@ -63,7 +64,7 @@ public abstract class Player {
      * @param colors the colors
      * @return the color row
      */
-    public abstract ColorRow breakerGuess(int pegs, int colors);
+    public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException;
 
     /**
      * Score guess control row.
@@ -71,7 +72,7 @@ public abstract class Player {
      * @param guess the guess
      * @return the control row
      */
-    public abstract ControlRow scoreGuess(ColorRow guess);
+    public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException;
 
     /**
      * Receive control.

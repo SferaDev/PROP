@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.controller.data.DataController;
 import domain.model.Game;
+import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -47,7 +48,11 @@ public class GameController {
 
         currentGame = new Game(new UserPlayer(userName, userRole), computer,
                 new Game.GameInfo(userName, userRole, pegs, colors, turns));
-        currentGame.startGame();
+        try {
+            currentGame.startGame();
+        } catch (FinishGameException e) {
+            currentGame = null;
+        }
     }
 
     /**
@@ -63,7 +68,11 @@ public class GameController {
 
         currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
                 new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
-        currentGame.startGame();
+        try {
+            currentGame.startGame();
+        } catch (FinishGameException e) {
+            currentGame = null;
+        }
     }
 
     /**
@@ -78,14 +87,20 @@ public class GameController {
     /**
      * Save current game.
      */
-    public void saveCurrentGame() {
-        gameDataController.insert(currentGame.getGameTitle(), currentGame);
+    public void saveCurrentGame() throws FinishGameException {
+        if (currentGame != null) {
+            gameDataController.insert(currentGame.getGameTitle(), currentGame);
+            stopCurrentGame();
+        }
     }
 
     /**
      * Stop current game.
      */
-    public void stopCurrentGame() {
-        currentGame.finishGame();
+    public void stopCurrentGame() throws FinishGameException {
+        if (currentGame != null) {
+            currentGame.finishGame();
+        }
+        throw new FinishGameException();
     }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The type File utils.
+ * The type File controller.
  */
 public class FileUtils {
     /**

@@ -1,6 +1,7 @@
 package domain.model;
 
 import domain.controller.StatController;
+import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.row.ColorRow;
@@ -26,8 +27,6 @@ public class Game implements java.io.Serializable {
     private ArrayList<ControlRow> mControl = new ArrayList<>();
 
     private int gameTurn = 1;
-
-    private int score = 0;
 
     /**
      * Instantiates a new Game.
@@ -62,7 +61,7 @@ public class Game implements java.io.Serializable {
     /**
      * Start game.
      */
-    public void startGame() {
+    public void startGame() throws FinishGameException {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
@@ -72,6 +71,7 @@ public class Game implements java.io.Serializable {
                 case GUESS:
                     ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
                     mGuess.add(input);
+
                     ControlRow control = gameMaker.scoreGuess(input);
                     ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, input);
 
@@ -94,7 +94,7 @@ public class Game implements java.io.Serializable {
         }
 
         if (gameStatus == Status.CORRECT) {
-            score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
+            int score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
             gameBreaker.notifyScore(score);
             StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
                     score, gameInfo.getElapsedTime());
@@ -153,13 +153,16 @@ public class Game implements java.io.Serializable {
         /**
          * Start status.
          */
-        START, /**
+        START,
+        /**
          * Guess status.
          */
-        GUESS, /**
+        GUESS,
+        /**
          * Correct status.
          */
-        CORRECT, /**
+        CORRECT,
+        /**
          * Finished status.
          */
         FINISHED
@@ -196,7 +199,7 @@ public class Game implements java.io.Serializable {
          *
          * @return the game title
          */
-        public String getGameTitle() {
+        String getGameTitle() {
             return mUser + "-" + mRole + "-" + mStart;
         }
 
@@ -205,7 +208,7 @@ public class Game implements java.io.Serializable {
          *
          * @return the elapsed time
          */
-        public long getElapsedTime() {
+        long getElapsedTime() {
             return (new Date().getTime() - mStart.getTime()) / 1000;
         }
 

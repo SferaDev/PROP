@@ -1,10 +1,8 @@
 package presentation;
 
 import domain.controller.DomainController;
+import presentation.controller.TerminalController;
 import presentation.model.TerminalInputOutput;
-import presentation.utils.TerminalUtils;
-
-import java.util.Scanner;
 
 /**
  * The type Terminal app.
@@ -12,6 +10,7 @@ import java.util.Scanner;
 public class TerminalApp {
 
     private DomainController mainController = DomainController.getInstance();
+    private TerminalController terminalController = TerminalController.getInstance();
 
     /**
      * Start application.
@@ -22,9 +21,8 @@ public class TerminalApp {
     }
 
     private void showMainMenu() {
-        Scanner scanner = new Scanner(System.in);
         do {
-            TerminalUtils.printLine(Constants.MAIN_MENU_SEPARATOR + "\n" +
+            terminalController.printLine(Constants.MAIN_MENU_SEPARATOR + "\n" +
                     Constants.MAIN_MENU_TITLE + "\n" +
                     Constants.MAIN_MENU_SEPARATOR + "\n" +
                     Constants.MAIN_REGISTER + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
@@ -33,7 +31,7 @@ public class TerminalApp {
                     Constants.MAIN_HELP + ". " + Constants.MAIN_HELP_TITLE + "\n" +
                     Constants.MAIN_EXIT + ". " + Constants.MAIN_EXIT_TITLE);
 
-            switch (scanner.nextInt()) {
+            switch (terminalController.readInteger()) {
                 case Constants.MAIN_REGISTER:
                     register();
                     break;
@@ -50,7 +48,7 @@ public class TerminalApp {
                     System.exit(0);
                     break;
                 default:
-                    TerminalUtils.errorLine("Introdueixi una opció de la llista");
+                    terminalController.errorLine("Introdueixi una opció de la llista");
                     break;
             }
 
@@ -58,9 +56,8 @@ public class TerminalApp {
     }
 
     private void showPlayMenu(String userName) {
-        Scanner scanner = new Scanner(System.in);
         do {
-            TerminalUtils.printLine(Constants.PLAY_MENU_SEPARATOR + "\n" +
+            terminalController.printLine(Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_MENU_TITLE + "\n" +
                     Constants.PLAY_MENU_SEPARATOR + "\n" +
                     Constants.PLAY_NEW_GAME + ". " + Constants.PLAY_NEW_GAME_TITLE + "\n" +
@@ -69,7 +66,7 @@ public class TerminalApp {
                     Constants.PLAY_HELP + ". " + Constants.PLAY_HELP_TITLE + "\n" +
                     Constants.PLAY_BACK + ". " + Constants.PLAY_BACK_TITLE);
 
-            switch (scanner.nextInt()) {
+            switch (terminalController.readInteger()) {
                 case Constants.PLAY_NEW_GAME:
                     newGame(userName);
                     break;
@@ -85,7 +82,7 @@ public class TerminalApp {
                 case Constants.PLAY_BACK:
                     return;
                 default:
-                    TerminalUtils.errorLine("Introdueixi una opció de la llista");
+                    terminalController.errorLine("Introdueixi una opció de la llista");
                     break;
             }
         } while (true);
@@ -93,17 +90,16 @@ public class TerminalApp {
 
 
     private void newGame(String userName) {
-        Scanner scanner = new Scanner(System.in);
         String role = null;
         do {
-            TerminalUtils.printLine(Constants.NEW_MENU_SEPARATOR + "\n" +
+            terminalController.printLine(Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_MENU_TITLE + "\n" +
                     Constants.NEW_MENU_SEPARATOR + "\n" +
                     Constants.NEW_BREAKER_GAME + ". " + Constants.NEW_BREAKER_GAME_TITLE + "\n" +
                     Constants.NEW_MAKER_GAME + ". " + Constants.NEW_MAKER_GAME_TITLE + "\n" +
                     Constants.NEW_BACK + ". " + Constants.NEW_BACK_TITLE);
 
-            switch (scanner.nextInt()) {
+            switch (terminalController.readInteger()) {
                 case Constants.NEW_BREAKER_GAME:
                     role = "BREAKER";
                     break;
@@ -113,43 +109,39 @@ public class TerminalApp {
                 case Constants.NEW_BACK:
                     return;
                 default:
-                    TerminalUtils.errorLine("Introdueixi una opció de la llista");
+                    terminalController.errorLine("Introdueixi una opció de la llista");
                     break;
             }
         } while (role == null);
 
         int pegs, colors, turns;
 
-        TerminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
-        pegs = scanner.nextInt();
-        TerminalUtils.printLine("Introdueixi el nombre de colors possibles");
-        colors = scanner.nextInt();
+        terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
+        pegs = terminalController.readInteger();
+        terminalController.printLine("Introdueixi el nombre de colors possibles");
+        colors = terminalController.readInteger();
 
-        String computerName = null;
+        String computerName = "DummyComputer";
         if (role.equals("MAKER")) {
             do {
-                TerminalUtils.printLine(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
+                terminalController.printLine(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
                         Constants.NEW_GENETIC_GAME + ". " + Constants.NEW_GENETIC_GAME_TITLE + "\n" +
-                        Constants.NEW_DUMMY_GAME + ". " + Constants.NEW_DUMMY_GAME_TITLE + "\n" +
                         Constants.NEW_BACK_ALGORITHM + ". " + Constants.NEW_BACK_ALGORITHM_TITLE);
 
-                switch (scanner.nextInt()) {
+                switch (terminalController.readInteger()) {
                     case Constants.NEW_FIVEGUESS_GAME:
                         computerName = "FiveGuessComputer";
                         break;
                     case Constants.NEW_GENETIC_GAME:
                         computerName = "GeneticComputer";
                         break;
-                    case Constants.NEW_DUMMY_GAME:
-                        computerName = "DummyComputer";
-                        break;
                     case Constants.NEW_BACK_ALGORITHM:
                         return;
                     default:
-                        TerminalUtils.errorLine("Introdueixi una opció de la llista");
+                        terminalController.errorLine("Introdueixi una opció de la llista");
                         break;
                 }
-            } while (computerName == null);
+            } while (computerName.equals("DummyComputer"));
         }
 
         // TODO
@@ -169,51 +161,49 @@ public class TerminalApp {
     }
 
     private void showHelpMenu() {
-        TerminalUtils.printLine("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
+        terminalController.printLine("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
         // TODO add exit
 
     }
 
     private void login() {
-        TerminalUtils.printLine("Introdueixi el seu nom d'usuari");
-        Scanner scanner = new Scanner(System.in);
-        String userName = scanner.next();
+        terminalController.printLine("Introdueixi el seu nom d'usuari");
+        String userName = terminalController.readString();
 
         if (!mainController.getUserController().existsUser(userName)) {
-            TerminalUtils.errorLine(Constants.ERROR_USER_NOT_FOUND);
+            terminalController.errorLine(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
 
         boolean login = false;
         for (int i = 0; !login && i < 3; i++) {
-            if (i > 0) TerminalUtils.errorLine("Contrasenya erronea!");
-            TerminalUtils.printLine("Introdueixi la seva contrasenya");
-            login = mainController.getUserController().loginUser(userName, scanner.next());
+            if (i > 0) terminalController.errorLine("Contrasenya erronea!");
+            terminalController.printLine("Introdueixi la seva contrasenya");
+            login = mainController.getUserController().loginUser(userName, terminalController.readString());
         }
 
         if (!login) {
-            TerminalUtils.errorLine("Contrasenya erronea 3 cops");
+            terminalController.errorLine("Contrasenya erronea 3 cops");
         } else showPlayMenu(userName);
     }
 
     private void register() {
-        TerminalUtils.printLine("Introdueixi el seu nom d'usuari");
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.next();
+        terminalController.printLine("Introdueixi el seu nom d'usuari");
+        String username = terminalController.readString();
         String password1, password2;
         int i = 1;
         do {
-            if (i++ > 1) TerminalUtils.errorLine("No coincideixen!");
-            TerminalUtils.printLine("Introdueixi la seva contrasenya");
-            password1 = scanner.next();
-            TerminalUtils.printLine("Repeteixi la seva contrasenya");
-            password2 = scanner.next();
+            if (i++ > 1) terminalController.errorLine("No coincideixen!");
+            terminalController.printLine("Introdueixi la seva contrasenya");
+            password1 = terminalController.readString();
+            terminalController.printLine("Repeteixi la seva contrasenya");
+            password2 = terminalController.readString();
         } while (!password1.equals(password2));
 
         if (mainController.getUserController().createUser(username, password1)) {
             showPlayMenu(username);
         } else {
-            TerminalUtils.errorLine("Ja existeix l'usuari");
+            terminalController.errorLine("Ja existeix l'usuari");
         }
     }
 
