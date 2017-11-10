@@ -5,13 +5,14 @@ import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class GeneticComputerTest {
     GeneticComputer gc;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         gc = new GeneticComputer(Player.Role.MAKER);
     }
 
@@ -27,21 +28,21 @@ public class GeneticComputerTest {
     /*Related with receiveControl()*/
     @Test
     public void shouldAddToBlacks() {
-        ControlRow c = new ControlRow(1,0);
+        ControlRow c = new ControlRow(1, 0);
         gc.receiveControl(c);
         assertEquals("Should add 1 to blacks", "1", gc.getTurnBlacks().get(0).toString());
     }
 
     @Test
     public void shouldAddToWhites() {
-        ControlRow c = new ControlRow(0,1);
+        ControlRow c = new ControlRow(0, 1);
         gc.receiveControl(c);
         assertEquals("Should add 1 to whites", "1", gc.getTurnWhites().get(0).toString());
     }
 
     @Test
     public void shouldAddToBlacksAndWhites() {
-        ControlRow c = new ControlRow(2,3);
+        ControlRow c = new ControlRow(2, 3);
         gc.receiveControl(c);
         assertEquals("Should add 1 to whites", "2 3",
                 gc.getTurnBlacks().get(0).toString() + " " + gc.getTurnWhites().get(0).toString());
@@ -75,10 +76,6 @@ public class GeneticComputerTest {
         assertEquals("Should return [1, 1, 2, 2, 3, 3, 4, 5] initial guess",
                 expected, gc.breakerGuess(8, 5));
     }
-
-
-
-
 
 
 }

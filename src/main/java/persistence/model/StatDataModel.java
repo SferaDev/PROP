@@ -1,13 +1,11 @@
 package persistence.model;
 
-import domain.controller.data.StatDataController;
-import domain.model.Game;
-import domain.model.Stat;
+import domain.controller.StatController;
 import persistence.DataModel;
 
-import java.util.Map;
+import java.util.HashMap;
 
-public class StatDataModel<E extends Stat> extends DataModel<E> implements StatDataController<E> {
+public class StatDataModel<E extends StatController> extends DataModel<HashMap> {
     private static StatDataModel mInstance = new StatDataModel();
 
     private StatDataModel() {
@@ -16,16 +14,5 @@ public class StatDataModel<E extends Stat> extends DataModel<E> implements StatD
 
     public static StatDataModel getInstance() {
         return mInstance;
-    }
-
-    public String Ranking(){
-        //String ranking = readDisk("data/stats/");
-        //return ranking;
-        //Holi Alexis, se que esto así no funciona pero has dicho que te pase lo que tengo
-return null;
-    }
-
-    public void update(Map<Game,Integer> ranking) {
-
     }
 }

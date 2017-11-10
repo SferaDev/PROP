@@ -1,9 +1,5 @@
 package domain.controller;
 
-import domain.controller.data.StatDataController;
-import persistence.model.GameDataModel;
-import persistence.model.StatDataModel;
-import persistence.model.UserDataModel;
 import domain.controller.data.DataController;
 import domain.controller.data.UserDataController;
 import domain.model.Game;
@@ -12,16 +8,15 @@ import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
+import persistence.model.GameDataModel;
+import persistence.model.UserDataModel;
 
 public class DomainController {
-    private boolean mDebug = false;
-
     private static DomainController mInstance = new DomainController();
     private static InputOutput mGameInterface;
-
-    private DataController gameController = GameDataModel.getInstance();
-    private UserDataController userController = UserDataModel.getInstance();
-    private StatDataController statController = StatDataModel.getInstance();
+    private boolean mDebug = false;
+    private DataController gameDataController = GameDataModel.getInstance();
+    private UserDataController userDataController = UserDataModel.getInstance();
 
     private Game currentGame;
 
@@ -43,22 +38,18 @@ public class DomainController {
 
     public boolean createUser(String username, String password) {
         // TODO: Use exceptions!!
-        if (userController.exists(username)) return false;
-        userController.insert(new User(username, password));
+        if (userDataController.exists(username)) return false;
+        userDataController.insert(username, new User(username, password));
         return true;
-    }
-
-    public String showRanking(){
-        return statController.Ranking();
     }
 
     public boolean loginUser(String userName, String password) {
         // TODO: Use exceptions!!
-        return userController.login(userName, password);
+        return userDataController.login(userName, password);
     }
 
     public boolean existsUser(String userName) {
-        return userController.exists(userName);
+        return userDataController.exists(userName);
     }
 
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
@@ -81,7 +72,7 @@ public class DomainController {
     }
 
     public void saveCurrentGame() {
-        gameController.insert(currentGame);
+        gameDataController.insert(currentGame.getGameTitle(), currentGame);
     }
 
     public boolean isDebugBuild() {

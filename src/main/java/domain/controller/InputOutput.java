@@ -3,6 +3,7 @@ package domain.controller;
 public interface InputOutput {
     // Inputs
     int inputControlBlacks(int pegs);
+
     int inputControlWhites(int pegs);
 
     int[] inputColorRow(int pegs, int colors);

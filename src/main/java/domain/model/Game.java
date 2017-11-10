@@ -1,8 +1,8 @@
 package domain.model;
 
+import domain.controller.StatController;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
-import domain.model.player.UserPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -11,7 +11,7 @@ import java.util.Date;
 
 import static java.lang.Math.pow;
 
-public class Game {
+public class Game implements java.io.Serializable {
     private Status gameStatus;
 
     private Player gameMaker, gameBreaker;
@@ -79,12 +79,13 @@ public class Game {
                     break;
 
                 case CORRECT:
-                    score = ((int)pow(gameInfo.mColors, gameInfo.mPegs))- gameTurn;
+                    score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
                     gameBreaker.notifyScore(score);
+                    StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
+                            score, gameInfo.getElapsedTime());
                     gameStatus = Status.FINISHED;
                     break;
             }
-            Stat.getInstance().addScore(this,score);
         }
     }
 
@@ -96,13 +97,12 @@ public class Game {
         return mControl.get(turn - 1);
     }
 
-    @Override
-    public String toString() {
-        return gameInfo.mGameTitle;
-    }
-
     public String getGameStatus() {
         return gameStatus.toString();
+    }
+
+    public String getGameTitle() {
+        return gameInfo.getGameTitle();
     }
 
     public enum Status {
@@ -110,14 +110,25 @@ public class Game {
     }
 
     public static class GameInfo {
-        private String mGameTitle;
+        private String mUser;
+        private Player.Role mRole;
         private int mPegs, mColors, mTurns;
+        private Date mStart = new Date();
 
-        public GameInfo(String name, Player.Role role, int pegs, int colors, int turns) {
-            mGameTitle = name + "-" + role + "-" + new Date().toString();
+        public GameInfo(String user, Player.Role role, int pegs, int colors, int turns) {
+            mUser = user;
+            mRole = role;
             mPegs = pegs;
             mColors = colors;
             mTurns = turns;
+        }
+
+        public String getGameTitle() {
+            return mUser + "-" + mRole + "-" + mStart;
+        }
+
+        public long getElapsedTime() {
+            return (new Date().getTime() - mStart.getTime()) / 1000;
         }
 
     }

@@ -35,7 +35,8 @@ public abstract class Player {
         // Should never happen unless UserPlayer
     }
 
-    public void notifyScore(int score){}
+    public void notifyScore(int score) {
+    }
 
     public enum Role {
         BREAKER, MAKER;

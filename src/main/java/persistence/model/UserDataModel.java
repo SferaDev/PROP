@@ -18,7 +18,7 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
     @Override
     public boolean login(String name, String pass) {
         if (exists(name)) {
-            User user = get(name, User.class);
+            User user = get(name);
             if (user.getPassword().equals(pass)) return true;
         }
         return false;

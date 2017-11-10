@@ -1,21 +1,19 @@
 package persistence;
 
-import com.google.gson.Gson;
-import persistence.utils.FileUtils;
 import domain.controller.data.DataController;
+import persistence.utils.Base64Encoder;
+import persistence.utils.FileUtils;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Type;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class DataModel<E> implements DataController<E> {
+public abstract class DataModel<E extends Serializable> implements DataController<E> {
     private Map<String, String> mData = new HashMap<>();
 
     private String mPath;
-
-    private Gson gson = new Gson();
 
     public DataModel(String path) {
         mPath = path;
@@ -32,34 +30,37 @@ public abstract class DataModel<E> implements DataController<E> {
     }
 
     @Override
-    public boolean insert(E item) {
-        String itemTitle = item.toString();
-        if (exists(itemTitle)) return false;
+    public void insert(String key, E item) {
+        if (exists(key)) return;
 
-        String itemJson = gson.toJson(item);
-        mData.put(itemTitle, itemJson);
-        FileUtils.createFile(mPath + itemTitle);
-        FileUtils.writeToFile(mPath + itemTitle, itemJson);
-        return true;
+        String serialItem = Base64Encoder.toString(item);
+        mData.put(key, serialItem);
+        FileUtils.createFile(mPath + key);
+        FileUtils.writeToFile(mPath + key, serialItem);
     }
 
     @Override
-    public void remove(E item) {
-        String itemTitle = item.toString();
-        if (!exists(itemTitle)) return;
-        mData.remove(itemTitle);
-        FileUtils.deleteFile(mPath + itemTitle);
+    public void replace(String key, E item) {
+        remove(key);
+        insert(key, item);
     }
 
     @Override
-    public E get(String key, Class type) {
+    public void remove(String key) {
+        if (!exists(key)) return;
+        mData.remove(key);
+        FileUtils.deleteFile(mPath + key);
+    }
+
+    @Override
+    public E get(String key) {
         if (!exists(key)) return null;
-        String json = mData.get(key);
-        if (json == null) {
-            json = readDisk(mPath + key);
-            mData.replace(key, json);
+        String serialObject = mData.get(key);
+        if (serialObject == null) {
+            serialObject = readDisk(mPath + key);
+            mData.replace(key, serialObject);
         }
-        return gson.fromJson(json, (Type) type);
+        return (E) Base64Encoder.fromString(serialObject);
     }
 
     private String readDisk(String path) {

@@ -1,6 +1,6 @@
 package domain.model;
 
-public class User {
+public class User implements java.io.Serializable {
     private String playerName;
     private String playerPassword;
 
@@ -17,8 +17,4 @@ public class User {
         return playerPassword;
     }
 
-    @Override
-    public String toString() {
-        return getName();
-    }
 }

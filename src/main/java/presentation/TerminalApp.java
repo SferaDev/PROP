@@ -177,9 +177,7 @@ public class TerminalApp {
     }
 
     private void showStats() {
-        mainController.showRanking();
-
-
+        // TODO
     }
 
 

@@ -150,7 +150,7 @@ public class GeneticComputer extends ComputerPlayer {
     private void swapColorRow(ArrayList<ColorRow> pop, int a, int b) {
         ColorRow tmp = pop.get(a);
         pop.set(a, pop.get(b));
-        pop.set(b, tmp );
+        pop.set(b, tmp);
     }
 
     private void evolvePopulation(int pegs, int colors) {/**/

@@ -5,7 +5,6 @@ import domain.controller.InputOutput;
 import domain.model.player.ComputerPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.model.TerminalInputOutput;
 
 public class DummyComputer extends ComputerPlayer {
 

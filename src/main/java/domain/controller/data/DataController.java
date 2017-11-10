@@ -3,9 +3,11 @@ package domain.controller.data;
 public interface DataController<E> {
     boolean exists(String key);
 
-    boolean insert(E item);
+    void insert(String key, E item);
 
-    void remove(E item);
+    void replace(String key, E item);
 
-    E get(String key, Class<E> cls);
+    void remove(String key);
+
+    E get(String key);
 }
