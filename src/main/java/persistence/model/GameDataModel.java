@@ -3,6 +3,11 @@ package persistence.model;
 import domain.model.Game;
 import persistence.DataModel;
 
+/**
+ * The type Game data model.
+ *
+ * @param <E> the type parameter
+ */
 public class GameDataModel<E extends Game> extends DataModel<E> {
     private static GameDataModel mInstance = new GameDataModel();
 
@@ -10,6 +15,11 @@ public class GameDataModel<E extends Game> extends DataModel<E> {
         super("data/games/");
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static GameDataModel getInstance() {
         return mInstance;
     }

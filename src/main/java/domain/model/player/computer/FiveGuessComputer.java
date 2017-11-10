@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Five guess computer.
+ */
 public class FiveGuessComputer extends ComputerPlayer {
 
     private int totalCombinations;
@@ -21,6 +24,11 @@ public class FiveGuessComputer extends ComputerPlayer {
     private int maxHit;
     private ColorRow maxHitCombination;
 
+    /**
+     * Instantiates a new Five guess computer.
+     *
+     * @param role the role
+     */
     public FiveGuessComputer(Role role) {
         super(role);
     }

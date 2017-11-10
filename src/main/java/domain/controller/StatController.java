@@ -9,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Stat controller.
+ */
 public class StatController {
     private static StatController mInstance = new StatController();
     private static HashMap<String, Long> pointRanking;
@@ -23,6 +26,11 @@ public class StatController {
         if (timeRanking == null) timeRanking = new HashMap<>();
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static StatController getInstance() {
         return mInstance;
     }
@@ -39,6 +47,14 @@ public class StatController {
                 ));
     }
 
+    /**
+     * Add score.
+     *
+     * @param userName  the user name
+     * @param gameTitle the game title
+     * @param points    the points
+     * @param time      the time
+     */
     public void addScore(String userName, String gameTitle, long points, long time) {
         if (pointRanking.containsKey(userName)) {
             pointRanking.replace(userName, pointRanking.get(userName) + points);

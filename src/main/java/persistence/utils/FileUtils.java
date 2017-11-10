@@ -10,11 +10,27 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The type File utils.
+ */
 public class FileUtils {
+    /**
+     * Read from file string.
+     *
+     * @param path the path
+     * @return the string
+     * @throws FileNotFoundException the file not found exception
+     */
     public static String readFromFile(String path) throws FileNotFoundException {
         return new Scanner(new File(path)).useDelimiter("\\Z").next();
     }
 
+    /**
+     * Write to file.
+     *
+     * @param path    the path
+     * @param content the content
+     */
     public static void writeToFile(String path, String content) {
         try {
             FileWriter writer = new FileWriter(new File(path), false);
@@ -25,6 +41,11 @@ public class FileUtils {
         }
     }
 
+    /**
+     * Create file.
+     *
+     * @param path the path
+     */
     public static void createFile(String path) {
         Path pathToFile = Paths.get(path);
         try {
@@ -36,6 +57,12 @@ public class FileUtils {
         }
     }
 
+    /**
+     * List files array list.
+     *
+     * @param path the path
+     * @return the array list
+     */
     public static ArrayList<String> listFiles(String path) {
         ArrayList<String> result = new ArrayList<>();
         File folder = new File(path);
@@ -51,6 +78,11 @@ public class FileUtils {
         return result;
     }
 
+    /**
+     * Delete file.
+     *
+     * @param path the path
+     */
     public static void deleteFile(String path) {
         new File(path).delete();
     }

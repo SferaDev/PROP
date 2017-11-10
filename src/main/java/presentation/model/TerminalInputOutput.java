@@ -5,6 +5,9 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
 
+/**
+ * The type Terminal input output.
+ */
 public class TerminalInputOutput implements InputOutput {
 
     @Override

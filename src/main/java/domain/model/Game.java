@@ -11,6 +11,9 @@ import java.util.Date;
 
 import static java.lang.Math.pow;
 
+/**
+ * The type Game.
+ */
 public class Game implements java.io.Serializable {
     private Status gameStatus;
 
@@ -26,6 +29,13 @@ public class Game implements java.io.Serializable {
 
     private int score = 0;
 
+    /**
+     * Instantiates a new Game.
+     *
+     * @param user1 the user 1
+     * @param user2 the user 2
+     * @param info  the info
+     */
     public Game(Player user1, Player user2, GameInfo info) {
         switch (user1.getPlayerRole()) {
             case MAKER:
@@ -49,6 +59,9 @@ public class Game implements java.io.Serializable {
         gameStatus = Status.START;
     }
 
+    /**
+     * Start game.
+     */
     public void startGame() {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
@@ -88,36 +101,88 @@ public class Game implements java.io.Serializable {
         }
     }
 
+    /**
+     * Gets color row.
+     *
+     * @param turn the turn
+     * @return the color row
+     */
     public ColorRow getColorRow(int turn) {
         return mGuess.get(turn - 1);
     }
 
+    /**
+     * Gets control row.
+     *
+     * @param turn the turn
+     * @return the control row
+     */
     public ControlRow getControlRow(int turn) {
         return mControl.get(turn - 1);
     }
 
+    /**
+     * Gets game status.
+     *
+     * @return the game status
+     */
     public String getGameStatus() {
         return gameStatus.toString();
     }
 
+    /**
+     * Gets game title.
+     *
+     * @return the game title
+     */
     public String getGameTitle() {
         return gameInfo.getGameTitle();
     }
 
+    /**
+     * Finish game.
+     */
     public void finishGame() {
         gameStatus = Status.FINISHED;
     }
 
+    /**
+     * The enum Status.
+     */
     public enum Status {
-        START, GUESS, CORRECT, FINISHED
+        /**
+         * Start status.
+         */
+        START, /**
+         * Guess status.
+         */
+        GUESS, /**
+         * Correct status.
+         */
+        CORRECT, /**
+         * Finished status.
+         */
+        FINISHED
     }
 
+    /**
+     * The type Game info.
+     */
     public static class GameInfo {
         private String mUser;
         private Player.Role mRole;
         private int mPegs, mColors, mTurns;
         private Date mStart = new Date();
 
+        /**
+         * Instantiates a new Game info.
+         *
+         * @param user   the user
+         * @param role   the role
+         * @param pegs   the pegs
+         * @param colors the colors
+         * @param turns  the turns
+         */
         public GameInfo(String user, Player.Role role, int pegs, int colors, int turns) {
             mUser = user;
             mRole = role;
@@ -126,10 +191,20 @@ public class Game implements java.io.Serializable {
             mTurns = turns;
         }
 
+        /**
+         * Gets game title.
+         *
+         * @return the game title
+         */
         public String getGameTitle() {
             return mUser + "-" + mRole + "-" + mStart;
         }
 
+        /**
+         * Gets elapsed time.
+         *
+         * @return the elapsed time
+         */
         public long getElapsedTime() {
             return (new Date().getTime() - mStart.getTime()) / 1000;
         }

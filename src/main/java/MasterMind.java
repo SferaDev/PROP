@@ -1,7 +1,15 @@
 import presentation.TerminalApp;
 
+/**
+ * The type Master mind.
+ */
 public class MasterMind {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         if (args.length > 0 && args[0].contains("terminal")) {
             TerminalApp application = new TerminalApp();

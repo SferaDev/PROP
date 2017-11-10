@@ -4,10 +4,19 @@ import domain.controller.DomainController;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
+/**
+ * The type User player.
+ */
 public class UserPlayer extends Player {
 
     private String parentUser;
 
+    /**
+     * Instantiates a new User player.
+     *
+     * @param user the user
+     * @param role the role
+     */
     public UserPlayer(String user, Role role) {
         super(role);
         parentUser = user;

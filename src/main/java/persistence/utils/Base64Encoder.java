@@ -3,7 +3,16 @@ package persistence.utils;
 import java.io.*;
 import java.util.Base64;
 
+/**
+ * The type Base 64 encoder.
+ */
 public class Base64Encoder {
+    /**
+     * From string object.
+     *
+     * @param string the string
+     * @return the object
+     */
     public static Object fromString(String string) {
         byte[] data = Base64.getDecoder().decode(string);
         Object object = null;
@@ -17,6 +26,12 @@ public class Base64Encoder {
         return object;
     }
 
+    /**
+     * To string string.
+     *
+     * @param object the object
+     * @return the string
+     */
     public static String toString(Serializable object) {
         ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();
         try {

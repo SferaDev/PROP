@@ -4,6 +4,11 @@ import domain.controller.data.UserDataController;
 import domain.model.User;
 import persistence.DataModel;
 
+/**
+ * The type User data model.
+ *
+ * @param <E> the type parameter
+ */
 public class UserDataModel<E extends User> extends DataModel<E> implements UserDataController<E> {
     private static UserDataModel mInstance = new UserDataModel();
 
@@ -11,6 +16,11 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
         super("data/users/");
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static UserDataModel getInstance() {
         return mInstance;
     }

@@ -8,13 +8,28 @@ import domain.model.row.ControlRow;
 
 import java.util.Random;
 
+/**
+ * The type Computer player.
+ */
 public abstract class ComputerPlayer extends Player {
     private ColorRow makerCorrectGuess;
 
+    /**
+     * Instantiates a new Computer player.
+     *
+     * @param role the role
+     */
     public ComputerPlayer(Role role) {
         super(role);
     }
 
+    /**
+     * Compare guess control row.
+     *
+     * @param correct the correct
+     * @param guess   the guess
+     * @return the control row
+     */
     public static ControlRow compareGuess(ColorRow correct, ColorRow guess) {
         int blacks, whites;
         blacks = whites = 0;
@@ -47,6 +62,13 @@ public abstract class ComputerPlayer extends Player {
         return new ControlRow(blacks, whites);
     }
 
+    /**
+     * Random row color row.
+     *
+     * @param pegs   the pegs
+     * @param colors the colors
+     * @return the color row
+     */
     protected static ColorRow randomRow(int pegs, int colors) {
         ColorRow row = new ColorRow();
         Random rand = new Random();
@@ -56,6 +78,13 @@ public abstract class ComputerPlayer extends Player {
         return row;
     }
 
+    /**
+     * New computer by name computer player.
+     *
+     * @param computerName the computer name
+     * @param computerRole the computer role
+     * @return the computer player
+     */
     public static ComputerPlayer newComputerByName(String computerName, Role computerRole) {
         // If we could only use Reflection...
         switch (computerName) {

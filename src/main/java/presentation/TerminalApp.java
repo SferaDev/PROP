@@ -6,10 +6,16 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
 
+/**
+ * The type Terminal app.
+ */
 public class TerminalApp {
 
     private DomainController mainController = DomainController.getInstance();
 
+    /**
+     * Start application.
+     */
     public void startApplication() {
         mainController.setGameInterface(new TerminalInputOutput());
         showMainMenu();

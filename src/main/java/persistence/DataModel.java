@@ -10,11 +10,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Data model.
+ *
+ * @param <E> the type parameter
+ */
 public abstract class DataModel<E extends Serializable> implements DataController<E> {
     private Map<String, String> mData = new HashMap<>();
 
     private String mPath;
 
+    /**
+     * Instantiates a new Data model.
+     *
+     * @param path the path
+     */
     public DataModel(String path) {
         mPath = path;
 

@@ -1,13 +1,25 @@
 package domain.model.row;
 
+/**
+ * The type Control row.
+ */
 public class ControlRow {
     private int mBlacks = 0;
     private int mWhites = 0;
 
+    /**
+     * Instantiates a new Control row.
+     */
     public ControlRow() {
         // Empty constructor
     }
 
+    /**
+     * Instantiates a new Control row.
+     *
+     * @param blacks the blacks
+     * @param whites the whites
+     */
     public ControlRow(int blacks, int whites) {
         mBlacks = blacks;
         mWhites = whites;
@@ -23,18 +35,38 @@ public class ControlRow {
         return mBlacks == controlRow.getBlacks() && mWhites == controlRow.getWhites();
     }
 
+    /**
+     * Gets blacks.
+     *
+     * @return the blacks
+     */
     public int getBlacks() {
         return mBlacks;
     }
 
+    /**
+     * Sets blacks.
+     *
+     * @param blacks the blacks
+     */
     public void setBlacks(int blacks) {
         mBlacks = blacks;
     }
 
+    /**
+     * Gets whites.
+     *
+     * @return the whites
+     */
     public int getWhites() {
         return mWhites;
     }
 
+    /**
+     * Sets whites.
+     *
+     * @param whites the whites
+     */
     public void setWhites(int whites) {
         mWhites = whites;
     }

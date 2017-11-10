@@ -6,8 +6,16 @@ import domain.model.player.ComputerPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
+/**
+ * The type Dummy computer.
+ */
 public class DummyComputer extends ComputerPlayer {
 
+    /**
+     * Instantiates a new Dummy computer.
+     *
+     * @param role the role
+     */
     public DummyComputer(Role role) {
         super(role);
     }
@@ -60,7 +68,15 @@ public class DummyComputer extends ComputerPlayer {
         return correctGuess;
     }
 
-    // TODO: Check if it works
+    /**
+     * Guess help color row.
+     *
+     * @param status the status
+     * @param pegs   the pegs
+     * @param colors the colors
+     * @return the color row
+     */
+// TODO: Check if it works
     public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
         ColorRow helpAttempt;
         ControlRow controlRow;

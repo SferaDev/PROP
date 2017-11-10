@@ -8,6 +8,9 @@ import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
 import persistence.model.GameDataModel;
 
+/**
+ * The type Game controller.
+ */
 public class GameController {
     private static GameController mInstance = new GameController();
     private Game currentGame;
@@ -17,10 +20,25 @@ public class GameController {
         // Empty Constructor
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static GameController getInstance() {
         return mInstance;
     }
 
+    /**
+     * Start new game.
+     *
+     * @param userName     the user name
+     * @param computerName the computer name
+     * @param role         the role
+     * @param pegs         the pegs
+     * @param colors       the colors
+     * @param turns        the turns
+     */
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
         Player.Role userRole = Player.Role.valueOf(role);
 
@@ -32,6 +50,14 @@ public class GameController {
         currentGame.startGame();
     }
 
+    /**
+     * Start new game.
+     *
+     * @param computerName the computer name
+     * @param pegs         the pegs
+     * @param colors       the colors
+     * @param turns        the turns
+     */
     public void startNewGame(String computerName, int pegs, int colors, int turns) {
         ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.BREAKER);
 
@@ -40,14 +66,25 @@ public class GameController {
         currentGame.startGame();
     }
 
+    /**
+     * Gets game status.
+     *
+     * @return the game status
+     */
     public String getGameStatus() {
         return currentGame.getGameStatus();
     }
 
+    /**
+     * Save current game.
+     */
     public void saveCurrentGame() {
         gameDataController.insert(currentGame.getGameTitle(), currentGame);
     }
 
+    /**
+     * Stop current game.
+     */
     public void stopCurrentGame() {
         currentGame.finishGame();
     }

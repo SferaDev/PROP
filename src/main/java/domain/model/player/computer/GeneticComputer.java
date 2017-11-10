@@ -6,6 +6,9 @@ import domain.model.row.ControlRow;
 
 import java.util.ArrayList;
 
+/**
+ * The type Genetic computer.
+ */
 public class GeneticComputer extends ComputerPlayer {
     private static final int POPULATION_SIZE = 2000;
     private static final int GENERATION_SIZE = 500;
@@ -23,14 +26,29 @@ public class GeneticComputer extends ComputerPlayer {
 
     private int parentPos = 0;
 
+    /**
+     * Instantiates a new Genetic computer.
+     *
+     * @param role the role
+     */
     public GeneticComputer(Role role) {
         super(role);
     }
 
+    /**
+     * Gets turn blacks.
+     *
+     * @return the turn blacks
+     */
     ArrayList<Integer> getTurnBlacks() {
         return turnBlacks;
     }
 
+    /**
+     * Gets turn whites.
+     *
+     * @return the turn whites
+     */
     ArrayList<Integer> getTurnWhites() {
         return turnWhites;
     }
