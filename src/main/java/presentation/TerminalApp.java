@@ -118,7 +118,7 @@ public class TerminalApp {
         turns = 12;
         String computerName = "FiveGuessComputer";
 
-        mainController.startNewGame(userName, computerName, role, pegs, colors, turns);
+        mainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, turns);
     }
 
     private void continueGame(String userName) {
@@ -138,7 +138,7 @@ public class TerminalApp {
         Scanner scanner = new Scanner(System.in);
         String userName = scanner.next();
 
-        if (!mainController.existsUser(userName)) {
+        if (!mainController.getUserController().existsUser(userName)) {
             TerminalUtils.errorln(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
@@ -147,7 +147,7 @@ public class TerminalApp {
         for (int i = 0; !login && i < 3; i++) {
             if (i > 0) TerminalUtils.errorln("Contrasenya erronea!");
             TerminalUtils.println("Introdueixi la seva contrasenya");
-            login = mainController.loginUser(userName, scanner.next());
+            login = mainController.getUserController().loginUser(userName, scanner.next());
         }
 
         if (!login) {
@@ -169,7 +169,7 @@ public class TerminalApp {
             password2 = scanner.next();
         } while (!password1.equals(password2));
 
-        if (mainController.createUser(username, password1)) {
+        if (mainController.getUserController().createUser(username, password1)) {
             showPlayMenu(username);
         } else {
             TerminalUtils.errorln("Ja existeix l'usuari");

@@ -1,4 +1,4 @@
-package domain.controller;
+package domain;
 
 public interface InputOutput {
     // Inputs

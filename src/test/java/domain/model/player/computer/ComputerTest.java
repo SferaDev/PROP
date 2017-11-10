@@ -41,8 +41,8 @@ public class ComputerTest {
 
     @Test
     public void runTestGame() throws Exception {
-        DomainController.getInstance().startNewGame(computerName, pegs, colors, 12);
-        String gameStatus = DomainController.getInstance().getGameStatus();
+        DomainController.getInstance().getGameController().startNewGame(computerName, pegs, colors, 12);
+        String gameStatus = DomainController.getInstance().getGameController().getGameStatus();
         DomainController.getInstance().getGameInterface().outputMessage(gameStatus + "\n");
         Assert.assertTrue(gameStatus.equals("CORRECT"));
     }

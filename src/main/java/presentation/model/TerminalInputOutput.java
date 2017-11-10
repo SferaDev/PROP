@@ -1,6 +1,6 @@
 package presentation.model;
 
-import domain.controller.InputOutput;
+import domain.InputOutput;
 import presentation.utils.TerminalUtils;
 
 import java.util.Scanner;
