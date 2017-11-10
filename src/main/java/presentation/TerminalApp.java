@@ -65,7 +65,6 @@ public class TerminalApp {
 
             switch (scanner.nextInt()) {
                 case Constants.PLAY_NEW_GAME:
-                    showNewGameMenu(userName);
                     newGame(userName);
                     break;
                 case Constants.PLAY_PREV_GAME:
@@ -86,9 +85,6 @@ public class TerminalApp {
         } while (true);
     }
 
-    private void showNewGameMenu(String userName) {
-
-    }
 
     private void newGame(String userName) {
         Scanner scanner = new Scanner(System.in);
@@ -167,6 +163,8 @@ public class TerminalApp {
     }
 
     private void showHelpMenu() {
+        TerminalUtils.println("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
+        // TODO add exit
 
     }
 
