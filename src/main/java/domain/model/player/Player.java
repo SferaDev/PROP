@@ -106,6 +106,6 @@ public abstract class Player {
         BREAKER, /**
          * Maker role.
          */
-        MAKER;
+        MAKER
     }
 }
