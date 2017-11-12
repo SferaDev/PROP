@@ -10,8 +10,6 @@ import domain.model.row.ControlRow;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static java.lang.Math.pow;
-
 /**
  * The type Game.
  */
@@ -39,6 +37,7 @@ public class Game implements java.io.Serializable {
      *
      */
     public Game(Player user1, Player user2, GameInfo info) {
+        // Depending the Role, set the player attributes
         switch (user1.getPlayerRole()) {
             case MAKER:
                 gameMaker = user1;
@@ -51,7 +50,6 @@ public class Game implements java.io.Serializable {
         }
 
         gameInfo = info;
-
         gameStatus = Status.START;
     }
 
@@ -62,60 +60,72 @@ public class Game implements java.io.Serializable {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
-                    correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
-                    gameStatus = Status.GUESS;
+                    actionStart();
                     break;
                 case GUESS:
-                    ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
-                    mGuess.add(input);
-
-                    ControlRow control = gameMaker.scoreGuess(input);
-                    ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, input);
-
-                    if (!correctControl.equals(control)) {
-                        gameMaker.notifyInvalidInput();
-                    }
-
-                    gameBreaker.receiveControl(correctControl);
-                    mControl.add(correctControl);
-
-                    if (input.equals(correctGuess)) {
-                        gameStatus = Status.CORRECT;
-                    } else if ((gameTurn + 1) >= gameInfo.mTurns) {
-                        gameStatus = Status.FINISHED;
-                    } else {
-                        gameTurn++;
-                    }
+                    actionGuess();
+                    break;
+                case CONTROL:
+                    actionControl();
+                    break;
+                case CHECK:
+                    actionCheck();
+                    break;
+                case SCORE:
+                    actionScore();
                     break;
             }
         }
+    }
 
-        if (gameStatus == Status.CORRECT) {
-            int score = ((int) pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
-            gameBreaker.notifyScore(score);
-            StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
-                    score, gameInfo.getElapsedTime());
+    private void actionScore() {
+        // Notify the breaker his score
+        int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) * gameTurn;
+        gameBreaker.notifyScore(score);
+        StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
+                score, gameInfo.getElapsedTime());
+        gameStatus = Status.CORRECT;
+    }
+
+    private void actionCheck() {
+        // Update gameStatus
+        if (mGuess.get(mGuess.size() - 1).equals(correctGuess)) {
+            gameStatus = Status.SCORE;
+        } else if ((gameTurn + 1) >= gameInfo.mTurns) {
+            gameStatus = Status.FINISHED;
+        } else {
+            gameTurn++;
+            gameStatus = Status.GUESS;
         }
     }
 
-    /**
-     * Gets color row.
-     *
-     * @param turn the turn
-     * @return the color row
-     */
-    public ColorRow getColorRow(int turn) {
-        return mGuess.get(turn - 1);
+    private void actionControl() throws FinishGameException {
+        // Ask Maker for a control of the input guess
+        ControlRow control = gameMaker.scoreGuess(mGuess.get(mGuess.size() - 1));
+        ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, mGuess.get(mGuess.size() - 1));
+
+        // If Maker is lying, notify him
+        if (!correctControl.equals(control)) {
+            gameMaker.notifyInvalidInput();
+        }
+
+        // Send Breaker the correct control and store it
+        gameBreaker.receiveControl(correctControl);
+        mControl.add(correctControl);
+        gameStatus = Status.CHECK;
     }
 
-    /**
-     * Gets control row.
-     *
-     * @param turn the turn
-     * @return the control row
-     */
-    public ControlRow getControlRow(int turn) {
-        return mControl.get(turn - 1);
+    private void actionGuess() throws FinishGameException {
+        // Ask Breaker an input guess and store it
+        ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
+        mGuess.add(input);
+        gameStatus = Status.CONTROL;
+    }
+
+    private void actionStart() throws FinishGameException {
+        // Ask Maker the correct guess
+        correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
+        gameStatus = Status.GUESS;
     }
 
     /**
@@ -156,6 +166,18 @@ public class Game implements java.io.Serializable {
          */
         GUESS,
         /**
+         * Control status.
+         */
+        CONTROL,
+        /**
+         * Check status.
+         */
+        CHECK,
+        /**
+         * Score status.
+         */
+        SCORE,
+        /**
          * Correct status.
          */
         CORRECT,
@@ -168,7 +190,7 @@ public class Game implements java.io.Serializable {
     /**
      * The type Game info.
      */
-    public static class GameInfo {
+    public static class GameInfo implements java.io.Serializable {
         private String mUser;
         private Player.Role mRole;
         private int mPegs, mColors, mTurns;

@@ -5,21 +5,12 @@ import java.util.ArrayList;
 /**
  * The type Color row.
  */
-public class ColorRow extends ArrayList<ColorRow.ColorPeg> {
+public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Serializable {
     /**
      * Instantiates a new Color row.
      */
     public ColorRow() {
         super();
-    }
-
-    /**
-     * Instantiates a new Color row.
-     *
-     * @param size the size
-     */
-    public ColorRow(int size) {
-        super(size);
     }
 
     /**
@@ -54,7 +45,7 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> {
     /**
      * The type Color peg.
      */
-    public static class ColorPeg {
+    public static class ColorPeg implements java.io.Serializable {
         private int mColor;
 
         /**

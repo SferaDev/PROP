@@ -60,7 +60,11 @@ public class TerminalController {
      * @return the integer
      */
     public Integer readInteger() {
-        return Integer.parseInt(readString());
+        try {
+            return Integer.parseInt(readString());
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     /**
@@ -71,7 +75,11 @@ public class TerminalController {
     public Integer readGameInteger() throws FinishGameException {
         String string = readString();
         executeCommands(string);
-        return Integer.parseInt(string);
+        try {
+            return Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     /**

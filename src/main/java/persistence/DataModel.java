@@ -73,6 +73,11 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
         return (E) Base64Encoder.fromString(serialObject);
     }
 
+    @Override
+    public ArrayList allKeys() {
+        return new ArrayList<>(mData.keySet());
+    }
+
     private String readDisk(String path) {
         try {
             return FileUtils.readFromFile(path);

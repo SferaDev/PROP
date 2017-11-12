@@ -1,5 +1,7 @@
 package domain.controller.data;
 
+import java.util.ArrayList;
+
 /**
  * The interface Data controller.
  *
@@ -44,4 +46,11 @@ public interface DataController<E> {
      * @return the e
      */
     E get(String key);
+
+    /**
+     * All keys.
+     *
+     * @return all Keys
+     */
+    ArrayList allKeys();
 }

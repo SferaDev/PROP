@@ -9,6 +9,8 @@ import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
 import persistence.model.GameDataModel;
 
+import java.util.ArrayList;
+
 /**
  * The type Game controller.
  */
@@ -102,5 +104,30 @@ public class GameController {
             currentGame.finishGame();
         }
         throw new FinishGameException();
+    }
+
+    public ArrayList<String> getAllGames(String userName) {
+        ArrayList games = gameDataController.allKeys();
+        ArrayList valuesToRemove = new ArrayList();
+        for (Object game : games) {
+            String gameTitle = (String) game;
+            if (!gameTitle.split("-")[0].equals(userName)) {
+                valuesToRemove.add(game);
+            }
+        }
+        games.removeAll(valuesToRemove);
+        return games;
+    }
+
+    public void continueGame(String game) {
+        if (!gameDataController.exists(game)) return;
+        currentGame = (Game) gameDataController.get(game);
+        gameDataController.remove(game);
+
+        try {
+            currentGame.startGame();
+        } catch (FinishGameException e) {
+            currentGame = null;
+        }
     }
 }

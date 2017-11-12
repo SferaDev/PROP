@@ -8,7 +8,7 @@ import domain.model.row.ControlRow;
 /**
  * The type User player.
  */
-public class UserPlayer extends Player {
+public class UserPlayer extends Player implements java.io.Serializable {
 
     private String parentUser;
 

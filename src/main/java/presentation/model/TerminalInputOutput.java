@@ -24,9 +24,13 @@ public class TerminalInputOutput implements InputOutput {
     @Override
     public int[] inputColorRow(int pegs, int colors) throws FinishGameException {
         int[] result = new int[pegs];
-        TerminalController.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors [1 2 2 1]");
+        TerminalController.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
         for (int i = 0; i < pegs; ++i) {
             result[i] = TerminalController.getInstance().readGameInteger();
+            while (result[i] < 0 || result[i] > colors) {
+                TerminalController.getInstance().printLine("Fitxa " + result[i] + " invalida!");
+                result[i] = TerminalController.getInstance().readGameInteger();
+            }
         }
         return result;
     }

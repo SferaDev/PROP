@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * The type Five guess computer.
  */
-public class FiveGuessComputer extends ComputerPlayer {
+public class FiveGuessComputer extends ComputerPlayer implements java.io.Serializable {
 
     private int totalCombinations;
 

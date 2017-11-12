@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * The type Computer player.
  */
-public abstract class ComputerPlayer extends Player {
+public abstract class ComputerPlayer extends Player implements java.io.Serializable {
     private ColorRow makerCorrectGuess;
 
     /**

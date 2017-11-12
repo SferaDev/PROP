@@ -3,16 +3,9 @@ package domain.model.row;
 /**
  * The type Control row.
  */
-public class ControlRow {
+public class ControlRow implements java.io.Serializable {
     private int mBlacks = 0;
     private int mWhites = 0;
-
-    /**
-     * Instantiates a new Control row.
-     */
-    public ControlRow() {
-        // Empty constructor
-    }
 
     /**
      * Instantiates a new Control row.

@@ -3,6 +3,9 @@ package presentation;
 import domain.controller.DomainController;
 import presentation.controller.TerminalController;
 import presentation.model.TerminalInputOutput;
+import presentation.utils.TerminalMenuBuilder;
+
+import java.util.ArrayList;
 
 /**
  * The type Terminal app.
@@ -21,146 +24,87 @@ public class TerminalApp {
     }
 
     private void showMainMenu() {
-        do {
-            terminalController.printLine(Constants.MAIN_MENU_SEPARATOR + "\n" +
-                    Constants.MAIN_MENU_TITLE + "\n" +
-                    Constants.MAIN_MENU_SEPARATOR + "\n" +
-                    Constants.MAIN_REGISTER + ". " + Constants.MAIN_REGISTER_TITLE + "\n" +
-                    Constants.MAIN_LOGIN + ". " + Constants.MAIN_LOGIN_TITLE + "\n" +
-                    Constants.MAIN_STATS + ". " + Constants.MAIN_STATS_TITLE + "\n" +
-                    Constants.MAIN_HELP + ". " + Constants.MAIN_HELP_TITLE + "\n" +
-                    Constants.MAIN_EXIT + ". " + Constants.MAIN_EXIT_TITLE);
-
-            switch (terminalController.readInteger()) {
-                case Constants.MAIN_REGISTER:
-                    register();
-                    break;
-                case Constants.MAIN_LOGIN:
-                    login();
-                    break;
-                case Constants.MAIN_STATS:
-                    showStatsMenu();
-                    break;
-                case Constants.MAIN_HELP:
-                    showHelpMenu();
-                    break;
-                case Constants.MAIN_EXIT:
-                    System.exit(0);
-                    break;
-                default:
-                    terminalController.errorLine("Introdueixi una opció de la llista");
-                    break;
-            }
-
-        } while (true);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.MAIN_MENU);
+        builder.addOption(Constants.MAIN_REGISTER, this::register);
+        builder.addOption(Constants.MAIN_LOGIN, this::login);
+        builder.addOption(Constants.MAIN_STATS, this::showStats);
+        builder.addOption(Constants.MAIN_HELP, this::showHelp);
+        builder.addOption(Constants.EXIT, builder::finishExecution);
+        builder.defaultError(Constants.ERROR_INPUT);
+        builder.queryLoop();
     }
 
     private void showPlayMenu(String userName) {
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.PLAY_MENU + userName);
+        builder.addOption(Constants.PLAY_NEW_GAME, () -> showNewGameMenu(userName));
+        builder.addOption(Constants.PLAY_PREV_GAME, () -> showContinueGameMenu(userName));
+        builder.addOption(Constants.PLAY_STATS, this::showStats);
+        builder.addOption(Constants.PLAY_HELP, this::showHelp);
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.defaultError(Constants.ERROR_INPUT);
+        builder.queryLoop();
+    }
+
+    private void showNewGameMenu(String userName) {
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.NEW_GAME_MENU);
+        builder.addOption(Constants.NEW_GAME_BREAKER, () -> newBreakerGame(userName));
+        builder.addOption(Constants.NEW_GAME_MAKER, () -> newMakerGame(userName));
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.defaultError(Constants.ERROR_INPUT);
+        builder.onExitGoBackToStart(true);
+        builder.queryLoop();
+    }
+
+    private void showContinueGameMenu(String userName) {
+        ArrayList<String> games = mainController.getGameController().getAllGames(userName);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.PREVIOUS_GAME_MENU);
+        for (String game : games)
+            builder.addOption(game, () -> continueGame(game));
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.onExitGoBackToStart(true);
+        builder.queryLoop();
+    }
+
+    private void newBreakerGame(String userName) {
+        newGame(userName, "BREAKER", "DummyComputer");
+    }
+
+    private void newMakerGame(String userName) {
+        String role = "MAKER";
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.NEW_GAME_MENU);
+        builder.addOption(Constants.NEW_GAME_FIVEGUESS, () -> newGame(userName, role, "FiveGuessComputer"));
+        builder.addOption(Constants.NEW_GAME_GENETIC, () -> newGame(userName, role, "GeneticComputer"));
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.onExitGoBackToStart(true);
+        builder.queryLoop();
+    }
+
+    private void newGame(String userName, String role, String computerName) {
+        // Request pegs and colors
+        int pegs, colors;
         do {
-            terminalController.printLine(Constants.PLAY_MENU_SEPARATOR + "\n" +
-                    Constants.PLAY_MENU_TITLE + "\n" +
-                    Constants.PLAY_MENU_SEPARATOR + "\n" +
-                    Constants.PLAY_NEW_GAME + ". " + Constants.PLAY_NEW_GAME_TITLE + "\n" +
-                    Constants.PLAY_PREV_GAME + ". " + Constants.PLAY_PREV_GAME_TITLE + "\n" +
-                    Constants.PLAY_STATS + ". " + Constants.PLAY_STATS_TITLE + "\n" +
-                    Constants.PLAY_HELP + ". " + Constants.PLAY_HELP_TITLE + "\n" +
-                    Constants.PLAY_BACK + ". " + Constants.PLAY_BACK_TITLE);
+            terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
+            pegs = terminalController.readInteger();
+        } while (pegs == -1);
 
-            switch (terminalController.readInteger()) {
-                case Constants.PLAY_NEW_GAME:
-                    newGame(userName);
-                    break;
-                case Constants.PLAY_PREV_GAME:
-                    continueGame(userName);
-                    break;
-                case Constants.PLAY_STATS:
-                    showStats();
-                    break;
-                case Constants.PLAY_HELP:
-                    showHelpMenu();
-                    break;
-                case Constants.PLAY_BACK:
-                    return;
-                default:
-                    terminalController.errorLine("Introdueixi una opció de la llista");
-                    break;
-            }
-        } while (true);
-    }
-
-
-    private void newGame(String userName) {
-        String role = null;
         do {
-            terminalController.printLine(Constants.NEW_MENU_SEPARATOR + "\n" +
-                    Constants.NEW_MENU_TITLE + "\n" +
-                    Constants.NEW_MENU_SEPARATOR + "\n" +
-                    Constants.NEW_BREAKER_GAME + ". " + Constants.NEW_BREAKER_GAME_TITLE + "\n" +
-                    Constants.NEW_MAKER_GAME + ". " + Constants.NEW_MAKER_GAME_TITLE + "\n" +
-                    Constants.NEW_BACK + ". " + Constants.NEW_BACK_TITLE);
+            terminalController.printLine("Introdueixi el nombre de colors possibles");
+            colors = terminalController.readInteger();
+        } while (colors == -1);
 
-            switch (terminalController.readInteger()) {
-                case Constants.NEW_BREAKER_GAME:
-                    role = "BREAKER";
-                    break;
-                case Constants.NEW_MAKER_GAME:
-                    role = "MAKER";
-                    break;
-                case Constants.NEW_BACK:
-                    return;
-                default:
-                    terminalController.errorLine("Introdueixi una opció de la llista");
-                    break;
-            }
-        } while (role == null);
-
-        int pegs, colors, turns;
-
-        terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
-        pegs = terminalController.readInteger();
-        terminalController.printLine("Introdueixi el nombre de colors possibles");
-        colors = terminalController.readInteger();
-
-        String computerName = "DummyComputer";
-        if (role.equals("MAKER")) {
-            do {
-                terminalController.printLine(Constants.NEW_FIVEGUESS_GAME + ". " + Constants.NEW_FIVEGUESS_GAME_TITLE + "\n" +
-                        Constants.NEW_GENETIC_GAME + ". " + Constants.NEW_GENETIC_GAME_TITLE + "\n" +
-                        Constants.NEW_BACK_ALGORITHM + ". " + Constants.NEW_BACK_ALGORITHM_TITLE);
-
-                switch (terminalController.readInteger()) {
-                    case Constants.NEW_FIVEGUESS_GAME:
-                        computerName = "FiveGuessComputer";
-                        break;
-                    case Constants.NEW_GENETIC_GAME:
-                        computerName = "GeneticComputer";
-                        break;
-                    case Constants.NEW_BACK_ALGORITHM:
-                        return;
-                    default:
-                        terminalController.errorLine("Introdueixi una opció de la llista");
-                        break;
-                }
-            } while (computerName.equals("DummyComputer"));
-        }
-
-        // TODO
-
-        turns = 12;
-
-
-        mainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, turns);
+        mainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
     }
 
-    private void continueGame(String userName) {
-
+    private void continueGame(String game) {
+        mainController.getGameController().continueGame(game);
     }
 
-    private void showStatsMenu() {
-
-    }
-
-    private void showHelpMenu() {
+    private void showHelp() {
         terminalController.printLine("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
         // TODO add exit
 

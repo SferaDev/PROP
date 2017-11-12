@@ -7,7 +7,7 @@ import domain.model.row.ControlRow;
 /**
  * The type Player.
  */
-public abstract class Player {
+public abstract class Player implements java.io.Serializable {
     // Role is defined upon creation, only has a getter
     // Protected so it can be accessible on the sub-classes
     private Role playerRole;

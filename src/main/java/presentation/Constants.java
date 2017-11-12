@@ -5,172 +5,88 @@ package presentation;
  */
 public class Constants {
     /**
-     * The Main register.
+     * The Main exit title.
      */
-    static final int MAIN_REGISTER = 1;
+    static final String BACK = "Enrere";
+
     /**
-     * The Main login.
+     * The Main exit title.
      */
-    static final int MAIN_LOGIN = 2;
+    static final String EXIT = "Surt";
+
     /**
-     * The Main stats.
+     * The Main exit title.
      */
-    static final int MAIN_STATS = 3;
-    /**
-     * The Main help.
-     */
-    static final int MAIN_HELP = 4;
-    /**
-     * The Main exit.
-     */
-    static final int MAIN_EXIT = 5;
+    static final String ERROR_INPUT = "Introdueixi una opció de la llista";
 
     /**
      * The Main menu title.
      */
-    static final String MAIN_MENU_TITLE = "  " + "Mastermind: Menu Principal" + "  ";
-    /**
-     * The Main menu separator.
-     */
-    static final String MAIN_MENU_SEPARATOR = new String(new char[MAIN_MENU_TITLE.length()]).replace('\0', '=');
+    static final String MAIN_MENU = "Mastermind: Menu Principal";
     /**
      * The Main register title.
      */
-    static final String MAIN_REGISTER_TITLE = "Registrar-se";
+    static final String MAIN_REGISTER = "Registrar-se";
     /**
      * The Main login title.
      */
-    static final String MAIN_LOGIN_TITLE = "Identificar-se";
+    static final String MAIN_LOGIN = "Identificar-se";
     /**
      * The Main stats title.
      */
-    static final String MAIN_STATS_TITLE = "Veure estadístiques";
+    static final String MAIN_STATS = "Veure estadístiques";
     /**
      * The Main help title.
      */
-    static final String MAIN_HELP_TITLE = "Ajuda";
-    /**
-     * The Main exit title.
-     */
-    static final String MAIN_EXIT_TITLE = "Surt";
-
-    /**
-     * The Play new game.
-     */
-    static final int PLAY_NEW_GAME = 1;
-    /**
-     * The Play prev game.
-     */
-    static final int PLAY_PREV_GAME = 2;
-    /**
-     * The Play stats.
-     */
-    static final int PLAY_STATS = 3;
-    /**
-     * The Play help.
-     */
-    static final int PLAY_HELP = 4;
-    /**
-     * The Play back.
-     */
-    static final int PLAY_BACK = 5;
+    static final String MAIN_HELP = "Ajuda";
 
     /**
      * The Play menu title.
      */
-    static final String PLAY_MENU_TITLE = "  " + "Mastermind: Benvingut!" + "  ";
-    /**
-     * The Play menu separator.
-     */
-    static final String PLAY_MENU_SEPARATOR = new String(new char[PLAY_MENU_TITLE.length()]).replace('\0', '=');
+    static final String PLAY_MENU = "Mastermind: Benvingut ";
     /**
      * The Play new game title.
      */
-    static final String PLAY_NEW_GAME_TITLE = "Nova partida";
+    static final String PLAY_NEW_GAME = "Nova partida";
     /**
      * The Play prev game title.
      */
-    static final String PLAY_PREV_GAME_TITLE = "Continuar partida";
+    static final String PLAY_PREV_GAME = "Continuar partida";
     /**
      * The Play stats title.
      */
-    static final String PLAY_STATS_TITLE = MAIN_STATS_TITLE;
+    static final String PLAY_STATS = MAIN_STATS;
     /**
      * The Play help title.
      */
-    static final String PLAY_HELP_TITLE = MAIN_HELP_TITLE;
-    /**
-     * The Play back title.
-     */
-    static final String PLAY_BACK_TITLE = MAIN_EXIT_TITLE;
-
-    /**
-     * The New breaker game.
-     */
-    static final int NEW_BREAKER_GAME = 1;
-    /**
-     * The New maker game.
-     */
-    static final int NEW_MAKER_GAME = 2;
-    /**
-     * The New back.
-     */
-    static final int NEW_BACK = 3;
+    static final String PLAY_HELP = MAIN_HELP;
 
     /**
      * The New menu title.
      */
-    static final String NEW_MENU_TITLE = "  " + "Mastermind: Nou joc" + "  ";
-    /**
-     * The New menu separator.
-     */
-    static final String NEW_MENU_SEPARATOR = new String(new char[NEW_MENU_TITLE.length()]).replace('\0', '=');
+    static final String NEW_GAME_MENU = "Mastermind: Nou joc";
     /**
      * The New breaker game title.
      */
-    static final String NEW_BREAKER_GAME_TITLE = "Breaker";
+    static final String NEW_GAME_BREAKER = "Breaker";
     /**
      * The New maker game title.
      */
-    static final String NEW_MAKER_GAME_TITLE = "Maker";
-    /**
-     * The New back title.
-     */
-    static final String NEW_BACK_TITLE = MAIN_EXIT_TITLE;
-
-    /**
-     * The New fiveguess game.
-     */
-    static final int NEW_FIVEGUESS_GAME = 1;
-    /**
-     * The New genetic game.
-     */
-    static final int NEW_GENETIC_GAME = 2;
-    /**
-     * The New dummy game.
-     */
-    static final int NEW_DUMMY_GAME = 3;
-    /**
-     * The New back algorithm.
-     */
-    static final int NEW_BACK_ALGORITHM = 4;
+    static final String NEW_GAME_MAKER = "Maker";
 
     /**
      * The New fiveguess game title.
      */
-    static final String NEW_FIVEGUESS_GAME_TITLE = "FiveGuessComputer";
+    static final String NEW_GAME_FIVEGUESS = "FiveGuessComputer";
     /**
      * The New genetic game title.
      */
-    static final String NEW_GENETIC_GAME_TITLE = "GeneticComputer";
+    static final String NEW_GAME_GENETIC = "GeneticComputer";
+
     /**
-     * The New dummy game title.
+     * The New menu title.
      */
-    static final String NEW_DUMMY_GAME_TITLE = "DummyComputer";
-    /**
-     * The New back algorithm title.
-     */
-    static final String NEW_BACK_ALGORITHM_TITLE = MAIN_EXIT_TITLE;
+    static final String PREVIOUS_GAME_MENU = "Mastermind: Jocs guardats";
 
     /**
      * The Error user not found.

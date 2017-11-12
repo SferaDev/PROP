@@ -9,7 +9,7 @@ import domain.model.row.ControlRow;
 /**
  * The type Dummy computer.
  */
-public class DummyComputer extends ComputerPlayer {
+public class DummyComputer extends ComputerPlayer implements java.io.Serializable {
 
     /**
      * Instantiates a new Dummy computer.
