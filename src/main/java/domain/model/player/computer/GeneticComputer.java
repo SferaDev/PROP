@@ -10,36 +10,86 @@ import java.util.ArrayList;
  * The type Genetic computer.
  */
 public class GeneticComputer extends ComputerPlayer implements java.io.Serializable {
+
+    /**
+     * Size of the population that will be generated.
+     */
     private static final int POPULATION_SIZE = 2000;
+
+    /**
+     * Number of generations. If we don't have any feasible code
+     * generations, a new guess with new generations and populations will be
+     * made.
+     */
     private static final int GENERATION_SIZE = 500;
+
+    /**
+     * Max number of feasible codes. When the FEASIBLE_CODES_MAX is reached, we stop producing feasible codes
+     * and we choose one randomly.
+     */
     private static final int FEASIBLE_CODES_MAX = 1;
 
+
+    /**
+     * Array with the GeneticComputer previous attempts
+     */
     private ArrayList<ColorRow> gameGuesses = new ArrayList<>();
+
+    /**
+     * Array with the GeneticComputer previous black results
+     */
     private ArrayList<Integer> turnBlacks = new ArrayList<>();
+
+    /**
+     * Array with the GeneticComputer previous white results
+     */
     private ArrayList<Integer> turnWhites = new ArrayList<>();
 
+    /**
+     * Array with the population generated
+     */
     private ArrayList<ColorRow> population = new ArrayList<>(POPULATION_SIZE);
+
+    /**
+     * Array that contains the fitness of each population. Fitness[i] contains the fitness of population[i]
+     */
     private ArrayList<Integer> fitness = new ArrayList<>(POPULATION_SIZE);
 
+    /**
+     * Array with all the feasible codes found.
+     */
     private ArrayList<ColorRow> feasibleCodes = new ArrayList<>();
 
-
-    private int parentPos = 0;
+    /**
+     * Integer used to choose 2 ColorRows for the crossover
+     */
+    private Integer parentPos = 0;
 
     /**
      * Instantiates a new Genetic computer.
      *
-     * @param role the role
+     * @param role Is the role of the computer
      */
     public GeneticComputer(Role role) {
         super(role);
     }
 
+    /**
+     * Return the name of the algorithm
+     */
     @Override
     public String getName() {
         return "Genetic";
     }
 
+    /**
+     * Compute the next guess. To do it, initialises a random population, and calculates the fitness for that population.
+     * After that, generates new population using crossover, mutation, inversion and permutation, until it has enough
+     * feasible codes, and returns one of those randomly.
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the combination that is going to be tried
+     */
     @Override
     public ColorRow breakerGuess(int pegs, int colors) {
         if (turnBlacks.size() == 0 && turnWhites.size() == 0) {
@@ -53,7 +103,7 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
         calculateFitness();
         sortFeasibleByFitness(fitness, population);
         while (feasibleCodes.isEmpty()) {
-            while (feasibleNotFull && generation <= GENERATION_SIZE) { //eliminat una condicio
+            while (feasibleNotFull && generation <= GENERATION_SIZE) {
                 evolvePopulation(pegs, colors);
                 calculateFitness();
                 sortFeasibleByFitness(fitness, population);
@@ -66,6 +116,10 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
         return guess;
     }
 
+    /**
+     * Updates the control information to the arrays of blacks and whites.
+     * @param control is the number of black and white pegs of the last attempt
+     */
     @Override
     public void receiveControl(ControlRow control) {
         turnBlacks.add(control.getBlacks());
