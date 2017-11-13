@@ -101,10 +101,18 @@ public class TerminalController {
 
     private void executeCommands(String token) throws FinishGameException {
         switch (token.toLowerCase()) {
+            case "hint":
+            case "help":
+            case "ajuda":
+                DomainController.getInstance().getGameController().provideHelp();
+                break;
             case "save":
+            case "guardar":
+            case "guarda":
                 DomainController.getInstance().getGameController().saveCurrentGame();
                 break;
             case "exit":
+            case "surt":
                 DomainController.getInstance().getGameController().stopCurrentGame();
                 break;
         }

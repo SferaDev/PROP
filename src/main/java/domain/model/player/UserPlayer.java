@@ -1,5 +1,6 @@
 package domain.model.player;
 
+import domain.InputOutput;
 import domain.controller.DomainController;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
@@ -11,6 +12,8 @@ import domain.model.row.ControlRow;
 public class UserPlayer extends Player implements java.io.Serializable {
 
     private String parentUser;
+
+    private InputOutput gameInterface = DomainController.getInstance().getGameInterface();
 
     /**
      * Instantiates a new User player.
@@ -30,34 +33,44 @@ public class UserPlayer extends Player implements java.io.Serializable {
 
     @Override
     public ColorRow makerGuess(int pegs, int colors) throws FinishGameException {
-        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
+        return new ColorRow(gameInterface.inputColorRow(pegs, colors));
     }
 
     @Override
     public ColorRow breakerGuess(int pegs, int colors) throws FinishGameException {
-        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
+        return new ColorRow(gameInterface.inputColorRow(pegs, colors));
     }
 
     @Override
     public ControlRow scoreGuess(ColorRow guess) throws FinishGameException {
-        DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
-        int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks(guess.size());
-        int whites = DomainController.getInstance().getGameInterface().inputControlWhites(guess.size());
+        gameInterface.outputColorRow(guess.toString());
+        int blacks = gameInterface.inputControlBlacks(guess.size());
+        int whites = gameInterface.inputControlWhites(guess.size());
         return new ControlRow(blacks, whites);
     }
 
     @Override
     public void receiveControl(ControlRow control) {
-        DomainController.getInstance().getGameInterface().outputControlRow(control.getBlacks(), control.getWhites());
+        gameInterface.outputControlRow(control.getBlacks(), control.getWhites());
     }
 
     @Override
     public void notifyInvalidInput() {
-        DomainController.getInstance().getGameInterface().notifyInvalidInput();
+        gameInterface.notifyInvalidInput();
+    }
+
+    @Override
+    public void notifyHint(ControlRow row) {
+        gameInterface.outputHintControlRow(row.getBlacks(), row.getWhites());
+    }
+
+    @Override
+    public void notifyHint(ColorRow row) {
+        gameInterface.outputHintColorRow(row.toString());
     }
 
     @Override
     public void notifyScore(int score) {
-        DomainController.getInstance().getGameInterface().notifyScore(score);
+        gameInterface.notifyScore(score);
     }
 }

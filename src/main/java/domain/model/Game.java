@@ -156,6 +156,10 @@ public class Game implements java.io.Serializable {
         gameStatus = Status.FINISHED;
     }
 
+    public void provideHelp() {
+        // TODO: Elena continua aqui
+    }
+
     /**
      * The enum Status.
      */

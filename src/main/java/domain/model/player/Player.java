@@ -89,6 +89,20 @@ public abstract class Player implements java.io.Serializable {
     }
 
     /**
+     * Notify hint.
+     */
+    public void notifyHint(ControlRow row) {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
+     * Notify hint.
+     */
+    public void notifyHint(ColorRow row) {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
      * Notify score.
      *
      * @param score the score

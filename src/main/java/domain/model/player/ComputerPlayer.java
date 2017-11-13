@@ -100,12 +100,30 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
 
     @Override
     public ControlRow scoreGuess(ColorRow guess) {
-        return ComputerPlayer.compareGuess(makerCorrectGuess, guess);
+        return compareGuess(makerCorrectGuess, guess);
     }
 
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
         makerCorrectGuess = randomRow(pegs, colors);
         return makerCorrectGuess;
+    }
+
+    /**
+     * Guess help color row.
+     *
+     * @param status the status
+     * @param pegs   the pegs
+     * @param colors the colors
+     * @return the color row
+     */
+    public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
+        ColorRow helpAttempt;
+        ControlRow controlRow;
+        do {
+            helpAttempt = randomRow(pegs, colors);
+            controlRow = scoreGuess(helpAttempt);
+        } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
+        return helpAttempt;
     }
 }

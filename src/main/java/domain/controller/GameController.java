@@ -130,4 +130,9 @@ public class GameController {
             currentGame = null;
         }
     }
+
+    public void provideHelp() {
+        if (currentGame == null) return;
+        currentGame.provideHelp();
+    }
 }

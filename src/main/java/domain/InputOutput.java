@@ -12,7 +12,6 @@ public interface InputOutput {
      * @param pegs the pegs
      * @return the int
      */
-// Inputs
     int inputControlBlacks(int pegs) throws FinishGameException;
 
     /**
@@ -38,7 +37,6 @@ public interface InputOutput {
      * @param blacks the blacks
      * @param whites the whites
      */
-// Outputs
     void outputControlRow(int blacks, int whites);
 
     /**
@@ -47,6 +45,21 @@ public interface InputOutput {
      * @param row the row
      */
     void outputColorRow(String row);
+
+    /**
+     * Output hint control row.
+     *
+     * @param blacks the blacks
+     * @param whites the whites
+     */
+    void outputHintControlRow(int blacks, int whites);
+
+    /**
+     * Output hint color row.
+     *
+     * @param row the row
+     */
+    void outputHintColorRow(String row);
 
     /**
      * Output message.

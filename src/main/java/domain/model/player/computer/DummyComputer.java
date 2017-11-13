@@ -67,23 +67,4 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
         }
         return correctGuess;
     }
-
-    /**
-     * Guess help color row.
-     *
-     * @param status the status
-     * @param pegs   the pegs
-     * @param colors the colors
-     * @return the color row
-     */
-// TODO: Check if it works
-    public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
-        ColorRow helpAttempt;
-        ControlRow controlRow;
-        do {
-            helpAttempt = randomRow(pegs, colors);
-            controlRow = scoreGuess(helpAttempt);
-        } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
-        return helpAttempt;
-    }
 }

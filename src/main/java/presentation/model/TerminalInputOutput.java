@@ -46,6 +46,16 @@ public class TerminalInputOutput implements InputOutput {
     }
 
     @Override
+    public void outputHintControlRow(int blacks, int whites) {
+        // TODO: Elena
+    }
+
+    @Override
+    public void outputHintColorRow(String row) {
+        // TODO: Elena
+    }
+
+    @Override
     public void outputMessage(String message) {
         TerminalController.getInstance().printLine(message);
     }
