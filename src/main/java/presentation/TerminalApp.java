@@ -187,11 +187,7 @@ public class TerminalApp {
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
             String playerName = gameTitle[0] + " (" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
-            long elapsed = entry.getValue() / 1000;
-            int hours = (int) (elapsed / (3600));
-            int minutes = (int) ((elapsed - (hours * 3600)) / 60);
-            int seconds = (int) (elapsed - (hours * 3600) - minutes * 60);
-            builder.addDescription(playerName + ": " + String.format("%02d:%02d:%02d", hours, minutes, seconds));
+            builder.addDescription(playerName + ": " + terminalController.outputTimestamp(entry.getValue()));
         }
 
         builder.addOption(Constants.BACK, builder::finishExecution);
