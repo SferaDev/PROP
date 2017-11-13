@@ -9,35 +9,70 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The type Five guess computer.
+ * The type Five guess computer
+ *
  */
 public class FiveGuessComputer extends ComputerPlayer implements java.io.Serializable {
 
+    /**
+     * Number of different combinations it is possible to obtain with the number of pegs and colors given
+     */
     private int totalCombinations;
 
+    /**
+     * The guess tried in the last turn
+     */
     private ColorRow lastGuess;
+    /**
+     * The ControlRow obtained because of the last guess
+     */
     private ControlRow currentControl;
 
+    /**
+     * An ArrayList that contains all the combinations not discarded that could be the correct guess
+     */
     private ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
+    /**
+     * An ArrayList that contains all the combinations not proved
+     */
     private ArrayList<ColorRow> availableGuesses;
 
+    /**
+     * An ArrayList that contains all the combinations not tried
+     */
     private int maxHit;
+    /**
+     * The combination with the maxHit
+     */
     private ColorRow maxHitCombination;
 
     /**
-     * Instantiates a new Five guess computer.
+     * Instantiates a new Five guess computer
      *
-     * @param role the role
+     * @param role Is the role of the computer
      */
     public FiveGuessComputer(Role role) {
         super(role);
     }
 
+
+    /**
+     * Return the name of the algorithm
+     */
     @Override
     public String getName() {
         return "FiveGuess";
     }
 
+
+    /**
+     * Generates all the possible combinations with the number of pegs and colors given
+     *
+     * @param position is the index of the position that is being added
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @param combination is the combination that is being completed to be added to possibleCombinations
+     */
     private void backtracking(int position, int pegs, int colors, ColorRow combination) {
         if (combination.size() == pegs) {
             possibleCombinations.add(combination);
@@ -87,6 +122,14 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
 
     }
 
+    /**
+     * Evaluates which is the combination that will eliminate more possible combinations.
+     * To do it, first it searches for each combination the minimum eliminated for each ControlRow,
+     * and chooses the maximum of these minimums.
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the combination that is going to be tried
+     */
     @Override
     public ColorRow breakerGuess(int pegs, int colors) {
         if (possibleCombinations.isEmpty()) {
@@ -131,6 +174,13 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         currentControl = control;
     }
 
+
+    /**
+     * Choose a first combination to be tried
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the first combination that is going to be tried
+     */
     private ColorRow breakerInitialGuess(int pegs, int colors) {
         ColorRow firstAttempt;
         if (pegs == 4 && colors >= 2) {
@@ -143,3 +193,4 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         return firstAttempt;
     }
 }
+
