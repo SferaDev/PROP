@@ -12,6 +12,10 @@ import java.util.Random;
  * The type Computer player.
  */
 public abstract class ComputerPlayer extends Player implements java.io.Serializable {
+
+    /**
+     * Is the correct guess of the game
+     */
     private ColorRow makerCorrectGuess;
 
     /**
@@ -24,11 +28,11 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     }
 
     /**
-     * Compare guess control row.
+     * Compare guess control row in order to generate the number of blacks and whites of the attempt.
      *
-     * @param correct the correct
-     * @param guess   the guess
-     * @return the control row
+     * @param correct is the correct code
+     * @param guess   is the guess attempt that we want to correct
+     * @return the control row of the attempt
      */
     public static ControlRow compareGuess(ColorRow correct, ColorRow guess) {
         int blacks, whites;
@@ -63,11 +67,11 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     }
 
     /**
-     * Random row color row.
+     * Generates a random ColorRow.
      *
-     * @param pegs   the pegs
-     * @param colors the colors
-     * @return the color row
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the random color row generated
      */
     protected static ColorRow randomRow(int pegs, int colors) {
         ColorRow row = new ColorRow();
@@ -79,11 +83,11 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     }
 
     /**
-     * New computer by name computer player.
+     * Creates a new computer by the name, and assigns to the computer the role.
      *
      * @param computerName the computer name
      * @param computerRole the computer role
-     * @return the computer player
+     * @return the new computer player
      */
     public static ComputerPlayer newComputerByName(String computerName, Role computerRole) {
         // If we could only use Reflection...
@@ -98,11 +102,23 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
         }
     }
 
+    /**
+     * Calls to compareGuess in order to generate the number of blacks and whites of the attempt.
+     * @param guess the guess that we want to correct
+     * @return the number of blacks ano whitse of the attempt
+     * @see #compareGuess(ColorRow, ColorRow)
+     */
     @Override
     public ControlRow scoreGuess(ColorRow guess) {
         return compareGuess(makerCorrectGuess, guess);
     }
 
+    /**
+     *Generates a random secret code
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the secret code
+     */
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
         makerCorrectGuess = randomRow(pegs, colors);
@@ -110,12 +126,12 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     }
 
     /**
-     * Guess help color row.
+     * Generates a help attempt. A help attempt is an attempt with more blacks or whites than you had in the last attempt
      *
-     * @param status the status
-     * @param pegs   the pegs
-     * @param colors the colors
-     * @return the color row
+     * @param status is the ControlRow of the last attempt
+     * @param pegs is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the help attempt generated
      */
     public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
         ColorRow helpAttempt;
