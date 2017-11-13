@@ -105,9 +105,11 @@ public class TerminalApp {
     }
 
     private void showHelp() {
-        terminalController.printLine("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
-        // TODO add exit
-
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Ajuda");
+        builder.addDescription("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.queryLoop();
     }
 
     private void login() {

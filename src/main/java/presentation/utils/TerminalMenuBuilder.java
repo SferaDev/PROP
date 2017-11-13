@@ -5,9 +5,10 @@ import presentation.controller.TerminalController;
 import java.util.ArrayList;
 
 public class TerminalMenuBuilder {
-    private StringBuilder sTitle = new StringBuilder();
-    private StringBuilder sCommands = new StringBuilder();
-    private ArrayList<Command> commands = new ArrayList<>();
+    private StringBuilder mTitle = new StringBuilder();
+    private StringBuilder mDescription = new StringBuilder();
+    private StringBuilder mOptions = new StringBuilder();
+    private ArrayList<Command> mCommands = new ArrayList<>();
     private String defaultOption;
     private boolean finish = false;
     private boolean goBackToStart = false;
@@ -18,14 +19,18 @@ public class TerminalMenuBuilder {
         // Create separator
         String separator = new String(new char[title.length()]).replace('\0', '=');
         // Build the title
-        sTitle.append(separator).append("\n");
-        sTitle.append(title).append("\n");
-        sTitle.append(separator).append("\n");
+        mTitle.append(separator).append("\n");
+        mTitle.append(title).append("\n");
+        mTitle.append(separator).append("\n");
+    }
+
+    public void addDescription(String description) {
+        mDescription.append(description).append("\n");
     }
 
     public void addOption(String title, Command function) {
-        commands.add(function);
-        sCommands.append(commands.size()).append(". ").append(title).append("\n");
+        mCommands.add(function);
+        mOptions.append(mCommands.size()).append(". ").append(title).append("\n");
     }
 
     public void onExitGoBackToStart(boolean goBack) {
@@ -43,22 +48,27 @@ public class TerminalMenuBuilder {
 
     public void queryLoop() {
         while (!finish) {
-            query();
+            showQuery();
         }
     }
 
-    private void query() {
+    private void showOutput() {
         // Todo: Clean screen
         TerminalController.getInstance().printLine("\033[H\033[2J");
 
         // Print lines
-        TerminalController.getInstance().printLine(sTitle.toString());
-        TerminalController.getInstance().printLine(sCommands.toString());
+        TerminalController.getInstance().printLine(mTitle.toString());
+        TerminalController.getInstance().printLine(mDescription.toString());
+        TerminalController.getInstance().printLine(mOptions.toString());
+    }
+
+    private void showQuery() {
+        showOutput();
 
         // Request input
         int inputInteger = TerminalController.getInstance().readInteger() - 1;
-        if (inputInteger >= 0 && inputInteger < commands.size()) {
-            commands.get(inputInteger).apply();
+        if (inputInteger >= 0 && inputInteger < mCommands.size()) {
+            mCommands.get(inputInteger).apply();
             if (goBackToStart) finish = true;
         } else if (defaultOption != null){
             TerminalController.getInstance().printLine(defaultOption);
