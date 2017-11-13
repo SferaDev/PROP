@@ -4,6 +4,7 @@ import domain.controller.StatController;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
+import domain.model.player.UserPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
@@ -79,11 +80,13 @@ public class Game implements java.io.Serializable {
     }
 
     private void actionScore() {
-        // Notify the breaker his score
-        int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) * gameTurn;
-        gameBreaker.notifyScore(score);
-        StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
-                score, gameInfo.getElapsedTime());
+        if (gameBreaker instanceof UserPlayer) {
+            // Notify the breaker his score
+            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) * gameTurn;
+            gameBreaker.notifyScore(score);
+            StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
+                    score, gameInfo.getElapsedTime());
+        }
         gameStatus = Status.CORRECT;
     }
 
@@ -219,16 +222,16 @@ public class Game implements java.io.Serializable {
          * @return the game title
          */
         String getGameTitle() {
-            return mUser + "-" + mRole + "-" + mStart;
+            return mUser + "-" + mRole + "-" + mPegs + "-" + mColors + "-" + mStart;
         }
 
         /**
-         * Gets elapsed time.
+         * Gets elapsed time in ms.
          *
          * @return the elapsed time
          */
         long getElapsedTime() {
-            return (new Date().getTime() - mStart.getTime()) / 1000;
+            return (new Date().getTime() - mStart.getTime());
         }
 
     }

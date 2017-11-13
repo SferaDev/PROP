@@ -69,6 +69,14 @@ public class StatController {
         statDataController.replace("pointRanking", pointRanking);
         statDataController.replace("timeRanking", timeRanking);
     }
+
+    public HashMap<String, Long> getPointRanking() {
+        return pointRanking;
+    }
+
+    public HashMap<String, Long> getTimeRanking() {
+        return timeRanking;
+    }
 }
 
 

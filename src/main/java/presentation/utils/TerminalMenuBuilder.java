@@ -46,7 +46,7 @@ public class TerminalMenuBuilder {
         defaultOption = error;
     }
 
-    public void queryLoop() {
+    public void execute() {
         while (!finish) {
             showQuery();
         }
@@ -57,9 +57,12 @@ public class TerminalMenuBuilder {
         TerminalController.getInstance().printLine("\033[H\033[2J");
 
         // Print lines
-        TerminalController.getInstance().printLine(mTitle.toString());
-        TerminalController.getInstance().printLine(mDescription.toString());
-        TerminalController.getInstance().printLine(mOptions.toString());
+        if (!mTitle.toString().isEmpty())
+            TerminalController.getInstance().printLine(mTitle.toString());
+        if (!mDescription.toString().isEmpty())
+            TerminalController.getInstance().printLine(mDescription.toString());
+        if (!mOptions.toString().isEmpty())
+            TerminalController.getInstance().printLine(mOptions.toString());
     }
 
     private void showQuery() {

@@ -3,23 +3,25 @@ package presentation;
 import domain.controller.DomainController;
 import presentation.controller.TerminalController;
 import presentation.model.TerminalInputOutput;
+import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * The type Terminal app.
  */
 public class TerminalApp {
 
-    private DomainController mainController = DomainController.getInstance();
+    private DomainController domainController = DomainController.getInstance();
     private TerminalController terminalController = TerminalController.getInstance();
 
     /**
      * Start application.
      */
     public void startApplication() {
-        mainController.setGameInterface(new TerminalInputOutput());
+        domainController.setGameInterface(new TerminalInputOutput());
         showMainMenu();
     }
 
@@ -32,7 +34,7 @@ public class TerminalApp {
         builder.addOption(Constants.MAIN_HELP, this::showHelp);
         builder.addOption(Constants.EXIT, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void showPlayMenu(String userName) {
@@ -44,7 +46,7 @@ public class TerminalApp {
         builder.addOption(Constants.PLAY_HELP, this::showHelp);
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void showNewGameMenu(String userName) {
@@ -55,18 +57,18 @@ public class TerminalApp {
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
         builder.onExitGoBackToStart(true);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void showContinueGameMenu(String userName) {
-        ArrayList<String> games = mainController.getGameController().getAllGames(userName);
+        ArrayList<String> games = domainController.getGameController().getAllGames(userName);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.PREVIOUS_GAME_MENU);
         for (String game : games)
             builder.addOption(game, () -> continueGame(game));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.onExitGoBackToStart(true);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void newBreakerGame(String userName) {
@@ -81,7 +83,7 @@ public class TerminalApp {
         builder.addOption(Constants.NEW_GAME_GENETIC, () -> newGame(userName, role, "GeneticComputer"));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.onExitGoBackToStart(true);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void newGame(String userName, String role, String computerName) {
@@ -97,11 +99,11 @@ public class TerminalApp {
             colors = terminalController.readInteger();
         } while (colors == -1);
 
-        mainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
+        domainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
     }
 
     private void continueGame(String game) {
-        mainController.getGameController().continueGame(game);
+        domainController.getGameController().continueGame(game);
     }
 
     private void showHelp() {
@@ -109,14 +111,14 @@ public class TerminalApp {
         builder.addTitle("Mastermind: Ajuda");
         builder.addDescription("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
         builder.addOption(Constants.BACK, builder::finishExecution);
-        builder.queryLoop();
+        builder.execute();
     }
 
     private void login() {
         terminalController.printLine("Introdueixi el seu nom d'usuari");
         String userName = terminalController.readString();
 
-        if (!mainController.getUserController().existsUser(userName)) {
+        if (!domainController.getUserController().existsUser(userName)) {
             terminalController.errorLine(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
@@ -125,7 +127,7 @@ public class TerminalApp {
         for (int i = 0; !login && i < 3; i++) {
             if (i > 0) terminalController.errorLine("Contrasenya erronea!");
             terminalController.printLine("Introdueixi la seva contrasenya");
-            login = mainController.getUserController().loginUser(userName, terminalController.readString());
+            login = domainController.getUserController().loginUser(userName, terminalController.readString());
         }
 
         if (!login) {
@@ -146,7 +148,7 @@ public class TerminalApp {
             password2 = terminalController.readString();
         } while (!password1.equals(password2));
 
-        if (mainController.getUserController().createUser(username, password1)) {
+        if (domainController.getUserController().createUser(username, password1)) {
             showPlayMenu(username);
         } else {
             terminalController.errorLine("Ja existeix l'usuari");
@@ -154,8 +156,45 @@ public class TerminalApp {
     }
 
     private void showStats() {
-        // TODO
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Estadístiques");
+        builder.addOption("Puntuació", this::showPointStats);
+        builder.addOption("Temps", this::showTimeStats);
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.execute();
     }
 
+    private void showPointStats() {
+        Map<String, Long> pointRanking = domainController.getStatController().getPointRanking();
 
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Puntuació");
+
+        for (Map.Entry entry : pointRanking.entrySet()) {
+            builder.addDescription(entry.getKey() + ": " + entry.getValue());
+        }
+
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.execute();
+    }
+
+    private void showTimeStats() {
+        Map<String, Long> timeRanking = domainController.getStatController().getTimeRanking();
+
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Temps");
+
+        for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
+            String[] gameTitle = entry.getKey().split("-");
+            String playerName = gameTitle[0] + " (" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
+            long elapsed = entry.getValue() / 1000;
+            int hours = (int) (elapsed / (3600));
+            int minutes = (int) ((elapsed - (hours * 3600)) / 60);
+            int seconds = (int) (elapsed - (hours * 3600) - minutes * 60);
+            builder.addDescription(playerName + ": " + String.format("%02d:%02d:%02d", hours, minutes, seconds));
+        }
+
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.execute();
+    }
 }
