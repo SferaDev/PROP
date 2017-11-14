@@ -86,7 +86,7 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         }
     }
 
-    private void maxScore(ColorRow nextGuess) {
+    private int maxScore(ColorRow nextGuess) {
         Map<ControlRow, Integer> allScores = new HashMap<>();
 
         for (ColorRow combination : possibleCombinations) {
@@ -108,18 +108,19 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
             }
         }
 
-        int max = 0;
+        maxHit = 0;
         for (Map.Entry<ControlRow, Integer> a : allScores.entrySet()) {
-            if (a.getValue() > max) {
-                max = a.getValue();
+            if (a.getValue() > maxHit) {
+                maxHit = a.getValue();
             }
         }
 
-        if (max > maxHit) {
+       /* if (max > maxHit) {
             maxHit = max;
             maxHitCombination = new ColorRow(nextGuess);
         }
-
+*/
+       return maxHit;
     }
 
     /**
@@ -148,15 +149,15 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
                 }
             }
 
-            maxHitCombination = new ColorRow();
+            //maxHitCombination = new ColorRow();
 
             for (ColorRow combination : availableGuesses) {
-                maxHit = 0;
-                maxScore(combination);
+                //maxHit = 0;
+                maxHit = maxScore(combination);
                 int minEliminated = totalCombinations - maxHit;
                 if (guessScore < minEliminated) {
                     guessScore = minEliminated;
-                    lastGuess = new ColorRow(maxHitCombination);
+                    lastGuess = new ColorRow(combination);
                 } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(lastGuess))
                         && possibleCombinations.contains(maxHitCombination)) {
                     guessScore = minEliminated;
