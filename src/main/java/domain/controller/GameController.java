@@ -2,7 +2,7 @@ package domain.controller;
 
 import domain.controller.data.DataController;
 import domain.model.Game;
-import domain.model.exceptions.FinishGameException;
+import domain.model.exceptions.*;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -91,6 +91,7 @@ public class GameController {
      */
     public void saveCurrentGame() throws FinishGameException {
         if (currentGame != null) {
+            currentGame.prepareSave();
             gameDataController.insert(currentGame.getGameTitle(), currentGame);
             stopCurrentGame();
         }
@@ -125,6 +126,7 @@ public class GameController {
         gameDataController.remove(game);
 
         try {
+            currentGame.updateStart();
             currentGame.startGame();
         } catch (FinishGameException e) {
             currentGame = null;

@@ -42,6 +42,14 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Se
         return output.toString();
     }
 
+    public static boolean isValid(ColorRow input, int pegs, int colors) {
+        if (input.size() != pegs) return false;
+        for (ColorPeg peg : input) {
+            if (peg.mColor < 0 || peg.mColor > colors) return false;
+        }
+        return true;
+    }
+
     /**
      * The type Color peg.
      */

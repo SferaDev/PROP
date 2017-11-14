@@ -112,17 +112,18 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     /**
      * Guess help color row.
      *
-     * @param status the status
+     * @param correctGuess the correct guess
+     * @param status the control row
      * @param pegs   the pegs
      * @param colors the colors
      * @return the color row
      */
-    public ColorRow guessHelp(ControlRow status, int pegs, int colors) {
+    public static ColorRow guessHelp(ColorRow correctGuess, ControlRow status, int pegs, int colors) {
         ColorRow helpAttempt;
         ControlRow controlRow;
         do {
             helpAttempt = randomRow(pegs, colors);
-            controlRow = scoreGuess(helpAttempt);
+            controlRow = compareGuess(correctGuess, helpAttempt);
         } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
         return helpAttempt;
     }

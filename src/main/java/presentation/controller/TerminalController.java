@@ -72,23 +72,14 @@ public class TerminalController {
      *
      * @return the integer
      */
-    public Integer readGameInteger() throws FinishGameException {
+    public Integer readGameInteger() throws FinishGameException, InterruptedException {
         String string = readString();
-        executeCommands(string);
+        if (executeCommands(string)) throw new InterruptedException();
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {
             return -1;
         }
-    }
-
-    /**
-     * Read line string.
-     *
-     * @return the string
-     */
-    public String readLine() {
-        return scanner.nextLine();
     }
 
     public String outputTimestamp(long time) {
@@ -99,22 +90,23 @@ public class TerminalController {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-    private void executeCommands(String token) throws FinishGameException {
+    private boolean executeCommands(String token) throws FinishGameException {
         switch (token.toLowerCase()) {
             case "hint":
             case "help":
             case "ajuda":
                 DomainController.getInstance().getGameController().provideHelp();
-                break;
+                return true;
             case "save":
             case "guardar":
             case "guarda":
                 DomainController.getInstance().getGameController().saveCurrentGame();
-                break;
+                return true;
             case "exit":
             case "surt":
                 DomainController.getInstance().getGameController().stopCurrentGame();
-                break;
+                return true;
         }
+        return false;
     }
 }

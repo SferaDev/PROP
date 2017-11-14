@@ -7,6 +7,7 @@ import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -184,11 +185,17 @@ public class TerminalApp {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Temps");
 
+        ArrayList<String> entries = new ArrayList<>();
+
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
             String playerName = gameTitle[0] + " (" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
-            builder.addDescription(playerName + ": " + terminalController.outputTimestamp(entry.getValue()));
+            entries.add(terminalController.outputTimestamp(entry.getValue()) + " : " + playerName);
         }
+
+        Collections.sort(entries);
+
+        for (String string : entries) builder.addDescription(string);
 
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.execute();

@@ -55,7 +55,7 @@ public abstract class Player implements java.io.Serializable {
      * @param colors the colors
      * @return the color row
      */
-    public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException;
+    public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException, InterruptedException;
 
     /**
      * Breaker guess color row.
@@ -64,7 +64,7 @@ public abstract class Player implements java.io.Serializable {
      * @param colors the colors
      * @return the color row
      */
-    public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException;
+    public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, InterruptedException;
 
     /**
      * Score guess control row.
@@ -72,7 +72,7 @@ public abstract class Player implements java.io.Serializable {
      * @param guess the guess
      * @return the control row
      */
-    public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException;
+    public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException, InterruptedException;
 
     /**
      * Receive control.
@@ -85,6 +85,13 @@ public abstract class Player implements java.io.Serializable {
      * Notify invalid input.
      */
     public void notifyInvalidInput() {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
+     * Notify invalid control.
+     */
+    public void notifyInvalidControl() {
         // Should never happen unless UserPlayer
     }
 

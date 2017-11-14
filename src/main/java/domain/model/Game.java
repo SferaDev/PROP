@@ -1,7 +1,7 @@
 package domain.model;
 
 import domain.controller.StatController;
-import domain.model.exceptions.FinishGameException;
+import domain.model.exceptions.*;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -61,13 +61,19 @@ public class Game implements java.io.Serializable {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
             switch (gameStatus) {
                 case START:
-                    actionStart();
+                    try {
+                        actionStart();
+                    } catch (InterruptedException ignored) {}
                     break;
                 case GUESS:
-                    actionGuess();
+                    try {
+                        actionGuess();
+                    } catch (InterruptedException ignored) {}
                     break;
                 case CONTROL:
-                    actionControl();
+                    try {
+                        actionControl();
+                    } catch (InterruptedException ignored) {}
                     break;
                 case CHECK:
                     actionCheck();
@@ -102,14 +108,14 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void actionControl() throws FinishGameException {
+    private void actionControl() throws FinishGameException, InterruptedException {
         // Ask Maker for a control of the input guess
         ControlRow control = gameMaker.scoreGuess(mGuess.get(mGuess.size() - 1));
         ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, mGuess.get(mGuess.size() - 1));
 
         // If Maker is lying, notify him
         if (!correctControl.equals(control)) {
-            gameMaker.notifyInvalidInput();
+            gameMaker.notifyInvalidControl();
         }
 
         // Send Breaker the correct control and store it
@@ -118,17 +124,26 @@ public class Game implements java.io.Serializable {
         gameStatus = Status.CHECK;
     }
 
-    private void actionGuess() throws FinishGameException {
+    private void actionGuess() throws FinishGameException, InterruptedException {
         // Ask Breaker an input guess and store it
         ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
-        mGuess.add(input);
-        gameStatus = Status.CONTROL;
+        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
+            mGuess.add(input);
+            gameStatus = Status.CONTROL;
+        } else {
+            gameBreaker.notifyInvalidInput();
+        }
     }
 
-    private void actionStart() throws FinishGameException {
+    private void actionStart() throws FinishGameException, InterruptedException {
         // Ask Maker the correct guess
-        correctGuess = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
-        gameStatus = Status.GUESS;
+        ColorRow input = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
+        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
+            correctGuess = input;
+            gameStatus = Status.GUESS;
+        } else {
+            gameMaker.notifyInvalidInput();
+        }
     }
 
     /**
@@ -157,7 +172,23 @@ public class Game implements java.io.Serializable {
     }
 
     public void provideHelp() {
-        // TODO: Elena continua aqui
+        switch (gameStatus) {
+            case GUESS:
+                if (mControl.size() == 0) return;
+                gameBreaker.notifyHint(ComputerPlayer.guessHelp(correctGuess, mControl.get(mControl.size() - 1),
+                        gameInfo.mPegs, gameInfo.mColors));
+            case CONTROL:
+                if (mGuess.size() == 0) return;
+                gameMaker.notifyHint(ComputerPlayer.compareGuess(correctGuess, mGuess.get(mGuess.size() - 1)));
+        }
+    }
+
+    public void prepareSave() {
+        gameInfo.mTotalTime += gameInfo.getElapsedTime();
+    }
+
+    public void updateStart() {
+        gameInfo.updateStart();
     }
 
     /**
@@ -202,6 +233,7 @@ public class Game implements java.io.Serializable {
         private Player.Role mRole;
         private int mPegs, mColors, mTurns;
         private Date mStart = new Date();
+        private long mTotalTime = 0;
 
         /**
          * Instantiates a new Game info.
@@ -235,8 +267,11 @@ public class Game implements java.io.Serializable {
          * @return the elapsed time
          */
         long getElapsedTime() {
-            return (new Date().getTime() - mStart.getTime());
+            return mTotalTime + (new Date().getTime() - mStart.getTime());
         }
 
+        private void updateStart() {
+            mStart = new Date();
+        }
     }
 }
