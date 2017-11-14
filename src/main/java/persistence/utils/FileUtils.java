@@ -22,7 +22,10 @@ public class FileUtils {
      * @throws FileNotFoundException the file not found exception
      */
     public static String readFromFile(String path) throws FileNotFoundException {
-        return new Scanner(new File(path)).useDelimiter("\\Z").next();
+        Scanner scanner = new Scanner(new File(path)).useDelimiter("\\Z");
+        String result = scanner.next();
+        scanner.close();
+        return result;
     }
 
     /**
@@ -53,7 +56,6 @@ public class FileUtils {
             Files.createFile(pathToFile);
         } catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 

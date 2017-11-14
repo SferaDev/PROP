@@ -35,18 +35,6 @@ public class StatController {
         return mInstance;
     }
 
-    private static void sortByValue(HashMap<String, Long> map) {
-        map.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, e2) -> e1,
-                        LinkedHashMap::new
-                ));
-    }
-
     /**
      * Add score.
      *
@@ -62,9 +50,6 @@ public class StatController {
             pointRanking.put(userName, points);
         }
         timeRanking.put(gameTitle, time);
-
-        sortByValue(pointRanking);
-        sortByValue(timeRanking);
 
         statDataController.replace("pointRanking", pointRanking);
         statDataController.replace("timeRanking", timeRanking);

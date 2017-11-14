@@ -9,9 +9,8 @@ public class User implements java.io.Serializable {
 
     /**
      * Instantiates a new User.
-     *
-     * @param name     the name
-     * @param password the password
+     * @param name     the user name
+     * @param password the user password
      */
     public User(String name, String password) {
         playerName = name;
@@ -19,8 +18,7 @@ public class User implements java.io.Serializable {
     }
 
     /**
-     * Gets name.
-     *
+     * Gets name
      * @return the name
      */
     public String getName() {
@@ -28,8 +26,7 @@ public class User implements java.io.Serializable {
     }
 
     /**
-     * Gets password.
-     *
+     * Gets password
      * @return the password
      */
     public String getPassword() {

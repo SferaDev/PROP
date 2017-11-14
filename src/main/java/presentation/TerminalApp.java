@@ -7,6 +7,7 @@ import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -72,7 +73,17 @@ public class TerminalApp {
     }
 
     private void newBreakerGame(String userName) {
-        newGame(userName, "BREAKER", "DummyComputer");
+        String role = "BREAKER";
+        String computer = "DummyComputer";
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Nou joc");
+        builder.addOption("4 Pegs i 4 Colors (Fàcil)", () -> newGame(userName, role, computer, 4, 4));
+        builder.addOption("4 Pegs i 6 Colors (Mig)", () -> newGame(userName, role, computer, 4, 6));
+        builder.addOption("6 Pegs i 6 Colors (Difícil)", () -> newGame(userName, role, computer, 6, 6));
+        builder.addOption("Personalitzat", () -> newGame(userName, role, computer));
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.onExitGoBackToStart(true);
+        builder.execute();
     }
 
     private void newMakerGame(String userName) {
@@ -99,6 +110,10 @@ public class TerminalApp {
             colors = terminalController.readInteger();
         } while (colors == -1);
 
+        newGame(userName, role, computerName, pegs, colors);
+    }
+
+    private void newGame(String userName, String role, String computerName, int pegs, int colors) {
         domainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
     }
 
@@ -138,20 +153,22 @@ public class TerminalApp {
     private void register() {
         terminalController.printLine("Introdueixi el seu nom d'usuari");
         String username = terminalController.readString();
-        String password1, password2;
-        int i = 1;
-        do {
-            if (i++ > 1) terminalController.errorLine("No coincideixen!");
-            terminalController.printLine("Introdueixi la seva contrasenya");
-            password1 = terminalController.readString();
-            terminalController.printLine("Repeteixi la seva contrasenya");
-            password2 = terminalController.readString();
-        } while (!password1.equals(password2));
-
-        if (domainController.getUserController().createUser(username, password1)) {
-            showPlayMenu(username);
-        } else {
+        if (domainController.getUserController().existsUser(username)) {
             terminalController.errorLine("Ja existeix l'usuari");
+        } else {
+            String password1, password2;
+            int i = 1;
+            do {
+                if (i++ > 1) terminalController.errorLine("No coincideixen!");
+                terminalController.printLine("Introdueixi la seva contrasenya");
+                password1 = terminalController.readString();
+                terminalController.printLine("Repeteixi la seva contrasenya");
+                password2 = terminalController.readString();
+            } while (!password1.equals(password2));
+
+            if (domainController.getUserController().createUser(username, password1)) {
+                showPlayMenu(username);
+            }
         }
     }
 
@@ -184,11 +201,17 @@ public class TerminalApp {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Temps");
 
+        ArrayList<String> entries = new ArrayList<>();
+
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
             String playerName = gameTitle[0] + " (" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
-            builder.addDescription(playerName + ": " + terminalController.outputTimestamp(entry.getValue()));
+            entries.add(terminalController.outputTimestamp(entry.getValue()) + " : " + playerName);
         }
+
+        Collections.sort(entries);
+
+        for (String string : entries) builder.addDescription(string);
 
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.execute();

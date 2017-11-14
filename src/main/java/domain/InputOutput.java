@@ -12,7 +12,7 @@ public interface InputOutput {
      * @param pegs the pegs
      * @return the int
      */
-    int inputControlBlacks(int pegs) throws FinishGameException;
+    int inputControlBlacks(int pegs) throws FinishGameException, InterruptedException;
 
     /**
      * Input control whites int.
@@ -20,7 +20,7 @@ public interface InputOutput {
      * @param pegs the pegs
      * @return the int
      */
-    int inputControlWhites(int pegs) throws FinishGameException;
+    int inputControlWhites(int pegs) throws FinishGameException, InterruptedException;
 
     /**
      * Input color row int [ ].
@@ -29,7 +29,7 @@ public interface InputOutput {
      * @param colors the colors
      * @return the int [ ]
      */
-    int[] inputColorRow(int pegs, int colors) throws FinishGameException;
+    int[] inputColorRow(int pegs, int colors) throws FinishGameException, InterruptedException;
 
     /**
      * Output control row.
@@ -80,4 +80,5 @@ public interface InputOutput {
      */
     void notifyScore(int score);
 
+    void notifyInvalidControl();
 }
