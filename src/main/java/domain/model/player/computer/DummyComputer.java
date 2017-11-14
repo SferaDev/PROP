@@ -14,7 +14,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     /**
      * Instantiates a new Dummy computer.
      *
-     * @param role the role
+     * @param role the role of the computer.
      */
     public DummyComputer(Role role) {
         super(role);
@@ -40,7 +40,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     }
 
     /**
-     * Recives the correction of the previous attempt. As each attempts is independent from the previous,
+     * Receives the correction of the previous attempt. As each attempts is independent from the previous,
      * we do nothing.
      * @param control is the number of black and white pegs of the last attempt
      */
@@ -49,6 +49,9 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
         // I don't care, I love it!
     }
 
+    /**
+     * Notifies an invalid input
+     */
     @Override
     public void notifyInvalidInput() {
         // Should never happen

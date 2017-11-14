@@ -15,24 +15,46 @@ import java.util.Date;
  * The type Game.
  */
 public class Game implements java.io.Serializable {
+    /**
+     * It is an Status, that is an enumeration that could be: START, GUESS, CORRECT, CHECK STATUS, SCORE, CORRECT or FINISHED
+     */
     private Status gameStatus;
-
-    private Player gameMaker, gameBreaker;
-
+    /**
+     * It is the player (computer or user) that choose the combination to guess
+     */
+    private Player gameMaker;
+    /**
+     * It is the player (computer or user) that tries to guess the combination
+     */
+    private Player gameBreaker;
+    /**
+     * It is a class that contains information about the game
+     */
     private GameInfo gameInfo;
-
+    /**
+     * It is the combination decided by the Maker
+     */
     private ColorRow correctGuess;
+    /**
+     * It is an ArrayList that contains all the combinations tried by the Breaker
+     */
     private ArrayList<ColorRow> mGuess = new ArrayList<>();
+    /**
+     * It is an ArrayList that contains all the control combinations given by the Maker
+     */
     private ArrayList<ControlRow> mControl = new ArrayList<>();
-
+    /**
+     * It is the number of turns the Breaker have used
+     */
     private int gameTurn = 1;
 
     /**
      * Instantiates a new Game.
-     *
-     * @param user1 the user 1
-     * @param user2 the user 2
-     * @param info  the info
+     * Depending the Role, set the player attributes
+     * Puts the game in stat START.
+     * @param user1 the user 1 is the user
+     * @param user2 the user 2 is the computer
+     * @param info  is a class GameInfo and contains the user, the role, the number of pegs, the number of colors, the number of turns, the date and the time spent.
      *
      * @pre user1 and user2 roles are opposite
      *
@@ -88,7 +110,7 @@ public class Game implements java.io.Serializable {
     private void actionScore() {
         if (gameBreaker instanceof UserPlayer) {
             // Notify the breaker his score
-            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) * gameTurn;
+            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
             gameBreaker.notifyScore(score);
             StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
                     score, gameInfo.getElapsedTime());
@@ -147,8 +169,7 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Gets game status.
-     *
+     * Gets the game status.
      * @return the game status
      */
     public String getGameStatus() {
@@ -157,7 +178,6 @@ public class Game implements java.io.Serializable {
 
     /**
      * Gets game title.
-     *
      * @return the game title
      */
     public String getGameTitle() {
@@ -165,12 +185,16 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Finish game.
+     * Finish game, set the status FINISHED
      */
     public void finishGame() {
         gameStatus = Status.FINISHED;
     }
 
+    /**
+     * Provides help to the user depending in the status; if the status is GUESS gives a combination to help to guess the correct combination
+     * and if the status is CONTROL gives the correct control answer
+     */
     public void provideHelp() {
         switch (gameStatus) {
             case GUESS:
@@ -183,10 +207,16 @@ public class Game implements java.io.Serializable {
         }
     }
 
+    /**
+     * Prepare save with the correct time spent in the game
+     */
     public void prepareSave() {
         gameInfo.mTotalTime += gameInfo.getElapsedTime();
     }
 
+    /**
+     * Set the actual date in mStart
+     */
     public void updateStart() {
         gameInfo.updateStart();
     }
@@ -196,37 +226,37 @@ public class Game implements java.io.Serializable {
      */
     public enum Status {
         /**
-         * Start status.
+         * Start status: The Maker decides the combination
          */
         START,
         /**
-         * Guess status.
+         * Guess status: The Breaker tries a combination
          */
         GUESS,
         /**
-         * Control status.
+         * Control status: The Maker answers with a control combination
          */
         CONTROL,
         /**
-         * Check status.
+         * Check status: The status is checked, it could be: FINISHED, SCORE or GUESS
          */
         CHECK,
         /**
-         * Score status.
+         * Score status: A punctuation is given to the Breaker
          */
         SCORE,
         /**
-         * Correct status.
+         * Correct status: The breaker wins
          */
         CORRECT,
         /**
-         * Finished status.
+         * Finished status: The breakers finished the game because exceeds the number of turns
          */
         FINISHED
     }
 
     /**
-     * The type Game info.
+     * It is the game information
      */
     public static class GameInfo implements java.io.Serializable {
         private String mUser;
@@ -238,11 +268,11 @@ public class Game implements java.io.Serializable {
         /**
          * Instantiates a new Game info.
          *
-         * @param user   the user
-         * @param role   the role
-         * @param pegs   the pegs
-         * @param colors the colors
-         * @param turns  the turns
+         * @param user   the user that is playing the game
+         * @param role   the role of the user
+         * @param pegs   the number of pegs in a combination
+         * @param colors the number of possible colors in a combination
+         * @param turns  the number of maxim turns in the game
          */
         public GameInfo(String user, Player.Role role, int pegs, int colors, int turns) {
             mUser = user;
@@ -253,7 +283,7 @@ public class Game implements java.io.Serializable {
         }
 
         /**
-         * Gets game title.
+         * Gets the game title.
          *
          * @return the game title
          */
