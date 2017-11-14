@@ -38,15 +38,6 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
     private ArrayList<ColorRow> availableGuesses;
 
     /**
-     * An ArrayList that contains all the combinations not tried
-     */
-    private int maxHit;
-    /**
-     * The combination with the maxHit
-     */
-    private ColorRow maxHitCombination;
-
-    /**
      * Instantiates a new Five guess computer
      *
      * @param role Is the role of the computer
@@ -108,18 +99,13 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
             }
         }
 
-        maxHit = 0;
+        int maxHit = 0;
         for (Map.Entry<ControlRow, Integer> a : allScores.entrySet()) {
             if (a.getValue() > maxHit) {
                 maxHit = a.getValue();
             }
         }
 
-       /* if (max > maxHit) {
-            maxHit = max;
-            maxHitCombination = new ColorRow(nextGuess);
-        }
-*/
        return maxHit;
     }
 
@@ -149,19 +135,17 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
                 }
             }
 
-            //maxHitCombination = new ColorRow();
 
             for (ColorRow combination : availableGuesses) {
-                //maxHit = 0;
-                maxHit = maxScore(combination);
+                int maxHit = maxScore(combination);
                 int minEliminated = totalCombinations - maxHit;
                 if (guessScore < minEliminated) {
                     guessScore = minEliminated;
                     lastGuess = new ColorRow(combination);
                 } else if ((guessScore == minEliminated) && (!possibleCombinations.contains(lastGuess))
-                        && possibleCombinations.contains(maxHitCombination)) {
+                        && possibleCombinations.contains(combination)) {
                     guessScore = minEliminated;
-                    lastGuess = new ColorRow(maxHitCombination);
+                    lastGuess = new ColorRow(combination);
                 }
             }
         }
