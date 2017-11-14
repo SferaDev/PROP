@@ -39,7 +39,6 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
 
     /**
      * Instantiates a new Five guess computer
-     *
      * @param role Is the role of the computer
      */
     public FiveGuessComputer(Role role) {
@@ -154,6 +153,10 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         return lastGuess;
     }
 
+    /**
+     * Receives the ControlRow given by the computer or the user
+     * @param control is the combination given by the computer or the user
+     */
     @Override
     public void receiveControl(ControlRow control) {
         currentControl = control;
