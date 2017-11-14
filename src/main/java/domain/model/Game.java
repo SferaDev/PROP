@@ -110,7 +110,7 @@ public class Game implements java.io.Serializable {
     private void actionScore() {
         if (gameBreaker instanceof UserPlayer) {
             // Notify the breaker his score
-            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) - gameTurn;
+            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs))/ gameTurn;
             gameBreaker.notifyScore(score);
             StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
                     score, gameInfo.getElapsedTime());

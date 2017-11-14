@@ -8,16 +8,20 @@ public class ControlRow implements java.io.Serializable {
     private int mWhites = 0;
 
     /**
-     * Instantiates a new Control row.
-     *
-     * @param blacks the blacks
-     * @param whites the whites
+     * Instantiates a new Control row
+     * @param blacks the number of black in the control combination
+     * @param whites the number of whites in the control combination
      */
     public ControlRow(int blacks, int whites) {
         mBlacks = blacks;
         mWhites = whites;
     }
 
+    /**
+     * Checks if two ControlRows are equals, have the same value
+     * @param o is the object we want to know if is equal
+     * @return true if it is equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,36 +33,32 @@ public class ControlRow implements java.io.Serializable {
     }
 
     /**
-     * Gets blacks.
-     *
-     * @return the blacks
+     * Gets the number of blacks in the control combination
+     * @return the number of blacks in the control combination
      */
     public int getBlacks() {
         return mBlacks;
     }
 
     /**
-     * Sets blacks.
-     *
-     * @param blacks the blacks
+     * Sets the number of blacks in the control combination
+     * @param blacks the number of blacks we want the control combination to have
      */
     public void setBlacks(int blacks) {
         mBlacks = blacks;
     }
 
     /**
-     * Gets whites.
-     *
-     * @return the whites
+     * Gets the number of whites in the control combination
+     * @return the number of whites in the control combination
      */
     public int getWhites() {
         return mWhites;
     }
 
     /**
-     * Sets whites.
-     *
-     * @param whites the whites
+     * Sets the number or whites in the control combination
+     * @param whites the number of whites we want the control combination to have
      */
     public void setWhites(int whites) {
         mWhites = whites;
