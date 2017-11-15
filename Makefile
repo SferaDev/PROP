@@ -5,8 +5,10 @@ all: clean
 	cp -R docs entrega/
 	cp -R data entrega/
 	cp -R lib entrega/.lib
+	cd entrega; zip -r ../entrega.zip *
 
 # Configuration for make clean
 # We use "rm -rf" to recursively delete the files and not prompting the user if they don't exist
 clean:
 	rm -rf entrega
+	rm -rf entrega.zip

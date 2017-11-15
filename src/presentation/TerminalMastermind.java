@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * The type Terminal app.
  */
-public class TerminalApp {
+public class TerminalMastermind implements Mastermind {
 
     private DomainController domainController = DomainController.getInstance();
     private TerminalController terminalController = TerminalController.getInstance();
@@ -21,6 +21,7 @@ public class TerminalApp {
     /**
      * Start application.
      */
+    @Override
     public void startApplication() {
         domainController.setGameInterface(new TerminalInputOutput());
         showMainMenu();
