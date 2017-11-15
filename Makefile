@@ -1,6 +1,6 @@
 all: clean
 	mkdir -p entrega
-	cp -R src/* entrega/
+	cp -R src/ entrega/
 	cp build.make entrega/Makefile
 	cp -R docs entrega/
 	cp -R data entrega/
