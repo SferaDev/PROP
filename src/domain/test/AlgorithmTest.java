@@ -12,12 +12,12 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class ComputerTest {
+public class AlgorithmTest {
     private String computerName;
     private Integer pegs;
     private Integer colors;
 
-    public ComputerTest(String computerName, Integer pegs, Integer colors) {
+    public AlgorithmTest(String computerName, Integer pegs, Integer colors) {
         this.computerName = computerName;
         this.pegs = pegs;
         this.colors = colors;
