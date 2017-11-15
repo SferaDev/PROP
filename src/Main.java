@@ -17,8 +17,8 @@ public class Main {
         builder.addTitle("Mastermind");
         builder.addOption("Launch", Main::launchTerminal);
         builder.addOption("Test menu", Main::launchTest);
-        // TODO: Add option to launch in Graphic mode
-
+        builder.addOption("Quit", builder::finishExecution);
+        builder.execute();
     }
 
     private static void launchTest() {
