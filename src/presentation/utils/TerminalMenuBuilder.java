@@ -53,7 +53,6 @@ public class TerminalMenuBuilder {
     }
 
     private void showOutput() {
-        // Todo: Clean screen
         TerminalController.getInstance().printLine("\033[H\033[2J");
 
         // Print lines

@@ -1,4 +1,4 @@
-package domain.controller.drivers;
+package domain.test.drivers;
 
 
 import domain.model.exceptions.FinishGameException;

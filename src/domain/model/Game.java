@@ -97,7 +97,7 @@ public class Game implements java.io.Serializable {
                         actionControl();
                     } catch (InterruptedException ignored) {}
                     break;
-                case CHECK:
+                case STATUS_CHECK:
                     actionCheck();
                     break;
                 case SCORE:
@@ -143,7 +143,7 @@ public class Game implements java.io.Serializable {
         // Send Breaker the correct control and store it
         gameBreaker.receiveControl(correctControl);
         mControl.add(correctControl);
-        gameStatus = Status.CHECK;
+        gameStatus = Status.STATUS_CHECK;
     }
 
     private void actionGuess() throws FinishGameException, InterruptedException {
@@ -240,7 +240,7 @@ public class Game implements java.io.Serializable {
         /**
          * Check status: The status is checked, it could be: FINISHED, SCORE or GUESS
          */
-        CHECK,
+        STATUS_CHECK,
         /**
          * Score status: A punctuation is given to the Breaker
          */

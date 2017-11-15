@@ -1,4 +1,4 @@
-package domain.model.player.computer;
+package domain.test;
 
 import domain.controller.DomainController;
 import org.junit.Assert;

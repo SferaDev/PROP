@@ -2,6 +2,8 @@ package presentation.controller;
 
 import domain.controller.DomainController;
 import domain.model.exceptions.FinishGameException;
+import presentation.utils.Constants;
+import presentation.utils.TerminalMenuBuilder;
 
 import java.util.Scanner;
 
@@ -41,8 +43,11 @@ public class TerminalController {
      * @param string the string
      */
     public void errorLine(String string) {
-        System.err.println(string);
-        System.err.flush();
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Error");
+        builder.addDescription(string);
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.execute();
     }
 
     /**
