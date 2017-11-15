@@ -6,147 +6,156 @@ import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
-import presentation.utils.TerminalUtils;
+import presentation.controller.TerminalController;
+import presentation.model.TerminalInputOutput;
+import presentation.utils.TerminalMenuBuilder;
 
 public class DriverComputerPlayer {
-    private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-    private static final TerminalReceiver inputOutput = new TerminalReceiver();
+    private static TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
+    private static final TerminalController terminalController = TerminalController.getInstance();
+    private static final TerminalInputOutput inputOutput = new TerminalInputOutput();
     private static Integer pegs;
     private static Integer colors;
 
 
+
     public static void main(String args[]) throws FinishGameException, CommandInterruptException {
-        terminalUtils.printLine("****ComputerPlayer Drivers:*****\n");
-        Integer option;
+        terminalMenuBuilder.addTitle("Menu DriverComputerPlayer:");
+        terminalMenuBuilder.addOption("Probar comparacio entre dos ColorRows", DriverComputerPlayer::case1);
+        terminalMenuBuilder.addOption("Probar que crea correctament un ComputerPlayer", DriverComputerPlayer::case2);
+        terminalMenuBuilder.addOption("Demanar una GuessHelp", DriverComputerPlayer::case3);
+        terminalMenuBuilder.addOption("Sortir",terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.execute();
+
+
+    }
+
+    private static void case3() {
         ComputerPlayer cp;
-        do {
-            option = printInitialMenu();
-            switch (option) {
-                case 1:
-                    initializeGameInfo();
-                    cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
-                    ColorRow correctGuess = new ColorRow(cp.makerGuess(pegs, colors));
-                    terminalUtils.printLine("El secretCode es " + correctGuess.toString());
+        initializeGameInfo();
+        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
+        ColorRow correctGuessHelp = new ColorRow(cp.makerGuess(pegs, colors));
+        terminalController.printLine("El secretCode es " + correctGuessHelp.toString());
+        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        int[] inputColorsHelp = new int[0];
+        try {
+            inputColorsHelp = inputOutput.inputColorRow(pegs, colors);
+        } catch (FinishGameException e) {
+            e.printStackTrace();
+        } catch (CommandInterruptException e) {
+            e.printStackTrace();
+        }
+        ColorRow attempt = new ColorRow(inputColorsHelp);
+        ControlRow controlAttempt = cp.scoreGuess(attempt);
+        terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + controlAttempt.getBlacks() + ", " + controlAttempt.getWhites() + ".\n");
+        ColorRow guessHelp = ComputerPlayer.guessHelp(correctGuessHelp, controlAttempt, pegs, colors);
+        ControlRow controlHelp = cp.scoreGuess(guessHelp);
+        terminalController.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() + ".\n");
+    }
 
-                    int[] inputColors1 = inputOutput.inputColorRow(pegs, colors);
-                    ColorRow guess = new ColorRow(inputColors1);
-                    ControlRow control = cp.scoreGuess(guess);
-                    terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
-                    break;
-                case 2:
-                    Integer suboption;
-                    do {
-                        suboption = printSubmenuCreation();
-                        switch (suboption) {
-                            case 1:
-                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER);
-                                if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 2:
-                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER);
-                                if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 3:
-                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
-                                if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 4:
-                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER);
-                                if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 5:
-                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER);
-                                if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 6:
-                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER);
-                                if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                else
-                                    terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
-                                break;
-                            case 7:
-                                break;
-                        }
 
-                    } while (suboption != 7);
-                    break;
-
-                case 3:
-                    initializeGameInfo();
-                    cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
-                    ColorRow correctGuessHelp = new ColorRow(cp.makerGuess(pegs, colors));
-                    terminalUtils.printLine("El secretCode es " + correctGuessHelp.toString());
-
-                    int[] inputColorsHelp = inputOutput.inputColorRow(pegs, colors);
-                    ColorRow attempt = new ColorRow(inputColorsHelp);
-                    ControlRow controlAttempt = cp.scoreGuess(attempt);
-                    terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + controlAttempt.getBlacks() + ", " + controlAttempt.getWhites() + ".\n");
-                    ColorRow guessHelp = ComputerPlayer.guessHelp(correctGuessHelp, controlAttempt, pegs, colors);
-                    ControlRow controlHelp = cp.scoreGuess(guessHelp);
-                    terminalUtils.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() + ".\n");
-                    break;
-
-                case 4:
-                    break;
-            }
-
-        } while (option != 4);
+    private static void case2() {
+        TerminalMenuBuilder submenu = new TerminalMenuBuilder();
+        submenu.addTitle("Menu DriverComputerPlayer Creation Test:");
+        submenu.addOption("DummyComputer, with maker role", DriverComputerPlayer::subcase21);
+        submenu.addOption("DummyComputer, with breaker role", DriverComputerPlayer::subcase22);
+        submenu.addOption("FiveGuessComputer, with maker role", DriverComputerPlayer::subcase23);
+        submenu.addOption("FiveGuessComputer, with breaker role", DriverComputerPlayer::subcase24);
+        submenu.addOption("GeneticComputer, with maker role", DriverComputerPlayer::subcase25);
+        submenu.addOption("GeneticComputer, with breaker role", DriverComputerPlayer::subcase26);
+        submenu.addOption("Sortir",submenu::finishExecution);
+        submenu.execute();
 
     }
 
-    private static Integer printInitialMenu() {
-        Integer option;
-        terminalUtils.printLine("Escolleixi una de les seguents opcions per probar la classe ComputerPlayer:");
-        terminalUtils.printLine("  1- Probar comparacio entre dos ColorRows");
-        terminalUtils.printLine("  2- Probar que crea correctament un ComputerPlayer");
-        terminalUtils.printLine("  3- Demanar una GuessHelp");
-        terminalUtils.printLine("  3- Sortir");
-        option = terminalUtils.readInteger();
-        return option;
+    private static void subcase26() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER);
+        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
+
+    private static void subcase25() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER);
+        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+    }
+
+    private static void subcase24() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER);
+        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+    }
+
+    private static void subcase23() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
+        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+    }
+
+    private static void subcase22() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER);
+        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+    }
+
+    private static void subcase21() {
+        ComputerPlayer cp;
+        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER);
+        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+            terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        else
+            terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+    }
+
+    private static void case1(){
+        ComputerPlayer cp;
+        initializeGameInfo();
+        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
+        ColorRow correctGuess = new ColorRow(cp.makerGuess(pegs, colors));
+        terminalController.printLine("El secretCode es " + correctGuess.toString());
+        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        int[] inputColors1 = new int[0];
+        try {
+            inputColors1 = inputOutput.inputColorRow(pegs, colors);
+        } catch (FinishGameException e) {
+            e.printStackTrace();
+        } catch (CommandInterruptException e) {
+            e.printStackTrace();
+        }
+        ColorRow guess = new ColorRow(inputColors1);
+        ControlRow control = cp.scoreGuess(guess);
+        terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
+        return;
+    }
+
+
 
     private static void initializeGameInfo() {
         do {
-            terminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
-            pegs = terminalUtils.readInteger();
+            terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
+            pegs = terminalController.readInteger();
         } while (pegs == -1);
 
         do {
-            terminalUtils.printLine("Introdueixi el nombre de colors possibles");
-            colors = terminalUtils.readInteger();
+            terminalController.printLine("Introdueixi el nombre de colors possibles");
+            colors = terminalController.readInteger();
         } while (colors == -1);
 
-    }
-
-    private static Integer printSubmenuCreation() {
-        Integer option;
-        terminalUtils.printLine("Escolleixi el Computer a crear:");
-        terminalUtils.printLine("  1- DummyComputer, with maker role");
-        terminalUtils.printLine("  2- DummyComputer, with breaker role");
-        terminalUtils.printLine("  3- FiveGuessComputer, with maker role");
-        terminalUtils.printLine("  4- FiveGuessComputer, with breaker role");
-        terminalUtils.printLine("  5- GeneticComputer, with maker role");
-        terminalUtils.printLine("  6- GeneticComputer, with breaker role");
-        terminalUtils.printLine("  7- Sortir");
-        option = terminalUtils.readInteger();
-        return option;
     }
 
 }
