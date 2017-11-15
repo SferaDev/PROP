@@ -1,5 +1,6 @@
 package domain.test.drivers;
 
+import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
@@ -59,9 +60,10 @@ public class DriverDummyComputer {
         terminalController.printLine("El secretCode es " + correctGuess.toString());
 
         int[] inputColors = new int[0];
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        DomainController domainController = DomainController.getInstance();
+        domainController.setGameInterface(new TerminalInputOutput());
         try {
-            inputColors = inputOutput.inputColorRow(pegs, colors);
+            inputColors = domainController.getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException e) {
             e.printStackTrace();
         } catch (CommandInterruptException e) {
@@ -75,9 +77,10 @@ public class DriverDummyComputer {
     private static void case2() {
         initializeGameInfo();
         int[] inputColors = new int[0];
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        DomainController domainController = DomainController.getInstance();
+        domainController.setGameInterface(new TerminalInputOutput());
         try {
-            inputColors = inputOutput.inputColorRow(pegs, colors);
+            inputColors = domainController.getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException e) {
             e.printStackTrace();
         } catch (CommandInterruptException e) {

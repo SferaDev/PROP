@@ -24,6 +24,7 @@ public class DriverGame {
         terminalMenuBuilder.addTitle("Menu DriverGame:");
         terminalMenuBuilder.addOption("Probar game com a Maker", DriverGame::case1);
         terminalMenuBuilder.addOption("Probar Game coma a Breaker", DriverGame::case2);
+        terminalMenuBuilder.addOption("Detectar correccio incorrecte", DriverGame::case3);
 
         terminalMenuBuilder.addOption("Demanar una GuessHelp", DriverGame::case3);
         terminalMenuBuilder.addOption("Sortir",terminalMenuBuilder::finishExecution);
@@ -31,6 +32,10 @@ public class DriverGame {
     }
 
     private static void case3() {
+        Player p1 = new UserPlayer("testPlayer1", Player.Role.BREAKER);
+        Player p2 = new DummyComputer(Player.Role.MAKER);
+        Game g = new Game(p1, p2, gameInfoBreaker);
+
 
     }
 
@@ -38,7 +43,8 @@ public class DriverGame {
         Player p1 = new UserPlayer("testPlayer1", Player.Role.BREAKER);
         Player p2 = new DummyComputer(Player.Role.MAKER);
         Game g = new Game(p1, p2, gameInfoBreaker);
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        DomainController domainController = DomainController.getInstance();
+        domainController.setGameInterface(new TerminalInputOutput());
         try {
             g.startGame();
         } catch (FinishGameException e) {
@@ -51,7 +57,8 @@ public class DriverGame {
         Player p1 = new UserPlayer("testPlayer1", Player.Role.MAKER);
         Player p2 = new DummyComputer(Player.Role.BREAKER);
         Game g = new Game(p1, p2, gameInfoMaker);
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
+        DomainController domainController = DomainController.getInstance();
+        domainController.setGameInterface(new TerminalInputOutput());
         try {
             g.startGame();
         } catch (FinishGameException e) {
