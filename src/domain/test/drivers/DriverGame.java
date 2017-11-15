@@ -24,19 +24,8 @@ public class DriverGame {
         terminalMenuBuilder.addTitle("Menu DriverGame:");
         terminalMenuBuilder.addOption("Probar game com a Maker", DriverGame::case1);
         terminalMenuBuilder.addOption("Probar Game coma a Breaker", DriverGame::case2);
-        terminalMenuBuilder.addOption("Detectar correccio incorrecte", DriverGame::case3);
-
-        terminalMenuBuilder.addOption("Demanar una GuessHelp", DriverGame::case3);
         terminalMenuBuilder.addOption("Sortir",terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
-    }
-
-    private static void case3() {
-        Player p1 = new UserPlayer("testPlayer1", Player.Role.BREAKER);
-        Player p2 = new DummyComputer(Player.Role.MAKER);
-        Game g = new Game(p1, p2, gameInfoBreaker);
-
-
     }
 
     private static void case2() {
