@@ -11,8 +11,16 @@ repositories {
     jcenter()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    runtime fileTree(dir: 'libs', include: '*.jar')
 }
 
 jacocoTestReport {
