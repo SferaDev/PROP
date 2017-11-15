@@ -1,6 +1,7 @@
 package domain.model.player;
 
 import domain.controller.DomainController;
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
@@ -10,8 +11,8 @@ import domain.model.row.ControlRow;
  */
 public class UserPlayer extends Player implements java.io.Serializable {
 
-    private String parentUser;
-    
+    private final String parentUser;
+
     /**
      * Instantiates a new User player.
      *
@@ -29,20 +30,20 @@ public class UserPlayer extends Player implements java.io.Serializable {
     }
 
     @Override
-    public ColorRow makerGuess(int pegs, int colors) throws FinishGameException, InterruptedException {
+    public ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
-    public ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, InterruptedException {
+    public ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     @Override
-    public ControlRow scoreGuess(ColorRow guess) throws FinishGameException, InterruptedException {
+    public ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException {
         DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
-        int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks(guess.size());
-        int whites = DomainController.getInstance().getGameInterface().inputControlWhites(guess.size());
+        int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks();
+        int whites = DomainController.getInstance().getGameInterface().inputControlWhites();
         return new ControlRow(blacks, whites);
     }
 

@@ -10,7 +10,7 @@ import persistence.DataModel;
  * @param <E> the type parameter
  */
 public class UserDataModel<E extends User> extends DataModel<E> implements UserDataController<E> {
-    private static UserDataModel mInstance = new UserDataModel();
+    private static final UserDataModel mInstance = new UserDataModel();
 
     private UserDataModel() {
         super("data/users/");

@@ -20,14 +20,16 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
 
     /**
      * Instantiates a new Computer player
+     *
      * @param role the role of the Computer player
      */
-    public ComputerPlayer(Role role) {
+    protected ComputerPlayer(Role role) {
         super(role);
     }
 
     /**
      * Compare guess control row in order to generate the number of blacks and whites of the attempt
+     *
      * @param correct is the correct code
      * @param guess   is the guess attempt that we want to correct
      * @return the control row of the attempt
@@ -66,7 +68,8 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
 
     /**
      * Generates a random ColorRow.
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the random color row generated
      */
@@ -81,6 +84,7 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
 
     /**
      * Creates a new computer by the name, and assigns to the computer the role.
+     *
      * @param computerName the computer name
      * @param computerRole the computer role
      * @return the new computer player
@@ -99,7 +103,27 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     }
 
     /**
+     * Generates a help attempt. A help attempt is an attempt with more blacks or whites than you had in the last attempt
+     *
+     * @param correctGuess is the correct ColorRow guess
+     * @param status       is the ControlRow of the last attempt
+     * @param pegs         is the number of pegs in the combination
+     * @param colors       is the number of different possible colors in a combination
+     * @return the help attempt generated
+     */
+    public static ColorRow guessHelp(ColorRow correctGuess, ControlRow status, int pegs, int colors) {
+        ColorRow helpAttempt;
+        ControlRow controlRow;
+        do {
+            helpAttempt = randomRow(pegs, colors);
+            controlRow = compareGuess(correctGuess, helpAttempt);
+        } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
+        return helpAttempt;
+    }
+
+    /**
      * Calls to compareGuess in order to generate the number of blacks and whites of the attempt.
+     *
      * @param guess the guess that we want to correct
      * @return the number of blacks ano whitse of the attempt
      * @see #compareGuess(ColorRow, ColorRow)
@@ -111,7 +135,8 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
 
     /**
      * Generates a random secret code
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the secret code
      */
@@ -119,23 +144,5 @@ public abstract class ComputerPlayer extends Player implements java.io.Serializa
     public ColorRow makerGuess(int pegs, int colors) {
         makerCorrectGuess = randomRow(pegs, colors);
         return makerCorrectGuess;
-    }
-
-    /**
-     * Generates a help attempt. A help attempt is an attempt with more blacks or whites than you had in the last attempt
-     * @param correctGuess is the correct ColorRow guess
-     * @param status is the ControlRow of the last attempt
-     * @param pegs is the number of pegs in the combination
-     * @param colors is the number of different possible colors in a combination
-     * @return the help attempt generated
-     */
-    public static ColorRow guessHelp(ColorRow correctGuess, ControlRow status, int pegs, int colors) {
-        ColorRow helpAttempt;
-        ControlRow controlRow;
-        do {
-            helpAttempt = randomRow(pegs, colors);
-            controlRow = compareGuess(correctGuess, helpAttempt);
-        } while (controlRow.getBlacks() < status.getBlacks() || controlRow.getWhites() < status.getWhites());
-        return helpAttempt;
     }
 }

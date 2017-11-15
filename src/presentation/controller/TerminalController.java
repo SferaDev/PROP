@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import domain.controller.DomainController;
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
@@ -11,8 +12,8 @@ import java.util.Scanner;
  * The type Terminal controller.
  */
 public class TerminalController {
-    private static TerminalController mInstance = new TerminalController();
-    private Scanner scanner = new Scanner(System.in);
+    private static final TerminalController mInstance = new TerminalController();
+    private final Scanner scanner = new Scanner(System.in);
 
     private TerminalController() {
         // Empty Constructor
@@ -77,9 +78,9 @@ public class TerminalController {
      *
      * @return the integer
      */
-    public Integer readGameInteger() throws FinishGameException, InterruptedException {
+    public Integer readGameInteger() throws FinishGameException, CommandInterruptException {
         String string = readString();
-        if (executeCommands(string)) throw new InterruptedException();
+        if (executeCommands(string)) throw new CommandInterruptException();
         try {
             return Integer.parseInt(string);
         } catch (NumberFormatException e) {

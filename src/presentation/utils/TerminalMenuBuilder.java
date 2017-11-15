@@ -5,20 +5,18 @@ import presentation.controller.TerminalController;
 import java.util.ArrayList;
 
 public class TerminalMenuBuilder {
-    private StringBuilder mTitle = new StringBuilder();
-    private StringBuilder mDescription = new StringBuilder();
-    private StringBuilder mOptions = new StringBuilder();
-    private ArrayList<Command> mCommands = new ArrayList<>();
+    private final StringBuilder mTitle = new StringBuilder();
+    private final StringBuilder mDescription = new StringBuilder();
+    private final StringBuilder mOptions = new StringBuilder();
+    private final ArrayList<Command> mCommands = new ArrayList<>();
     private String defaultOption;
     private boolean finish = false;
     private boolean goBackToStart = false;
 
     public void addTitle(String title) {
-        // Add margin to title
         title = "  " + title + "  ";
-        // Create separator
         String separator = new String(new char[title.length()]).replace('\0', '=');
-        // Build the title
+
         mTitle.append(separator).append("\n");
         mTitle.append(title).append("\n");
         mTitle.append(separator).append("\n");
@@ -37,9 +35,8 @@ public class TerminalMenuBuilder {
         goBackToStart = goBack;
     }
 
-    public boolean finishExecution() {
+    public void finishExecution() {
         finish = true;
-        return true;
     }
 
     public void defaultError(String error) {
@@ -72,7 +69,7 @@ public class TerminalMenuBuilder {
         if (inputInteger >= 0 && inputInteger < mCommands.size()) {
             mCommands.get(inputInteger).apply();
             if (goBackToStart) finish = true;
-        } else if (defaultOption != null){
+        } else if (defaultOption != null) {
             TerminalController.getInstance().printLine(defaultOption);
         }
     }

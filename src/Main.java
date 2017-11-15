@@ -1,3 +1,4 @@
+import presentation.Mastermind;
 import presentation.TerminalMastermind;
 import presentation.TestMastermind;
 import presentation.utils.TerminalMenuBuilder;
@@ -22,12 +23,12 @@ public class Main {
     }
 
     private static void launchTest() {
-        TestMastermind application = new TestMastermind();
+        Mastermind application = new TestMastermind();
         application.startApplication();
     }
 
     private static void launchTerminal() {
-        TerminalMastermind application = new TerminalMastermind();
+        Mastermind application = new TerminalMastermind();
         application.startApplication();
     }
 

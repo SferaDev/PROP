@@ -1,5 +1,6 @@
 package domain.model.player;
 
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
@@ -10,10 +11,11 @@ import domain.model.row.ControlRow;
 public abstract class Player implements java.io.Serializable {
     // Role is defined upon creation, only has a getter
     // Protected so it can be accessible on the sub-classes
-    private Role playerRole;
+    private final Role playerRole;
 
     /**
      * Instantiates a new Player
+     *
      * @param role the role of the player
      */
     Player(Role role) {
@@ -22,6 +24,7 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Opposites the role to know the role of the computer
+     *
      * @param role the role
      * @return the opposite role
      */
@@ -32,6 +35,7 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Gets player role.
+     *
      * @return the player role
      */
     public Role getPlayerRole() {
@@ -40,35 +44,40 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Gets name.
+     *
      * @return the name
      */
     public abstract String getName();
 
     /**
      * Receive the maker's guess
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination of the correct guess
      */
-    public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException, InterruptedException;
+    public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
     /**
      * Receive the breaker's guess
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination tried by the Breaker
      */
-    public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, InterruptedException;
+    public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
     /**
      * Evaluates the correct control row to the breaker's combination
+     *
      * @param guess is the combination introduced by the Breaker
      * @return the control row
      */
-    public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException, InterruptedException;
+    public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException;
 
     /**
      * Receive the control row
+     *
      * @param control the control row
      */
     public abstract void receiveControl(ControlRow control);
@@ -103,6 +112,7 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Notify score
+     *
      * @param score the score of the game
      */
     public void notifyScore(int score) {

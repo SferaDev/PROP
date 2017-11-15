@@ -9,6 +9,7 @@ public class ControlRow implements java.io.Serializable {
 
     /**
      * Instantiates a new Control row
+     *
      * @param blacks the number of black in the control combination
      * @param whites the number of whites in the control combination
      */
@@ -19,6 +20,7 @@ public class ControlRow implements java.io.Serializable {
 
     /**
      * Checks if two ControlRows are equals, have the same value
+     *
      * @param o is the object we want to know if is equal
      * @return true if it is equal, false otherwise
      */
@@ -34,6 +36,7 @@ public class ControlRow implements java.io.Serializable {
 
     /**
      * Gets the number of blacks in the control combination
+     *
      * @return the number of blacks in the control combination
      */
     public int getBlacks() {
@@ -41,26 +44,12 @@ public class ControlRow implements java.io.Serializable {
     }
 
     /**
-     * Sets the number of blacks in the control combination
-     * @param blacks the number of blacks we want the control combination to have
-     */
-    public void setBlacks(int blacks) {
-        mBlacks = blacks;
-    }
-
-    /**
      * Gets the number of whites in the control combination
+     *
      * @return the number of whites in the control combination
      */
     public int getWhites() {
         return mWhites;
     }
 
-    /**
-     * Sets the number or whites in the control combination
-     * @param whites the number of whites we want the control combination to have
-     */
-    public void setWhites(int whites) {
-        mWhites = whites;
-    }
 }

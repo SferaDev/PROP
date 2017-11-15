@@ -4,11 +4,12 @@ package domain.model;
  * The type User.
  */
 public class User implements java.io.Serializable {
-    private String playerName;
-    private String playerPassword;
+    private final String playerName;
+    private final String playerPassword;
 
     /**
      * Instantiates a new User.
+     *
      * @param name     the user name
      * @param password the user password
      */
@@ -27,6 +28,7 @@ public class User implements java.io.Serializable {
 
     /**
      * Gets password
+     *
      * @return the password
      */
     public String getPassword() {

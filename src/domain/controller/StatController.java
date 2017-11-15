@@ -3,20 +3,17 @@ package domain.controller;
 import domain.controller.data.DataController;
 import persistence.model.StatDataModel;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * The type Stat controller.
  */
 public class StatController {
-    private static StatController mInstance = new StatController();
+    private static final StatController mInstance = new StatController();
+    private final DataController statDataController = StatDataModel.getInstance();
+
     private static HashMap<String, Long> pointRanking;
     private static HashMap<String, Long> timeRanking;
-    private DataController statDataController = StatDataModel.getInstance();
 
     private StatController() {
         pointRanking = (HashMap<String, Long>) statDataController.get("pointRanking");

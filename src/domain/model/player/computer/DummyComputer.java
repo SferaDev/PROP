@@ -30,6 +30,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
 
     /**
      * Generates the next attempt. The guess is generated randomly.
+     *
      * @param pegs   is the number of pegs accepted in the game
      * @param colors is the number of colors accepted in the game
      * @return the combination that is going to be tried
@@ -42,6 +43,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     /**
      * Receives the correction of the previous attempt. As each attempts is independent from the previous,
      * we do nothing.
+     *
      * @param control is the number of black and white pegs of the last attempt
      */
     @Override
@@ -50,15 +52,8 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     }
 
     /**
-     * Notifies an invalid input
-     */
-    @Override
-    public void notifyInvalidInput() {
-        // Should never happen
-    }
-
-    /**
      * Generates the correction of one guess
+     *
      * @param guess is the attempt that will be corrected
      * @return the number of blacks and whites of that guess
      */
@@ -76,8 +71,9 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     }
 
     /**
-     *Generates a random secret code
-     * @param pegs is the number of pegs in the combination
+     * Generates a random secret code
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the secret code
      */

@@ -9,7 +9,7 @@ import persistence.DataModel;
  * @param <E> the type parameter
  */
 public class GameDataModel<E extends Game> extends DataModel<E> {
-    private static GameDataModel mInstance = new GameDataModel();
+    private static final GameDataModel mInstance = new GameDataModel();
 
     private GameDataModel() {
         super("data/games/");

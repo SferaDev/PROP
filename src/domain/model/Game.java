@@ -1,7 +1,8 @@
 package domain.model;
 
 import domain.controller.StatController;
-import domain.model.exceptions.*;
+import domain.model.exceptions.CommandInterruptException;
+import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -16,6 +17,18 @@ import java.util.Date;
  */
 public class Game implements java.io.Serializable {
     /**
+     * It is a class that contains information about the game
+     */
+    private final GameInfo gameInfo;
+    /**
+     * It is an ArrayList that contains all the combinations tried by the Breaker
+     */
+    private final ArrayList<ColorRow> mGuess = new ArrayList<>();
+    /**
+     * It is an ArrayList that contains all the control combinations given by the Maker
+     */
+    private final ArrayList<ControlRow> mControl = new ArrayList<>();
+    /**
      * It is an Status, that is an enumeration that could be: START, GUESS, CORRECT, CHECK STATUS, SCORE, CORRECT or FINISHED
      */
     private Status gameStatus;
@@ -28,21 +41,9 @@ public class Game implements java.io.Serializable {
      */
     private Player gameBreaker;
     /**
-     * It is a class that contains information about the game
-     */
-    private GameInfo gameInfo;
-    /**
      * It is the combination decided by the Maker
      */
     private ColorRow correctGuess;
-    /**
-     * It is an ArrayList that contains all the combinations tried by the Breaker
-     */
-    private ArrayList<ColorRow> mGuess = new ArrayList<>();
-    /**
-     * It is an ArrayList that contains all the control combinations given by the Maker
-     */
-    private ArrayList<ControlRow> mControl = new ArrayList<>();
     /**
      * It is the number of turns the Breaker have used
      */
@@ -52,12 +53,11 @@ public class Game implements java.io.Serializable {
      * Instantiates a new Game.
      * Depending the Role, set the player attributes
      * Puts the game in stat START.
+     *
      * @param user1 the user 1 is the user
      * @param user2 the user 2 is the computer
      * @param info  is a class GameInfo and contains the user, the role, the number of pegs, the number of colors, the number of turns, the date and the time spent.
-     *
      * @pre user1 and user2 roles are opposite
-     *
      */
     public Game(Player user1, Player user2, GameInfo info) {
         // Depending the Role, set the player attributes
@@ -85,17 +85,20 @@ public class Game implements java.io.Serializable {
                 case START:
                     try {
                         actionStart();
-                    } catch (InterruptedException ignored) {}
+                    } catch (CommandInterruptException ignored) {
+                    }
                     break;
                 case GUESS:
                     try {
                         actionGuess();
-                    } catch (InterruptedException ignored) {}
+                    } catch (CommandInterruptException ignored) {
+                    }
                     break;
                 case CONTROL:
                     try {
                         actionControl();
-                    } catch (InterruptedException ignored) {}
+                    } catch (CommandInterruptException ignored) {
+                    }
                     break;
                 case STATUS_CHECK:
                     actionCheck();
@@ -110,7 +113,7 @@ public class Game implements java.io.Serializable {
     private void actionScore() {
         if (gameBreaker instanceof UserPlayer) {
             // Notify the breaker his score
-            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs))/ gameTurn;
+            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) / gameTurn;
             gameBreaker.notifyScore(score);
             StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
                     score, gameInfo.getElapsedTime());
@@ -130,7 +133,7 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void actionControl() throws FinishGameException, InterruptedException {
+    private void actionControl() throws FinishGameException, CommandInterruptException {
         // Ask Maker for a control of the input guess
         ControlRow control = gameMaker.scoreGuess(mGuess.get(mGuess.size() - 1));
         ControlRow correctControl = ComputerPlayer.compareGuess(correctGuess, mGuess.get(mGuess.size() - 1));
@@ -146,7 +149,7 @@ public class Game implements java.io.Serializable {
         gameStatus = Status.STATUS_CHECK;
     }
 
-    private void actionGuess() throws FinishGameException, InterruptedException {
+    private void actionGuess() throws FinishGameException, CommandInterruptException {
         // Ask Breaker an input guess and store it
         ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
         if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
@@ -157,7 +160,7 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void actionStart() throws FinishGameException, InterruptedException {
+    private void actionStart() throws FinishGameException, CommandInterruptException {
         // Ask Maker the correct guess
         ColorRow input = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
         if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
@@ -170,6 +173,7 @@ public class Game implements java.io.Serializable {
 
     /**
      * Gets the game status.
+     *
      * @return the game status
      */
     public String getGameStatus() {
@@ -178,6 +182,7 @@ public class Game implements java.io.Serializable {
 
     /**
      * Gets game title.
+     *
      * @return the game title
      */
     public String getGameTitle() {
@@ -259,9 +264,11 @@ public class Game implements java.io.Serializable {
      * It is the game information
      */
     public static class GameInfo implements java.io.Serializable {
-        private String mUser;
-        private Player.Role mRole;
-        private int mPegs, mColors, mTurns;
+        private final String mUser;
+        private final Player.Role mRole;
+        private final int mPegs;
+        private final int mColors;
+        private final int mTurns;
         private Date mStart = new Date();
         private long mTotalTime = 0;
 

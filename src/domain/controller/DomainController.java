@@ -6,7 +6,7 @@ import domain.InputOutput;
  * The type Domain controller.
  */
 public class DomainController {
-    private static DomainController mInstance = new DomainController();
+    private static final DomainController mInstance = new DomainController();
     private static InputOutput mGameInterface;
     private boolean mDebug = false;
 

@@ -11,7 +11,7 @@ import java.util.HashMap;
  * @param <E> the type parameter
  */
 public class StatDataModel<E extends StatController> extends DataModel<HashMap> {
-    private static StatDataModel mInstance = new StatDataModel();
+    private static final StatDataModel mInstance = new StatDataModel();
 
     private StatDataModel() {
         super("data/stats/");

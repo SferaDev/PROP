@@ -2,7 +2,7 @@ package domain.controller;
 
 import domain.controller.data.DataController;
 import domain.model.Game;
-import domain.model.exceptions.*;
+import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
  * The type Game controller.
  */
 public class GameController {
-    private static GameController mInstance = new GameController();
+    private static final GameController mInstance = new GameController();
+    private final DataController gameDataController = GameDataModel.getInstance();
     private Game currentGame;
-    private DataController gameDataController = GameDataModel.getInstance();
 
     private GameController() {
         // Empty Constructor

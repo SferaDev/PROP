@@ -33,33 +33,29 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
     /**
      * Array with the GeneticComputer previous attempts
      */
-    private ArrayList<ColorRow> gameGuesses = new ArrayList<>();
+    private final ArrayList<ColorRow> gameGuesses = new ArrayList<>();
 
     /**
      * Array with the GeneticComputer previous black results
      */
-    private ArrayList<Integer> turnBlacks = new ArrayList<>();
+    private final ArrayList<Integer> turnBlacks = new ArrayList<>();
 
     /**
      * Array with the GeneticComputer previous white results
      */
-    private ArrayList<Integer> turnWhites = new ArrayList<>();
-
+    private final ArrayList<Integer> turnWhites = new ArrayList<>();
+    /**
+     * Array that contains the fitness of each population. Fitness[i] contains the fitness of population[i]
+     */
+    private final ArrayList<Integer> fitness = new ArrayList<>(POPULATION_SIZE);
+    /**
+     * Array with all the feasible codes found.
+     */
+    private final ArrayList<ColorRow> feasibleCodes = new ArrayList<>();
     /**
      * Array with the population generated
      */
     private ArrayList<ColorRow> population = new ArrayList<>(POPULATION_SIZE);
-
-    /**
-     * Array that contains the fitness of each population. Fitness[i] contains the fitness of population[i]
-     */
-    private ArrayList<Integer> fitness = new ArrayList<>(POPULATION_SIZE);
-
-    /**
-     * Array with all the feasible codes found.
-     */
-    private ArrayList<ColorRow> feasibleCodes = new ArrayList<>();
-
     /**
      * Integer used to choose 2 ColorRows for the crossover
      */
@@ -86,7 +82,8 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
      * Compute the next guess. To do it, initialises a random population, and calculates the fitness for that population.
      * After that, generates new population using crossover, mutation, inversion and permutation, until it has enough
      * feasible codes, and returns one of those randomly.
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination that is going to be tried
      */
@@ -118,6 +115,7 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
 
     /**
      * Updates the control information to the arrays of blacks and whites.
+     *
      * @param control is the number of black and white pegs of the last attempt
      */
     @Override

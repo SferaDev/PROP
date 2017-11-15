@@ -1,6 +1,7 @@
 package presentation.model;
 
 import domain.InputOutput;
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import presentation.controller.TerminalController;
 
@@ -10,19 +11,19 @@ import presentation.controller.TerminalController;
 public class TerminalInputOutput implements InputOutput {
 
     @Override
-    public int inputControlBlacks(int pegs) throws FinishGameException, InterruptedException {
+    public int inputControlBlacks() throws FinishGameException, CommandInterruptException {
         TerminalController.getInstance().printLine("Introdueixi el numero de Negres");
         return TerminalController.getInstance().readGameInteger();
     }
 
     @Override
-    public int inputControlWhites(int pegs) throws FinishGameException, InterruptedException {
+    public int inputControlWhites() throws FinishGameException, CommandInterruptException {
         TerminalController.getInstance().printLine("Introdueixi el numero de Blanques");
         return TerminalController.getInstance().readGameInteger();
     }
 
     @Override
-    public int[] inputColorRow(int pegs, int colors) throws FinishGameException, InterruptedException {
+    public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         int[] result = new int[pegs];
         TerminalController.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
         for (int i = 0; i < pegs; ++i) {

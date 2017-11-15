@@ -15,8 +15,8 @@ import java.util.Map;
  */
 public class TerminalMastermind implements Mastermind {
 
-    private DomainController domainController = DomainController.getInstance();
-    private TerminalController terminalController = TerminalController.getInstance();
+    private final DomainController domainController = DomainController.getInstance();
+    private final TerminalController terminalController = TerminalController.getInstance();
 
     /**
      * Start application.

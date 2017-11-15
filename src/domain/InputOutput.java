@@ -1,5 +1,6 @@
 package domain;
 
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 
 /**
@@ -9,18 +10,16 @@ public interface InputOutput {
     /**
      * Input control blacks int.
      *
-     * @param pegs the pegs
      * @return the int
      */
-    int inputControlBlacks(int pegs) throws FinishGameException, InterruptedException;
+    int inputControlBlacks() throws FinishGameException, CommandInterruptException;
 
     /**
      * Input control whites int.
      *
-     * @param pegs the pegs
      * @return the int
      */
-    int inputControlWhites(int pegs) throws FinishGameException, InterruptedException;
+    int inputControlWhites() throws FinishGameException, CommandInterruptException;
 
     /**
      * Input color row int [ ].
@@ -29,7 +28,7 @@ public interface InputOutput {
      * @param colors the colors
      * @return the int [ ]
      */
-    int[] inputColorRow(int pegs, int colors) throws FinishGameException, InterruptedException;
+    int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
     /**
      * Output control row.

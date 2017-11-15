@@ -1,5 +1,6 @@
 package domain.test.drivers;
 
+import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
@@ -9,30 +10,29 @@ import presentation.controller.TerminalController;
 import presentation.model.TerminalInputOutput;
 
 public class DriverComputerPlayer {
-    private static TerminalController terminalController = TerminalController.getInstance();
-    private static TerminalInputOutput inputOutput = new TerminalInputOutput();
+    private static final TerminalController terminalController = TerminalController.getInstance();
+    private static final TerminalInputOutput inputOutput = new TerminalInputOutput();
     private static Integer pegs;
     private static Integer colors;
-    private static Integer maxturns = 12;
 
 
-    public static void main(String args[]) throws FinishGameException, InterruptedException{
+    public static void main(String args[]) throws FinishGameException, CommandInterruptException {
         terminalController.printLine("****ComputerPlayer Drivers:*****\n");
         Integer option;
         ComputerPlayer cp;
         do {
             option = printInitialMenu();
-            switch (option){
+            switch (option) {
                 case 1:
                     initializeGameInfo();
                     cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
                     ColorRow correctGuess = new ColorRow(cp.makerGuess(pegs, colors));
                     terminalController.printLine("El secretCode es " + correctGuess.toString());
 
-                    int[] inputColors1 =  inputOutput.inputColorRow(pegs, colors);
+                    int[] inputColors1 = inputOutput.inputColorRow(pegs, colors);
                     ColorRow guess = new ColorRow(inputColors1);
                     ControlRow control = cp.scoreGuess(guess);
-                    terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() +".\n");
+                    terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
                     break;
                 case 2:
                     Integer suboption;
@@ -40,46 +40,52 @@ public class DriverComputerPlayer {
                         suboption = printSubmenuCreation();
                         switch (suboption) {
                             case 1:
-                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER );
+                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER);
                                 if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 2:
-                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER );
+                                cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER);
                                 if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 3:
-                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER );
+                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
                                 if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 4:
-                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER );
+                                cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER);
                                 if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 5:
-                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER );
+                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER);
                                 if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.MAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 6:
-                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER );
+                                cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER);
                                 if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
-                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString()+ "\n");
-                                else terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                    terminalController.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+                                else
+                                    terminalController.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
                                 break;
                             case 7:
                                 break;
                         }
 
-                    }while (suboption != 7);
+                    } while (suboption != 7);
                     break;
 
                 case 3:
@@ -88,22 +94,23 @@ public class DriverComputerPlayer {
                     ColorRow correctGuessHelp = new ColorRow(cp.makerGuess(pegs, colors));
                     terminalController.printLine("El secretCode es " + correctGuessHelp.toString());
 
-                    int[] inputColorsHelp =  inputOutput.inputColorRow(pegs, colors);
+                    int[] inputColorsHelp = inputOutput.inputColorRow(pegs, colors);
                     ColorRow attempt = new ColorRow(inputColorsHelp);
                     ControlRow controlAttempt = cp.scoreGuess(attempt);
-                    terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + controlAttempt.getBlacks() + ", " + controlAttempt.getWhites() +".\n");
+                    terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + controlAttempt.getBlacks() + ", " + controlAttempt.getWhites() + ".\n");
                     ColorRow guessHelp = ComputerPlayer.guessHelp(correctGuessHelp, controlAttempt, pegs, colors);
                     ControlRow controlHelp = cp.scoreGuess(guessHelp);
-                    terminalController.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() +".\n");
+                    terminalController.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() + ".\n");
                     break;
 
                 case 4:
                     break;
             }
 
-        }while(option != 4);
+        } while (option != 4);
 
     }
+
     private static Integer printInitialMenu() {
         Integer option;
         terminalController.printLine("Escolleixi una de les seguents opcions per probar la classe ComputerPlayer:");
@@ -127,6 +134,7 @@ public class DriverComputerPlayer {
         } while (colors == -1);
 
     }
+
     private static Integer printSubmenuCreation() {
         Integer option;
         terminalController.printLine("Escolleixi el Computer a crear:");

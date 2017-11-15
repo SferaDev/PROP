@@ -10,15 +10,17 @@ import java.util.Map;
 
 /**
  * The type Five guess computer
- *
  */
 public class FiveGuessComputer extends ComputerPlayer implements java.io.Serializable {
 
     /**
+     * An ArrayList that contains all the combinations not discarded that could be the correct guess
+     */
+    private final ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
+    /**
      * Number of different combinations it is possible to obtain with the number of pegs and colors given
      */
     private int totalCombinations;
-
     /**
      * The guess tried in the last turn
      */
@@ -27,11 +29,6 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
      * The ControlRow obtained because of the last guess
      */
     private ControlRow currentControl;
-
-    /**
-     * An ArrayList that contains all the combinations not discarded that could be the correct guess
-     */
-    private ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
     /**
      * An ArrayList that contains all the combinations not proved
      */
@@ -39,6 +36,7 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
 
     /**
      * Instantiates a new Five guess computer
+     *
      * @param role Is the role of the computer
      */
     public FiveGuessComputer(Role role) {
@@ -58,9 +56,9 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
     /**
      * Generates all the possible combinations with the number of pegs and colors given
      *
-     * @param position is the index of the position that is being added
-     * @param pegs is the number of pegs in the combination
-     * @param colors is the number of different possible colors in a combination
+     * @param position    is the index of the position that is being added
+     * @param pegs        is the number of pegs in the combination
+     * @param colors      is the number of different possible colors in a combination
      * @param combination is the combination that is being completed to be added to possibleCombinations
      */
     private void backtracking(int position, int pegs, int colors, ColorRow combination) {
@@ -105,14 +103,15 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
             }
         }
 
-       return maxHit;
+        return maxHit;
     }
 
     /**
      * Evaluates which is the combination that will eliminate more possible combinations.
      * To do it, first it searches for each combination the minimum eliminated for each ControlRow,
      * and chooses the maximum of these minimums.
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination that is going to be tried
      */
@@ -155,6 +154,7 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
 
     /**
      * Receives the ControlRow given by the computer or the user
+     *
      * @param control is the combination given by the computer or the user
      */
     @Override
@@ -165,7 +165,8 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
 
     /**
      * Choose a first combination to be tried
-     * @param pegs is the number of pegs in the combination
+     *
+     * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the first combination that is going to be tried
      */

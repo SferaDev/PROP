@@ -16,16 +16,16 @@ import java.util.Map;
  * @param <E> the type parameter
  */
 public abstract class DataModel<E extends Serializable> implements DataController<E> {
-    private Map<String, String> mData = new HashMap<>();
+    private final Map<String, String> mData = new HashMap<>();
 
-    private String mPath;
+    private final String mPath;
 
     /**
      * Instantiates a new Data model.
      *
      * @param path the path
      */
-    public DataModel(String path) {
+    protected DataModel(String path) {
         mPath = path;
 
         ArrayList<String> files = FileUtils.listFiles(mPath);

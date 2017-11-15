@@ -8,8 +8,8 @@ import persistence.model.UserDataModel;
  * The type User controller.
  */
 public class UserController {
-    private static UserController mInstance = new UserController();
-    private UserDataController userDataController = UserDataModel.getInstance();
+    private static final UserController mInstance = new UserController();
+    private final UserDataController userDataController = UserDataModel.getInstance();
 
     private UserController() {
         // Empty Constructor

@@ -13,9 +13,9 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class AlgorithmTest {
-    private String computerName;
-    private Integer pegs;
-    private Integer colors;
+    private final String computerName;
+    private final Integer pegs;
+    private final Integer colors;
 
     public AlgorithmTest(String computerName, Integer pegs, Integer colors) {
         this.computerName = computerName;
