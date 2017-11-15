@@ -10,7 +10,7 @@ all: clean
 	cp $(ROOT_DIR)/build.make $(ROOT_DIR)/entrega/Makefile
 	cp -R $(ROOT_DIR)/docs $(ROOT_DIR)/entrega/
 	cp -R $(ROOT_DIR)/data $(ROOT_DIR)/entrega/
-	cp -R $(ROOT_DIR)/lib $(ROOT_DIR)/entrega/.lib
+	cp -R $(ROOT_DIR)/libs $(ROOT_DIR)/entrega/.libs
 	cd $(ROOT_DIR)/entrega; zip -r $(ROOT_DIR)/$(ZIP) *
 
 # Configuration for make clean
