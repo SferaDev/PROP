@@ -131,7 +131,7 @@ public class DriverDummy {
 
     private static Integer printInitialMenu() {
         Integer option;
-        terminalController.printLine("Escolleixi una de les seguents opcions per probar el GeneticComputer:");
+        terminalController.printLine("Escolleixi una de les seguents opcions per probar el DummyComputer:");
         terminalController.printLine("  1- Executar n cops amb secretCode aleatori");
         terminalController.printLine("  2- Executar amb un secret code introduit per teclat");
         terminalController.printLine("  3- Probar correccio");
