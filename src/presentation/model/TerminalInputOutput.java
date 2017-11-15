@@ -4,6 +4,8 @@ import domain.InputOutput;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import presentation.controller.TerminalController;
+import presentation.utils.Constants;
+import presentation.utils.TerminalMenuBuilder;
 
 /**
  * The type Terminal input output.
@@ -75,9 +77,11 @@ public class TerminalInputOutput implements InputOutput {
     }
 
     public void notifyScore(int score) {
-        TerminalController.getInstance().printLine("Enhorabona, has guanyat!");
-        TerminalController.getInstance().printLine("La teva puntuació és: " + score);
-
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Enhorabona, has guanyat!");
+        builder.addDescription("La teva puntuació és: " + score);
+        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.execute();
     }
 
     @Override

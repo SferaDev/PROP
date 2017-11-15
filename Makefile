@@ -1,14 +1,20 @@
+# Root dir
+ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+# Final zip
+ZIP = PROP_23.62.zip
+
 all: clean
-	mkdir -p entrega
-	cp -R src/ entrega/
-	cp build.make entrega/Makefile
-	cp -R docs entrega/
-	cp -R data entrega/
-	cp -R lib entrega/.lib
-	cd entrega; zip -r ../entrega.zip *
+	mkdir -p $(ROOT_DIR)/entrega
+	cp -R $(ROOT_DIR)/src/ $(ROOT_DIR)/entrega/
+	cp $(ROOT_DIR)/build.make $(ROOT_DIR)/entrega/Makefile
+	cp -R $(ROOT_DIR)/docs $(ROOT_DIR)/entrega/
+	cp -R $(ROOT_DIR)/data $(ROOT_DIR)/entrega/
+	cp -R $(ROOT_DIR)/lib $(ROOT_DIR)/entrega/.lib
+	cd $(ROOT_DIR)/entrega; zip -r $(ROOT_DIR)/$(ZIP) *
 
 # Configuration for make clean
 # We use "rm -rf" to recursively delete the files and not prompting the user if they don't exist
 clean:
-	rm -rf entrega
-	rm -rf entrega.zip
+	rm -rf $(ROOT_DIR)/entrega
+	rm -rf $(ROOT_DIR)/$(ZIP)
