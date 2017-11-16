@@ -1,21 +1,19 @@
-package presentation.controller;
+package presentation.utils;
 
 import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
-import presentation.utils.Constants;
-import presentation.utils.TerminalMenuBuilder;
 
 import java.util.Scanner;
 
 /**
  * The type Terminal controller.
  */
-public class TerminalController {
-    private static final TerminalController mInstance = new TerminalController();
+public class TerminalUtils {
+    private static final TerminalUtils mInstance = new TerminalUtils();
     private final Scanner scanner = new Scanner(System.in);
 
-    private TerminalController() {
+    private TerminalUtils() {
         // Empty Constructor
     }
 
@@ -24,7 +22,7 @@ public class TerminalController {
      *
      * @return the instance
      */
-    public static TerminalController getInstance() {
+    public static TerminalUtils getInstance() {
         return mInstance;
     }
 

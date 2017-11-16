@@ -16,20 +16,14 @@ public class Main {
     public static void main(String[] args) {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind");
-        builder.addOption("Launch", Main::launchTerminal);
-        builder.addOption("Test menu", Main::launchTest);
+        builder.addOption("Launch", () -> launch(new TerminalMastermind()));
+        builder.addOption("Test menu", () -> launch(new TestMastermind()));
         builder.addOption("Quit", builder::finishExecution);
         builder.execute();
     }
 
-    private static void launchTest() {
-        Mastermind application = new TestMastermind();
+    private static void launch(Mastermind application) {
+        application.setInputOutPut();
         application.startApplication();
     }
-
-    private static void launchTerminal() {
-        Mastermind application = new TerminalMastermind();
-        application.startApplication();
-    }
-
 }

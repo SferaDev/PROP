@@ -20,6 +20,7 @@ public class User implements java.io.Serializable {
 
     /**
      * Gets name
+     *
      * @return the name
      */
     public String getName() {

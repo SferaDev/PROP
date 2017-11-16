@@ -1,10 +1,10 @@
 package presentation;
 
 import domain.controller.DomainController;
-import presentation.controller.TerminalController;
-import presentation.model.TerminalInputOutput;
+import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,18 +16,13 @@ import java.util.Map;
 public class TerminalMastermind implements Mastermind {
 
     private final DomainController domainController = DomainController.getInstance();
-    private final TerminalController terminalController = TerminalController.getInstance();
+    private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
 
     /**
      * Start application.
      */
     @Override
     public void startApplication() {
-        domainController.setGameInterface(new TerminalInputOutput());
-        showMainMenu();
-    }
-
-    private void showMainMenu() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.MAIN_MENU);
         builder.addOption(Constants.MAIN_REGISTER, this::register);
@@ -37,6 +32,11 @@ public class TerminalMastermind implements Mastermind {
         builder.addOption(Constants.EXIT, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
         builder.execute();
+    }
+
+    @Override
+    public void setInputOutPut() {
+        domainController.setGameInterface(new TerminalReceiver());
     }
 
     private void showPlayMenu(String userName) {
@@ -102,13 +102,13 @@ public class TerminalMastermind implements Mastermind {
         // Request pegs and colors
         int pegs, colors;
         do {
-            terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
-            pegs = terminalController.readInteger();
+            terminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
+            pegs = terminalUtils.readInteger();
         } while (pegs == -1);
 
         do {
-            terminalController.printLine("Introdueixi el nombre de colors possibles");
-            colors = terminalController.readInteger();
+            terminalUtils.printLine("Introdueixi el nombre de colors possibles");
+            colors = terminalUtils.readInteger();
         } while (colors == -1);
 
         newGame(userName, role, computerName, pegs, colors);
@@ -131,40 +131,46 @@ public class TerminalMastermind implements Mastermind {
     }
 
     private void login() {
-        terminalController.printLine("Introdueixi el seu nom d'usuari");
-        String userName = terminalController.readString();
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: " + Constants.MAIN_LOGIN);
+        builder.execute();
+        terminalUtils.printLine("Introdueixi el seu nom d'usuari");
+        String userName = terminalUtils.readString();
 
         if (!domainController.getUserController().existsUser(userName)) {
-            terminalController.errorLine(Constants.ERROR_USER_NOT_FOUND);
+            terminalUtils.errorLine(Constants.ERROR_USER_NOT_FOUND);
             return;
         }
 
         boolean login = false;
         for (int i = 0; !login && i < 3; i++) {
-            if (i > 0) terminalController.errorLine("Contrasenya erronea!");
-            terminalController.printLine("Introdueixi la seva contrasenya");
-            login = domainController.getUserController().loginUser(userName, terminalController.readString());
+            if (i > 0) terminalUtils.errorLine("Contrasenya erronea!");
+            terminalUtils.printLine("Introdueixi la seva contrasenya");
+            login = domainController.getUserController().loginUser(userName, terminalUtils.readString());
         }
 
         if (!login) {
-            terminalController.errorLine("Contrasenya erronea 3 cops");
+            terminalUtils.errorLine("Contrasenya erronea 3 cops");
         } else showPlayMenu(userName);
     }
 
     private void register() {
-        terminalController.printLine("Introdueixi el seu nom d'usuari");
-        String username = terminalController.readString();
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: " + Constants.MAIN_REGISTER);
+        builder.execute();
+        terminalUtils.printLine("Introdueixi el seu nom d'usuari");
+        String username = terminalUtils.readString();
         if (domainController.getUserController().existsUser(username)) {
-            terminalController.errorLine("Ja existeix l'usuari");
+            terminalUtils.errorLine("Ja existeix l'usuari");
         } else {
             String password1, password2;
             int i = 1;
             do {
-                if (i++ > 1) terminalController.errorLine("No coincideixen!");
-                terminalController.printLine("Introdueixi la seva contrasenya");
-                password1 = terminalController.readString();
-                terminalController.printLine("Repeteixi la seva contrasenya");
-                password2 = terminalController.readString();
+                if (i++ > 1) terminalUtils.errorLine("No coincideixen!");
+                terminalUtils.printLine("Introdueixi la seva contrasenya");
+                password1 = terminalUtils.readString();
+                terminalUtils.printLine("Repeteixi la seva contrasenya");
+                password2 = terminalUtils.readString();
             } while (!password1.equals(password2));
 
             if (domainController.getUserController().createUser(username, password1)) {
@@ -175,9 +181,9 @@ public class TerminalMastermind implements Mastermind {
 
     private void showStats() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: Estadístiques");
-        builder.addOption("Puntuació", this::showPointStats);
-        builder.addOption("Temps", this::showTimeStats);
+        builder.addTitle("Mastermind: " + Constants.MAIN_STATS);
+        builder.addOption(Constants.STATS_POINTS, this::showPointStats);
+        builder.addOption(Constants.STATS_TIME, this::showTimeStats);
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.execute();
     }
@@ -186,10 +192,10 @@ public class TerminalMastermind implements Mastermind {
         Map<String, Long> pointRanking = domainController.getStatController().getPointRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: Puntuació");
+        builder.addTitle("Mastermind: " + Constants.STATS_POINTS);
 
         for (Map.Entry entry : pointRanking.entrySet()) {
-            builder.addDescription(entry.getKey() + ": " + entry.getValue());
+            builder.addDescription(String.format("%-10.10s %14.14s", entry.getKey(), entry.getValue()));
         }
 
         builder.addOption(Constants.BACK, builder::finishExecution);
@@ -200,14 +206,16 @@ public class TerminalMastermind implements Mastermind {
         Map<String, Long> timeRanking = domainController.getStatController().getTimeRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: Temps");
+        builder.addTitle("Mastermind: " + Constants.STATS_TIME);
 
         ArrayList<String> entries = new ArrayList<>();
 
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
-            String playerName = gameTitle[0] + " (" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
-            entries.add(terminalController.outputTimestamp(entry.getValue()) + " : " + playerName);
+            String tipus = "(" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
+            if (Integer.parseInt(gameTitle[2]) > 3 && Integer.parseInt(gameTitle[2]) > 3)
+                entries.add(String.format("%-15.15s %-15.15s %-25.25s",
+                        terminalUtils.outputTimestamp(entry.getValue()), gameTitle[0], tipus));
         }
 
         Collections.sort(entries);

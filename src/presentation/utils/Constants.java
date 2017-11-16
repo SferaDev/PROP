@@ -93,5 +93,9 @@ public class Constants {
      */
     public static final String ERROR_USER_NOT_FOUND = "Usuari no registrat";
 
-
+    public static final String GAME_HELP_INGAMEHELP = String.format("%-40.40s %-10.10s", "Per demanar combinació d'ajuda escriu:", "\"ajuda\".");
+    public static final String GAME_HELP_SAVE = String.format("%-40.40s %-10.10s", "Per guardar el joc i sortir escriu:", "\"guarda\".");
+    public static final String GAME_HELP_QUIT = String.format("%-40.40s %-10.10s", "Per sortir sense guardar escriu:", "\"surt\".");
+    public static final String STATS_TIME = "Temps";
+    public static final String STATS_POINTS = "Puntuació";
 }

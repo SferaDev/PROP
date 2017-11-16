@@ -152,6 +152,11 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         return lastGuess;
     }
 
+    @Override
+    public void receiveColor(ColorRow guess) {
+        // No action
+    }
+
     /**
      * Receives the ControlRow given by the computer or the user
      *

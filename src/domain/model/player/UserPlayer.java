@@ -41,10 +41,15 @@ public class UserPlayer extends Player implements java.io.Serializable {
 
     @Override
     public ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException {
-        DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
+        receiveColor(guess);
         int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks();
         int whites = DomainController.getInstance().getGameInterface().inputControlWhites();
         return new ControlRow(blacks, whites);
+    }
+
+    @Override
+    public void receiveColor(ColorRow guess) {
+        DomainController.getInstance().getGameInterface().outputColorRow(guess.toString());
     }
 
     @Override
@@ -73,7 +78,17 @@ public class UserPlayer extends Player implements java.io.Serializable {
     }
 
     @Override
-    public void notifyScore(int score) {
-        DomainController.getInstance().getGameInterface().notifyScore(score);
+    public void finishGame() {
+        DomainController.getInstance().getGameInterface().finishGame();
+    }
+
+    @Override
+    public void finishGame(int score) {
+        DomainController.getInstance().getGameInterface().finishGame(score);
+    }
+
+    @Override
+    public void startGame(String gameTitle) {
+        DomainController.getInstance().getGameInterface().startGame(gameTitle);
     }
 }

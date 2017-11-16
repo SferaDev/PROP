@@ -1,7 +1,7 @@
 package domain.model.player.computer;
 
-import domain.InputOutput;
 import domain.controller.DomainController;
+import domain.model.Receiver;
 import domain.model.player.ComputerPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
@@ -62,12 +62,17 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
         ControlRow score = super.scoreGuess(guess);
         DomainController domainController = DomainController.getInstance();
         if (domainController.isDebugBuild()) {
-            InputOutput gameInterface = domainController.getGameInterface();
+            Receiver gameInterface = domainController.getGameInterface();
             gameInterface.outputColorRow(guess.toString());
             gameInterface.outputControlRow(score.getBlacks(), score.getWhites());
             gameInterface.outputMessage("");
         }
         return score;
+    }
+
+    @Override
+    public void receiveColor(ColorRow guess) {
+        // No action
     }
 
     /**
@@ -82,7 +87,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
         ColorRow correctGuess = super.makerGuess(pegs, colors);
         DomainController domainController = DomainController.getInstance();
         if (DomainController.getInstance().isDebugBuild()) {
-            InputOutput gameInterface = domainController.getGameInterface();
+            Receiver gameInterface = domainController.getGameInterface();
             gameInterface.outputMessage("Pegs: " + pegs);
             gameInterface.outputMessage("Colors: " + colors);
             gameInterface.outputMessage("Correct Guess is:");

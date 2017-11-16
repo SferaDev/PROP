@@ -1,4 +1,4 @@
-package domain;
+package domain.model;
 
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
@@ -6,7 +6,7 @@ import domain.model.exceptions.FinishGameException;
 /**
  * The interface Input output.
  */
-public interface InputOutput {
+public interface Receiver {
     /**
      * Input control blacks int.
      *
@@ -73,11 +73,26 @@ public interface InputOutput {
     void notifyInvalidInput();
 
     /**
-     * Notify score.
+     * Notify invalid control.
+     */
+    void notifyInvalidControl();
+
+    /**
+     * Start game with a certain title
+     *
+     * @param title the title
+     */
+    void startGame(String title);
+
+    /**
+     * Finish game and notify score.
      *
      * @param score the score
      */
-    void notifyScore(int score);
+    void finishGame(int score);
 
-    void notifyInvalidControl();
+    /**
+     * Finish game.
+     */
+    void finishGame();
 }

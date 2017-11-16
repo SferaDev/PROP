@@ -10,10 +10,9 @@ import java.util.HashMap;
  */
 public class StatController {
     private static final StatController mInstance = new StatController();
-    private final DataController statDataController = StatDataModel.getInstance();
-
     private static HashMap<String, Long> pointRanking;
     private static HashMap<String, Long> timeRanking;
+    private final DataController statDataController = StatDataModel.getInstance();
 
     private StatController() {
         pointRanking = (HashMap<String, Long>) statDataController.get("pointRanking");

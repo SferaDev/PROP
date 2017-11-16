@@ -7,13 +7,13 @@ import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.TerminalController;
-import presentation.model.TerminalInputOutput;
+import presentation.controller.receivers.TerminalReceiver;
+import presentation.utils.TerminalUtils;
 
 import java.util.Random;
 
 public class DriverDummyComputer {
-    private static final TerminalController terminalController = TerminalController.getInstance();
+    private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static Integer pegs;
     private static Integer colors;
     private static ColorRow correctGuess;
@@ -29,28 +29,28 @@ public class DriverDummyComputer {
 
     private static void initializeGameInfo() {
         do {
-            terminalController.printLine("Introdueixi el nombre de fitxes d'una combinació");
-            pegs = terminalController.readInteger();
+            terminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
+            pegs = terminalUtils.readInteger();
         } while (pegs == -1);
 
         do {
-            terminalController.printLine("Introdueixi el nombre de colors possibles");
-            colors = terminalController.readInteger();
+            terminalUtils.printLine("Introdueixi el nombre de colors possibles");
+            colors = terminalUtils.readInteger();
         } while (colors == -1);
 
     }
 
     public static void main(String args[]) throws FinishGameException, CommandInterruptException {
-        terminalController.printLine("****DummyComputer Drivers:*****\n");
+        terminalUtils.printLine("****DummyComputer Drivers:*****\n");
         Integer option;
-        TerminalInputOutput inputOutput = new TerminalInputOutput();
+        TerminalReceiver inputOutput = new TerminalReceiver();
         do {
             option = printInitialMenu();
             switch (option) {
                 case 1:
                     initializeGameInfo();
-                    terminalController.printLine("Introdueixi el numero de cops que vols executar l'algoritme:");
-                    Integer n = terminalController.readInteger();
+                    terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algoritme:");
+                    Integer n = terminalUtils.readInteger();
                     Integer resoltes = 0;
                     Integer noResoltes = 0;
                     for (int i = 1; i <= n; ++i) {
@@ -58,13 +58,13 @@ public class DriverDummyComputer {
                         boolean hasWin = executeOneGame(false);
                         if (hasWin) {
                             ++resoltes;
-                            terminalController.printLine("Ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
+                            terminalUtils.printLine("Ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
                         } else {
                             ++noResoltes;
-                            terminalController.printLine("No ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
+                            terminalUtils.printLine("No ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
                         }
                     }
-                    terminalController.printLine("\nHa resolt " + resoltes + " jocs, i no ha pogut resoldre " + noResoltes + "\n");
+                    terminalUtils.printLine("\nHa resolt " + resoltes + " jocs, i no ha pogut resoldre " + noResoltes + "\n");
 
                     break;
 
@@ -73,20 +73,20 @@ public class DriverDummyComputer {
                     int[] inputColors = inputOutput.inputColorRow(pegs, colors);
                     correctGuess = new ColorRow(inputColors);
                     boolean hasWin = executeOneGame(true);
-                    if (hasWin) terminalController.printLine("L'algoritme ha resolt el joc.");
-                    else terminalController.printLine("L'algoritme no ha resolt el joc.");
+                    if (hasWin) terminalUtils.printLine("L'algoritme ha resolt el joc.");
+                    else terminalUtils.printLine("L'algoritme no ha resolt el joc.");
                     break;
 
                 case 3:
                     initializeGameInfo();
                     DummyComputer dc = new DummyComputer(Player.Role.MAKER);
                     correctGuess = dc.makerGuess(pegs, colors);
-                    terminalController.printLine("El secretCode es " + correctGuess.toString());
+                    terminalUtils.printLine("El secretCode es " + correctGuess.toString());
 
                     int[] inputColors1 = inputOutput.inputColorRow(pegs, colors);
                     ColorRow guess = new ColorRow(inputColors1);
                     ControlRow control = dc.scoreGuess(guess);
-                    terminalController.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
+                    terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
                     break;
 
                 case 4:
@@ -96,7 +96,7 @@ public class DriverDummyComputer {
 
         }
         while (option != 4);
-        terminalController.printLine("Adeu!.\n");
+        terminalUtils.printLine("Adeu!.\n");
 
     }
 
@@ -110,7 +110,7 @@ public class DriverDummyComputer {
         do {
             if (aux % 2 == 0) {
                 guess = dc.breakerGuess(pegs, colors);
-                if (showGuess) terminalController.printLine(guess.toString());
+                if (showGuess) terminalUtils.printLine(guess.toString());
                 Integer maxturns = 12;
                 if (actualTurn.equals(maxturns)) validTurn = false;
                 else ++actualTurn;
@@ -129,12 +129,12 @@ public class DriverDummyComputer {
 
     private static Integer printInitialMenu() {
         Integer option;
-        terminalController.printLine("Escolleixi una de les seguents opcions per probar el DummyComputer:");
-        terminalController.printLine("  1- Executar n cops amb secretCode aleatori");
-        terminalController.printLine("  2- Executar amb un secret code introduit per teclat");
-        terminalController.printLine("  3- Probar correccio");
-        terminalController.printLine("  4- Sortir");
-        option = terminalController.readInteger();
+        terminalUtils.printLine("Escolleixi una de les seguents opcions per probar el DummyComputer:");
+        terminalUtils.printLine("  1- Executar n cops amb secretCode aleatori");
+        terminalUtils.printLine("  2- Executar amb un secret code introduit per teclat");
+        terminalUtils.printLine("  3- Probar correccio");
+        terminalUtils.printLine("  4- Sortir");
+        option = terminalUtils.readInteger();
         return option;
     }
 

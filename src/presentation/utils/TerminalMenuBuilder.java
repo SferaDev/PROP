@@ -1,15 +1,15 @@
 package presentation.utils;
 
-import presentation.controller.TerminalController;
-
 import java.util.ArrayList;
 
 public class TerminalMenuBuilder {
+    private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private final StringBuilder mTitle = new StringBuilder();
     private final StringBuilder mDescription = new StringBuilder();
     private final StringBuilder mOptions = new StringBuilder();
     private final ArrayList<Command> mCommands = new ArrayList<>();
-    private String defaultOption;
+    private String defaultOption = "Error!";
+    private boolean error = false;
     private boolean finish = false;
     private boolean goBackToStart = false;
 
@@ -50,27 +50,37 @@ public class TerminalMenuBuilder {
     }
 
     private void showOutput() {
-        TerminalController.getInstance().printLine("\033[H\033[2J");
+        terminalUtils.printLine("\033[H\033[2J");
 
         // Print lines
-        if (!mTitle.toString().isEmpty())
-            TerminalController.getInstance().printLine(mTitle.toString());
-        if (!mDescription.toString().isEmpty())
-            TerminalController.getInstance().printLine(mDescription.toString());
-        if (!mOptions.toString().isEmpty())
-            TerminalController.getInstance().printLine(mOptions.toString());
+        if (!mTitle.toString().isEmpty()) {
+            terminalUtils.printLine(mTitle.toString());
+        }
+        if (!mDescription.toString().isEmpty()) {
+            terminalUtils.printLine(mDescription.toString());
+        }
+        if (error && defaultOption != null) {
+            terminalUtils.printLine(defaultOption);
+            terminalUtils.printLine("");
+        }
+        if (!mOptions.toString().isEmpty()) {
+            terminalUtils.printLine(mOptions.toString());
+        }
     }
 
     private void showQuery() {
         showOutput();
 
-        // Request input
-        int inputInteger = TerminalController.getInstance().readInteger() - 1;
-        if (inputInteger >= 0 && inputInteger < mCommands.size()) {
-            mCommands.get(inputInteger).apply();
-            if (goBackToStart) finish = true;
-        } else if (defaultOption != null) {
-            TerminalController.getInstance().printLine(defaultOption);
+        if (mCommands.size() == 0) finish = true;
+        else {
+            // Request input
+            int inputInteger = terminalUtils.readInteger() - 1;
+            if (inputInteger >= 0 && inputInteger < mCommands.size()) {
+                mCommands.get(inputInteger).apply();
+                if (goBackToStart) finish = true;
+            } else if (defaultOption != null) {
+                error = true;
+            }
         }
     }
 

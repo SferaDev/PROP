@@ -113,6 +113,11 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
         return guess;
     }
 
+    @Override
+    public void receiveColor(ColorRow guess) {
+        // No action
+    }
+
     /**
      * Updates the control information to the arrays of blacks and whites.
      *

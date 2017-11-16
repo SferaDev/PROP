@@ -5,4 +5,9 @@ public class TestMastermind implements Mastermind {
     public void startApplication() {
         // TODO
     }
+
+    @Override
+    public void setInputOutPut() {
+        // TODO
+    }
 }

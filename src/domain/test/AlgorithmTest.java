@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import presentation.model.TerminalInputOutput;
+import presentation.controller.receivers.TerminalReceiver;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,7 +35,7 @@ public class AlgorithmTest {
 
     @Before
     public void setUp() throws Exception {
-        DomainController.getInstance().setGameInterface(new TerminalInputOutput());
+        DomainController.getInstance().setGameInterface(new TerminalReceiver());
         DomainController.getInstance().setDebugBuild(true);
     }
 

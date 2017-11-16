@@ -76,6 +76,13 @@ public abstract class Player implements java.io.Serializable {
     public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException;
 
     /**
+     * Receive the guess row
+     *
+     * @param guess the control row
+     */
+    public abstract void receiveColor(ColorRow guess);
+
+    /**
      * Receive the control row
      *
      * @param control the control row
@@ -111,11 +118,28 @@ public abstract class Player implements java.io.Serializable {
     }
 
     /**
-     * Notify score
+     * Finish Game and notify score
      *
      * @param score the score of the game
      */
-    public void notifyScore(int score) {
+    public void finishGame(int score) {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
+     * Finish Game
+     */
+    public void finishGame() {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
+     * Start Game with Title
+     *
+     * @param gameTitle the title of the game
+     */
+    public void startGame(String gameTitle) {
+        // Should never happen unless UserPlayer
     }
 
     /**

@@ -1,13 +1,13 @@
 package domain.controller;
 
-import domain.InputOutput;
+import domain.model.Receiver;
 
 /**
  * The type Domain controller.
  */
 public class DomainController {
     private static final DomainController mInstance = new DomainController();
-    private static InputOutput mGameInterface;
+    private static Receiver mGameInterface;
     private boolean mDebug = false;
 
     private DomainController() {
@@ -28,7 +28,7 @@ public class DomainController {
      *
      * @return the game interface
      */
-    public InputOutput getGameInterface() {
+    public Receiver getGameInterface() {
         return mGameInterface;
     }
 
@@ -37,7 +37,7 @@ public class DomainController {
      *
      * @param gameInterface the game interface
      */
-    public void setGameInterface(InputOutput gameInterface) {
+    public void setGameInterface(Receiver gameInterface) {
         mGameInterface = gameInterface;
     }
 

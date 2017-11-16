@@ -126,7 +126,7 @@ public class GameController {
         gameDataController.remove(game);
 
         try {
-            currentGame.updateStart();
+            currentGame.restoreSavedGame();
             currentGame.startGame();
         } catch (FinishGameException e) {
             currentGame = null;

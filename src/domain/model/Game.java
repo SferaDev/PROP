@@ -110,26 +110,28 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void actionScore() {
-        if (gameBreaker instanceof UserPlayer) {
-            // Notify the breaker his score
-            int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) / gameTurn;
-            gameBreaker.notifyScore(score);
-            StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
-                    score, gameInfo.getElapsedTime());
+    private void actionStart() throws FinishGameException, CommandInterruptException {
+        gameMaker.startGame(gameInfo.getGameTitle());
+        gameBreaker.startGame(gameInfo.getGameTitle());
+
+        // Ask Maker the correct guess
+        ColorRow input = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
+        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
+            correctGuess = input;
+            gameStatus = Status.GUESS;
+        } else {
+            gameMaker.notifyInvalidInput();
         }
-        gameStatus = Status.CORRECT;
     }
 
-    private void actionCheck() {
-        // Update gameStatus
-        if (mGuess.get(mGuess.size() - 1).equals(correctGuess)) {
-            gameStatus = Status.SCORE;
-        } else if ((gameTurn + 1) >= gameInfo.mTurns) {
-            gameStatus = Status.FINISHED;
+    private void actionGuess() throws FinishGameException, CommandInterruptException {
+        // Ask Breaker an input guess and store it
+        ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
+        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
+            mGuess.add(input);
+            gameStatus = Status.CONTROL;
         } else {
-            gameTurn++;
-            gameStatus = Status.GUESS;
+            gameBreaker.notifyInvalidInput();
         }
     }
 
@@ -149,26 +151,28 @@ public class Game implements java.io.Serializable {
         gameStatus = Status.STATUS_CHECK;
     }
 
-    private void actionGuess() throws FinishGameException, CommandInterruptException {
-        // Ask Breaker an input guess and store it
-        ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
-        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
-            mGuess.add(input);
-            gameStatus = Status.CONTROL;
+    private void actionCheck() {
+        // Update gameStatus
+        if (mGuess.get(mGuess.size() - 1).equals(correctGuess)) {
+            gameStatus = Status.SCORE;
+        } else if ((gameTurn + 1) > gameInfo.mTurns) {
+            gameBreaker.finishGame();
+            gameStatus = Status.FINISHED;
         } else {
-            gameBreaker.notifyInvalidInput();
+            gameTurn++;
+            gameStatus = Status.GUESS;
         }
     }
 
-    private void actionStart() throws FinishGameException, CommandInterruptException {
-        // Ask Maker the correct guess
-        ColorRow input = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
-        if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
-            correctGuess = input;
-            gameStatus = Status.GUESS;
-        } else {
-            gameMaker.notifyInvalidInput();
+    private void actionScore() {
+        // Notify the breaker his score
+        int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) / gameTurn;
+        gameBreaker.finishGame(score);
+        if (gameBreaker instanceof UserPlayer) {
+            StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),
+                    score, gameInfo.getElapsedTime());
         }
+        gameStatus = Status.CORRECT;
     }
 
     /**
@@ -222,8 +226,24 @@ public class Game implements java.io.Serializable {
     /**
      * Set the actual date in mStart
      */
-    public void updateStart() {
+    public void restoreSavedGame() {
         gameInfo.updateStart();
+
+        gameBreaker.startGame(gameInfo.getGameTitle());
+        gameMaker.startGame(gameInfo.getGameTitle());
+
+        for (int i = 0; i < mGuess.size(); ++i) {
+            if (gameBreaker instanceof UserPlayer) {
+                gameBreaker.receiveColor(mGuess.get(i));
+                if (mControl.size() > i)
+                    gameBreaker.receiveControl(mControl.get(i));
+            }
+            if (gameMaker instanceof UserPlayer) {
+                gameMaker.receiveColor(mGuess.get(i));
+                if (mControl.size() > i)
+                    gameMaker.receiveControl(mControl.get(i));
+            }
+        }
     }
 
     /**
