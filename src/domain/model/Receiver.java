@@ -3,8 +3,6 @@ package domain.model;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 
-import java.util.ArrayList;
-
 /**
  * The interface input and output
  */

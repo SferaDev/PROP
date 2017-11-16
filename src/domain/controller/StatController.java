@@ -62,6 +62,7 @@ public class StatController {
 
     /**
      * Gets the time record's
+     *
      * @return the time record's
      */
     public HashMap<String, Long> getTimeRanking() {

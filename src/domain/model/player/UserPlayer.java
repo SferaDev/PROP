@@ -41,7 +41,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the maker's combination
-     * @throws FinishGameException the finish game exception
+     * @throws FinishGameException       the finish game exception
      * @throws CommandInterruptException the command interrupt exception
      */
     @Override
@@ -55,7 +55,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return
-     * @throws FinishGameException the finish game exception
+     * @throws FinishGameException       the finish game exception
      * @throws CommandInterruptException the command interrupt exception
      */
     @Override
@@ -110,7 +110,8 @@ public class UserPlayer extends Player implements java.io.Serializable {
         DomainController.getInstance().getGameInterface().notifyInvalidControl();
     }
 
-    /**Notifies a hint to the Maker
+    /**
+     * Notifies a hint to the Maker
      *
      * @param row the correct ControlRow
      */

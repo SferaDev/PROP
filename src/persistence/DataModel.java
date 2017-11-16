@@ -48,6 +48,7 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
 
     /**
      * Inserts the key with the item
+     *
      * @param key  the key
      * @param item the item
      */
@@ -63,6 +64,7 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
 
     /**
      * Replaces the item by the new item with key key
+     *
      * @param key  the key
      * @param item the new item
      */
@@ -103,6 +105,7 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
 
     /**
      * Gets all keys
+     *
      * @return all keys
      */
     @Override
