@@ -7,14 +7,11 @@ import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import presentation.controller.TerminalController;
 import presentation.model.TerminalInputOutput;
 import presentation.utils.TerminalMenuBuilder;
 
 public class DriverGame {
     private static TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-    private static final TerminalController terminalController = TerminalController.getInstance();
-    private static final TerminalInputOutput inputOutput = new TerminalInputOutput();
     private static Game.GameInfo gameInfoMaker = new Game.GameInfo("testUser", Player.Role.MAKER,4, 6, 12 );
     private static Game.GameInfo gameInfoBreaker = new Game.GameInfo("testUser", Player.Role.BREAKER,4, 6, 12 );
 
