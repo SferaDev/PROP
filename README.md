@@ -17,6 +17,8 @@ Rico Carreto, Alexis <alexis.rico@est.fib.upc.edu>
 
 **out/:** Contains the binary code of the build.
 
+**test/:** Contains some execution test entries for basic functionality.
+
 ## How to run and compile Mastermind
 
 Execute 'make' to compile the distributed code.
