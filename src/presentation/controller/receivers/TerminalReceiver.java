@@ -21,7 +21,7 @@ public class TerminalReceiver implements Receiver {
      * Reads the number of blacks from the terminal
      *
      * @return the number of blacks
-     * @throws FinishGameException the finish game exception
+     * @throws FinishGameException       the finish game exception
      * @throws CommandInterruptException the command interrupt exception
      */
     @Override
@@ -37,7 +37,7 @@ public class TerminalReceiver implements Receiver {
      * Reads the number of whites from the terminal
      *
      * @return the number of whites
-     * @throws FinishGameException the finish fame exception
+     * @throws FinishGameException       the finish fame exception
      * @throws CommandInterruptException the command interrupt exception
      */
     @Override
@@ -55,7 +55,7 @@ public class TerminalReceiver implements Receiver {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination of color pegs
-     * @throws FinishGameException the finish game exception
+     * @throws FinishGameException       the finish game exception
      * @throws CommandInterruptException the command interrupt exception
      */
     @Override
@@ -73,6 +73,7 @@ public class TerminalReceiver implements Receiver {
 
     /**
      * Writes in the terminal the number of blacks and whites of the control combination
+     *
      * @param blacks the number of blacks in the combination
      * @param whites the number of whites int he combination
      */
@@ -86,6 +87,7 @@ public class TerminalReceiver implements Receiver {
 
     /**
      * Writes in the terminal a color pegs' combination
+     *
      * @param row the row
      */
     @Override
@@ -179,6 +181,7 @@ public class TerminalReceiver implements Receiver {
 
     /**
      * Starts the game
+     *
      * @param title the title
      */
     @Override
