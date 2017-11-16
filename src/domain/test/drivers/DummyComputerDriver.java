@@ -8,7 +8,6 @@ import domain.model.player.Player;
 import domain.model.player.computer.DummyComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -43,7 +42,6 @@ public class DummyComputerDriver {
             terminalUtils.printLine("Introdueixi el nombre de colors possibles");
             colors = terminalUtils.readInteger();
         } while (colors == -1);
-
     }
 
     /**
@@ -69,7 +67,6 @@ public class DummyComputerDriver {
 
         int[] inputColors = new int[0];
         DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             inputColors = domainController.getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {
@@ -85,7 +82,6 @@ public class DummyComputerDriver {
         initializeGameInfo();
         int[] inputColors = new int[0];
         DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             inputColors = domainController.getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {

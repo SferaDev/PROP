@@ -1,13 +1,11 @@
 package domain.test.drivers;
 
-import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -40,9 +38,6 @@ public class UserPlayerDriver {
         colors = 6;
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
         ColorRow c = new ColorRow(1, 1, 1, 1);
-        DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
-
         ControlRow control = new ControlRow(0, 0);
         try {
             control = up.scoreGuess(c);
@@ -57,8 +52,6 @@ public class UserPlayerDriver {
         initializeGameInfo();
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
         ColorRow c = new ColorRow();
-        DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             c = up.breakerGuess(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {
@@ -72,8 +65,6 @@ public class UserPlayerDriver {
         initializeGameInfo();
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
         ColorRow c = new ColorRow();
-        DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             c = up.makerGuess(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {

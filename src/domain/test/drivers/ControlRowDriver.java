@@ -1,10 +1,9 @@
 package domain.test.drivers;
 
-import domain.model.Receiver;
+import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -14,7 +13,6 @@ import presentation.utils.TerminalUtils;
  * @author Oriol Borrell Roig
  */
 public class ControlRowDriver {
-    private static final Receiver terminalInputOutput = new TerminalReceiver();
 
     /**
      * Main.
@@ -33,46 +31,46 @@ public class ControlRowDriver {
     private static void testCompareControl() {
         Integer b = 0, w = 0;
         try {
-            b = terminalInputOutput.inputControlBlacks();
+            b = DomainController.getInstance().getGameInterface().inputControlBlacks();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         try {
-            w = terminalInputOutput.inputControlWhites();
+            w = DomainController.getInstance().getGameInterface().inputControlWhites();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         ControlRow c1 = new ControlRow(b, w);
         try {
-            b = terminalInputOutput.inputControlBlacks();
+            b = DomainController.getInstance().getGameInterface().inputControlBlacks();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         try {
-            w = terminalInputOutput.inputControlWhites();
+            w = DomainController.getInstance().getGameInterface().inputControlWhites();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         ControlRow c2 = new ControlRow(b, w);
-        if (c1.equals(c2)) terminalInputOutput.outputMessage("Son iguals");
-        else terminalInputOutput.outputMessage("No son iguals");
+        if (c1.equals(c2)) DomainController.getInstance().getGameInterface().outputMessage("Son iguals");
+        else DomainController.getInstance().getGameInterface().outputMessage("No son iguals");
         TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testConstructor() {
         Integer b = 0, w = 0;
         try {
-            b = terminalInputOutput.inputControlBlacks();
+            b = DomainController.getInstance().getGameInterface().inputControlBlacks();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         try {
-            w = terminalInputOutput.inputControlWhites();
+            w = DomainController.getInstance().getGameInterface().inputControlWhites();
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
         ControlRow control = new ControlRow(b, w);
-        terminalInputOutput.outputControlRow(control.getBlacks(), control.getWhites());
+        DomainController.getInstance().getGameInterface().outputControlRow(control.getBlacks(), control.getWhites());
         TerminalUtils.getInstance().pressEnterToContinue();
     }
 }

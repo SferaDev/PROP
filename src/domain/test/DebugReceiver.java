@@ -14,17 +14,26 @@ public class DebugReceiver implements Receiver {
 
     @Override
     public int inputControlBlacks() throws FinishGameException, CommandInterruptException {
-        return -1;
+        TerminalUtils.getInstance().printLine("Introdueixi el numero de Negres");
+        return TerminalUtils.getInstance().readGameInteger();
     }
 
     @Override
     public int inputControlWhites() throws FinishGameException, CommandInterruptException {
-        return -1;
+        TerminalUtils.getInstance().printLine("Introdueixi el numero de Blanques");
+        return TerminalUtils.getInstance().readGameInteger();
     }
 
     @Override
     public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        return null;
+        int[] result = new int[pegs];
+        StringBuilder row = new StringBuilder();
+        TerminalUtils.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
+        for (int i = 0; i < pegs; ++i) {
+            result[i] = TerminalUtils.getInstance().readGameInteger();
+            row.append(result[i]).append(" ");
+        }
+        return result;
     }
 
     @Override

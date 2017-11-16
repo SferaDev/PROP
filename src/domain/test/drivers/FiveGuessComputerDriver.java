@@ -1,6 +1,6 @@
 package domain.test.drivers;
 
-import domain.model.Receiver;
+import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
@@ -8,7 +8,6 @@ import domain.model.player.Player;
 import domain.model.player.computer.FiveGuessComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -61,10 +60,9 @@ public class FiveGuessComputerDriver {
 
     private static void testHardcodedSecret() {
         initializeGameInfo();
-        Receiver inputOutput = new TerminalReceiver();
         int[] inputColors = new int[0];
         try {
-            inputColors = inputOutput.inputColorRow(pegs, colors);
+            inputColors = DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }

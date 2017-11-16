@@ -1,12 +1,10 @@
 package domain.test.drivers;
 
-import domain.controller.DomainController;
 import domain.model.Game;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -39,8 +37,6 @@ public class GameDriver {
         Game.GameInfo gameInfoMaker = new Game.GameInfo("testPlayerMaker", Player.Role.MAKER,
                 4, 6, 12);
         Game g = new Game(p1, p2, gameInfoMaker);
-        DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             g.startGame();
         } catch (FinishGameException ignored) {
@@ -54,8 +50,6 @@ public class GameDriver {
         Game.GameInfo gameInfoBreaker = new Game.GameInfo("testPlayerBreaker", Player.Role.BREAKER,
                 4, 6, 12);
         Game g = new Game(p1, p2, gameInfoBreaker);
-        DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalReceiver());
         try {
             g.startGame();
         } catch (FinishGameException ignored) {

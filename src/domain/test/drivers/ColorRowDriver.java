@@ -1,10 +1,9 @@
 package domain.test.drivers;
 
-import domain.model.Receiver;
+import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -29,14 +28,13 @@ public class ColorRowDriver {
     }
 
     private static void testConstructor() {
-        Receiver terminalReceiver = new TerminalReceiver();
         int[] cint = null;
         try {
-            cint = terminalReceiver.inputColorRow(4, 4);
+            cint = DomainController.getInstance().getGameInterface().inputColorRow(4, 4);
         } catch (FinishGameException | CommandInterruptException ignored) {
         }
         ColorRow c = new ColorRow(cint);
-        terminalReceiver.outputColorRow(c.toString());
+        DomainController.getInstance().getGameInterface().outputColorRow(c.toString());
         TerminalUtils.getInstance().pressEnterToContinue();
     }
 
