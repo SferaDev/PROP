@@ -74,6 +74,20 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         }
     }
 
+    /**
+     * Remove that combinations that can not be the correct guess from possibleCombinations
+     */
+    private void updatePossibleCombinations() {
+        ArrayList<ColorRow> auxCombinations = new ArrayList<>(possibleCombinations);
+        for (ColorRow combination : auxCombinations) {
+            ControlRow control = compareGuess(combination, lastGuess);
+            if (!control.equals(currentControl)) {
+                possibleCombinations.remove(combination);
+            }
+        }
+
+    }
+
 
     /**
      * Calculates the maxim number of hits of the evaluated combination for each possible control and possible combination
@@ -131,16 +145,8 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
             totalCombinations = possibleCombinations.size();
             lastGuess = breakerInitialGuess(pegs, colors);
         } else {
+            updatePossibleCombinations();
             int guessScore = 0;
-            ArrayList<ColorRow> auxCombinations = new ArrayList<>(possibleCombinations);
-            for (ColorRow combination : auxCombinations) {
-                ControlRow control = compareGuess(combination, lastGuess);
-                if (!control.equals(currentControl)) {
-                    possibleCombinations.remove(combination);
-                }
-            }
-
-
             for (ColorRow combination : availableGuesses) {
                 int maxHit = maxScore(combination);
                 int minEliminated = totalCombinations - maxHit;
