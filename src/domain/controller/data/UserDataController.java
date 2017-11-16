@@ -1,6 +1,7 @@
 package domain.controller.data;
 
 import domain.model.User;
+import domain.model.exceptions.UserNotFoundException;
 
 /**
  * The interface User data controller.
@@ -16,5 +17,5 @@ public interface UserDataController<E extends User> extends DataController<E> {
      * @param pass the password
      * @return true if the user can be logged, false otherwise
      */
-    boolean login(String name, String pass);
+    boolean login(String name, String pass) throws UserNotFoundException;
 }

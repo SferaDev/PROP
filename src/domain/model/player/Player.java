@@ -8,7 +8,7 @@ import domain.model.row.ControlRow;
 /**
  * The type Player.
  *
- * @author Elena Alonso Gonzalez
+ * @author Alexis Rico Carreto
  */
 public abstract class Player implements java.io.Serializable {
     // Role is defined upon creation, only has a getter

@@ -2,6 +2,7 @@ package persistence.model;
 
 import domain.controller.data.UserDataController;
 import domain.model.User;
+import domain.model.exceptions.UserNotFoundException;
 import persistence.DataModel;
 
 /**
@@ -27,11 +28,9 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
     }
 
     @Override
-    public boolean login(String name, String pass) {
-        if (exists(name)) {
-            User user = get(name);
-            if (user.getPassword().equals(pass)) return true;
-        }
-        return false;
+    public boolean login(String name, String pass) throws UserNotFoundException {
+        if (!exists(name)) throw new UserNotFoundException();
+        User user = get(name);
+        return user.getPassword().equals(pass);
     }
 }

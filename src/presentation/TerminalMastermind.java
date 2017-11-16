@@ -1,6 +1,8 @@
 package presentation;
 
 import domain.controller.DomainController;
+import domain.model.exceptions.UserAlreadyExistsException;
+import domain.model.exceptions.UserNotFoundException;
 import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
@@ -148,7 +150,11 @@ public class TerminalMastermind implements Mastermind {
         for (int i = 0; !login && i < 3; i++) {
             if (i > 0) terminalUtils.errorLine("Contrasenya erronea!");
             terminalUtils.printLine("Introdueixi la seva contrasenya");
-            login = domainController.getUserController().loginUser(userName, terminalUtils.readString());
+            try {
+                login = domainController.getUserController().loginUser(userName, terminalUtils.readString());
+            } catch (UserNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         if (!login) {
@@ -175,8 +181,11 @@ public class TerminalMastermind implements Mastermind {
                 password2 = terminalUtils.readString();
             } while (!password1.equals(password2));
 
-            if (domainController.getUserController().createUser(username, password1)) {
+            try {
+                domainController.getUserController().createUser(username, password1);
                 showPlayMenu(username);
+            } catch (UserAlreadyExistsException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -1,4 +1,5 @@
-# Repartició de classes per membre del grup
+**Repartició de classes per membre del grup**
+
 **Alexis:**
 domain/controller/data/UserDataController.java
 domain/controller/data/DataController.java
@@ -7,9 +8,10 @@ domain/controller/DomainController.java
 domain/test/DebugReceiver.java
 domain/test/AlgorithmTest.java
 domain/model/Receiver.java
-domain/model/player/computer/DummyComputer.java
-domain/model/player/UserPlayer.java
+domain/model/player/Player.java
 domain/model/player/ComputerPlayer.java
+domain/model/player/UserPlayer.java
+domain/model/player/computer/DummyComputer.java
 domain/model/Game.java
 presentation/controller/PresentationController.java
 presentation/controller/receivers/TerminalReceiver.java
@@ -25,11 +27,12 @@ domain/controller/UserController.java
 domain/controller/StatController.java
 domain/model/exceptions/CommandInterruptException.java
 domain/model/exceptions/FinishGameException.java
+domain/model/exceptions/UserAlreadyExistsException.java
+domain/model/exceptions/UserNotFoundException.java
 domain/model/row/ControlRow.java
 domain/model/row/ColorRow.java
 domain/model/player/computer/FiveGuessComputer.java
 domain/model/User.java
-domain/model/player/Player.java
 presentation/utils/Constants.java
 presentation/model/Turn.java
 presentation/model/Board.java

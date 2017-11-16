@@ -2,6 +2,8 @@ package domain.controller;
 
 import domain.controller.data.UserDataController;
 import domain.model.User;
+import domain.model.exceptions.UserAlreadyExistsException;
+import domain.model.exceptions.UserNotFoundException;
 import persistence.model.UserDataModel;
 
 /**
@@ -31,13 +33,10 @@ public class UserController {
      *
      * @param username the new username
      * @param password the new password
-     * @return false if the user could not be created, true otherwise
      */
-    public boolean createUser(String username, String password) {
-        // TODO: Use exceptions!!
-        if (userDataController.exists(username)) return false;
+    public void createUser(String username, String password) throws UserAlreadyExistsException {
+        if (userDataController.exists(username)) throw new UserAlreadyExistsException();
         userDataController.insert(username, new User(username, password));
-        return true;
     }
 
     /**
@@ -47,8 +46,7 @@ public class UserController {
      * @param password the password
      * @return true if the user can be logged, false otherwise
      */
-    public boolean loginUser(String userName, String password) {
-        // TODO: Use exceptions!!
+    public boolean loginUser(String userName, String password) throws UserNotFoundException {
         return userDataController.login(userName, password);
     }
 
