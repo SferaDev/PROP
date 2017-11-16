@@ -1,5 +1,6 @@
 package domain.test.drivers;
 
+import domain.controller.DomainController;
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
@@ -13,7 +14,6 @@ import presentation.utils.TerminalUtils;
 
 public class ComputerPlayerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-    private static final Receiver terminalReceiver = new TerminalReceiver();
     private static int pegs, colors;
 
     public static void main(String args[]) {
@@ -34,7 +34,7 @@ public class ComputerPlayerDriver {
         terminalUtils.printLine("El secretCode es " + correctGuessHelp.toString());
         int[] inputColorsHelp = new int[0];
         try {
-            inputColorsHelp = terminalReceiver.inputColorRow(pegs, colors);
+            inputColorsHelp = DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {
             e.printStackTrace();
         }
@@ -44,6 +44,7 @@ public class ComputerPlayerDriver {
         ColorRow guessHelp = ComputerPlayer.guessHelp(correctGuessHelp, controlAttempt, pegs, colors);
         ControlRow controlHelp = cp.scoreGuess(guessHelp);
         terminalUtils.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() + ".\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testComputerCreation() {
@@ -51,7 +52,7 @@ public class ComputerPlayerDriver {
         submenu.addTitle("Mastermind: Creació ComputerPlayerDriver");
         submenu.addOption("DummyComputer com a Maker", ComputerPlayerDriver::testDummyMaker);
         submenu.addOption("DummyComputer com a Breaker", ComputerPlayerDriver::testDummyBreaker);
-        submenu.addOption("FiveGuessComputer com a Maker", ComputerPlayerDriver::TestFiveMaker);
+        submenu.addOption("FiveGuessComputer com a Maker", ComputerPlayerDriver::testFiveMaker);
         submenu.addOption("FiveGuessComputer com a Breaker", ComputerPlayerDriver::testFiveBreaker);
         submenu.addOption("GeneticComputer com a Maker", ComputerPlayerDriver::testGeneticMaker);
         submenu.addOption("GeneticComputer com a Breaker", ComputerPlayerDriver::testGeneticBreaker);
@@ -66,6 +67,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testGeneticMaker() {
@@ -75,6 +77,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testFiveBreaker() {
@@ -84,15 +87,17 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
-    private static void TestFiveMaker() {
+    private static void testFiveMaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
         if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testDummyBreaker() {
@@ -102,6 +107,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testDummyMaker() {
@@ -111,6 +117,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testCompare() {
@@ -121,12 +128,13 @@ public class ComputerPlayerDriver {
         terminalUtils.printLine("El secretCode es " + correctGuess.toString());
         int[] inputColors1 = new int[0];
         try {
-            inputColors1 = terminalReceiver.inputColorRow(pegs, colors);
+            inputColors1 = DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException ignored) {
         }
         ColorRow guess = new ColorRow(inputColors1);
         ControlRow control = cp.scoreGuess(guess);
         terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void initializeGameInfo() {

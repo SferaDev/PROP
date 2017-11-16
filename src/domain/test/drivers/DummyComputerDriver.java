@@ -44,14 +44,14 @@ public class DummyComputerDriver {
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: DummyComputerDriver");
-        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", DummyComputerDriver::case1);
-        terminalMenuBuilder.addOption("Executar amb un secretCode introduït per teclat", DummyComputerDriver::case2);
-        terminalMenuBuilder.addOption("Provar correcció", DummyComputerDriver::case3);
+        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", DummyComputerDriver::testRandomSecret);
+        terminalMenuBuilder.addOption("Executar amb un secretCode introduït per teclat", DummyComputerDriver::testHardcodedSecret);
+        terminalMenuBuilder.addOption("Provar correcció", DummyComputerDriver::testCorrect);
         terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case3() {
+    private static void testCorrect() {
         initializeGameInfo();
         DummyComputer dc = new DummyComputer(Player.Role.MAKER);
         correctGuess = dc.makerGuess(pegs, colors);
@@ -68,9 +68,10 @@ public class DummyComputerDriver {
         ColorRow guess = new ColorRow(inputColors);
         ControlRow control = dc.scoreGuess(guess);
         terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
-    private static void case2() {
+    private static void testHardcodedSecret() {
         initializeGameInfo();
         int[] inputColors = new int[0];
         DomainController domainController = DomainController.getInstance();
@@ -84,9 +85,10 @@ public class DummyComputerDriver {
         boolean hasWin = executeOneGame(true);
         if (hasWin) terminalUtils.printLine("L'algorisme ha resolt el joc.");
         else terminalUtils.printLine("L'algorisme no ha resolt el joc.");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
-    private static void case1() {
+    private static void testRandomSecret() {
         initializeGameInfo();
         terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algorisme:");
         Integer n = terminalUtils.readInteger();
@@ -104,6 +106,7 @@ public class DummyComputerDriver {
             }
         }
         terminalUtils.printLine("\nHa resolt " + resoltes + " jocs, i no ha pogut resoldre " + noResoltes + "\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static boolean executeOneGame(boolean showGuess) {

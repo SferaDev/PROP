@@ -2,6 +2,7 @@ package presentation;
 
 import domain.controller.DomainController;
 import domain.test.AlgorithmTest;
+import domain.test.DebugReceiver;
 import domain.test.drivers.*;
 import domain.test.unit.GameUnitTest;
 import org.junit.runner.JUnitCore;
@@ -36,6 +37,6 @@ public class TestMastermind implements Mastermind {
 
     @Override
     public void setInputOutPut() {
-        // No action needed
+        DomainController.getInstance().setGameInterface(new DebugReceiver());
     }
 }

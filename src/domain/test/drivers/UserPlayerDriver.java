@@ -40,6 +40,7 @@ public class UserPlayerDriver {
             e.printStackTrace();
         }
         up.receiveControl(control);
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testCreateBreakerGuess() {
@@ -54,6 +55,7 @@ public class UserPlayerDriver {
             e.printStackTrace();
         }
         terminalUtils.printLine("S'ha generat el codi " + c.toString());
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testCreateMakerGuess() {
@@ -68,6 +70,7 @@ public class UserPlayerDriver {
             e.printStackTrace();
         }
         terminalUtils.printLine("S'ha generat el codi " + c.toString());
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void initializeGameInfo() {

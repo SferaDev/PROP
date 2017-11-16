@@ -6,6 +6,7 @@ import domain.model.exceptions.FinishGameException;
 import domain.model.row.ControlRow;
 import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 public class ControlRowDriver {
     private static final Receiver terminalInputOutput = new TerminalReceiver();
@@ -45,6 +46,7 @@ public class ControlRowDriver {
         ControlRow c2 = new ControlRow(b, w);
         if (c1.equals(c2)) terminalInputOutput.outputMessage("Son iguals");
         else terminalInputOutput.outputMessage("No son iguals");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testConstructor() {
@@ -61,5 +63,6 @@ public class ControlRowDriver {
         }
         ControlRow control = new ControlRow(b, w);
         terminalInputOutput.outputControlRow(control.getBlacks(), control.getWhites());
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 }

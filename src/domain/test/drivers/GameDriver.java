@@ -8,6 +8,7 @@ import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
 import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 public class GameDriver {
 
@@ -34,6 +35,7 @@ public class GameDriver {
             g.startGame();
         } catch (FinishGameException ignored) {
         }
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testGameBreaker() {
@@ -48,7 +50,7 @@ public class GameDriver {
             g.startGame();
         } catch (FinishGameException ignored) {
         }
-
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
 }

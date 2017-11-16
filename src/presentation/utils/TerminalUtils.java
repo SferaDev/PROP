@@ -4,6 +4,7 @@ import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -86,10 +87,27 @@ public class TerminalUtils {
         }
     }
 
+    /**
+     * Clear the screen.
+     */
     public void clearScreen() {
         printLine("\033[H\033[2J");
     }
 
+    /**
+     * Press Enter to Continue.
+     */
+    public void pressEnterToContinue() {
+        printLine("Press Enter key to continue...");
+        try {
+            System.in.read();
+        } catch (IOException ignored) {
+        }
+    }
+
+    /**
+     * Output Timestamp.
+     */
     public String outputTimestamp(long time) {
         long elapsed = time / 1000;
         int hours = (int) (elapsed / (3600));
@@ -98,6 +116,9 @@ public class TerminalUtils {
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
+    /**
+     * Execute the in-game commands.
+     */
     private boolean executeCommands(String token) throws FinishGameException {
         switch (token.toLowerCase()) {
             case "hint":

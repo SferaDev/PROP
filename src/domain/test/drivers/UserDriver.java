@@ -22,5 +22,6 @@ public class UserDriver {
         String password = terminalUtils.readString();
         User u = new User(nameUser, password);
         terminalUtils.printLine("S'ha creat l'usuari " + u.getName() + " amb contrassenya " + u.getPassword());
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 }

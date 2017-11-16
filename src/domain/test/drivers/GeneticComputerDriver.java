@@ -64,6 +64,7 @@ public class GeneticComputerDriver {
         boolean hasWin = executeOneGame(true);
         if (hasWin) terminalUtils.printLine("La execució es correcte.");
         else terminalUtils.printLine("La execució es INCORRECTE.");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static void testRandomSecret() {
@@ -83,6 +84,7 @@ public class GeneticComputerDriver {
         }
         if (allOK) terminalUtils.printLine("**Totes les execucions son correctes.\n");
         else terminalUtils.printLine("**Hi han execucións incorrectes.\n");
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static boolean executeOneGame(boolean showGuess) {

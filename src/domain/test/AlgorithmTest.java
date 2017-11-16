@@ -46,11 +46,6 @@ public class AlgorithmTest {
         String gameStatus = DomainController.getInstance().getGameController().getGameStatus();
         DomainController.getInstance().getGameInterface().outputMessage("\n" + gameStatus + "\n");
         Assert.assertTrue(gameStatus.equals("CORRECT"));
-
-        DomainController.getInstance().getGameInterface().outputMessage("Press Enter key to continue...");
-        try {
-            System.in.read();
-        } catch (Exception ignored) {
-        }
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 }

@@ -6,6 +6,7 @@ import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
 import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 public class ColorRowDriver {
 
@@ -26,6 +27,7 @@ public class ColorRowDriver {
         }
         ColorRow c = new ColorRow(cint);
         terminalReceiver.outputColorRow(c.toString());
+        TerminalUtils.getInstance().pressEnterToContinue();
     }
 
 }
