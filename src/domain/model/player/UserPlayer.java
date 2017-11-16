@@ -41,8 +41,8 @@ public class UserPlayer extends Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the maker's combination
-     * @throws FinishGameException
-     * @throws CommandInterruptException
+     * @throws FinishGameException the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     @Override
     public ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {
@@ -55,8 +55,8 @@ public class UserPlayer extends Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return
-     * @throws FinishGameException
-     * @throws CommandInterruptException
+     * @throws FinishGameException the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     @Override
     public ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {

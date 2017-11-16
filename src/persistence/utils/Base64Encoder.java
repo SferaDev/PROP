@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.Base64;
 
 /**
- * The type Base 64 encoder.
+ * The type Base 64 encoder
  */
 public class Base64Encoder {
     /**
-     * From string object.
+     * Converts string to object
      *
      * @param string the string
      * @return the object
@@ -27,7 +27,7 @@ public class Base64Encoder {
     }
 
     /**
-     * To string string.
+     * Converts an object to String
      *
      * @param object the object
      * @return the string

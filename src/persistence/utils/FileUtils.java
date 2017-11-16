@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * The type File controller.
+ * The type File controller
  */
 public class FileUtils {
     /**
-     * Read from file string.
+     * Read from file
      *
      * @param path the path
      * @return the string
@@ -29,7 +29,7 @@ public class FileUtils {
     }
 
     /**
-     * Write to file.
+     * Write to file
      *
      * @param path    the path
      * @param content the content
@@ -45,7 +45,7 @@ public class FileUtils {
     }
 
     /**
-     * Create file.
+     * Create file
      *
      * @param path the path
      */
@@ -60,7 +60,7 @@ public class FileUtils {
     }
 
     /**
-     * List files array list.
+     * List files
      *
      * @param path the path
      * @return the array list
@@ -81,7 +81,7 @@ public class FileUtils {
     }
 
     /**
-     * Delete file.
+     * Delete file
      *
      * @param path the path
      */

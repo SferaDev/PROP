@@ -5,7 +5,7 @@ import domain.model.User;
 import persistence.DataModel;
 
 /**
- * The type User data model.
+ * The type User data model
  *
  * @param <E> the type parameter
  */
@@ -17,7 +17,7 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */

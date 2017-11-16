@@ -18,7 +18,7 @@ public class StatDataModel<E extends StatController> extends DataModel<HashMap> 
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */

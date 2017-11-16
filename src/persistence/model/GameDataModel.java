@@ -16,7 +16,7 @@ public class GameDataModel<E extends Game> extends DataModel<E> {
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */
