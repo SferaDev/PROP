@@ -33,7 +33,6 @@ public class ComputerPlayerDriver {
         cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
         ColorRow correctGuessHelp = new ColorRow(cp.makerGuess(pegs, colors));
         terminalUtils.printLine("El secretCode es " + correctGuessHelp.toString());
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
         int[] inputColorsHelp = new int[0];
         try {
             inputColorsHelp = terminalReceiver.inputColorRow(pegs, colors);

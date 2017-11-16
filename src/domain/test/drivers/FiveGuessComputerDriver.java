@@ -55,7 +55,6 @@ public class FiveGuessComputerDriver {
         initializeGameInfo();
         Receiver inputOutput = new TerminalReceiver();
         int[] inputColors = new int[0];
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
         try {
             inputColors = inputOutput.inputColorRow(pegs, colors);
         } catch (FinishGameException | CommandInterruptException e) {
