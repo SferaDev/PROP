@@ -9,11 +9,11 @@ import domain.model.User;
  */
 public interface UserDataController<E extends User> extends DataController<E> {
     /**
-     * Login boolean.
+     * Logs a new user
      *
-     * @param name the name
-     * @param pass the pass
-     * @return the boolean
+     * @param name the user name
+     * @param pass the password
+     * @return true if the user can be logged, false otherwise
      */
     boolean login(String name, String pass);
 }

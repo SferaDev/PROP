@@ -176,7 +176,7 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Gets the game status.
+     * Gets the game status
      *
      * @return the game status
      */
@@ -293,7 +293,7 @@ public class Game implements java.io.Serializable {
         private long mTotalTime = 0;
 
         /**
-         * Instantiates a new Game info.
+         * Instantiates a new Game info
          *
          * @param user   the user that is playing the game
          * @param role   the role of the user
@@ -310,7 +310,7 @@ public class Game implements java.io.Serializable {
         }
 
         /**
-         * Gets the game title.
+         * Gets the game title
          *
          * @return the game title
          */
@@ -319,7 +319,7 @@ public class Game implements java.io.Serializable {
         }
 
         /**
-         * Gets elapsed time in ms.
+         * Gets elapsed time in ms
          *
          * @return the elapsed time
          */

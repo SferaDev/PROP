@@ -25,7 +25,7 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Se
     }
 
     /**
-     * Instantiates a new Color row
+     * Instantiates a new Color row with another ColorRow values
      *
      * @param original the original combination we want to copy
      */
@@ -70,7 +70,7 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Se
         private final int mColor;
 
         /**
-         * Instantiates a new Color peg.
+         * Instantiates a new Color peg
          *
          * @param color the numeric value of the color
          */
@@ -79,7 +79,7 @@ public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Se
         }
 
         /**
-         * Gets color.
+         * Gets color
          *
          * @return the color
          */

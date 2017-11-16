@@ -25,7 +25,7 @@ public class GeneticComputer extends ComputerPlayer implements java.io.Serializa
 
     /**
      * Max number of feasible codes. When the FEASIBLE_CODES_MAX is reached, we stop producing feasible codes
-     * and we choose one randomly.
+     * and we choose one randomly
      */
     private static final int FEASIBLE_CODES_MAX = 1;
 

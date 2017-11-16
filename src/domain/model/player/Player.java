@@ -34,7 +34,7 @@ public abstract class Player implements java.io.Serializable {
     }
 
     /**
-     * Gets player role.
+     * Gets player role
      *
      * @return the player role
      */
@@ -43,7 +43,7 @@ public abstract class Player implements java.io.Serializable {
     }
 
     /**
-     * Gets name.
+     * Gets name
      *
      * @return the name
      */

@@ -74,6 +74,13 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
         }
     }
 
+
+    /**
+     * Calculates the maxim number of hits of the evaluated combination for each possible control and possible combination
+     *
+     * @param nextGuess is the combination that is being evaluated
+     * @return the maxim number of hits for the evaluated combination
+     */
     private int maxScore(ColorRow nextGuess) {
         Map<ControlRow, Integer> allScores = new HashMap<>();
 

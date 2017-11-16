@@ -12,9 +12,9 @@ import domain.model.row.ControlRow;
 public class DummyComputer extends ComputerPlayer implements java.io.Serializable {
 
     /**
-     * Instantiates a new Dummy computer.
+     * Instantiates a new Dummy computer
      *
-     * @param role the role of the computer.
+     * @param role the role of the computer
      */
     public DummyComputer(Role role) {
         super(role);
@@ -29,7 +29,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     }
 
     /**
-     * Generates the next attempt. The guess is generated randomly.
+     * Generates the next attempt. The guess is generated randomly
      *
      * @param pegs   is the number of pegs accepted in the game
      * @param colors is the number of colors accepted in the game
@@ -42,7 +42,7 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
 
     /**
      * Receives the correction of the previous attempt. As each attempts is independent from the previous,
-     * we do nothing.
+     * we do nothing
      *
      * @param control is the number of black and white pegs of the last attempt
      */

@@ -12,7 +12,7 @@ import persistence.model.GameDataModel;
 import java.util.ArrayList;
 
 /**
- * The type Game controller.
+ * The type Game controller
  */
 public class GameController {
     private static final GameController mInstance = new GameController();
@@ -24,7 +24,7 @@ public class GameController {
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */
@@ -33,14 +33,14 @@ public class GameController {
     }
 
     /**
-     * Start new game.
+     * Start a new game whith an user player and a computer
      *
      * @param userName     the user name
      * @param computerName the computer name
      * @param role         the role
-     * @param pegs         the pegs
-     * @param colors       the colors
-     * @param turns        the turns
+     * @param pegs         the number of pegs accepted in a combination
+     * @param colors       the quantity of possible different colors in a combination
+     * @param turns        the maxim number of turns than can be played
      */
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
         Player.Role userRole = Player.Role.valueOf(role);
@@ -58,7 +58,7 @@ public class GameController {
     }
 
     /**
-     * Start new game.
+     * Start a new game computer vs computer
      *
      * @param computerName the computer name
      * @param pegs         the pegs
@@ -87,7 +87,7 @@ public class GameController {
     }
 
     /**
-     * Save current game.
+     * Save current game
      */
     public void saveCurrentGame() throws FinishGameException {
         if (currentGame != null) {
@@ -98,7 +98,7 @@ public class GameController {
     }
 
     /**
-     * Stop current game.
+     * Stop current game
      */
     public void stopCurrentGame() throws FinishGameException {
         if (currentGame != null) {
@@ -107,6 +107,12 @@ public class GameController {
         throw new FinishGameException();
     }
 
+    /**
+     * Gets all games of an user
+     *
+     * @param userName the user name
+     * @return all games of an user
+     */
     public ArrayList<String> getAllGames(String userName) {
         ArrayList games = gameDataController.allKeys();
         ArrayList valuesToRemove = new ArrayList();
@@ -120,6 +126,12 @@ public class GameController {
         return games;
     }
 
+
+    /**
+     * Continues the game
+     *
+     * @param game the game to continue
+     */
     public void continueGame(String game) {
         if (!gameDataController.exists(game)) return;
         currentGame = (Game) gameDataController.get(game);
@@ -133,6 +145,9 @@ public class GameController {
         }
     }
 
+    /**
+     * Provides help
+     */
     public void provideHelp() {
         if (currentGame == null) return;
         currentGame.provideHelp();

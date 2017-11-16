@@ -3,72 +3,74 @@ package domain.model;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 
+import java.util.ArrayList;
+
 /**
- * The interface Input output.
+ * The interface input and output
  */
 public interface Receiver {
     /**
-     * Input control blacks int.
+     * Input the number of blacks
      *
-     * @return the int
+     * @return the number of blacks
      */
     int inputControlBlacks() throws FinishGameException, CommandInterruptException;
 
     /**
-     * Input control whites int.
+     * Input the number of whites
      *
-     * @return the int
+     * @return the number of whites
      */
     int inputControlWhites() throws FinishGameException, CommandInterruptException;
 
     /**
-     * Input color row int [ ].
+     * Input a combination of colors
      *
-     * @param pegs   the pegs
-     * @param colors the colors
-     * @return the int [ ]
+     * @param pegs   is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the combination
      */
     int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
     /**
-     * Output control row.
+     * Output the ControlRow
      *
-     * @param blacks the blacks
-     * @param whites the whites
+     * @param blacks the number of blacks in the combination
+     * @param whites the number of whites int he combination
      */
     void outputControlRow(int blacks, int whites);
 
     /**
-     * Output color row.
+     * Output the ColorRow
      *
      * @param row the row
      */
     void outputColorRow(String row);
 
     /**
-     * Output hint control row.
+     * Output hint ControlRow to the Maker
      *
-     * @param blacks the blacks
-     * @param whites the whites
+     * @param blacks the number of blacks
+     * @param whites the number of whites
      */
     void outputHintControlRow(int blacks, int whites);
 
     /**
-     * Output hint color row.
+     * Output hint ColorRow to the Breaker
      *
-     * @param row the row
+     * @param row the combination to help de Breaker
      */
     void outputHintColorRow(String row);
 
     /**
-     * Output message.
+     * Output message
      *
      * @param message the message
      */
     void outputMessage(String message);
 
     /**
-     * Notify invalid input.
+     * Notify invalid input
      */
     void notifyInvalidInput();
 
@@ -87,7 +89,7 @@ public interface Receiver {
     /**
      * Finish game and notify score.
      *
-     * @param score the score
+     * @param score the score obtained in the game
      */
     void finishGame(int score);
 

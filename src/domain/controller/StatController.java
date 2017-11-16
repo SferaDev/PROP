@@ -6,7 +6,7 @@ import persistence.model.StatDataModel;
 import java.util.HashMap;
 
 /**
- * The type Stat controller.
+ * The type Stat controller
  */
 public class StatController {
     private static final StatController mInstance = new StatController();
@@ -23,7 +23,7 @@ public class StatController {
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */
@@ -32,12 +32,12 @@ public class StatController {
     }
 
     /**
-     * Add score.
+     * Add the score of the user
      *
-     * @param userName  the user name
+     * @param userName  the user name playing as a Breaker
      * @param gameTitle the game title
-     * @param points    the points
-     * @param time      the time
+     * @param points    the punctuation obtained int he game
+     * @param time      the time spend in the game
      */
     public void addScore(String userName, String gameTitle, long points, long time) {
         if (pointRanking.containsKey(userName)) {
@@ -51,10 +51,19 @@ public class StatController {
         statDataController.replace("timeRanking", timeRanking);
     }
 
+    /**
+     * Gets the punctuation's ranking
+     *
+     * @return the punctuation's ranking
+     */
     public HashMap<String, Long> getPointRanking() {
         return pointRanking;
     }
 
+    /**
+     * Gets the time record's
+     * @return the time record's
+     */
     public HashMap<String, Long> getTimeRanking() {
         return timeRanking;
     }

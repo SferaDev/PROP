@@ -3,7 +3,7 @@ package domain.controller;
 import domain.model.Receiver;
 
 /**
- * The type Domain controller.
+ * The type Domain controller
  */
 public class DomainController {
     private static final DomainController mInstance = new DomainController();
@@ -15,7 +15,7 @@ public class DomainController {
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */
@@ -24,7 +24,7 @@ public class DomainController {
     }
 
     /**
-     * Gets game interface.
+     * Gets game interface
      *
      * @return the game interface
      */
@@ -33,7 +33,7 @@ public class DomainController {
     }
 
     /**
-     * Sets game interface.
+     * Sets game interface
      *
      * @param gameInterface the game interface
      */
@@ -42,7 +42,7 @@ public class DomainController {
     }
 
     /**
-     * Is debug build boolean.
+     * Checks if is a debug build
      *
      * @return the boolean
      */
@@ -51,7 +51,7 @@ public class DomainController {
     }
 
     /**
-     * Sets debug build.
+     * Sets debug build
      *
      * @param debug the debug
      */
@@ -60,7 +60,7 @@ public class DomainController {
     }
 
     /**
-     * Gets game controller.
+     * Gets game controller
      *
      * @return the game controller
      */
@@ -69,7 +69,7 @@ public class DomainController {
     }
 
     /**
-     * Gets stat controller.
+     * Gets stat controller
      *
      * @return the stat controller
      */
@@ -78,7 +78,7 @@ public class DomainController {
     }
 
     /**
-     * Gets user controller.
+     * Gets user controller
      *
      * @return the user controller
      */

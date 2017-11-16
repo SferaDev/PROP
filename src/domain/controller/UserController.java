@@ -5,7 +5,7 @@ import domain.model.User;
 import persistence.model.UserDataModel;
 
 /**
- * The type User controller.
+ * The type User controller
  */
 public class UserController {
     private static final UserController mInstance = new UserController();
@@ -16,7 +16,7 @@ public class UserController {
     }
 
     /**
-     * Gets instance.
+     * Gets instance
      *
      * @return the instance
      */
@@ -25,11 +25,11 @@ public class UserController {
     }
 
     /**
-     * Create user boolean.
+     * Create an user if he did not exist
      *
-     * @param username the username
-     * @param password the password
-     * @return the boolean
+     * @param username the new username
+     * @param password the new password
+     * @return false if the user could not be created, true otherwise
      */
     public boolean createUser(String username, String password) {
         // TODO: Use exceptions!!
@@ -39,11 +39,11 @@ public class UserController {
     }
 
     /**
-     * Login user boolean.
+     * Checks if the user parameters to be logged are correct
      *
      * @param userName the user name
      * @param password the password
-     * @return the boolean
+     * @return true if the user can be logged, false otherwise
      */
     public boolean loginUser(String userName, String password) {
         // TODO: Use exceptions!!
@@ -51,10 +51,10 @@ public class UserController {
     }
 
     /**
-     * Exists user boolean.
+     * Checks if the user name have already exists
      *
-     * @param userName the user name
-     * @return the boolean
+     * @param userName the user name to be checked
+     * @return true if the user name have already exists, false otherwise
      */
     public boolean existsUser(String userName) {
         return userDataController.exists(userName);
