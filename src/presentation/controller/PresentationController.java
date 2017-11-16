@@ -1,7 +1,7 @@
 package presentation.controller;
 
 public class PresentationController {
-    private static PresentationController mInstance = new PresentationController();
+    private static final PresentationController mInstance = new PresentationController();
     private BoardController currentBoard;
 
     private PresentationController() {

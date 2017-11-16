@@ -18,6 +18,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="module" module-name="PROP_main" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -27,7 +28,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="PROP_main" />
   </component>
   <component name="TestModuleProperties" production-module="PROP_main" />
 </module>

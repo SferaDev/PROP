@@ -3,8 +3,8 @@ package presentation.model;
 import java.util.ArrayList;
 
 public class Board {
-    private String gameTitle;
-    private ArrayList<Turn> mTurns = new ArrayList<>();
+    private final String gameTitle;
+    private final ArrayList<Turn> mTurns = new ArrayList<>();
 
     public Board(String title) {
         gameTitle = title;

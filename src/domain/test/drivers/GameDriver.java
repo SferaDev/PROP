@@ -7,21 +7,19 @@ import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import presentation.model.TerminalInputOutput;
+import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 
-public class DriverGame {
-    private static TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-    private static Game.GameInfo gameInfoMaker = new Game.GameInfo("testUser", Player.Role.MAKER,4, 6, 12 );
-    private static Game.GameInfo gameInfoBreaker = new Game.GameInfo("testUser", Player.Role.BREAKER,4, 6, 12 );
-
-
+public class GameDriver {
+    private static final TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
+    private static final Game.GameInfo gameInfoMaker = new Game.GameInfo("testUser", Player.Role.MAKER, 4, 6, 12);
+    private static final Game.GameInfo gameInfoBreaker = new Game.GameInfo("testUser", Player.Role.BREAKER, 4, 6, 12);
 
     public static void main(String args[]) throws FinishGameException, CommandInterruptException {
-        terminalMenuBuilder.addTitle("Menu DriverGame:");
-        terminalMenuBuilder.addOption("Probar game com a Maker", DriverGame::case1);
-        terminalMenuBuilder.addOption("Probar Game coma a Breaker", DriverGame::case2);
-        terminalMenuBuilder.addOption("Sortir",terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Menu GameDriver:");
+        terminalMenuBuilder.addOption("Probar game com a Maker", GameDriver::case1);
+        terminalMenuBuilder.addOption("Probar Game coma a Breaker", GameDriver::case2);
+        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
@@ -30,11 +28,10 @@ public class DriverGame {
         Player p2 = new DummyComputer(Player.Role.MAKER);
         Game g = new Game(p1, p2, gameInfoBreaker);
         DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalInputOutput());
+        domainController.setGameInterface(new TerminalReceiver());
         try {
             g.startGame();
-        } catch (FinishGameException e) {
-            g = null;
+        } catch (FinishGameException ignored) {
         }
 
     }
@@ -44,11 +41,10 @@ public class DriverGame {
         Player p2 = new DummyComputer(Player.Role.BREAKER);
         Game g = new Game(p1, p2, gameInfoMaker);
         DomainController domainController = DomainController.getInstance();
-        domainController.setGameInterface(new TerminalInputOutput());
+        domainController.setGameInterface(new TerminalReceiver());
         try {
             g.startGame();
-        } catch (FinishGameException e) {
-            g = null;
+        } catch (FinishGameException ignored) {
         }
     }
 

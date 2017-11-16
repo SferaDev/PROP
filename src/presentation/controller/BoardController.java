@@ -5,8 +5,8 @@ import presentation.model.Turn;
 import presentation.view.BoardView;
 
 public class BoardController {
-    private Board mModel;
-    private BoardView mView;
+    private final Board mModel;
+    private final BoardView mView;
 
     public BoardController(Board mModel, BoardView mView) {
         this.mModel = mModel;
