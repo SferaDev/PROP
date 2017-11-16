@@ -17,10 +17,7 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
      * An ArrayList that contains all the combinations not discarded that could be the correct guess
      */
     private final ArrayList<ColorRow> possibleCombinations = new ArrayList<>();
-    /**
-     * Number of different combinations it is possible to obtain with the number of pegs and colors given
-     */
-    private int totalCombinations;
+
     /**
      * The guess tried in the last turn
      */
@@ -142,14 +139,13 @@ public class FiveGuessComputer extends ComputerPlayer implements java.io.Seriali
             ColorRow combination = new ColorRow();
             backtracking(0, pegs, colors, combination);
             availableGuesses = new ArrayList<>(possibleCombinations);
-            totalCombinations = possibleCombinations.size();
             lastGuess = breakerInitialGuess(pegs, colors);
         } else {
             updatePossibleCombinations();
             int guessScore = 0;
             for (ColorRow combination : availableGuesses) {
                 int maxHit = maxScore(combination);
-                int minEliminated = totalCombinations - maxHit;
+                int minEliminated = availableGuesses.size() - maxHit;
                 if (guessScore < minEliminated) {
                     guessScore = minEliminated;
                     lastGuess = new ColorRow(combination);
