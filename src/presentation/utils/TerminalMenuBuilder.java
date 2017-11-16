@@ -28,7 +28,7 @@ public class TerminalMenuBuilder {
 
     public void addOption(String title, Command function) {
         mCommands.add(function);
-        mOptions.append(mCommands.size()).append(". ").append(title).append("\n");
+        mOptions.append(String.format("%2.2s. %-55.55s", mCommands.size(), title)).append("\n");
     }
 
     public void onExitGoBackToStart(boolean goBack) {
@@ -50,7 +50,7 @@ public class TerminalMenuBuilder {
     }
 
     private void showOutput() {
-        terminalUtils.printLine("\033[H\033[2J");
+        terminalUtils.clearScreen();
 
         // Print lines
         if (!mTitle.toString().isEmpty()) {

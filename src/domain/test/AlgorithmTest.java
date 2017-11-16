@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import presentation.controller.receivers.TerminalReceiver;
+import presentation.utils.TerminalUtils;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,24 +26,31 @@ public class AlgorithmTest {
     @Parameterized.Parameters(name = "Computer: {0} | Pegs: {1} | Colors: {2}")
     public static Collection parameters() {
         return Arrays.asList(new Object[][]{
-                {"FiveGuessComputer", 4, 6},
-                {"GeneticComputer", 4, 6},
+                {"FiveGuessComputer", 5, 5},
+                {"GeneticComputer", 6, 6},
                 {"FiveGuessComputer", 5, 6},
-                {"GeneticComputer", 7, 7}
+                {"GeneticComputer", 6, 7}
         });
     }
 
     @Before
     public void setUp() throws Exception {
-        DomainController.getInstance().setGameInterface(new TerminalReceiver());
+        DomainController.getInstance().setGameInterface(new DebugReceiver());
         DomainController.getInstance().setDebugBuild(true);
     }
 
     @Test
     public void runTestGame() throws Exception {
+        TerminalUtils.getInstance().clearScreen();
         DomainController.getInstance().getGameController().startNewGame(computerName, pegs, colors, 12);
         String gameStatus = DomainController.getInstance().getGameController().getGameStatus();
-        DomainController.getInstance().getGameInterface().outputMessage(gameStatus + "\n");
+        DomainController.getInstance().getGameInterface().outputMessage("\n" + gameStatus + "\n");
         Assert.assertTrue(gameStatus.equals("CORRECT"));
+
+        DomainController.getInstance().getGameInterface().outputMessage("Press Enter key to continue...");
+        try {
+            System.in.read();
+        } catch (Exception ignored) {
+        }
     }
 }

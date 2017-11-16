@@ -86,6 +86,10 @@ public class TerminalUtils {
         }
     }
 
+    public void clearScreen() {
+        printLine("\033[H\033[2J");
+    }
+
     public String outputTimestamp(long time) {
         long elapsed = time / 1000;
         int hours = (int) (elapsed / (3600));

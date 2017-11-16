@@ -63,9 +63,8 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
         DomainController domainController = DomainController.getInstance();
         if (domainController.isDebugBuild()) {
             Receiver gameInterface = domainController.getGameInterface();
-            gameInterface.outputColorRow(guess.toString());
-            gameInterface.outputControlRow(score.getBlacks(), score.getWhites());
-            gameInterface.outputMessage("");
+            gameInterface.outputMessage(guess.toString() + "Blacks: " + score.getBlacks() +
+                    " | Whites: " + score.getWhites());
         }
         return score;
     }
@@ -85,15 +84,19 @@ public class DummyComputer extends ComputerPlayer implements java.io.Serializabl
     @Override
     public ColorRow makerGuess(int pegs, int colors) {
         ColorRow correctGuess = super.makerGuess(pegs, colors);
-        DomainController domainController = DomainController.getInstance();
         if (DomainController.getInstance().isDebugBuild()) {
-            Receiver gameInterface = domainController.getGameInterface();
-            gameInterface.outputMessage("Pegs: " + pegs);
-            gameInterface.outputMessage("Colors: " + colors);
-            gameInterface.outputMessage("Correct Guess is:");
-            gameInterface.outputColorRow(correctGuess.toString());
-            gameInterface.outputMessage("");
+            DomainController.getInstance().getGameInterface().outputMessage("Pegs: " + pegs +
+                    " | Colors: " + colors + " | Correct Guess is: " + correctGuess.toString());
+            DomainController.getInstance().getGameInterface().outputMessage("");
         }
         return correctGuess;
+    }
+
+    @Override
+    public void startGame(String title) {
+        if (DomainController.getInstance().isDebugBuild()) {
+            DomainController.getInstance().getGameInterface().outputMessage(title);
+            DomainController.getInstance().getGameInterface().outputMessage("");
+        }
     }
 }

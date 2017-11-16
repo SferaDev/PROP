@@ -1,15 +1,13 @@
 package domain.test.drivers;
 
 import domain.model.User;
-import domain.model.exceptions.CommandInterruptException;
-import domain.model.exceptions.FinishGameException;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
 public class UserDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
 
-    public static void main(String args[]) throws FinishGameException, CommandInterruptException {
+    public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Menu UserDriver:");
         terminalMenuBuilder.addOption("Probar creadora", UserDriver::case1);
@@ -24,6 +22,5 @@ public class UserDriver {
         String password = terminalUtils.readString();
         User u = new User(nameUser, password);
         terminalUtils.printLine("S'ha creat l'usuari " + u.getName() + " amb contrassenya " + u.getPassword());
-
     }
 }

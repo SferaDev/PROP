@@ -17,7 +17,7 @@ public class ComputerPlayerDriver {
     private static Integer pegs;
     private static Integer colors;
 
-    public static void main(String args[]) throws FinishGameException, CommandInterruptException {
+    public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Menu ComputerPlayerDriver:");
         terminalMenuBuilder.addOption("Probar comparacio entre dos ColorRows", ComputerPlayerDriver::case1);

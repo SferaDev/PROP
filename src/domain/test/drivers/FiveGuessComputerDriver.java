@@ -42,7 +42,7 @@ public class FiveGuessComputerDriver {
 
     }
 
-    public static void main(String args[]) throws FinishGameException, CommandInterruptException {
+    public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Menu FiveGuessComputerDriver:");
         terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", FiveGuessComputerDriver::case1);
