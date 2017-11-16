@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PROP.iml" filepath="$PROJECT_DIR$/.idea/modules/PROP.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PROP_main.iml" filepath="$PROJECT_DIR$/.idea/modules/PROP_main.iml" group="PROP" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PROP_test.iml" filepath="$PROJECT_DIR$/.idea/modules/PROP_test.iml" group="PROP" />
     </modules>
   </component>
 </project>
