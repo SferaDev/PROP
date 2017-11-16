@@ -11,7 +11,7 @@ public class TestMastermind implements Mastermind {
     public void startApplication() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Tests");
-        builder.addOption("JUnit: AlgorithmTest (4 automated games)", () -> runJUnit(AlgorithmTest.class));
+        builder.addOption("Algorithm: Run 4 automated CPU vs CPU games", () -> runJUnit(AlgorithmTest.class));
         builder.addOption("JUnit: Game", () -> runJUnit(GameUnitTest.class));
         builder.addOption("Driver: Game", () -> GameDriver.main(null));
         builder.addOption("Driver: User", () -> UserDriver.main(null));
