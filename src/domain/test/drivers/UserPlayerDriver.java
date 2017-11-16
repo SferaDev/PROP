@@ -13,20 +13,19 @@ import presentation.utils.TerminalUtils;
 
 public class UserPlayerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-    private static Integer pegs;
-    private static Integer colors;
+    private static int pegs, colors;
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu UserPlayerDriver:");
-        terminalMenuBuilder.addOption("Crear un makerGuess", UserPlayerDriver::case1);
-        terminalMenuBuilder.addOption("Crear un breakerGuess", UserPlayerDriver::case2);
-        terminalMenuBuilder.addOption("Obtenir control d'un guess", UserPlayerDriver::case3);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: UserPlayerDriver");
+        terminalMenuBuilder.addOption("Crear un makerGuess", UserPlayerDriver::testCreateMakerGuess);
+        terminalMenuBuilder.addOption("Crear un breakerGuess", UserPlayerDriver::testCreateBreakerGuess);
+        terminalMenuBuilder.addOption("Obtenir control d'un guess", UserPlayerDriver::testReceiveControl);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case3() {
+    private static void testReceiveControl() {
         pegs = 4;
         colors = 6;
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
@@ -41,11 +40,9 @@ public class UserPlayerDriver {
             e.printStackTrace();
         }
         up.receiveControl(control);
-        // terminalUtils.printLine("S'ha obtingut la correcció (blacks, whites): " + control.getBlacks() + ", " + control.getWhites());
-
     }
 
-    private static void case2() {
+    private static void testCreateBreakerGuess() {
         initializeGameInfo();
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
         ColorRow c = new ColorRow();
@@ -59,7 +56,7 @@ public class UserPlayerDriver {
         terminalUtils.printLine("S'ha generat el codi " + c.toString());
     }
 
-    private static void case1() {
+    private static void testCreateMakerGuess() {
         initializeGameInfo();
         UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
         ColorRow c = new ColorRow();

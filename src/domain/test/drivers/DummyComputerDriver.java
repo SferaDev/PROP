@@ -16,8 +16,7 @@ import java.util.Random;
 
 public class DummyComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-    private static Integer pegs;
-    private static Integer colors;
+    private static int pegs, colors;
     private static ColorRow correctGuess;
 
     private static ColorRow randomRow(int pegs, int colors) {
@@ -44,11 +43,11 @@ public class DummyComputerDriver {
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu DummyComputerDriver:");
+        terminalMenuBuilder.addTitle("Mastermind: DummyComputerDriver");
         terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", DummyComputerDriver::case1);
-        terminalMenuBuilder.addOption("Executar amb un secret code introduit per teclat", DummyComputerDriver::case2);
-        terminalMenuBuilder.addOption("Probar correccio", DummyComputerDriver::case3);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addOption("Executar amb un secretCode introduït per teclat", DummyComputerDriver::case2);
+        terminalMenuBuilder.addOption("Provar correcció", DummyComputerDriver::case3);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
@@ -83,13 +82,13 @@ public class DummyComputerDriver {
         }
         correctGuess = new ColorRow(inputColors);
         boolean hasWin = executeOneGame(true);
-        if (hasWin) terminalUtils.printLine("L'algoritme ha resolt el joc.");
-        else terminalUtils.printLine("L'algoritme no ha resolt el joc.");
+        if (hasWin) terminalUtils.printLine("L'algorisme ha resolt el joc.");
+        else terminalUtils.printLine("L'algorisme no ha resolt el joc.");
     }
 
     private static void case1() {
         initializeGameInfo();
-        terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algoritme:");
+        terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algorisme:");
         Integer n = terminalUtils.readInteger();
         Integer resoltes = 0;
         Integer noResoltes = 0;
@@ -98,10 +97,10 @@ public class DummyComputerDriver {
             boolean hasWin = executeOneGame(false);
             if (hasWin) {
                 ++resoltes;
-                terminalUtils.printLine("Ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
+                terminalUtils.printLine("Ha resolt la execució " + i + ", el SecretCode era " + correctGuess.toString() + ".");
             } else {
                 ++noResoltes;
-                terminalUtils.printLine("No ha resolt la execucio " + i + ", el SecretCode era " + correctGuess.toString() + ".");
+                terminalUtils.printLine("No ha resolt la execució " + i + ", el SecretCode era " + correctGuess.toString() + ".");
             }
         }
         terminalUtils.printLine("\nHa resolt " + resoltes + " jocs, i no ha pogut resoldre " + noResoltes + "\n");
@@ -123,14 +122,10 @@ public class DummyComputerDriver {
                 else ++actualTurn;
             } else {
                 ControlRow control = ComputerPlayer.compareGuess(correctGuess, guess);
-                //dc.receiveControl(control);
                 if (control.getBlacks() == pegs) hasWon = true;
-
             }
             ++aux;
-
-        }
-        while (!hasWon && validTurn);
+        } while (!hasWon && validTurn);
         return hasWon;
     }
 

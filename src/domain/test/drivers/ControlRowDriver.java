@@ -12,14 +12,14 @@ public class ControlRowDriver {
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu ControlRowDriver:");
-        terminalMenuBuilder.addOption("Probar creadora", ControlRowDriver::case1);
-        terminalMenuBuilder.addOption("Probar igualtat entre dos controlRows", ControlRowDriver::case2);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: ControlRowDriver");
+        terminalMenuBuilder.addOption("Provar creadora", ControlRowDriver::testConstructor);
+        terminalMenuBuilder.addOption("Provar igualtat entre dos controlRows", ControlRowDriver::testCompareControl);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case2() {
+    private static void testCompareControl() {
         Integer b = 0, w = 0;
         try {
             b = terminalInputOutput.inputControlBlacks();
@@ -45,10 +45,9 @@ public class ControlRowDriver {
         ControlRow c2 = new ControlRow(b, w);
         if (c1.equals(c2)) terminalInputOutput.outputMessage("Son iguals");
         else terminalInputOutput.outputMessage("No son iguals");
-
     }
 
-    private static void case1() {
+    private static void testConstructor() {
         Integer b = 0, w = 0;
         try {
             b = terminalInputOutput.inputControlBlacks();

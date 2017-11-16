@@ -8,27 +8,24 @@ import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 
 public class ColorRowDriver {
-    private static final Receiver terminalInputOutput = new TerminalReceiver();
-
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu ColorRowDriver:");
-        terminalMenuBuilder.addOption("Probar creadora", ColorRowDriver::case1);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: ColorRowDriver:");
+        terminalMenuBuilder.addOption("Provar creadora", ColorRowDriver::testConstructor);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-
-    private static void case1() {
+    private static void testConstructor() {
+        Receiver terminalReceiver = new TerminalReceiver();
         int[] cint = null;
         try {
-            cint = terminalInputOutput.inputColorRow(4, 4);
-        } catch (FinishGameException | CommandInterruptException e) {
-            e.printStackTrace();
+            cint = terminalReceiver.inputColorRow(4, 4);
+        } catch (FinishGameException | CommandInterruptException ignored) {
         }
         ColorRow c = new ColorRow(cint);
-        terminalInputOutput.outputColorRow(c.toString());
+        terminalReceiver.outputColorRow(c.toString());
     }
 
 }

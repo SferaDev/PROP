@@ -16,8 +16,7 @@ import java.util.Random;
 
 public class FiveGuessComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-    private static Integer pegs;
-    private static Integer colors;
+    private static int pegs, colors;
     private static ColorRow correctGuess;
 
     private static ColorRow randomRow(int pegs, int colors) {
@@ -39,19 +38,18 @@ public class FiveGuessComputerDriver {
             terminalUtils.printLine("Introdueixi el nombre de colors possibles");
             colors = terminalUtils.readInteger();
         } while (colors == -1);
-
     }
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu FiveGuessComputerDriver:");
-        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", FiveGuessComputerDriver::case1);
-        terminalMenuBuilder.addOption("Executar amb un secret code introduit per teclat", FiveGuessComputerDriver::case2);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: FiveGuessComputerDriver");
+        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", FiveGuessComputerDriver::testRandomSecret);
+        terminalMenuBuilder.addOption("Executar amb un secret code introduit per teclat", FiveGuessComputerDriver::testHardcodedSecret);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case2() {
+    private static void testHardcodedSecret() {
         initializeGameInfo();
         Receiver inputOutput = new TerminalReceiver();
         int[] inputColors = new int[0];
@@ -62,22 +60,22 @@ public class FiveGuessComputerDriver {
         }
         correctGuess = new ColorRow(inputColors);
         boolean hasWin = executeOneGame(true);
-        if (hasWin) terminalUtils.printLine("La execucio es correcte.");
-        else terminalUtils.printLine("La execucio es INCORRECTE.");
+        if (hasWin) terminalUtils.printLine("La execució es correcte.");
+        else terminalUtils.printLine("La execució es INCORRECTE.");
     }
 
-    private static void case1() {
+    private static void testRandomSecret() {
         initializeGameInfo();
-        terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algoritme:");
+        terminalUtils.printLine("Introdueixi el numero de cops que vols executar l'algorisme:");
         Integer n = terminalUtils.readInteger();
         boolean allOK = true;
         for (int i = 1; i <= n; ++i) {
             correctGuess = randomRow(pegs, colors);
             boolean hasWin = executeOneGame(false);
             if (hasWin)
-                terminalUtils.printLine("La execucio " + i + " es correcte, el SecretCode era " + correctGuess.toString() + ".");
+                terminalUtils.printLine("La execució " + i + " es correcte, el SecretCode era " + correctGuess.toString() + ".");
             else {
-                terminalUtils.printLine("La execucio " + i + " es INCORRECT, el SecretCode era " + correctGuess.toString() + ".");
+                terminalUtils.printLine("La execució " + i + " es INCORRECT, el SecretCode era " + correctGuess.toString() + ".");
                 allOK = false;
             }
         }
@@ -103,12 +101,9 @@ public class FiveGuessComputerDriver {
                 ControlRow control = ComputerPlayer.compareGuess(correctGuess, guess);
                 fgc.receiveControl(control);
                 if (control.getBlacks() == pegs) hasWin = true;
-
             }
             ++aux;
-
-        }
-        while (!hasWin && validTurn);
+        } while (!hasWin && validTurn);
         return hasWin;
     }
 

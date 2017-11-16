@@ -9,13 +9,13 @@ public class UserDriver {
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu UserDriver:");
-        terminalMenuBuilder.addOption("Probar creadora", UserDriver::case1);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: UserDriver");
+        terminalMenuBuilder.addOption("Provar creadora", UserDriver::testConstructor);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case1() {
+    private static void testConstructor() {
         terminalUtils.printLine("Introdueixi nom d'usuari:");
         String nameUser = terminalUtils.readString();
         terminalUtils.printLine("Introdueixi pasword:");

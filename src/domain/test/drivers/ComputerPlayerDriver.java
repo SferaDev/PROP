@@ -14,20 +14,19 @@ import presentation.utils.TerminalUtils;
 public class ComputerPlayerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static final Receiver terminalReceiver = new TerminalReceiver();
-    private static Integer pegs;
-    private static Integer colors;
+    private static int pegs, colors;
 
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu ComputerPlayerDriver:");
-        terminalMenuBuilder.addOption("Probar comparacio entre dos ColorRows", ComputerPlayerDriver::case1);
-        terminalMenuBuilder.addOption("Probar que crea correctament un ComputerPlayer", ComputerPlayerDriver::case2);
-        terminalMenuBuilder.addOption("Demanar una GuessHelp", ComputerPlayerDriver::case3);
-        terminalMenuBuilder.addOption("Sortir", terminalMenuBuilder::finishExecution);
+        terminalMenuBuilder.addTitle("Mastermind: ComputerPlayerDriver");
+        terminalMenuBuilder.addOption("Provar creació correcta d'un ComputerPlayer", ComputerPlayerDriver::testComputerCreation);
+        terminalMenuBuilder.addOption("Provar comparació entre dos ColorRows", ComputerPlayerDriver::testCompare);
+        terminalMenuBuilder.addOption("Demanar una Ajuda de ColorRow", ComputerPlayerDriver::testColorRowHelp);
+        terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
 
-    private static void case3() {
+    private static void testColorRowHelp() {
         ComputerPlayer cp;
         initializeGameInfo();
         cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
@@ -47,22 +46,20 @@ public class ComputerPlayerDriver {
         terminalUtils.printLine("L'algoritme ens recomana " + guessHelp.toString() + " que obté (Blacks, Whites): " + controlHelp.getBlacks() + ", " + controlHelp.getWhites() + ".\n");
     }
 
-
-    private static void case2() {
+    private static void testComputerCreation() {
         TerminalMenuBuilder submenu = new TerminalMenuBuilder();
-        submenu.addTitle("Menu ComputerPlayerDriver Creation Test:");
-        submenu.addOption("DummyComputer, with maker role", ComputerPlayerDriver::subcase21);
-        submenu.addOption("DummyComputer, with breaker role", ComputerPlayerDriver::subcase22);
-        submenu.addOption("FiveGuessComputer, with maker role", ComputerPlayerDriver::subcase23);
-        submenu.addOption("FiveGuessComputer, with breaker role", ComputerPlayerDriver::subcase24);
-        submenu.addOption("GeneticComputer, with maker role", ComputerPlayerDriver::subcase25);
-        submenu.addOption("GeneticComputer, with breaker role", ComputerPlayerDriver::subcase26);
-        submenu.addOption("Sortir", submenu::finishExecution);
+        submenu.addTitle("Mastermind: Creació ComputerPlayerDriver");
+        submenu.addOption("DummyComputer com a Maker", ComputerPlayerDriver::testDummyMaker);
+        submenu.addOption("DummyComputer com a Breaker", ComputerPlayerDriver::testDummyBreaker);
+        submenu.addOption("FiveGuessComputer com a Maker", ComputerPlayerDriver::TestFiveMaker);
+        submenu.addOption("FiveGuessComputer com a Breaker", ComputerPlayerDriver::testFiveBreaker);
+        submenu.addOption("GeneticComputer com a Maker", ComputerPlayerDriver::testGeneticMaker);
+        submenu.addOption("GeneticComputer com a Breaker", ComputerPlayerDriver::testGeneticBreaker);
+        submenu.addOption("Enrere", submenu::finishExecution);
         submenu.execute();
-
     }
 
-    private static void subcase26() {
+    private static void testGeneticBreaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER);
         if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
@@ -71,7 +68,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void subcase25() {
+    private static void testGeneticMaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER);
         if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.MAKER))
@@ -80,7 +77,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void subcase24() {
+    private static void testFiveBreaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER);
         if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
@@ -89,7 +86,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void subcase23() {
+    private static void TestFiveMaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
         if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
@@ -98,7 +95,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void subcase22() {
+    private static void testDummyBreaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER);
         if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
@@ -107,7 +104,7 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void subcase21() {
+    private static void testDummyMaker() {
         ComputerPlayer cp;
         cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER);
         if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.MAKER))
@@ -116,24 +113,21 @@ public class ComputerPlayerDriver {
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
     }
 
-    private static void case1() {
+    private static void testCompare() {
         ComputerPlayer cp;
         initializeGameInfo();
         cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
         ColorRow correctGuess = new ColorRow(cp.makerGuess(pegs, colors));
         terminalUtils.printLine("El secretCode es " + correctGuess.toString());
-        //Todo: No se de que son aquestes excepcions ni que fer amb elles
         int[] inputColors1 = new int[0];
         try {
             inputColors1 = terminalReceiver.inputColorRow(pegs, colors);
-        } catch (FinishGameException | CommandInterruptException e) {
-            e.printStackTrace();
+        } catch (FinishGameException | CommandInterruptException ignored) {
         }
         ColorRow guess = new ColorRow(inputColors1);
         ControlRow control = cp.scoreGuess(guess);
         terminalUtils.printLine("La correccio obtinguda es (Blacks, Whites): " + control.getBlacks() + ", " + control.getWhites() + ".\n");
     }
-
 
     private static void initializeGameInfo() {
         do {

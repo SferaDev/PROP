@@ -1,5 +1,6 @@
 package presentation;
 
+import domain.controller.DomainController;
 import domain.test.AlgorithmTest;
 import domain.test.drivers.*;
 import domain.test.unit.GameUnitTest;
@@ -9,6 +10,7 @@ import presentation.utils.TerminalMenuBuilder;
 public class TestMastermind implements Mastermind {
     @Override
     public void startApplication() {
+        DomainController.getInstance().setDebugBuild(true);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Tests");
         builder.addOption("Algorithm: Run 4 automated CPU vs CPU games", () -> runJUnit(AlgorithmTest.class));
@@ -24,6 +26,7 @@ public class TestMastermind implements Mastermind {
         builder.addOption("Driver: ControlRow", () -> ControlRowDriver.main(null));
         builder.addOption("Back", builder::finishExecution);
         builder.execute();
+        DomainController.getInstance().setDebugBuild(false);
     }
 
     private void runJUnit(Class className) {
