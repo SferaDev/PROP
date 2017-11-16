@@ -1,21 +1,29 @@
 package domain.test.drivers;
 
 import domain.controller.DomainController;
-import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
+/**
+ * The type Computer player driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class ComputerPlayerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static int pegs, colors;
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: ComputerPlayerDriver");

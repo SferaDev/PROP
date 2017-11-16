@@ -14,6 +14,11 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Random;
 
+/**
+ * The type Five guess computer driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class FiveGuessComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static int pegs, colors;
@@ -40,6 +45,11 @@ public class FiveGuessComputerDriver {
         } while (colors == -1);
     }
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: FiveGuessComputerDriver");

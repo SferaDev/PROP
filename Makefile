@@ -11,6 +11,8 @@ all: clean
 	cp -R $(ROOT_DIR)/docs $(ROOT_DIR)/entrega/
 	cp -R $(ROOT_DIR)/data $(ROOT_DIR)/entrega/
 	cp -R $(ROOT_DIR)/libs $(ROOT_DIR)/entrega/.libs
+	cp -R $(ROOT_DIR)/README.pdf $(ROOT_DIR)/entrega/
+	cp -R $(ROOT_DIR)/members.txt $(ROOT_DIR)/entrega/
 	cd $(ROOT_DIR)/entrega; zip -r $(ROOT_DIR)/$(ZIP) *
 
 # Configuration for make clean

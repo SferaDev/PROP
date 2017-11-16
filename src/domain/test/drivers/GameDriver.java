@@ -10,8 +10,18 @@ import presentation.controller.receivers.TerminalReceiver;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
+/**
+ * The type Game driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class GameDriver {
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: GameDriver");

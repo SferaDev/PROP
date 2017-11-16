@@ -2,6 +2,8 @@ package presentation.utils;
 
 /**
  * The type Constants.
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class Constants {
     /**
@@ -93,9 +95,24 @@ public class Constants {
      */
     public static final String ERROR_USER_NOT_FOUND = "Usuari no registrat";
 
+    /**
+     * The constant GAME_HELP_INGAMEHELP.
+     */
     public static final String GAME_HELP_INGAMEHELP = String.format("%-40.40s %-10.10s", "Per demanar combinació d'ajuda escriu:", "\"ajuda\".");
+    /**
+     * The constant GAME_HELP_SAVE.
+     */
     public static final String GAME_HELP_SAVE = String.format("%-40.40s %-10.10s", "Per guardar el joc i sortir escriu:", "\"guarda\".");
+    /**
+     * The constant GAME_HELP_QUIT.
+     */
     public static final String GAME_HELP_QUIT = String.format("%-40.40s %-10.10s", "Per sortir sense guardar escriu:", "\"surt\".");
+    /**
+     * The constant STATS_TIME.
+     */
     public static final String STATS_TIME = "Temps";
+    /**
+     * The constant STATS_POINTS.
+     */
     public static final String STATS_POINTS = "Puntuació";
 }

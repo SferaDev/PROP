@@ -5,12 +5,16 @@ import domain.model.exceptions.FinishGameException;
 
 /**
  * The interface input and output
+ *
+ * @author Alexis Rico Carreto
  */
 public interface Receiver {
     /**
      * Input the number of blacks
      *
      * @return the number of blacks
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     int inputControlBlacks() throws FinishGameException, CommandInterruptException;
 
@@ -18,6 +22,8 @@ public interface Receiver {
      * Input the number of whites
      *
      * @return the number of whites
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     int inputControlWhites() throws FinishGameException, CommandInterruptException;
 
@@ -27,6 +33,8 @@ public interface Receiver {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 

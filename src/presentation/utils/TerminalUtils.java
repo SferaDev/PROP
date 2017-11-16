@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 /**
  * The type Terminal controller.
+ *
+ * @author Alexis Rico Carreto
  */
 public class TerminalUtils {
     private static final TerminalUtils mInstance = new TerminalUtils();
@@ -76,6 +78,8 @@ public class TerminalUtils {
      * Read game integer.
      *
      * @return the integer
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     public Integer readGameInteger() throws FinishGameException, CommandInterruptException {
         String string = readString();
@@ -107,6 +111,9 @@ public class TerminalUtils {
 
     /**
      * Output Timestamp.
+     *
+     * @param time the time
+     * @return the string
      */
     public String outputTimestamp(long time) {
         long elapsed = time / 1000;

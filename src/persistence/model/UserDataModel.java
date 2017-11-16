@@ -8,6 +8,7 @@ import persistence.DataModel;
  * The type User data model
  *
  * @param <E> the type parameter
+ * @author Elena Alonso Gonzalez
  */
 public class UserDataModel<E extends User> extends DataModel<E> implements UserDataController<E> {
     private static final UserDataModel mInstance = new UserDataModel();

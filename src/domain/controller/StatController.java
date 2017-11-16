@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 /**
  * The type Stat controller
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class StatController {
     private static final StatController mInstance = new StatController();

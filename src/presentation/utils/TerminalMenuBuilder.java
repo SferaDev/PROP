@@ -2,6 +2,11 @@ package presentation.utils;
 
 import java.util.ArrayList;
 
+/**
+ * The type Terminal menu builder.
+ *
+ * @author Alexis Rico Carreto
+ */
 public class TerminalMenuBuilder {
     private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private final StringBuilder mTitle = new StringBuilder();
@@ -13,6 +18,11 @@ public class TerminalMenuBuilder {
     private boolean finish = false;
     private boolean goBackToStart = false;
 
+    /**
+     * Add title.
+     *
+     * @param title the title
+     */
     public void addTitle(String title) {
         title = "  " + title + "  ";
         String separator = new String(new char[title.length()]).replace('\0', '=');
@@ -22,27 +32,54 @@ public class TerminalMenuBuilder {
         mTitle.append(separator).append("\n");
     }
 
+    /**
+     * Add description.
+     *
+     * @param description the description
+     */
     public void addDescription(String description) {
         mDescription.append(description).append("\n");
     }
 
+    /**
+     * Add option.
+     *
+     * @param title    the title
+     * @param function the function
+     */
     public void addOption(String title, Command function) {
         mCommands.add(function);
         mOptions.append(String.format("%2.2s. %-55.55s", mCommands.size(), title)).append("\n");
     }
 
+    /**
+     * On exit go back to start.
+     *
+     * @param goBack the go back
+     */
     public void onExitGoBackToStart(boolean goBack) {
         goBackToStart = goBack;
     }
 
+    /**
+     * Finish execution.
+     */
     public void finishExecution() {
         finish = true;
     }
 
+    /**
+     * Default error.
+     *
+     * @param error the error
+     */
     public void defaultError(String error) {
         defaultOption = error;
     }
 
+    /**
+     * Execute.
+     */
     public void execute() {
         while (!finish) {
             showQuery();
@@ -84,8 +121,14 @@ public class TerminalMenuBuilder {
         }
     }
 
+    /**
+     * The interface Command.
+     */
     @FunctionalInterface
     public interface Command {
+        /**
+         * Apply.
+         */
         void apply();
     }
 }

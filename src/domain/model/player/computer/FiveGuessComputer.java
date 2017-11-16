@@ -10,6 +10,8 @@ import java.util.Map;
 
 /**
  * The type Five guess computer
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class FiveGuessComputer extends ComputerPlayer implements java.io.Serializable {
 

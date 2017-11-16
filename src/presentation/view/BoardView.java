@@ -5,7 +5,17 @@ import presentation.model.Turn;
 import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 
+/**
+ * The type Board view.
+ *
+ * @author Elena Alonso Gonzalez
+ */
 public class BoardView {
+    /**
+     * Print terminal.
+     *
+     * @param board the board
+     */
     public void printTerminal(Board board) {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(board.getGameTitle());

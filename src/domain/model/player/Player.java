@@ -7,6 +7,8 @@ import domain.model.row.ControlRow;
 
 /**
  * The type Player.
+ *
+ * @author Elena Alonso Gonzalez
  */
 public abstract class Player implements java.io.Serializable {
     // Role is defined upon creation, only has a getter
@@ -55,6 +57,8 @@ public abstract class Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination of the correct guess
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     public abstract ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
@@ -64,6 +68,8 @@ public abstract class Player implements java.io.Serializable {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination tried by the Breaker
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     public abstract ColorRow breakerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException;
 
@@ -72,6 +78,8 @@ public abstract class Player implements java.io.Serializable {
      *
      * @param guess is the combination introduced by the Breaker
      * @return the control row
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     public abstract ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException;
 
@@ -105,6 +113,8 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Notify hint to the breaker to try a combination
+     *
+     * @param row the row
      */
     public void notifyHint(ControlRow row) {
         // Should never happen unless UserPlayer
@@ -112,6 +122,8 @@ public abstract class Player implements java.io.Serializable {
 
     /**
      * Notify hint to the maker to put the control
+     *
+     * @param row the row
      */
     public void notifyHint(ColorRow row) {
         // Should never happen unless UserPlayer

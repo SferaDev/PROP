@@ -6,6 +6,7 @@ import domain.model.User;
  * The interface User data controller.
  *
  * @param <E> the type parameter
+ * @author Alexis Rico Carreto
  */
 public interface UserDataController<E extends User> extends DataController<E> {
     /**

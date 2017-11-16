@@ -14,6 +14,7 @@ import java.util.Map;
  * The type Data model
  *
  * @param <E> the type parameter
+ * @author Alexis Rico Carreto
  */
 public abstract class DataModel<E extends Serializable> implements DataController<E> {
     private final Map<String, String> mData = new HashMap<>();

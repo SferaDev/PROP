@@ -2,6 +2,8 @@ package domain.model.row;
 
 /**
  * The type Control row.
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class ControlRow implements java.io.Serializable {
     private int mBlacks = 0;

@@ -4,6 +4,8 @@ import domain.model.Receiver;
 
 /**
  * The type Domain controller
+ *
+ * @author Alexis Rico Carreto
  */
 public class DomainController {
     private static final DomainController mInstance = new DomainController();

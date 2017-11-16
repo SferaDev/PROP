@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 /**
  * The type Game controller
+ *
+ * @author Alexis Rico Carreto
  */
 public class GameController {
     private static final GameController mInstance = new GameController();
@@ -88,6 +90,8 @@ public class GameController {
 
     /**
      * Save current game
+     *
+     * @throws FinishGameException the finish game exception
      */
     public void saveCurrentGame() throws FinishGameException {
         if (currentGame != null) {
@@ -99,6 +103,8 @@ public class GameController {
 
     /**
      * Stop current game
+     *
+     * @throws FinishGameException the finish game exception
      */
     public void stopCurrentGame() throws FinishGameException {
         if (currentGame != null) {

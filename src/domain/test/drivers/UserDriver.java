@@ -4,9 +4,19 @@ import domain.model.User;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
+/**
+ * The type User driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class UserDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: UserDriver");

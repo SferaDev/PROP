@@ -5,6 +5,8 @@ import java.util.Base64;
 
 /**
  * The type Base 64 encoder
+ *
+ * @author Alexis Rico Carreto
  */
 public class Base64Encoder {
     /**

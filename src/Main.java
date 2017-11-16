@@ -5,6 +5,8 @@ import presentation.utils.TerminalMenuBuilder;
 
 /**
  * The type Master mind.
+ *
+ * @author Alexis Rico Carreto
  */
 public class Main {
 

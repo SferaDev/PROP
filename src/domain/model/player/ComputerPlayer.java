@@ -10,6 +10,8 @@ import java.util.Random;
 
 /**
  * The type Computer player.
+ *
+ * @author Alexis Rico Carreto
  */
 public abstract class ComputerPlayer extends Player implements java.io.Serializable {
 

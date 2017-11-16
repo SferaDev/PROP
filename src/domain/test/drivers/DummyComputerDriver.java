@@ -14,6 +14,11 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Random;
 
+/**
+ * The type Dummy computer driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class DummyComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static int pegs, colors;
@@ -41,6 +46,11 @@ public class DummyComputerDriver {
 
     }
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Mastermind: DummyComputerDriver");

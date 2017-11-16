@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 /**
  * The type Genetic computer.
+ *
+ * @author Oriol Borrell Roig
  */
 public class GeneticComputer extends ComputerPlayer implements java.io.Serializable {
 

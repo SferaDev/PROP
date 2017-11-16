@@ -14,6 +14,8 @@ import presentation.view.BoardView;
 
 /**
  * The type Terminal input
+ *
+ * @author Alexis Rico Carreto
  */
 public class TerminalReceiver implements Receiver {
 

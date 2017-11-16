@@ -8,6 +8,8 @@ import domain.model.row.ControlRow;
 
 /**
  * The type User player.
+ *
+ * @author Alexis Rico Carreto
  */
 public class UserPlayer extends Player implements java.io.Serializable {
 
@@ -82,7 +84,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
     /**
      * The Breaker user player receives the controlRow
      *
-     * @param control the control row
+     * @param guess the control row
      */
     @Override
     public void receiveColor(ColorRow guess) {
@@ -132,19 +134,27 @@ public class UserPlayer extends Player implements java.io.Serializable {
 
     /**
      * Notifies the score to the Breaker
-     *
-     * @param score the score of the game
      */
     @Override
     public void finishGame() {
         DomainController.getInstance().getGameInterface().finishGame();
     }
 
+    /**
+     * Notifies the score to the Breaker
+     *
+     * @param score the score of the game
+     */
     @Override
     public void finishGame(int score) {
         DomainController.getInstance().getGameInterface().finishGame(score);
     }
 
+    /**
+     * Notifies a new game has started
+     *
+     * @param gameTitle the title of the game
+     */
     @Override
     public void startGame(String gameTitle) {
         DomainController.getInstance().getGameInterface().startGame(gameTitle);

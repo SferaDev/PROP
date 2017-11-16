@@ -8,6 +8,11 @@ import domain.test.unit.GameUnitTest;
 import org.junit.runner.JUnitCore;
 import presentation.utils.TerminalMenuBuilder;
 
+/**
+ * The type Test mastermind.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class TestMastermind implements Mastermind {
     @Override
     public void startApplication() {

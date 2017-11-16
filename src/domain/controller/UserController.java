@@ -6,6 +6,8 @@ import persistence.model.UserDataModel;
 
 /**
  * The type User controller
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class UserController {
     private static final UserController mInstance = new UserController();

@@ -8,6 +8,8 @@ import domain.model.row.ControlRow;
 
 /**
  * The type Dummy computer.
+ *
+ * @author Alexis Rico Carreto
  */
 public class DummyComputer extends ComputerPlayer implements java.io.Serializable {
 

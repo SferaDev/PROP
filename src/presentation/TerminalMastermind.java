@@ -12,6 +12,8 @@ import java.util.Map;
 
 /**
  * The type Terminal app.
+ *
+ * @author Alexis Rico Carreto
  */
 public class TerminalMastermind implements Mastermind {
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * The interface Data controller
  *
  * @param <E> the type parameter
+ * @author Alexis Rico Carreto
  */
 public interface DataController<E> {
     /**

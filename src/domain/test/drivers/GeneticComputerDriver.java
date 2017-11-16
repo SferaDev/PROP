@@ -15,6 +15,11 @@ import presentation.utils.TerminalUtils;
 import java.util.Random;
 
 
+/**
+ * The type Genetic computer driver.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class GeneticComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static int pegs, colors;
@@ -42,6 +47,11 @@ public class GeneticComputerDriver {
 
     }
 
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
         terminalMenuBuilder.addTitle("Menu GeneticComputerDriver");

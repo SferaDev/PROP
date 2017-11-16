@@ -2,6 +2,8 @@ package domain.model;
 
 /**
  * The type User.
+ *
+ * @author Elena Alonso Gonzalez
  */
 public class
 

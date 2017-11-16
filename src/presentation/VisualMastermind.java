@@ -1,5 +1,10 @@
 package presentation;
 
+/**
+ * The type Visual mastermind.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class VisualMastermind implements Mastermind {
     @Override
     public void startApplication() {

@@ -12,6 +12,8 @@ import java.util.Scanner;
 
 /**
  * The type File controller
+ *
+ * @author Alexis Rico Carreto
  */
 public class FileUtils {
     /**

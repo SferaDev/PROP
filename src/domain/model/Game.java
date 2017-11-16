@@ -15,6 +15,8 @@ import java.util.Date;
 
 /**
  * The type Game.
+ *
+ * @author Alexis Rico Carreto
  */
 public class Game implements java.io.Serializable {
     /**
@@ -79,6 +81,8 @@ public class Game implements java.io.Serializable {
 
     /**
      * Start game.
+     *
+     * @throws FinishGameException the finish game exception
      */
     public void startGame() throws FinishGameException {
         while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {

@@ -7,6 +7,8 @@ import presentation.utils.TerminalUtils;
 
 /**
  * The type Debug input output.
+ *
+ * @author Alexis Rico Carreto
  */
 public class DebugReceiver implements Receiver {
 

@@ -7,6 +7,7 @@ import persistence.DataModel;
  * The type Game data model.
  *
  * @param <E> the type parameter
+ * @author Elena Alonso Gonzalez
  */
 public class GameDataModel<E extends Game> extends DataModel<E> {
     private static final GameDataModel mInstance = new GameDataModel();
