@@ -13,10 +13,17 @@ import presentation.utils.TerminalUtils;
 import presentation.view.BoardView;
 
 /**
- * The type Terminal input output.
+ * The type Terminal input
  */
 public class TerminalReceiver implements Receiver {
 
+    /**
+     * Reads the number of blacks from the terminal
+     *
+     * @return the number of blacks
+     * @throws FinishGameException the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
+     */
     @Override
     public int inputControlBlacks() throws FinishGameException, CommandInterruptException {
         TerminalUtils.getInstance().printLine("Introdueixi el numero de Negres");
@@ -25,6 +32,14 @@ public class TerminalReceiver implements Receiver {
         return result;
     }
 
+
+    /**
+     * Reads the number of whites from the terminal
+     *
+     * @return the number of whites
+     * @throws FinishGameException the finish fame exception
+     * @throws CommandInterruptException the command interrupt exception
+     */
     @Override
     public int inputControlWhites() throws FinishGameException, CommandInterruptException {
         TerminalUtils.getInstance().printLine("Introdueixi el numero de Blanques");
@@ -33,6 +48,16 @@ public class TerminalReceiver implements Receiver {
         return result;
     }
 
+
+    /**
+     * Reads a combination of color pegs from the terminal
+     *
+     * @param pegs   is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the combination of color pegs
+     * @throws FinishGameException the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
+     */
     @Override
     public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         int[] result = new int[pegs];
@@ -46,24 +71,46 @@ public class TerminalReceiver implements Receiver {
         return result;
     }
 
+    /**
+     * Writes in the terminal the number of blacks and whites of the control combination
+     * @param blacks the number of blacks in the combination
+     * @param whites the number of whites int he combination
+     */
+
     @Override
     public void outputControlRow(int blacks, int whites) {
         PresentationController.getInstance().getCurrentBoard().addControlLastTurn(blacks, whites);
         PresentationController.getInstance().getCurrentBoard().printTerminal();
     }
 
+
+    /**
+     * Writes in the terminal a color pegs' combination
+     * @param row the row
+     */
     @Override
     public void outputColorRow(String row) {
         PresentationController.getInstance().getCurrentBoard().addTurn(new Turn(row.trim()));
         PresentationController.getInstance().getCurrentBoard().printTerminal();
     }
 
+    /**
+     * Writes in the terminal a hint to know the correct control peg
+     *
+     * @param blacks the number of blacks
+     * @param whites the number of whites
+     */
     @Override
     public void outputHintControlRow(int blacks, int whites) {
         outputMessage("Aquesta es la teva ajuda:");
         outputRow(blacks, whites);
     }
 
+    /**
+     * Writes in the terminal a color combination to help the Breaker
+     *
+     * @param row the combination to help de Breaker
+     */
     @Override
     public void outputHintColorRow(String row) {
         outputMessage("Aquesta es la teva ajuda:");
@@ -78,16 +125,27 @@ public class TerminalReceiver implements Receiver {
         TerminalUtils.getInstance().printLine(row);
     }
 
+    /**
+     * Writes in the terminal the message
+     *
+     * @param message the message
+     */
     @Override
     public void outputMessage(String message) {
         TerminalUtils.getInstance().printLine(message);
     }
 
+    /**
+     * Notifies an invalid input
+     */
     @Override
     public void notifyInvalidInput() {
         TerminalUtils.getInstance().printLine("Entrada invalida!");
     }
 
+    /**
+     * Notifies the game is finished because there are no more turns
+     */
     @Override
     public void finishGame() {
         PresentationController.getInstance().setCurrentBoard(null);
@@ -97,6 +155,11 @@ public class TerminalReceiver implements Receiver {
         builder.execute();
     }
 
+    /**
+     * Notifies the Breaker's victory and notifies his score
+     *
+     * @param score the score obtained in the game
+     */
     public void finishGame(int score) {
         PresentationController.getInstance().setCurrentBoard(null);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
@@ -106,11 +169,18 @@ public class TerminalReceiver implements Receiver {
         builder.execute();
     }
 
+    /**
+     * Notifies an invalid control
+     */
     @Override
     public void notifyInvalidControl() {
         TerminalUtils.getInstance().printLine("Això és mentida! Tranqui tots ho fem :)");
     }
 
+    /**
+     * Starts the game
+     * @param title the title
+     */
     @Override
     public void startGame(String title) {
         PresentationController.getInstance().setCurrentBoard(new BoardController(new Board(title), new BoardView()));
