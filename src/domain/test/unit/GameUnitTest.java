@@ -49,7 +49,7 @@ public class GameUnitTest {
         Method method = Game.class.getDeclaredMethod("actionScore");
         method.setAccessible(true);
         method.invoke(mGame);
-        TerminalUtils.getInstance().printLine(mGame.getGameStatus());
+        //TerminalUtils.getInstance().printLine(mGame.getGameStatus());
         assertEquals(mGame.getGameStatus(), Game.Status.CORRECT.toString());
     }
 
@@ -118,7 +118,7 @@ public class GameUnitTest {
     public void prepareSave() throws Exception {
         Field field1 = Game.GameInfo.class.getDeclaredField("mTotalTime");
         field1.setAccessible(true);
-        TerminalUtils.getInstance().printLine(field1.get(gameInfo).toString());
+        //TerminalUtils.getInstance().printLine(field1.get(gameInfo).toString());
         String sTotalTime1 = field1.get(gameInfo).toString();
 
         Thread.sleep(3000);
@@ -126,7 +126,7 @@ public class GameUnitTest {
 
         Field field2 = Game.GameInfo.class.getDeclaredField("mTotalTime");
         field2.setAccessible(true);
-        TerminalUtils.getInstance().printLine(field2.get(gameInfo).toString());
+        //TerminalUtils.getInstance().printLine(field2.get(gameInfo).toString());
         String sTotalTime2 = field2.get(gameInfo).toString();
 
         assertNotEquals(sTotalTime1, sTotalTime2);
