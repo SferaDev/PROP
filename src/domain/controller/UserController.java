@@ -59,4 +59,12 @@ public class UserController {
     public boolean existsUser(String userName) {
         return userDataController.exists(userName);
     }
+
+    public void deleteUser(String username) {
+        userDataController.remove(username);
+    }
+
+    public void changePassword(String username, String password) {
+        userDataController.replace(username, new User(username, password));
+    }
 }

@@ -10,17 +10,14 @@ public class Constants {
      * The Main exit title.
      */
     public static final String BACK = "Enrere";
-
     /**
      * The Main exit title.
      */
     public static final String EXIT = "Surt";
-
     /**
      * The Main exit title.
      */
     public static final String ERROR_INPUT = "Introdueixi una opció de la llista";
-
     /**
      * The Main menu title.
      */
@@ -38,11 +35,6 @@ public class Constants {
      */
     public static final String MAIN_STATS = "Veure estadístiques";
     /**
-     * The Main help title.
-     */
-    public static final String MAIN_HELP = "Ajuda";
-
-    /**
      * The Play menu title.
      */
     public static final String PLAY_MENU = "Mastermind: Benvingut ";
@@ -59,11 +51,6 @@ public class Constants {
      */
     public static final String PLAY_STATS = MAIN_STATS;
     /**
-     * The Play help title.
-     */
-    public static final String PLAY_HELP = MAIN_HELP;
-
-    /**
      * The New menu title.
      */
     public static final String NEW_GAME_MENU = "Mastermind: Nou joc";
@@ -75,7 +62,6 @@ public class Constants {
      * The New maker game title.
      */
     public static final String NEW_GAME_MAKER = "Maker";
-
     /**
      * The New fiveguess game title.
      */
@@ -84,7 +70,6 @@ public class Constants {
      * The New genetic game title.
      */
     public static final String NEW_GAME_GENETIC = "GeneticComputer";
-
     /**
      * The New menu title.
      */
@@ -115,4 +100,108 @@ public class Constants {
      * The constant STATS_POINTS.
      */
     public static final String STATS_POINTS = "Puntuació";
+    /**
+     * The constant ROLE_BREAKER.
+     */
+    public static final String ROLE_BREAKER = "BREAKER";
+    /**
+     * The constant ROLE_MAKER.
+     */
+    public static final String ROLE_MAKER = "MAKER";
+    /**
+     * The constant COMPUTER_DUMMY.
+     */
+    public static final String COMPUTER_DUMMY = "DummyComputer";
+    /**
+     * The constant COMPUTER_FIVEGUESS.
+     */
+    public static final String COMPUTER_FIVEGUESS = "FiveGuessComputer";
+    /**
+     * The constant COMPUTER_GENETIC.
+     */
+    public static final String COMPUTER_GENETIC = "GeneticComputer";
+    /**
+     * The constant NEW_GAME_BREAKER_EASY.
+     */
+    public static final String NEW_GAME_BREAKER_EASY = "4 Pegs i 4 Colors (Fàcil)";
+    /**
+     * The constant NEW_GAME_BREAKER_AVERAGE.
+     */
+    public static final String NEW_GAME_BREAKER_AVERAGE = "4 Pegs i 6 Colors (Mig)";
+    /**
+     * The constant NEW_GAME_BREAKER_HARD.
+     */
+    public static final String NEW_GAME_BREAKER_HARD = "6 Pegs i 6 Colors (Difícil)";
+    /**
+     * The constant NEW_GAME_BREAKER_CUSTOM.
+     */
+    public static final String NEW_GAME_BREAKER_CUSTOM = "Personalitzat";
+    /**
+     * The constant NEW_GAME_INSERT_PEGS.
+     */
+    public static final String NEW_GAME_INSERT_PEGS = "Introdueixi el nombre de fitxes d'una combinació";
+    /**
+     * The constant NEW_GAME_INSERT_COLORS.
+     */
+    public static final String NEW_GAME_INSERT_COLORS = "Introdueixi el nombre de colors possibles";
+    /**
+     * The constant USER_MENU.
+     */
+    public static final String USER_MENU = "Gestió Usuari";
+    /**
+     * The constant USER_CHANGE_PASSWORD.
+     */
+    public static final String USER_CHANGE_PASSWORD = "Modificar Contrassenya";
+    /**
+     * The constant USER_DELETE.
+     */
+    public static final String USER_DELETE = "Eliminar usuari";
+    /**
+     * The constant YES.
+     */
+    public static final String YES = "Si";
+    /**
+     * The constant NO.
+     */
+    public static final String NO = "No";
+    /**
+     * The constant APP_TITLE.
+     */
+    public static final String APP_TITLE = "Mastermind";
+    /**
+     * The constant INSERT_USERNAME.
+     */
+    public static final String INSERT_USERNAME = "Introdueixi el seu nom d'usuari";
+    /**
+     * The constant WRONG_PASSWORD.
+     */
+    public static final String WRONG_PASSWORD = "Contrasenya erronea!";
+    /**
+     * The constant INSERT_PASSWORD.
+     */
+    public static final String INSERT_PASSWORD = "Introdueixi la seva contrasenya";
+    /**
+     * The constant WRONG_PASSWORD_3_TIMES.
+     */
+    public static final String WRONG_PASSWORD_3_TIMES = "Contrasenya erronea 3 cops";
+    /**
+     * The constant USER_ALREADY_EXISTS.
+     */
+    public static final String USER_ALREADY_EXISTS = "Ja existeix l'usuari";
+    /**
+     * The constant PASSWORD_DONT_MATCH.
+     */
+    public static final String PASSWORD_DONT_MATCH = "No coincideixen!";
+    /**
+     * The constant REPEAT_PASSWORD.
+     */
+    public static final String REPEAT_PASSWORD = "Repeteixi la seva contrasenya";
+    /**
+     * The constant COLORS.
+     */
+    public static final String COLORS = "Colors";
+    /**
+     * The constant PEGS.
+     */
+    public static final String PEGS = "Fitxes";
 }

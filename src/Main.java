@@ -1,6 +1,7 @@
 import presentation.Mastermind;
 import presentation.TerminalMastermind;
 import presentation.TestMastermind;
+import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 
 /**
@@ -17,10 +18,10 @@ public class Main {
      */
     public static void main(String[] args) {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind");
-        builder.addOption("Launch", () -> launch(new TerminalMastermind()));
-        builder.addOption("Test menu", () -> launch(new TestMastermind()));
-        builder.addOption("Quit", builder::finishExecution);
+        builder.addTitle(Constants.APP_TITLE);
+        builder.addOption("Mode Usuari", () -> launch(new TerminalMastermind()));
+        builder.addOption("Mode Test", () -> launch(new TestMastermind()));
+        builder.addOption("Surt", builder::finishExecution);
         builder.execute();
     }
 

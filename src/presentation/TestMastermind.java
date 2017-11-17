@@ -19,7 +19,7 @@ public class TestMastermind implements Mastermind {
         DomainController.getInstance().setDebugBuild(true);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Tests");
-        builder.addOption("Algorithm: Run 4 automated CPU vs CPU games", () -> runJUnit(AlgorithmTest.class));
+        builder.addOption("Algorithm: Executa 4 partides CPU vs CPU", () -> runJUnit(AlgorithmTest.class));
         builder.addOption("JUnit: Game", () -> runJUnit(GameUnitTest.class));
         builder.addOption("Driver: Game", () -> GameDriver.main(null));
         builder.addOption("Driver: User", () -> UserDriver.main(null));
@@ -30,7 +30,7 @@ public class TestMastermind implements Mastermind {
         builder.addOption("Driver: GeneticComputer", () -> GeneticComputerDriver.main(null));
         builder.addOption("Driver: ColorRow", () -> ColorRowDriver.main(null));
         builder.addOption("Driver: ControlRow", () -> ControlRowDriver.main(null));
-        builder.addOption("Back", builder::finishExecution);
+        builder.addOption("Enrere", builder::finishExecution);
         builder.execute();
         DomainController.getInstance().setDebugBuild(false);
     }

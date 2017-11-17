@@ -32,7 +32,6 @@ public class TerminalMastermind implements Mastermind {
         builder.addOption(Constants.MAIN_REGISTER, this::register);
         builder.addOption(Constants.MAIN_LOGIN, this::login);
         builder.addOption(Constants.MAIN_STATS, this::showStats);
-        builder.addOption(Constants.MAIN_HELP, this::showHelp);
         builder.addOption(Constants.EXIT, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
         builder.execute();
@@ -49,7 +48,7 @@ public class TerminalMastermind implements Mastermind {
         builder.addOption(Constants.PLAY_NEW_GAME, () -> showNewGameMenu(userName));
         builder.addOption(Constants.PLAY_PREV_GAME, () -> showContinueGameMenu(userName));
         builder.addOption(Constants.PLAY_STATS, this::showStats);
-        builder.addOption(Constants.PLAY_HELP, this::showHelp);
+        builder.addOption(Constants.USER_MENU, () -> showUserMenu(builder, userName));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.defaultError(Constants.ERROR_INPUT);
         builder.execute();
@@ -78,25 +77,25 @@ public class TerminalMastermind implements Mastermind {
     }
 
     private void newBreakerGame(String userName) {
-        String role = "BREAKER";
-        String computer = "DummyComputer";
+        String role = Constants.ROLE_BREAKER;
+        String computer = Constants.COMPUTER_DUMMY;
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: Nou joc");
-        builder.addOption("4 Pegs i 4 Colors (Fàcil)", () -> newGame(userName, role, computer, 4, 4));
-        builder.addOption("4 Pegs i 6 Colors (Mig)", () -> newGame(userName, role, computer, 4, 6));
-        builder.addOption("6 Pegs i 6 Colors (Difícil)", () -> newGame(userName, role, computer, 6, 6));
-        builder.addOption("Personalitzat", () -> newGame(userName, role, computer));
+        builder.addTitle(Constants.NEW_GAME_MENU);
+        builder.addOption(Constants.NEW_GAME_BREAKER_EASY, () -> newGame(userName, role, computer, 4, 4));
+        builder.addOption(Constants.NEW_GAME_BREAKER_AVERAGE, () -> newGame(userName, role, computer, 4, 6));
+        builder.addOption(Constants.NEW_GAME_BREAKER_HARD, () -> newGame(userName, role, computer, 6, 6));
+        builder.addOption(Constants.NEW_GAME_BREAKER_CUSTOM, () -> newGame(userName, role, computer));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.onExitGoBackToStart(true);
         builder.execute();
     }
 
     private void newMakerGame(String userName) {
-        String role = "MAKER";
+        String role = Constants.ROLE_MAKER;
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.NEW_GAME_MENU);
-        builder.addOption(Constants.NEW_GAME_FIVEGUESS, () -> newGame(userName, role, "FiveGuessComputer"));
-        builder.addOption(Constants.NEW_GAME_GENETIC, () -> newGame(userName, role, "GeneticComputer"));
+        builder.addOption(Constants.NEW_GAME_FIVEGUESS, () -> newGame(userName, role, Constants.COMPUTER_FIVEGUESS));
+        builder.addOption(Constants.NEW_GAME_GENETIC, () -> newGame(userName, role, Constants.COMPUTER_GENETIC));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.onExitGoBackToStart(true);
         builder.execute();
@@ -106,12 +105,12 @@ public class TerminalMastermind implements Mastermind {
         // Request pegs and colors
         int pegs, colors;
         do {
-            terminalUtils.printLine("Introdueixi el nombre de fitxes d'una combinació");
+            terminalUtils.printLine(Constants.NEW_GAME_INSERT_PEGS);
             pegs = terminalUtils.readInteger();
         } while (pegs == -1);
 
         do {
-            terminalUtils.printLine("Introdueixi el nombre de colors possibles");
+            terminalUtils.printLine(Constants.NEW_GAME_INSERT_COLORS);
             colors = terminalUtils.readInteger();
         } while (colors == -1);
 
@@ -126,19 +125,35 @@ public class TerminalMastermind implements Mastermind {
         domainController.getGameController().continueGame(game);
     }
 
-    private void showHelp() {
+    private void showUserMenu(TerminalMenuBuilder originalBuilder, String username) {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: Ajuda");
-        builder.addDescription("Per triar una opció ha de marcar el nombre que acompanya a la opció desitjada");
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.USER_MENU);
+        builder.addOption(Constants.USER_CHANGE_PASSWORD, () -> changeUserPassword(username));
+        builder.addOption(Constants.USER_DELETE, () -> deleteUser(originalBuilder, username));
         builder.addOption(Constants.BACK, builder::finishExecution);
         builder.execute();
     }
 
+    private void deleteUser(TerminalMenuBuilder originalBuilder, String username) {
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.USER_DELETE);
+        builder.addOption(Constants.YES, () -> domainController.getUserController().deleteUser(username));
+        builder.addOption(Constants.NO, builder::finishExecution);
+        builder.execute();
+    }
+
+    private void changeUserPassword(String username) {
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.USER_CHANGE_PASSWORD);
+        builder.execute();
+        domainController.getUserController().changePassword(username, inputPassword());
+    }
+
     private void login() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: " + Constants.MAIN_LOGIN);
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.MAIN_LOGIN);
         builder.execute();
-        terminalUtils.printLine("Introdueixi el seu nom d'usuari");
+        terminalUtils.printLine(Constants.INSERT_USERNAME);
         String userName = terminalUtils.readString();
 
         if (!domainController.getUserController().existsUser(userName)) {
@@ -148,8 +163,8 @@ public class TerminalMastermind implements Mastermind {
 
         boolean login = false;
         for (int i = 0; !login && i < 3; i++) {
-            if (i > 0) terminalUtils.errorLine("Contrasenya erronea!");
-            terminalUtils.printLine("Introdueixi la seva contrasenya");
+            if (i > 0) terminalUtils.errorLine(Constants.WRONG_PASSWORD);
+            terminalUtils.printLine(Constants.INSERT_PASSWORD);
             try {
                 login = domainController.getUserController().loginUser(userName, terminalUtils.readString());
             } catch (UserNotFoundException e) {
@@ -158,31 +173,21 @@ public class TerminalMastermind implements Mastermind {
         }
 
         if (!login) {
-            terminalUtils.errorLine("Contrasenya erronea 3 cops");
+            terminalUtils.errorLine(Constants.WRONG_PASSWORD_3_TIMES);
         } else showPlayMenu(userName);
     }
 
     private void register() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: " + Constants.MAIN_REGISTER);
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.MAIN_REGISTER);
         builder.execute();
-        terminalUtils.printLine("Introdueixi el seu nom d'usuari");
+        terminalUtils.printLine(Constants.INSERT_USERNAME);
         String username = terminalUtils.readString();
         if (domainController.getUserController().existsUser(username)) {
-            terminalUtils.errorLine("Ja existeix l'usuari");
+            terminalUtils.errorLine(Constants.USER_ALREADY_EXISTS);
         } else {
-            String password1, password2;
-            int i = 1;
-            do {
-                if (i++ > 1) terminalUtils.errorLine("No coincideixen!");
-                terminalUtils.printLine("Introdueixi la seva contrasenya");
-                password1 = terminalUtils.readString();
-                terminalUtils.printLine("Repeteixi la seva contrasenya");
-                password2 = terminalUtils.readString();
-            } while (!password1.equals(password2));
-
             try {
-                domainController.getUserController().createUser(username, password1);
+                domainController.getUserController().createUser(username, inputPassword());
                 showPlayMenu(username);
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
@@ -190,9 +195,22 @@ public class TerminalMastermind implements Mastermind {
         }
     }
 
+    private String inputPassword() {
+        String password1, password2;
+        int i = 1;
+        do {
+            if (i++ > 1) terminalUtils.errorLine(Constants.PASSWORD_DONT_MATCH);
+            terminalUtils.printLine(Constants.INSERT_PASSWORD);
+            password1 = terminalUtils.readString();
+            terminalUtils.printLine(Constants.REPEAT_PASSWORD);
+            password2 = terminalUtils.readString();
+        } while (!password1.equals(password2));
+        return password1;
+    }
+
     private void showStats() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: " + Constants.MAIN_STATS);
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.MAIN_STATS);
         builder.addOption(Constants.STATS_POINTS, this::showPointStats);
         builder.addOption(Constants.STATS_TIME, this::showTimeStats);
         builder.addOption(Constants.BACK, builder::finishExecution);
@@ -203,7 +221,7 @@ public class TerminalMastermind implements Mastermind {
         Map<String, Long> pointRanking = domainController.getStatController().getPointRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: " + Constants.STATS_POINTS);
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.STATS_POINTS);
 
         for (Map.Entry entry : pointRanking.entrySet()) {
             builder.addDescription(String.format("%-10.10s %14.14s", entry.getKey(), entry.getValue()));
@@ -217,13 +235,13 @@ public class TerminalMastermind implements Mastermind {
         Map<String, Long> timeRanking = domainController.getStatController().getTimeRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
-        builder.addTitle("Mastermind: " + Constants.STATS_TIME);
+        builder.addTitle(Constants.APP_TITLE + ": " + Constants.STATS_TIME);
 
         ArrayList<String> entries = new ArrayList<>();
 
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
-            String tipus = "(" + gameTitle[2] + " Fitxes | " + gameTitle[3] + " Colors)";
+            String tipus = "(" + gameTitle[2] + " " + Constants.PEGS + " | " + gameTitle[3] + " " + Constants.COLORS + ")";
             if (Integer.parseInt(gameTitle[2]) > 3 && Integer.parseInt(gameTitle[2]) > 3)
                 entries.add(String.format("%-15.15s %-15.15s %-25.25s",
                         terminalUtils.outputTimestamp(entry.getValue()), gameTitle[0], tipus));
