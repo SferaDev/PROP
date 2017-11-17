@@ -30,6 +30,20 @@ public class TerminalUtils {
     }
 
     /**
+     * Output Timestamp.
+     *
+     * @param time the time
+     * @return the string
+     */
+    public static String timestampToString(long time) {
+        long elapsed = time / 1000;
+        int hours = (int) (elapsed / (3600));
+        int minutes = (int) ((elapsed - (hours * 3600)) / 60);
+        int seconds = (int) (elapsed - (hours * 3600) - minutes * 60);
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    /**
      * Print line.
      *
      * @param string the string
@@ -107,20 +121,6 @@ public class TerminalUtils {
             System.in.read();
         } catch (IOException ignored) {
         }
-    }
-
-    /**
-     * Output Timestamp.
-     *
-     * @param time the time
-     * @return the string
-     */
-    public String outputTimestamp(long time) {
-        long elapsed = time / 1000;
-        int hours = (int) (elapsed / (3600));
-        int minutes = (int) ((elapsed - (hours * 3600)) / 60);
-        int seconds = (int) (elapsed - (hours * 3600) - minutes * 60);
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     /**

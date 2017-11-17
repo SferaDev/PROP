@@ -251,7 +251,7 @@ public class TerminalMastermind implements Mastermind {
             String tipus = "(" + gameTitle[2] + " " + Constants.PEGS + " | " + gameTitle[3] + " " + Constants.COLORS + ")";
             if (Integer.parseInt(gameTitle[2]) > 3 && Integer.parseInt(gameTitle[2]) > 3)
                 entries.add(String.format("%-15.15s %-15.15s %-25.25s",
-                        terminalUtils.outputTimestamp(entry.getValue()), gameTitle[0], tipus));
+                        TerminalUtils.timestampToString(entry.getValue()), gameTitle[0], tipus));
         }
 
         Collections.sort(entries);
