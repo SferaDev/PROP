@@ -151,7 +151,7 @@ public class Constants {
     /**
      * The constant USER_CHANGE_PASSWORD.
      */
-    public static final String USER_CHANGE_PASSWORD = "Modificar Contrassenya";
+    public static final String USER_CHANGE_PASSWORD = "Modificar Contrasenya";
     /**
      * The constant USER_DELETE.
      */
