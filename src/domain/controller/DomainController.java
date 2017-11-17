@@ -3,7 +3,7 @@ package domain.controller;
 import domain.model.Receiver;
 
 /**
- * The type Domain controller
+ * The Domain controller
  *
  * @author Alexis Rico Carreto
  */
@@ -46,16 +46,16 @@ public class DomainController {
     /**
      * Checks if is a debug build
      *
-     * @return the boolean
+     * @return debug build status
      */
     public boolean isDebugBuild() {
         return mDebug;
     }
 
     /**
-     * Sets debug build
+     * Sets debug build status
      *
-     * @param debug the debug
+     * @param debug the debug build status
      */
     public void setDebugBuild(boolean debug) {
         mDebug = debug;

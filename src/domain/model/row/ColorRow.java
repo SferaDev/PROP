@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The type Color row.
  *
- * @author Elena Alonso Gonzalez
+ * @author Alexis Rico Carreto
  */
 public class ColorRow extends ArrayList<ColorRow.ColorPeg> implements java.io.Serializable {
     /**

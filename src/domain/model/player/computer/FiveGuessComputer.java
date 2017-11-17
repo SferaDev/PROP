@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The type Five guess computer
+ * The Five guess computer
  *
  * @author Elena Alonso Gonzalez
  */

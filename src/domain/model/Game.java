@@ -3,6 +3,7 @@ package domain.model;
 import domain.controller.DomainController;
 import domain.controller.StatController;
 import domain.model.exceptions.CommandInterruptException;
+import domain.model.exceptions.EqualRolesException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
@@ -55,14 +56,15 @@ public class Game implements java.io.Serializable {
     /**
      * Instantiates a new Game.
      * Depending the Role, set the player attributes
-     * Puts the game in stat START.
+     * Puts the game in START Status.
      *
      * @param user1 the user 1 is the user
      * @param user2 the user 2 is the computer
      * @param info  is a class GameInfo and contains the user, the role, the number of pegs, the number of colors, the number of turns, the date and the time spent.
      * @pre user1 and user2 roles are opposite
      */
-    public Game(Player user1, Player user2, GameInfo info) {
+    public Game(Player user1, Player user2, GameInfo info) throws EqualRolesException {
+        if (user1.getPlayerRole() == user2.getPlayerRole()) throw new EqualRolesException();
         // Depending the Role, set the player attributes
         switch (user1.getPlayerRole()) {
             case MAKER:

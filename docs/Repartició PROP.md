@@ -1,6 +1,6 @@
 **Repartició de classes per membre del grup**
 
-**Alexis:**
+**Alexis Rico Carreto:**
 domain/controller/data/UserDataController.java
 domain/controller/data/DataController.java
 domain/controller/GameController.java
@@ -13,6 +13,8 @@ domain/model/player/ComputerPlayer.java
 domain/model/player/UserPlayer.java
 domain/model/player/computer/DummyComputer.java
 domain/model/Game.java
+domain/model/row/ControlRow.java
+domain/model/row/ColorRow.java
 presentation/controller/PresentationController.java
 presentation/controller/receivers/TerminalReceiver.java
 presentation/utils/TerminalUtils.java
@@ -22,15 +24,14 @@ persistence/utils/FileUtils.java
 persistence/utils/Base64Encoder.java
 persistence/DataModel.java
 
-**Elena:**
+**Elena Alonso Gonzalez:**
 domain/controller/UserController.java
 domain/controller/StatController.java
 domain/model/exceptions/CommandInterruptException.java
 domain/model/exceptions/FinishGameException.java
 domain/model/exceptions/UserAlreadyExistsException.java
 domain/model/exceptions/UserNotFoundException.java
-domain/model/row/ControlRow.java
-domain/model/row/ColorRow.java
+domain/model/exceptions/EqualRolesException.java
 domain/model/player/computer/FiveGuessComputer.java
 domain/model/User.java
 presentation/utils/Constants.java
@@ -42,7 +43,7 @@ persistence/model/UserDataModel.java
 persistence/model/GameDataModel.java
 persistence/model/StatDataModel.java
 
-**Oriol:**
+**Oriol Borrell Roig:**
 domain/test/drivers/DummyComputerDriver.java
 domain/test/drivers/ColorRowDriver.java
 domain/test/drivers/ComputerPlayerDriver.java
@@ -55,4 +56,3 @@ domain/test/drivers/GeneticComputerDriver.java
 domain/test/unit/GameUnitTest.java
 domain/model/player/computer/GeneticComputer.java
 presentation/TestMastermind.java
-presentation/VisualMastermind.java

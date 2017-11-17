@@ -2,6 +2,7 @@ package domain.controller;
 
 import domain.controller.data.DataController;
 import domain.model.Game;
+import domain.model.exceptions.EqualRolesException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
@@ -12,7 +13,7 @@ import persistence.model.GameDataModel;
 import java.util.ArrayList;
 
 /**
- * The type Game controller
+ * The Game controller
  *
  * @author Alexis Rico Carreto
  */
@@ -35,7 +36,7 @@ public class GameController {
     }
 
     /**
-     * Start a new game whith an user player and a computer
+     * Start a new game with an user player and a computer
      *
      * @param userName     the user name
      * @param computerName the computer name
@@ -45,17 +46,19 @@ public class GameController {
      * @param turns        the maxim number of turns than can be played
      */
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
-        Player.Role userRole = Player.Role.valueOf(role);
-
-        Player.Role computerRole = Player.oppositeRole(userRole);
-        ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, computerRole);
-
-        currentGame = new Game(new UserPlayer(userName, userRole), computer,
-                new Game.GameInfo(userName, userRole, pegs, colors, turns));
         try {
+            Player.Role userRole = Player.Role.valueOf(role);
+
+            Player.Role computerRole = Player.oppositeRole(userRole);
+            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, computerRole);
+
+            currentGame = new Game(new UserPlayer(userName, userRole), computer,
+                    new Game.GameInfo(userName, userRole, pegs, colors, turns));
             currentGame.startGame();
         } catch (FinishGameException e) {
             currentGame = null;
+        } catch (EqualRolesException e) {
+            e.printStackTrace();
         }
     }
 
@@ -68,14 +71,15 @@ public class GameController {
      * @param turns        the turns
      */
     public void startNewGame(String computerName, int pegs, int colors, int turns) {
-        ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.BREAKER);
-
-        currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
-                new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
         try {
+            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.BREAKER);
+            currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
+                    new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
             currentGame.startGame();
         } catch (FinishGameException e) {
             currentGame = null;
+        } catch (EqualRolesException e) {
+            e.printStackTrace();
         }
     }
 
@@ -134,7 +138,7 @@ public class GameController {
 
 
     /**
-     * Continues the game
+     * Continues a saved game
      *
      * @param game the game to continue
      */
@@ -152,7 +156,7 @@ public class GameController {
     }
 
     /**
-     * Provides help
+     * Provides in-game help to the user
      */
     public void provideHelp() {
         if (currentGame == null) return;

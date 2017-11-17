@@ -3,7 +3,7 @@ package domain.model.row;
 /**
  * The type Control row.
  *
- * @author Elena Alonso Gonzalez
+ * @author Alexis Rico Carreto
  */
 public class ControlRow implements java.io.Serializable {
     private int mBlacks = 0;

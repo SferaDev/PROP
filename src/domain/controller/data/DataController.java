@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public interface DataController<E> {
     /**
-     * Exists boolean
+     * Check if key value exists in the dataSet
      *
      * @param key the key
      * @return true if the key exists, false otherwise
@@ -18,7 +18,7 @@ public interface DataController<E> {
     boolean exists(String key);
 
     /**
-     * Insert the item with its key in Data Model
+     * Insert the item with its key in the dataSet
      *
      * @param key  the key
      * @param item the item
@@ -26,7 +26,7 @@ public interface DataController<E> {
     void insert(String key, E item);
 
     /**
-     * Replace the item with the key key by the new item
+     * Replace the item with the key by the new item in the dataSet
      *
      * @param key  the key
      * @param item the new item
@@ -34,14 +34,14 @@ public interface DataController<E> {
     void replace(String key, E item);
 
     /**
-     * Remove the item with key key
+     * Remove the item with the key in the dataSet
      *
      * @param key the key
      */
     void remove(String key);
 
     /**
-     * Get e
+     * Get E element with the key in the dataSet
      *
      * @param key the key
      * @return the e
@@ -49,9 +49,9 @@ public interface DataController<E> {
     E get(String key);
 
     /**
-     * Gets all keys
+     * Gets all keys from the dataSet
      *
-     * @return all Keys
+     * @return all Keys array list
      */
     ArrayList allKeys();
 }

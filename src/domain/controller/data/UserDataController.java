@@ -11,11 +11,11 @@ import domain.model.exceptions.UserNotFoundException;
  */
 public interface UserDataController<E extends User> extends DataController<E> {
     /**
-     * Logs a new user
+     * Logs a new user into the system
      *
      * @param name the user name
      * @param pass the password
-     * @return true if the user can be logged, false otherwise
+     * @return true if the user can be logged in, false otherwise
      */
     boolean login(String name, String pass) throws UserNotFoundException;
 }

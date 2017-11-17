@@ -1,7 +1,9 @@
 package domain.model.exceptions;
 
 /**
- * Treats user not found exception
+ * Treats User Not Found exception
+ * <p>
+ * Happens when querying a User that doesn't exist in the system.
  *
  * @author Elena Alonso Gonzalez
  */

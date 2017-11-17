@@ -129,17 +129,24 @@ public class TerminalMastermind implements Mastermind {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.APP_TITLE + ": " + Constants.USER_MENU);
         builder.addOption(Constants.USER_CHANGE_PASSWORD, () -> changeUserPassword(username));
-        builder.addOption(Constants.USER_DELETE, () -> deleteUser(originalBuilder, username));
+        builder.addOption(Constants.USER_DELETE, () -> deleteUserMenu(originalBuilder, username));
         builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.onExitGoBackToStart(true);
         builder.execute();
     }
 
-    private void deleteUser(TerminalMenuBuilder originalBuilder, String username) {
+    private void deleteUserMenu(TerminalMenuBuilder originalBuilder, String username) {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.APP_TITLE + ": " + Constants.USER_DELETE);
-        builder.addOption(Constants.YES, () -> domainController.getUserController().deleteUser(username));
+        builder.addOption(Constants.YES, () -> deleteUser(builder, originalBuilder, username));
         builder.addOption(Constants.NO, builder::finishExecution);
         builder.execute();
+    }
+
+    private void deleteUser(TerminalMenuBuilder builder, TerminalMenuBuilder originalBuilder, String username) {
+        domainController.getUserController().deleteUser(username);
+        builder.finishExecution();
+        originalBuilder.finishExecution();
     }
 
     private void changeUserPassword(String username) {

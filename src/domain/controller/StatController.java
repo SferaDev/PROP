@@ -6,7 +6,7 @@ import persistence.model.StatDataModel;
 import java.util.HashMap;
 
 /**
- * The type Stat controller
+ * The Stat controller
  *
  * @author Elena Alonso Gonzalez
  */
@@ -54,18 +54,18 @@ public class StatController {
     }
 
     /**
-     * Gets the punctuation's ranking
+     * Gets the point ranking
      *
-     * @return the punctuation's ranking
+     * @return the point ranking
      */
     public HashMap<String, Long> getPointRanking() {
         return pointRanking;
     }
 
     /**
-     * Gets the time record's
+     * Gets the time ranking
      *
-     * @return the time record's
+     * @return the time ranking
      */
     public HashMap<String, Long> getTimeRanking() {
         return timeRanking;

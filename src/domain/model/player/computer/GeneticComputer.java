@@ -7,7 +7,7 @@ import domain.model.row.ControlRow;
 import java.util.ArrayList;
 
 /**
- * The type Genetic computer.
+ * The Genetic computer.
  *
  * @author Oriol Borrell Roig
  */

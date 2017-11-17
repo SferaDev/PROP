@@ -3,7 +3,7 @@ package presentation;
 /**
  * The type Visual mastermind.
  *
- * @author Oriol Borrell Roig
+ * @author Alexis Rico Carreto
  */
 public class VisualMastermind implements Mastermind {
     @Override

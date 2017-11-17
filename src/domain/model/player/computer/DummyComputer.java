@@ -7,7 +7,7 @@ import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 
 /**
- * The type Dummy computer.
+ * The Dummy computer.
  *
  * @author Alexis Rico Carreto
  */

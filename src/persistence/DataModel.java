@@ -91,7 +91,7 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
      * Gets the item with the key key
      *
      * @param key the key
-     * @return
+     * @return the given object
      */
     @Override
     public E get(String key) {

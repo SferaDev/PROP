@@ -6,7 +6,7 @@ package presentation.model;
  * @author Elena Alonso Gonzalez
  */
 public class Turn {
-    private String guess;
+    private final String guess;
     private int blacks = -1;
     private int whites = -1;
 

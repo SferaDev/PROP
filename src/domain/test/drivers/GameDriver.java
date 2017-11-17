@@ -1,6 +1,7 @@
 package domain.test.drivers;
 
 import domain.model.Game;
+import domain.model.exceptions.EqualRolesException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
@@ -36,10 +37,10 @@ public class GameDriver {
         Player p2 = new DummyComputer(Player.Role.BREAKER);
         Game.GameInfo gameInfoMaker = new Game.GameInfo("testPlayerMaker", Player.Role.MAKER,
                 4, 6, 12);
-        Game g = new Game(p1, p2, gameInfoMaker);
         try {
+            Game g = new Game(p1, p2, gameInfoMaker);
             g.startGame();
-        } catch (FinishGameException ignored) {
+        } catch (FinishGameException | EqualRolesException ignored) {
         }
         TerminalUtils.getInstance().pressEnterToContinue();
     }
@@ -49,10 +50,10 @@ public class GameDriver {
         Player p2 = new DummyComputer(Player.Role.MAKER);
         Game.GameInfo gameInfoBreaker = new Game.GameInfo("testPlayerBreaker", Player.Role.BREAKER,
                 4, 6, 12);
-        Game g = new Game(p1, p2, gameInfoBreaker);
         try {
+            Game g = new Game(p1, p2, gameInfoBreaker);
             g.startGame();
-        } catch (FinishGameException ignored) {
+        } catch (FinishGameException | EqualRolesException ignored) {
         }
         TerminalUtils.getInstance().pressEnterToContinue();
     }

@@ -56,7 +56,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
      *
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
-     * @return
+     * @return the input ColorRow
      * @throws FinishGameException       the finish game exception
      * @throws CommandInterruptException the command interrupt exception
      */
@@ -69,9 +69,9 @@ public class UserPlayer extends Player implements java.io.Serializable {
      * The Maker user player gives a controlRow to answer the Breaker's guess
      *
      * @param guess is the combination introduced by the Breaker
-     * @return
-     * @throws FinishGameException
-     * @throws CommandInterruptException
+     * @return the input ControlRow
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
      */
     @Override
     public ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException {

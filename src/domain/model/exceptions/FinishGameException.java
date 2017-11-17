@@ -1,7 +1,9 @@
 package domain.model.exceptions;
 
 /**
- * Treats finish game exception
+ * Treats Finish Game exception
+ * <p>
+ * Happens when the user quits a non-finished game.
  *
  * @author Elena Alonso Gonzalez
  */

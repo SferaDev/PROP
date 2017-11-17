@@ -27,11 +27,9 @@ public class DebugReceiver implements Receiver {
     @Override
     public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         int[] result = new int[pegs];
-        StringBuilder row = new StringBuilder();
         TerminalUtils.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
         for (int i = 0; i < pegs; ++i) {
             result[i] = TerminalUtils.getInstance().readGameInteger();
-            row.append(result[i]).append(" ");
         }
         return result;
     }

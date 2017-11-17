@@ -1,7 +1,9 @@
 package domain.model.exceptions;
 
 /**
- * Treats user not created exception
+ * Treats User Already Exists exception
+ * <p>
+ * Happens when creating a User that already exists in the system.
  *
  * @author Elena Alonso Gonzalez
  */
