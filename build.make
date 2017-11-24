@@ -7,7 +7,7 @@ SOURCES := $(shell find $(ROOT_DIR) -name '*.java')
 # Handle the default make command with the program generation
 all: clean
 	mkdir -p $(ROOT_DIR)/out
-	cd $(ROOT_DIR)/src/; javac -cp "$(ROOT_DIR)/.libs/*" $(SOURCES) -d $(ROOT_DIR)/out
+	cd $(ROOT_DIR)/src/; javac -cp "$(ROOT_DIR)/.libs/*" $(SOURCES) -d $(ROOT_DIR)/out -encoding UTF8
 	cd $(ROOT_DIR)/out/; ln -s $(ROOT_DIR)/data data; cd $(ROOT_DIR)
 
 jar: all
