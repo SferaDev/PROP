@@ -323,7 +323,8 @@ public class Game implements java.io.Serializable {
          * @return the game title
          */
         String getGameTitle() {
-            return mUser + "-" + mRole + "-" + mPegs + "-" + mColors + "-" + mStart;
+            return (mUser + "-" + mRole + "-" + mPegs + "-" + mColors + "-" + mStart)
+                    .replace(":", "_");
         }
 
         /**

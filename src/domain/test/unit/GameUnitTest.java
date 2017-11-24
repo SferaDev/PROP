@@ -95,7 +95,8 @@ public class GameUnitTest {
         //TerminalUtils.getInstance().printLine(field.get(gameInfo).toString());
         String sColors = field4.get(gameInfo).toString();
 
-        assertEquals(sUser + "-" + sRole + "-" + sPegs + "-" + sColors + "-" + sStart, mGame.getGameTitle());
+        assertEquals((sUser + "-" + sRole + "-" + sPegs + "-" + sColors + "-" + sStart).replace(":", "_"),
+                mGame.getGameTitle());
     }
 
     /**
