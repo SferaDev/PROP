@@ -1,3 +1,4 @@
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,10 +16,11 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // Create the Pane and all Details
-        Parent root = FXMLLoader.load(MainApplication.class.getResource("./resources/layout/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/resources/layout/login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Mastermind: Login");
+        stage.setMaximized(true);
         stage.show();
     }
 }
