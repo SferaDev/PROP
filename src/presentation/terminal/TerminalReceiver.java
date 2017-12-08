@@ -1,16 +1,16 @@
-package presentation.controller.receivers;
+package presentation.terminal;
 
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
-import presentation.controller.BoardController;
-import presentation.controller.PresentationController;
-import presentation.model.Board;
-import presentation.model.Turn;
-import presentation.utils.Constants;
-import presentation.utils.TerminalMenuBuilder;
-import presentation.utils.TerminalUtils;
-import presentation.view.BoardView;
+import presentation.terminal.controller.BoardController;
+import presentation.terminal.controller.PresentationController;
+import presentation.terminal.model.Board;
+import presentation.terminal.model.Turn;
+import presentation.terminal.utils.Constants;
+import presentation.terminal.utils.TerminalMenuBuilder;
+import presentation.terminal.utils.TerminalUtils;
+import presentation.terminal.view.BoardView;
 
 /**
  * The type Terminal input

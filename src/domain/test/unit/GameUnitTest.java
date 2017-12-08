@@ -1,15 +1,11 @@
 package domain.test.unit;
 
-import domain.controller.DomainController;
 import domain.model.Game;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Test;
 import org.junit.Before;
-import presentation.utils.TerminalUtils;
+import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

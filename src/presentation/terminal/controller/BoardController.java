@@ -1,8 +1,8 @@
-package presentation.controller;
+package presentation.terminal.controller;
 
-import presentation.model.Board;
-import presentation.model.Turn;
-import presentation.view.BoardView;
+import presentation.terminal.model.Board;
+import presentation.terminal.model.Turn;
+import presentation.terminal.view.BoardView;
 
 /**
  * The type Board controller.

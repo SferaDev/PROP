@@ -1,4 +1,4 @@
-package presentation.controller;
+package presentation.terminal.controller;
 
 /**
  * The type Presentation controller.

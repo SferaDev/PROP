@@ -1,4 +1,4 @@
-package presentation.utils;
+package presentation.terminal.utils;
 
 /**
  * The type Constants.

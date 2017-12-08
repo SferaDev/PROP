@@ -1,12 +1,18 @@
-package presentation;
+package presentation.terminal;
 
 import domain.controller.DomainController;
 import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
-import presentation.controller.receivers.TerminalReceiver;
-import presentation.utils.Constants;
-import presentation.utils.TerminalMenuBuilder;
-import presentation.utils.TerminalUtils;
+import domain.test.AlgorithmTest1;
+import domain.test.AlgorithmTest4;
+import domain.test.DebugReceiver;
+import domain.test.drivers.*;
+import domain.test.unit.GameUnitTest;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import presentation.terminal.utils.Constants;
+import presentation.terminal.utils.TerminalMenuBuilder;
+import presentation.terminal.utils.TerminalUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,16 +23,14 @@ import java.util.Map;
  *
  * @author Alexis Rico Carreto
  */
-public class TerminalMastermind implements Mastermind {
+public class TerminalMastermind {
 
     private final DomainController domainController = DomainController.getInstance();
     private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
 
-    /**
-     * Start application.
-     */
-    @Override
-    public void startApplication() {
+    public void startTerminalApplication() {
+        domainController.setGameInterface(new TerminalReceiver());
+
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(Constants.MAIN_MENU);
         builder.addOption(Constants.MAIN_REGISTER, this::register);
@@ -37,9 +41,41 @@ public class TerminalMastermind implements Mastermind {
         builder.execute();
     }
 
-    @Override
-    public void setInputOutPut() {
-        domainController.setGameInterface(new TerminalReceiver());
+    public void startDebugApplication() {
+        domainController.setGameInterface(new DebugReceiver());
+
+        domainController.setDebugBuild(true);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: Tests");
+        builder.addOption("Algorithm: Executa 1 partida CPU vs CPU", () -> runJUnit(AlgorithmTest1.class));
+        builder.addOption("Algorithm: Executa 4 partides CPU vs CPU", () -> runJUnit(AlgorithmTest4.class));
+        builder.addOption("JUnit: Game", () -> runJUnit(GameUnitTest.class));
+        builder.addOption("Driver: Game", () -> GameDriver.main(null));
+        builder.addOption("Driver: User", () -> UserDriver.main(null));
+        builder.addOption("Driver: ComputerPlayer", () -> ComputerPlayerDriver.main(null));
+        builder.addOption("Driver: UserPlayer", () -> UserPlayerDriver.main(null));
+        builder.addOption("Driver: DummyComputer", () -> DummyComputerDriver.main(null));
+        builder.addOption("Driver: FiveGuessComputer", () -> FiveGuessComputerDriver.main(null));
+        builder.addOption("Driver: GeneticComputer", () -> GeneticComputerDriver.main(null));
+        builder.addOption("Driver: ColorRow", () -> ColorRowDriver.main(null));
+        builder.addOption("Driver: ControlRow", () -> ControlRowDriver.main(null));
+        builder.addOption("Enrere", builder::finishExecution);
+        builder.execute();
+        domainController.setDebugBuild(false);
+    }
+
+    private void runJUnit(Class className) {
+        JUnitCore junit = new JUnitCore();
+        Result result = junit.run(className);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Mastermind: JUnit Test for " + className.getName());
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Successful:", result.wasSuccessful()));
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Total Count:", result.getRunCount()));
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Failure Count:", result.getFailureCount()));
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Ignored Count:", result.getIgnoreCount()));
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Run time:", TerminalUtils.timestampToString(result.getRunTime())));
+        builder.addOption("Enrere", builder::finishExecution);
+        builder.execute();
     }
 
     private void showPlayMenu(String userName) {

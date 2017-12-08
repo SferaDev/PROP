@@ -8,8 +8,8 @@ import domain.model.player.Player;
 import domain.model.player.computer.GeneticComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.utils.TerminalMenuBuilder;
-import presentation.utils.TerminalUtils;
+import presentation.terminal.utils.TerminalMenuBuilder;
+import presentation.terminal.utils.TerminalUtils;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package presentation.model;
+package presentation.terminal.model;
 
 import java.util.ArrayList;
 

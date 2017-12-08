@@ -7,8 +7,8 @@ import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
-import presentation.utils.TerminalMenuBuilder;
-import presentation.utils.TerminalUtils;
+import presentation.terminal.utils.TerminalMenuBuilder;
+import presentation.terminal.utils.TerminalUtils;
 
 /**
  * The type Computer player driver.

@@ -4,8 +4,8 @@ import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ControlRow;
-import presentation.utils.TerminalMenuBuilder;
-import presentation.utils.TerminalUtils;
+import presentation.terminal.utils.TerminalMenuBuilder;
+import presentation.terminal.utils.TerminalUtils;
 
 /**
  * The type Control row driver.

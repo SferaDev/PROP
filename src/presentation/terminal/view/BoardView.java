@@ -1,9 +1,9 @@
-package presentation.view;
+package presentation.terminal.view;
 
-import presentation.model.Board;
-import presentation.model.Turn;
-import presentation.utils.Constants;
-import presentation.utils.TerminalMenuBuilder;
+import presentation.terminal.model.Board;
+import presentation.terminal.model.Turn;
+import presentation.terminal.utils.Constants;
+import presentation.terminal.utils.TerminalMenuBuilder;
 
 /**
  * The type Board view.
