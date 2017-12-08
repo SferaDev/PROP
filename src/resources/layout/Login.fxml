@@ -11,7 +11,7 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainContent" prefHeight="400.0" prefWidth="700.0"
           xmlns="http://javafx.com/javafx/8.0.121">
     <children>
-        <BorderPane fx:id="logoPlaceholder" minHeight="0" minWidth="0" style="-fx-background-color: #0d47a1;">
+        <BorderPane fx:id="logoPlaceholder" minHeight="0" minWidth="0">
             <center>
                 <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true"
                            BorderPane.alignment="CENTER"/>
