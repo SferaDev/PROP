@@ -12,19 +12,19 @@ public class ControlRow extends GridPane {
         // Add Black pegs
         for (int i = 0; i < blacks; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.black);
-            add(peg, position%2, position/2);
+            add(peg, position%(size/2 + size%2), position/(size/2 + size%2));
         }
 
         // Add White pegs
         for (int i = 0; i < whites; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.white);
-            add(peg, position%2, position/2);
+            add(peg, position%(size/2 + size%2), position/(size/2 + size%2));
         }
 
         // Fill None pegs
         for (int i = position; i < size; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.none);
-            add(peg, position%2, position/2);
+            add(peg, position%(size/2 + size%2), position/(size/2 + size%2));
         }
     }
 }
