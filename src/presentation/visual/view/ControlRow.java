@@ -1,35 +1,30 @@
 package presentation.visual.view;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
-public class ControlRow extends ViewItem {
+public class ControlRow extends GridPane {
     public ControlRow(int size, int blacks, int whites) {
-        super(ControlRow.class.getSimpleName());
+        GridPane.setMargin(this, new Insets(10, 10, 10, 10));
 
         int position = 0;
 
         // Add Black pegs
         for (int i = 0; i < blacks; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.black);
-            GridPane.setColumnIndex(peg, position/2);
-            GridPane.setRowIndex(peg, position%2);
-            getChildren().add(peg);
+            add(peg, position%2, position/2);
         }
 
         // Add White pegs
         for (int i = 0; i < whites; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.white);
-            GridPane.setColumnIndex(peg, position/2);
-            GridPane.setRowIndex(peg, position%2);
-            getChildren().add(peg);
+            add(peg, position%2, position/2);
         }
 
         // Fill None pegs
-        for (int i = position; i < size; i++) {
+        for (int i = position; i < size; i++, position++) {
             ControlPeg peg = new ControlPeg(ControlPeg.Type.none);
-            GridPane.setColumnIndex(peg, position/2);
-            GridPane.setRowIndex(peg, position%2);
-            getChildren().add(peg);
+            add(peg, position%2, position/2);
         }
     }
 }

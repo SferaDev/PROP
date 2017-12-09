@@ -24,19 +24,12 @@ public class Test extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // Instantiate the FXMLLoader
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/resources/layout/BoardPane.fxml"));
-        fxmlLoader.setController(this);
-
-        // Create Main Window
-        Parent root = fxmlLoader.load();
         BoardPane boardPane = new BoardPane();
         boardPane.addColorRow(
                 new ColorRow(
                     new ColorPeg("#FF5722"),
                     new ColorPeg("#795548"),
-                    new ColorPeg("#8BC34A"),
-                    new ColorPeg("#009688")),
+                    new ColorPeg("#8BC34A")),
                 new ColorRow(
                         new ColorPeg("#8BC34A"),
                         new ColorPeg("#795548"),
@@ -46,12 +39,13 @@ public class Test extends Application {
                         new ColorPeg("#FF5722"),
                         new ColorPeg("#8BC34A"),
                         new ColorPeg("#009688"),
+                        new ColorPeg("#8BC34A"),
                         new ColorPeg("#009688")));
 
         boardPane.addControlRow(
-                new ControlRow(4, 1, 0),
+                new ControlRow(3, 1, 0),
                 new ControlRow(4, 1, 1),
-                new ControlRow(4, 3, 1)
+                new ControlRow(5, 3, 1)
         );
 
         // Create Scene and show it
