@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.GridPane?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+
+<JFXButton
+        xmlns="http://javafx.com/javafx/8.0.121"
+        xmlns:fx="http://javafx.com/fxml/1"
+        stylesheets="@/resources/css/Board.css">
+    <styleClass>
+        <String fx:value="control-peg" />
+        <!-- On define styleClass must add control-peg-black, control-peg-white or control-peg-none -->
+    </styleClass>
+    <GridPane.margin>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+    </GridPane.margin>
+</JFXButton>

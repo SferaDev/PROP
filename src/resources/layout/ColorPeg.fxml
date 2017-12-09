@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+
+<JFXButton stylesheets="@/resources/css/Board.css" styleClass="color-peg">
+    <!-- On creation we should define -fx-background-color: COLOR -->
+</JFXButton>

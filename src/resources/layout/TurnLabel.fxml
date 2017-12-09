@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Font?>
+
+<?import java.lang.String?>
+<Label alignment="CENTER"
+       rotate="-90.0"
+       textAlignment="CENTER"
+       textFill="WHITE">
+    <!-- On define text: "Turn N" should be added -->
+    <font>
+        <Font size="14.0" />
+    </font>
+    <GridPane.margin>
+        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+    </GridPane.margin>
+</Label>
+
