@@ -1,14 +1,10 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import presentation.visual.view.BoardPane;
-import presentation.visual.view.ColorPeg;
-import presentation.visual.view.ColorRow;
-import presentation.visual.view.ControlRow;
+import presentation.visual.view.SelectionPeg;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Test extends Application {
@@ -24,32 +20,38 @@ public class Test extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        BoardPane boardPane = new BoardPane();
-        boardPane.addColorRow(
-                new ColorRow(
-                    new ColorPeg("#FF5722"),
-                    new ColorPeg("#795548"),
-                    new ColorPeg("#8BC34A")),
-                new ColorRow(
-                        new ColorPeg("#8BC34A"),
-                        new ColorPeg("#795548"),
-                        new ColorPeg("#8BC34A"),
-                        new ColorPeg("#FF5722")),
-                new ColorRow(
-                        new ColorPeg("#FF5722"),
-                        new ColorPeg("#8BC34A"),
-                        new ColorPeg("#009688"),
-                        new ColorPeg("#8BC34A"),
-                        new ColorPeg("#009688")));
+        /**BoardPane boardPane = new BoardPane();
+         boardPane.addColorRow(
+         new ColorRow(
+         new ColorPeg("#FF5722"),
+         new ColorPeg("#795548"),
+         new ColorPeg("#8BC34A")),
+         new ColorRow(
+         new ColorPeg("#8BC34A"),
+         new ColorPeg("#795548"),
+         new ColorPeg("#8BC34A"),
+         new ColorPeg("#FF5722")),
+         new ColorRow(
+         new ColorPeg("#FF5722"),
+         new ColorPeg("#8BC34A"),
+         new ColorPeg("#009688"),
+         new ColorPeg("#8BC34A"),
+         new ColorPeg("#009688")));
 
-        boardPane.addControlRow(
-                new ControlRow(3, 1, 0),
-                new ControlRow(4, 1, 1),
-                new ControlRow(5, 3, 1)
-        );
+         boardPane.addControlRow(
+         new ControlRow(3, 1, 0),
+         new ControlRow(4, 1, 1),
+         new ControlRow(5, 3, 1)
+         );**/
+
+        ArrayList<String> colors = new ArrayList<>();
+        colors.add("BLUE");
+        colors.add("YELLOW");
+        colors.add("RED");
+        SelectionPeg selectionPeg = new SelectionPeg("CYAN", colors);
 
         // Create Scene and show it
-        Scene scene = new Scene(boardPane);
+        Scene scene = new Scene(selectionPeg);
         stage.setTitle("Mastermind");
         stage.setScene(scene);
         stage.show();

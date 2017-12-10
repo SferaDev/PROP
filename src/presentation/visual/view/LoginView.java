@@ -12,9 +12,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginView {
-    @FXML private ImageView logoImageView;
-    @FXML private GridPane mainContent;
-    @FXML private BorderPane logoPlaceholder;
+    @FXML
+    private ImageView logoImageView;
+    @FXML
+    private GridPane mainContent;
+    @FXML
+    private BorderPane logoPlaceholder;
 
     private Stage stage;
 

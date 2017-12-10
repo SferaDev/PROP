@@ -1,11 +1,8 @@
 package presentation.visual.view;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-
-import java.io.IOException;
 
 public class ControlPeg extends JFXButton {
     public ControlPeg(Type type) {
