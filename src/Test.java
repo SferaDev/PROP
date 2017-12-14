@@ -1,7 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import presentation.visual.view.*;
 
 import java.io.IOException;
@@ -51,11 +53,14 @@ public class Test extends Application {
         colors.add("RED");
         SelectionPeg selectionPeg = new SelectionPeg(colors);
 
+        SelectionRow selectionRow = new SelectionRow(5, colors);
+
         // Create Scene and show it
-        Scene scene = new Scene(boardPane);
+        Scene scene = new Scene(selectionRow);
         stage.setTitle("Mastermind");
-        stage.getIcons().add(new Image(getClass().getResource("/resources/img/logo-small.png").toExternalForm()));
+        stage.getIcons().add(new Image(getClass().getResource("/resources/img/ic_launcher.png").toExternalForm()));
         stage.setScene(scene);
+
         stage.show();
 
     }
