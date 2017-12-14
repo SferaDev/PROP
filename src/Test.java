@@ -1,7 +1,8 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import presentation.visual.view.SelectionPeg;
+import presentation.visual.view.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Test extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /**BoardPane boardPane = new BoardPane();
+        BoardPane boardPane = new BoardPane();
          boardPane.addColorRow(
          new ColorRow(
          new ColorPeg("#FF5722"),
@@ -42,17 +43,18 @@ public class Test extends Application {
          new ControlRow(3, 1, 0),
          new ControlRow(4, 1, 1),
          new ControlRow(5, 3, 1)
-         );**/
+         );
 
         ArrayList<String> colors = new ArrayList<>();
         colors.add("BLUE");
         colors.add("YELLOW");
         colors.add("RED");
-        SelectionPeg selectionPeg = new SelectionPeg("CYAN", colors);
+        SelectionPeg selectionPeg = new SelectionPeg(colors);
 
         // Create Scene and show it
-        Scene scene = new Scene(selectionPeg);
+        Scene scene = new Scene(boardPane);
         stage.setTitle("Mastermind");
+        stage.getIcons().add(new Image(getClass().getResource("/resources/img/logo-small.png").toExternalForm()));
         stage.setScene(scene);
         stage.show();
 
