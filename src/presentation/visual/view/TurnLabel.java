@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-public class TurnLabel extends Label {
-    public TurnLabel(String text) {
+class TurnLabel extends Label {
+    TurnLabel(String text) {
         setAlignment(Pos.CENTER);
         setRotate(-90);
         setTextAlignment(TextAlignment.CENTER);
