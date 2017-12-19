@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import presentation.visual.controller.receiver.LoginActionReceiver;
 
 import java.io.IOException;
 
@@ -29,17 +30,7 @@ public class PresentationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_FXML_PATH));
             Parent root = loader.load();
             LoginViewController controller = loader.getController();
-            controller.setListener(new LoginViewController.LoginListener() {
-                @Override
-                public void onLoginButton(String username, String password) {
-                    // TODO: Login (Elena)
-                }
-
-                @Override
-                public void onRegisterButton(String username, String password) {
-                    // TODO: Register (Elena)
-                }
-            });
+            controller.setListener(new LoginActionReceiver());
             buildScene(primaryStage, root, 600, 350);
         } catch (IOException ignored) {
         }
