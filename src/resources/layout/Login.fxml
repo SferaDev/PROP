@@ -11,12 +11,10 @@
 <GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainContent" prefHeight="400.0" prefWidth="700.0"
           xmlns="http://javafx.com/javafx/8.0.121">
     <children>
-        <BorderPane fx:id="logoPlaceholder" minHeight="0" minWidth="0">
-            <center>
-                <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true"
-                           BorderPane.alignment="CENTER"/>
-            </center>
-        </BorderPane>
+        <StackPane GridPane.halignment="CENTER" fx:id="logoPlaceholder" minHeight="0" minWidth="0">
+            <ImageView fx:id="backgroundImageView" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true" />
+        </StackPane>
         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
             <center>
                 <VBox alignment="CENTER" BorderPane.alignment="CENTER">

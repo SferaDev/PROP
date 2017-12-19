@@ -1,11 +1,13 @@
-package presentation.visual.view;
+package presentation.visual.view.components;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
 public class ControlRow extends GridPane {
     public ControlRow(int size, int blacks, int whites) {
         GridPane.setMargin(this, new Insets(10, 10, 10, 10));
+        setHalignment(this, HPos.CENTER);
 
         int position = 0;
 

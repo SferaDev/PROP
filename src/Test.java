@@ -1,10 +1,10 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import presentation.visual.view.*;
+import presentation.visual.view.components.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,12 +56,16 @@ public class Test extends Application {
         SelectionRow selectionRow = new SelectionRow(5, colors);
 
         // Create Scene and show it
-        Scene scene = new Scene(selectionRow);
+        ScrollPane scrollPane= new ScrollPane();
+        scrollPane.setContent(boardPane);
+        scrollPane.setVvalue(1.0); // Scroll
+        Scene scene = new Scene(boardPane);
         stage.setTitle("Mastermind");
         stage.getIcons().add(new Image(getClass().getResource("/resources/img/ic_launcher.png").toExternalForm()));
-        stage.setScene(scene);
+        //stage.setScene(scene);
+        //stage.setMinWeight
+        //stage.show();
 
-        stage.show();
-
+        new LoginView(stage);
     }
 }

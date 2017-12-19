@@ -1,4 +1,4 @@
-package presentation.visual.view;
+package presentation.visual.view.components;
 
 import com.jfoenix.controls.JFXButton;
 

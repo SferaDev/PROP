@@ -1,9 +1,9 @@
-package presentation.visual.view;
+package presentation.visual.view.components;
 
 import com.jfoenix.controls.JFXNodesList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
+import presentation.visual.view.components.ColorPeg;
+import presentation.visual.view.components.ControlPeg;
 
 import java.util.ArrayList;
 
