@@ -3,7 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import presentation.visual.view.*;
+import presentation.visual.view.LoginView;
 import presentation.visual.view.components.*;
 
 import java.io.IOException;
@@ -24,28 +24,28 @@ public class Test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         BoardPane boardPane = new BoardPane();
-         boardPane.addColorRow(
-         new ColorRow(
-         new ColorPeg("#FF5722"),
-         new ColorPeg("#795548"),
-         new ColorPeg("#8BC34A")),
-         new ColorRow(
-         new ColorPeg("#8BC34A"),
-         new ColorPeg("#795548"),
-         new ColorPeg("#8BC34A"),
-         new ColorPeg("#FF5722")),
-         new ColorRow(
-         new ColorPeg("#FF5722"),
-         new ColorPeg("#8BC34A"),
-         new ColorPeg("#009688"),
-         new ColorPeg("#8BC34A"),
-         new ColorPeg("#009688")));
+        boardPane.addColorRow(
+                new ColorRow(
+                        new ColorPeg("#FF5722"),
+                        new ColorPeg("#795548"),
+                        new ColorPeg("#8BC34A")),
+                new ColorRow(
+                        new ColorPeg("#8BC34A"),
+                        new ColorPeg("#795548"),
+                        new ColorPeg("#8BC34A"),
+                        new ColorPeg("#FF5722")),
+                new ColorRow(
+                        new ColorPeg("#FF5722"),
+                        new ColorPeg("#8BC34A"),
+                        new ColorPeg("#009688"),
+                        new ColorPeg("#8BC34A"),
+                        new ColorPeg("#009688")));
 
-         boardPane.addControlRow(
-         new ControlRow(3, 1, 0),
-         new ControlRow(4, 1, 1),
-         new ControlRow(5, 3, 1)
-         );
+        boardPane.addControlRow(
+                new ControlRow(3, 1, 0),
+                new ControlRow(4, 1, 1),
+                new ControlRow(5, 3, 1)
+        );
 
         ArrayList<String> colors = new ArrayList<>();
         colors.add("BLUE");
@@ -56,7 +56,7 @@ public class Test extends Application {
         SelectionRow selectionRow = new SelectionRow(5, colors);
 
         // Create Scene and show it
-        ScrollPane scrollPane= new ScrollPane();
+        ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(boardPane);
         scrollPane.setVvalue(1.0); // Scroll
         Scene scene = new Scene(boardPane);

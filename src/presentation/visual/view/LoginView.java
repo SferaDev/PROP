@@ -88,6 +88,7 @@ public class LoginView {
 
     public interface LoginListener {
         void onLoginButton(String username, String password);
+
         void onRegisterButton(String username, String password);
     }
 }

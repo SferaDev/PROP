@@ -2,8 +2,6 @@ package presentation.visual.view.components;
 
 import com.jfoenix.controls.JFXNodesList;
 import javafx.geometry.Pos;
-import presentation.visual.view.components.ColorPeg;
-import presentation.visual.view.components.ControlPeg;
 
 import java.util.ArrayList;
 
