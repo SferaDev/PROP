@@ -66,6 +66,6 @@ public class Test extends Application {
         //stage.setMinWeight
         //stage.show();
 
-        new LoginView(stage);
+        new LoginView(stage, null);
     }
 }

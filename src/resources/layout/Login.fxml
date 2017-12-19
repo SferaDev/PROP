@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainContent" prefHeight="400.0" prefWidth="700.0"
-          xmlns="http://javafx.com/javafx/8.0.121">
+
+<GridPane fx:id="mainContent" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <StackPane GridPane.halignment="CENTER" fx:id="logoPlaceholder" minHeight="0" minWidth="0">
+        <StackPane fx:id="logoPlaceholder" minHeight="0" minWidth="0" style="-fx-background-color: #171715;" GridPane.halignment="CENTER">
             <ImageView fx:id="backgroundImageView" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="logoImageView" pickOnBounds="true" preserveRatio="true" />
         </StackPane>
@@ -20,66 +25,49 @@
                 <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                     <BorderPane>
                         <center>
-                            <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome!" textFill="#0d47a1"
-                                   BorderPane.alignment="CENTER">
+                            <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome!" textFill="#263238" BorderPane.alignment="CENTER">
                                 <font>
-                                    <Font size="32.0"/>
+                                    <Font size="32.0" />
                                 </font>
                                 <BorderPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                 </BorderPane.margin>
                             </Label>
                         </center>
                         <VBox.margin>
-                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </VBox.margin>
                     </BorderPane>
-                    <JFXTextField alignment="CENTER" layoutX="33.0" layoutY="149.0" prefHeight="25.0" prefWidth="285.0"
-                                  promptText="Username">
+                    <JFXTextField fx:id="usernameField" alignment="CENTER" focusColor="#607d8b" layoutX="33.0" layoutY="149.0" prefHeight="25.0" prefWidth="285.0">
                         <VBox.margin>
-                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </VBox.margin>
                     </JFXTextField>
-                    <JFXPasswordField alignment="CENTER" layoutX="33.0" layoutY="214.0" prefHeight="25.0"
-                                      prefWidth="285.0" promptText="Password">
+                    <JFXPasswordField fx:id="passwordField" alignment="CENTER" focusColor="#607d8b" layoutX="33.0" layoutY="214.0" prefHeight="25.0" prefWidth="285.0">
                         <VBox.margin>
-                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </VBox.margin>
                     </JFXPasswordField>
-                    <HBox alignment="CENTER">
-                        <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="91.0" layoutY="292.0"
-                                   mnemonicParsing="false" style="-fx-font-size:14px;-fx-background-color:WHITE;"
-                                   text="Register">
-                            <HBox.margin>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-                            </HBox.margin>
-                        </JFXButton>
-                        <JFXButton buttonType="RAISED" contentDisplay="CENTER" defaultButton="true" layoutX="199.0"
-                                   layoutY="292.0" mnemonicParsing="false"
-                                   style="-fx-font-size:14px;-fx-background-color:WHITE;" text="Login">
-                            <HBox.margin>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-                            </HBox.margin>
-                        </JFXButton>
+                    <HBox fx:id="buttonPlaceholder" alignment="CENTER">
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="10.0" />
                         </VBox.margin>
                     </HBox>
                     <BorderPane.margin>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </BorderPane.margin>
                 </VBox>
             </center>
             <GridPane.margin>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
             </GridPane.margin>
         </BorderPane>
     </children>
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
+        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES"/>
+        <RowConstraints percentHeight="100.0" vgrow="SOMETIMES" />
     </rowConstraints>
 </GridPane>

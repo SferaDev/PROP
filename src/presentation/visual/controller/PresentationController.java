@@ -24,7 +24,6 @@ public class PresentationController {
     }
 
     public void launchLoginForm(Stage primaryStage) {
-        LoginView loginView = new LoginView(primaryStage);
-        loginView.inflateView();
+        new LoginView(primaryStage, null);
     }
 }
