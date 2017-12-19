@@ -1,4 +1,4 @@
-package presentation.visual.view.components;
+package presentation.visual.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

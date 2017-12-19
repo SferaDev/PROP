@@ -1,4 +1,4 @@
-package presentation.visual.view.components;
+package presentation.visual.view;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;

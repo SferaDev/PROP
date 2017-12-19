@@ -3,8 +3,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import presentation.visual.view.LoginView;
-import presentation.visual.view.components.*;
+import presentation.visual.controller.PresentationController;
+import presentation.visual.view.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +66,6 @@ public class Test extends Application {
         //stage.setMinWeight
         //stage.show();
 
-        new LoginView(stage, null);
+        PresentationController.getInstance().launchLoginForm(stage);
     }
 }

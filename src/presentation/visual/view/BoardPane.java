@@ -1,4 +1,4 @@
-package presentation.visual.view.components;
+package presentation.visual.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;

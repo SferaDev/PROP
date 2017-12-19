@@ -7,8 +7,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainContent" prefHeight="400.0" prefWidth="700.0"
-          xmlns="http://javafx.com/javafx/8.0.121">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="700.0" minHeight="300.0" minWidth="600.0"
+          xmlns="http://javafx.com/javafx/8.0.121" fx:controller="presentation.visual.controller.LoginViewController">
     <children>
         <StackPane fx:id="logoPlaceholder" minHeight="0" minWidth="0" style="-fx-background-color: #171715;"
                    GridPane.halignment="CENTER">
