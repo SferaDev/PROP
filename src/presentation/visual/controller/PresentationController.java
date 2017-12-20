@@ -5,9 +5,9 @@ import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import presentation.visual.controller.receiver.LoginActionReceiver;
+import presentation.visual.utils.ComponentUtils;
 
 import java.io.IOException;
 
@@ -34,13 +34,19 @@ public class PresentationController {
             Parent root = loader.load();
             LoginViewController controller = loader.getController();
             controller.setListener(new LoginActionReceiver(stage));
-            buildScene(stage, root, 600, 350);
+            ComponentUtils.buildScene(getClass(), stage, root, 600, 350);
         } catch (IOException ignored) {
         }
     }
 
     public void launchNebulaForm(Stage stage) {
-        // TODO: Alexis
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
+            Parent root = loader.load();
+            LoginViewController controller = loader.getController();
+            ComponentUtils.buildScene(getClass(), stage, root, 600, 350);
+        } catch (IOException ignored) {
+        }
     }
 
     public void requestRegister(String username, String password) throws UserAlreadyExistsException {
@@ -49,14 +55,6 @@ public class PresentationController {
 
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
         return DomainController.getInstance().getUserController().loginUser(username, password);
-    }
-
-    private void buildScene(Stage primaryStage, Parent parent, double minWidth, double minHeight) {
-        primaryStage.setTitle("Mastermind"); // TODO: Strings
-        primaryStage.setScene(new Scene(parent));
-        primaryStage.setMinWidth(minWidth);
-        primaryStage.setMinHeight(minHeight);
-        primaryStage.show();
     }
 
     public void closeWindow(Stage stage) {

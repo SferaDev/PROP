@@ -11,7 +11,7 @@ import presentation.visual.controller.PresentationController;
  */
 public class VisualMastermind extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         PresentationController.getInstance().launchLoginForm(primaryStage);
     }
 }

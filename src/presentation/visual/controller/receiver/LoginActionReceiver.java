@@ -5,7 +5,7 @@ import domain.model.exceptions.UserNotFoundException;
 import javafx.stage.Stage;
 import presentation.visual.controller.LoginViewController;
 import presentation.visual.controller.PresentationController;
-import presentation.visual.utils.PresentationUtils;
+import presentation.visual.utils.ComponentUtils;
 
 /**
  * The LoginActionReceiver
@@ -28,10 +28,10 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
                 presentationController.closeWindow(stage);
                 presentationController.launchNebulaForm(stage);
             } else {
-                PresentationUtils.showErrorDialog("Invalid password", "Please, try again!"); // TODO: Strings
+                ComponentUtils.showErrorDialog("Invalid password", "Please, try again!"); // TODO: Strings
             }
         } catch (UserNotFoundException e) {
-            PresentationUtils.showErrorDialog("User not found",
+            ComponentUtils.showErrorDialog("User not found",
                     "Looks like the user is not in our database!"); // TODO: Strings
         }
     }
@@ -41,7 +41,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
         try {
             presentationController.requestRegister(username, password);
         } catch (UserAlreadyExistsException e) {
-            PresentationUtils.showErrorDialog("User already exists",
+            ComponentUtils.showErrorDialog("User already exists",
                     "Please login with your password!"); // TODO: Strings
         }
     }
