@@ -9,14 +9,14 @@ import javafx.stage.Stage;
 public class ComponentUtils {
     public static void showErrorDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Mastermind"); // TODO: Strings
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
     }
 
     public static void buildScene(Class context, Stage stage, Parent parent, double minWidth, double minHeight) {
-        stage.setTitle("Mastermind"); // TODO: Strings
+        stage.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         stage.setScene(new Scene(parent));
         stage.setMinWidth(minWidth);
         stage.setMinHeight(minHeight);
