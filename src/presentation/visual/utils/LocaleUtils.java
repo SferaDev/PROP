@@ -27,6 +27,6 @@ public class LocaleUtils {
     }
 
     public String getString(String key) {
-        return ResourceBundle.getBundle("MessagesBundle", mLocale).getString(key);
+        return ResourceBundle.getBundle("resources/strings/MessagesBundle", mLocale).getString(key);
     }
 }
