@@ -1,8 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            xmlns="http://javafx.com/javafx"
-            prefHeight="600.0" prefWidth="800.0">
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
+<BorderPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #37474F;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="presentation.visual.controller.NebulaViewController">
+   <center>
+   </center>
+   <left>
+      <JFXDrawer style="-fx-background-color: #263238;" BorderPane.alignment="CENTER">
+          <VBox fx:id="navDrawer" alignment="TOP_CENTER" style="-fx-background-color: #263238;" BorderPane.alignment="CENTER">
+              <ImageView fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox.margin>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </VBox.margin>
+                  <Image url="@../img/ic_launcher.png" />
+              </ImageView>
+              <JFXButton prefWidth="100.0" text="Play" textFill="#eceff1">
+                   <font>
+                       <Font size="20.0" />
+                   </font>
+              </JFXButton>
+              <JFXButton prefWidth="100.0" text="Stats" textFill="#eceff1">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+              </JFXButton>
+              <JFXButton prefWidth="100.0" text="User" textFill="#eceff1">
+                  <font>
+                      <Font size="20.0" />
+                  </font>
+              </JFXButton>
+              <Pane VBox.vgrow="ALWAYS" />
+              <JFXButton prefWidth="100.0" text="Help" textFill="#eceff1">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </JFXButton>
+              <JFXButton prefWidth="100.0" text="Log Out" textFill="#eceff1">
+                  <font>
+                      <Font size="18.0" />
+                  </font>
+              </JFXButton>
+          </VBox>
+      </JFXDrawer>
+   </left>
+    <center>
+    </center>
 </BorderPane>

@@ -43,7 +43,7 @@ public class PresentationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
-            LoginViewController controller = loader.getController();
+            NebulaViewController controller = loader.getController();
             ComponentUtils.buildScene(getClass(), stage, root, 600, 350);
         } catch (IOException ignored) {
         }
