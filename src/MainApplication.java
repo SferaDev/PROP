@@ -11,7 +11,7 @@ import presentation.visual.VisualMastermind;
  */
 public class MainApplication {
     public static void main(String[] args) {
-        if (args.length == 1 && (args[1].equals("-t") || args[1].equals("--terminal"))) {
+        if (args.length > 0 && (args[0].equals("-t") || args[0].equals("--terminal"))) {
             TerminalMenuBuilder builder = new TerminalMenuBuilder();
             builder.addTitle(Constants.APP_TITLE);
             builder.addOption("Visual", () -> Application.launch(VisualMastermind.class));
