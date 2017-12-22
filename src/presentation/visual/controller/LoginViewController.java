@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import presentation.visual.utils.LocaleUtils;
 import presentation.visual.view.RaisedButton;
 
 import java.net.URL;
@@ -58,7 +59,7 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpTextFields() {
-        usernameField.setPromptText("Username"); // TODO: Strings
+        usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME")); // TODO: Strings
         usernameField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) listener.onLoginButton(usernameField.getText(), passwordField.getText());
         });
