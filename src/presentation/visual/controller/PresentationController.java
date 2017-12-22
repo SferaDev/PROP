@@ -6,6 +6,7 @@ import domain.model.exceptions.UserNotFoundException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import presentation.visual.controller.receiver.GameInterfaceReceiver;
 import presentation.visual.controller.receiver.LoginActionReceiver;
 import presentation.visual.utils.ComponentUtils;
 
@@ -20,6 +21,8 @@ public class PresentationController {
     private static final PresentationController mInstance = new PresentationController();
     private static final String LOGIN_FXML_PATH = "/resources/layout/Login.fxml";
     private static final String NEBULA_FXML_PATH = "/resources/layout/Nebula.fxml";
+
+    private BoardController currentBoard;
 
     private PresentationController() {
     }
@@ -59,5 +62,27 @@ public class PresentationController {
 
     public void closeWindow(Stage stage) {
         stage.close();
+    }
+
+    public void setGameInterface(GameInterfaceReceiver gameInterfaceReceiver) {
+        DomainController.getInstance().setGameInterface(gameInterfaceReceiver);
+    }
+
+    /**
+     * Gets current board.
+     *
+     * @return the current board
+     */
+    public BoardController getCurrentBoard() {
+        return currentBoard;
+    }
+
+    /**
+     * Sets current board.
+     *
+     * @param currentBoard the current board
+     */
+    public void setCurrentBoard(BoardController currentBoard) {
+        this.currentBoard = currentBoard;
     }
 }

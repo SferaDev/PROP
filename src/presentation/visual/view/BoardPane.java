@@ -35,13 +35,14 @@ import javafx.scene.layout.GridPane;
  **/
 
 public class BoardPane extends GridPane {
-    private int posColorRow, posControlRow;
+    private int posColorRow, posControlRow, size;
 
-    public BoardPane() {
+    public BoardPane(int size) {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("board-background");
         setAlignment(Pos.CENTER);
         posColorRow = posControlRow = 0;
+        this.size = size;
     }
 
     public void addColorRow(ColorRow... rows) {
@@ -57,5 +58,9 @@ public class BoardPane extends GridPane {
             add(row, 2, posControlRow);
             posControlRow++;
         }
+    }
+
+    public int getSize() {
+        return size;
     }
 }

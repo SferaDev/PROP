@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import presentation.visual.controller.PresentationController;
 import presentation.visual.view.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -22,8 +21,8 @@ public class Test extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
-        BoardPane boardPane = new BoardPane();
+    public void start(Stage stage) {
+        BoardPane boardPane = new BoardPane(5);
         boardPane.addColorRow(
                 new ColorRow(
                         new ColorPeg("#FF5722"),
