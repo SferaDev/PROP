@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import presentation.visual.utils.LocaleUtils;
-import presentation.visual.view.RaisedButton;
+import presentation.visual.view.components.RaisedButton;
 
 import java.net.URL;
 import java.util.ResourceBundle;

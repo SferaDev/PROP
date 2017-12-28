@@ -1,12 +1,12 @@
-package presentation.visual.view;
+package presentation.visual.view.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class ColorRow extends HBox {
-    public ColorRow(ColorPeg... pegs) {
+public class SelectionRow extends HBox {
+    public SelectionRow(ColorPeg... pegs) {
         setAlignment(Pos.CENTER);
         setSpacing(10);
 

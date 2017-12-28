@@ -3,11 +3,12 @@ package presentation.visual.controller.receiver;
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
-import presentation.visual.controller.BoardController;
+import javafx.application.Platform;
+import presentation.terminal.utils.TerminalUtils;
 import presentation.visual.controller.PresentationController;
 import presentation.visual.utils.ComponentUtils;
-import presentation.visual.view.BoardPane;
-import presentation.visual.view.ColorRow;
+import presentation.visual.utils.ThreadUtils;
+import presentation.visual.view.components.ColorRow;
 
 /**
  * The type Game Interface Receiver
@@ -23,9 +24,10 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlBlacks() {
-        // Request Blacks
-        int result = 0;
-        return result;
+        final int[] result = {0};
+        ThreadUtils.runAndWait(() -> result[0] = PresentationController.getInstance().getNebulaController()
+                .requestControl("Input Blacks")); // TODO: String
+        return result[0];
     }
 
 
@@ -36,9 +38,10 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlWhites() {
-        // Request Whites
-        int result = 0;
-        return result;
+        final int[] result = {0};
+        ThreadUtils.runAndWait(() -> result[0] = PresentationController.getInstance().getNebulaController()
+                .requestControl("Input Whites")); // TODO: String
+        return result[0];
     }
 
 
@@ -54,13 +57,12 @@ public class GameInterfaceReceiver implements Receiver {
     @Override
     public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         int[] result = new int[pegs];
-        /**StringBuilder row = new StringBuilder();
+        StringBuilder row = new StringBuilder();
         TerminalUtils.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
         for (int i = 0; i < pegs; ++i) {
-            result[i] = TerminalUtils.getInstance().readGameInteger();
+            result[i] = 1;
             row.append(result[i]).append(" ");
         }
-        PresentationController.getInstance().getCurrentBoard().addTurn(new Turn(row.toString().trim()));**/
         return result;
     }
 
@@ -73,9 +75,8 @@ public class GameInterfaceReceiver implements Receiver {
 
     @Override
     public void outputControlRow(int blacks, int whites) {
-        PresentationController.getInstance().getCurrentBoard().addControlLastTurn(blacks, whites);
+        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().addControlLastTurn(blacks, whites));
     }
-
 
     /**
      * Writes in the terminal a color pegs' combination
@@ -84,7 +85,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputColorRow(String row) {
-        PresentationController.getInstance().getCurrentBoard().addTurn(new ColorRow());
+        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().addTurn(new ColorRow(row)));
     }
 
     /**
@@ -114,6 +115,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputMessage(String message) {
+        ComponentUtils.showErrorDialog("Mastermind", message);
     }
 
     /**
@@ -129,7 +131,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void finishGame() {
-        PresentationController.getInstance().setCurrentBoard(null);
+        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
     /**
@@ -138,7 +140,8 @@ public class GameInterfaceReceiver implements Receiver {
      * @param score the score obtained in the game
      */
     public void finishGame(int score) {
-        PresentationController.getInstance().setCurrentBoard(null);
+        outputMessage("You won, with score: " + score);
+        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
     /**
@@ -156,6 +159,6 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void startGame(String title) {
-        PresentationController.getInstance().setCurrentBoard(new BoardController(new BoardPane(Integer.parseInt(title.split("-")[2]))));
+        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().startGame(Integer.parseInt(title.split("-")[2])));
     }
 }

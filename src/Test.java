@@ -1,10 +1,13 @@
+import domain.controller.DomainController;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import presentation.visual.controller.PresentationController;
-import presentation.visual.view.*;
+import presentation.visual.controller.receiver.GameInterfaceReceiver;
+import presentation.visual.view.BoardPane;
+import presentation.visual.view.components.ColorPeg;
+import presentation.visual.view.components.ColorRow;
+import presentation.visual.view.components.ControlRow;
 
 import java.util.ArrayList;
 
@@ -50,21 +53,23 @@ public class Test extends Application {
         colors.add("BLUE");
         colors.add("YELLOW");
         colors.add("RED");
-        SelectionPeg selectionPeg = new SelectionPeg(colors);
-
-        SelectionRow selectionRow = new SelectionRow(5, colors);
 
         // Create Scene and show it
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(boardPane);
         scrollPane.setVvalue(1.0); // Scroll
-        Scene scene = new Scene(boardPane);
-        stage.setTitle("Mastermind");
-        stage.getIcons().add(new Image(getClass().getResource("/resources/img/ic_launcher.png").toExternalForm()));
+
+        //Scene scene = new Scene(new GameView(5));
+        //stage.setTitle("Mastermind");
+        //stage.getIcons().add(new Image(getClass().getResource("/resources/img/ic_launcher.png").toExternalForm()));
         //stage.setScene(scene);
-        //stage.setMinWeight
         //stage.show();
 
-        PresentationController.getInstance().launchLoginForm(stage);
+        //PresentationController.getInstance().launchLoginForm(stage);
+        PresentationController.getInstance().launchNebulaForm(stage);
+
+        PresentationController.getInstance().getNebulaController().startGame(10);
+        PresentationController.getInstance().setGameInterface(new GameInterfaceReceiver());
+        new Thread(() -> DomainController.getInstance().getGameController().startNewGame("alexis", "FiveGuessComputer", "MAKER", 5, 6, 12)).start();
     }
 }

@@ -1,53 +1,32 @@
 package presentation.visual.view;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
-/**
- * BoardPane Spec:
- * - The BoardPane is the main content placeholder
- * - The BoardPane inherits a GridPane
- * - Each turn adds three things:
- * - A TurnLabel   (Label class)    in position (0, x)
- * - A ColorRow    (HBox class)     in position (1, x)
- * - A ControlRow  (GridPane class) in position (2, x)
- * <p>
- * ColorRow Spec:
- * - The ColorRow inherits a HBox
- * - Each turn contains N ColorPeg(s)
- * <p>
- * ControlRow Spec:
- * - The ControlRow inherits a GridPane
- * - Each turn contains N ControlPeg(s) in position ((i - 1)/2, (i - 1)%2)
- * <p>
- * ColorPeg Spec:
- * - The ColorPeg inherits a JFXButton
- * - The ColorPeg extends styleClass: color-peg
- * - The ColorPeg defines -fx-background-color with PegColor
- * <p>
- * ControlPeg Spec:
- * - The ControlPeg inherits a JFXButton
- * - The ControlPeg extends styleClass: control-peg
- * - The ControlPeg must extend one of the following styleClasses:
- * - control-peg-black
- * - control-peg-white
- * - control-peg-none
- **/
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import presentation.visual.view.components.ColorRow;
+import presentation.visual.view.components.ControlRow;
 
 public class BoardPane extends GridPane {
     private int posColorRow, posControlRow, size;
 
     public BoardPane(int size) {
+        this.size = size;
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("board-background");
         setAlignment(Pos.CENTER);
         posColorRow = posControlRow = 0;
-        this.size = size;
     }
 
     public void addColorRow(ColorRow... rows) {
         for (ColorRow row : rows) {
-            add(new TurnLabel("Turn " + (posColorRow + 1)), 0, posColorRow);
+            TurnLabel label = new TurnLabel("Turn " + (posColorRow + 1));
+            label.setRotate(-90);
+            label.setMinSize(70, 100);
+            add(label, 0, posColorRow);
             add(row, 1, posColorRow);
             posColorRow++;
         }
@@ -55,12 +34,28 @@ public class BoardPane extends GridPane {
 
     public void addControlRow(ControlRow... rows) {
         for (ControlRow row : rows) {
-            add(row, 2, posControlRow);
+            VBox box = new VBox();
+            box.setSpacing(10);
+            box.setAlignment(Pos.CENTER);
+            box.getChildren().add(new TurnLabel("Control"));
+            box.getChildren().add(row);
+            box.setMinSize(170, 100);
+            add(box, 2, posControlRow);
             posControlRow++;
         }
     }
 
     public int getSize() {
         return size;
+    }
+
+    private class TurnLabel extends Label {
+        private TurnLabel(String text) {
+            setAlignment(Pos.CENTER);
+            setTextAlignment(TextAlignment.CENTER);
+            setTextFill(Color.WHITE);
+            setFont(Font.font(14));
+            setText(text);
+        }
     }
 }

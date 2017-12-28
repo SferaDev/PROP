@@ -22,7 +22,7 @@ public class PresentationController {
     private static final String LOGIN_FXML_PATH = "/resources/layout/Login.fxml";
     private static final String NEBULA_FXML_PATH = "/resources/layout/Nebula.fxml";
 
-    private BoardController currentBoard;
+    private NebulaViewController nebulaController;
 
     private PresentationController() {
     }
@@ -46,8 +46,8 @@ public class PresentationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
-            NebulaViewController controller = loader.getController();
-            ComponentUtils.buildScene(getClass(), stage, root, 600, 350);
+            nebulaController = loader.getController();
+            ComponentUtils.buildScene(getClass(), stage, root, 800, 450);
         } catch (IOException ignored) {
         }
     }
@@ -68,21 +68,7 @@ public class PresentationController {
         DomainController.getInstance().setGameInterface(gameInterfaceReceiver);
     }
 
-    /**
-     * Gets current board.
-     *
-     * @return the current board
-     */
-    public BoardController getCurrentBoard() {
-        return currentBoard;
-    }
-
-    /**
-     * Sets current board.
-     *
-     * @param currentBoard the current board
-     */
-    public void setCurrentBoard(BoardController currentBoard) {
-        this.currentBoard = currentBoard;
+    public NebulaViewController getNebulaController() {
+        return nebulaController;
     }
 }
