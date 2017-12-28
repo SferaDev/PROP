@@ -19,7 +19,7 @@ public class Test extends Application {
 
         // Move this to PresentationController
         int pegs = 9;
-        PresentationController.getInstance().getNebulaController().startGame("MAKER", pegs, 9);
-        new Thread(() -> DomainController.getInstance().getGameController().startNewGame("alexis", "GeneticComputer", "MAKER", pegs, 9, 12)).start();
+        PresentationController.getInstance().getNebulaController().startGame("Maker", pegs, 9);
+        new Thread(() -> DomainController.getInstance().getGameController().startNewGame("alexis", "GeneticComputer", "Maker", pegs, 9, 12)).start();
     }
 }
