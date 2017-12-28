@@ -61,7 +61,7 @@ public class GameInterfaceReceiver implements Receiver {
     @Override
     public int[] inputCorrectColorRow(int pegs, int colors) {
         ColorRow row = requestColorRow(pegs, colors);
-        // TODO: Store Correct Color Row
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addCorrectRow(new ColorRow(row.toString())));
         return row.toIntArray();
     }
 
@@ -173,6 +173,8 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void startGame(String title) {
-        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().startGame(Integer.parseInt(title.split("-")[2])));
+        String[] gameInfo = title.split("-");
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().startGame(gameInfo[1],
+                Integer.parseInt(gameInfo[2]), Integer.parseInt(gameInfo[3])));
     }
 }

@@ -66,10 +66,10 @@ public class NebulaViewController implements Initializable {
         }
     }
 
-    public void startGame(int size) {
+    public void startGame(String role, int pegs, int colors) {
         isPlaying = true;
-        boardPane = new BoardPane(size);
-        currentGameView = new GameView(boardPane);
+        boardPane = new BoardPane(pegs);
+        currentGameView = new GameView(boardPane, role, pegs, colors);
         mainContent.setCenter(currentGameView);
     }
 
@@ -104,5 +104,9 @@ public class NebulaViewController implements Initializable {
         button.setFont(new Font(20));
         button.setOnMouseClicked(event -> onNavigationDrawerClick(textId));
         return button;
+    }
+
+    public void addCorrectRow(ColorRow row) {
+        currentGameView.addCorrectRow(row);
     }
 }

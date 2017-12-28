@@ -1,6 +1,7 @@
 package presentation.visual.controller;
 
 import domain.controller.DomainController;
+import domain.model.exceptions.FinishGameException;
 import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,7 @@ public class PresentationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
             nebulaController = loader.getController();
-            ComponentUtils.buildScene(getClass(), stage, root, 800, 450);
+            ComponentUtils.buildScene(getClass(), stage, root, 800, 600);
         } catch (IOException ignored) {
         }
     }
@@ -58,6 +59,18 @@ public class PresentationController {
 
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
         return DomainController.getInstance().getUserController().loginUser(username, password);
+    }
+
+    public void requestSaveCurrentGame() {
+        try {
+            DomainController.getInstance().getGameController().saveCurrentGame();
+        } catch (FinishGameException e) {
+            nebulaController.finishGame();
+        }
+    }
+
+    public void requestHelpCurrentGame() {
+        DomainController.getInstance().getGameController().provideHelp();
     }
 
     public void closeWindow(Stage stage) {
@@ -71,4 +84,5 @@ public class PresentationController {
     public NebulaViewController getNebulaController() {
         return nebulaController;
     }
+
 }

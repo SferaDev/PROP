@@ -1,5 +1,7 @@
 package presentation.visual.utils;
 
+import javafx.scene.paint.Color;
+
 import java.lang.reflect.Field;
 
 public class ColorManager {
@@ -17,17 +19,19 @@ public class ColorManager {
     private static final String BROWN_DARK = "#3E2723";
     private static final String PINK = "#E91E63";
     private static final String PINK_DARK = "#880E4F";
+    private static final String ORANGE = "#FF5722";
+    private static final String ORANGE_DARK = "#BF360C";
     private static final String BLACK = "#212121";
     private static final String BLACK_DARK = "#000000";
     private static final String WHITE = "#FFFFFF";
     private static final String WHITE_DARK = "#ECEFF1";
 
     private static final String[] colorPalette = {
-            BLUE, YELLOW, RED, GREEN, PURPLE, PINK, BROWN, BLACK, WHITE
+            BLUE, YELLOW, RED, GREEN, PURPLE, PINK, BROWN, ORANGE, BLACK, WHITE
     };
 
     private static final String[] darkPalette = {
-            BLUE_DARK, YELLOW_DARK, RED_DARK, GREEN_DARK, PURPLE_DARK, PINK_DARK, BROWN_DARK, BLACK_DARK, WHITE_DARK
+            BLUE_DARK, YELLOW_DARK, RED_DARK, GREEN_DARK, PURPLE_DARK, PINK_DARK, BROWN_DARK, ORANGE_DARK, BLACK_DARK, WHITE_DARK
     };
 
     public static String getColor(String name) {
@@ -46,5 +50,12 @@ public class ColorManager {
 
     public static String getDarkColor(int color) {
         return darkPalette[color%colorPalette.length];
+    }
+
+    public static String getContrast(int color) {
+        Color paint = Color.web(colorPalette[color%colorPalette.length]);
+        double a = 1 - (0.299 * paint.getRed() + 0.587 * paint.getGreen() + 0.114 * paint.getBlue() / 255);
+        if (a < 0.5) return BLACK;
+        else return WHITE_DARK;
     }
 }

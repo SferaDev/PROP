@@ -21,16 +21,23 @@ public class ColorRow extends VBox {
 
         GridPane.setMargin(this, new Insets(10, 10, 10, 10));
 
-        HBox top = createRowBox();
-        HBox bottom = createRowBox();
+        HBox firstLayer = createRowBox();
+        HBox secondLayer = createRowBox();
+        HBox thirdLayer = createRowBox();
 
         for (int i = 0; i < mPegs.length; i++) {
-            if (mPegs.length < 5) top.getChildren().add(mPegs[i]);
-            else if (i%2 == 0) top.getChildren().add(mPegs[i]);
-            else bottom.getChildren().add(mPegs[i]);
+            if (mPegs.length < 5) firstLayer.getChildren().add(mPegs[i]);
+            else if (mPegs.length < 8) {
+                if (i%2 == 0) firstLayer.getChildren().add(mPegs[i]);
+                else secondLayer.getChildren().add(mPegs[i]);
+            } else {
+                if (i%3 == 0) firstLayer.getChildren().add(mPegs[i]);
+                else if (i%3 == 1) secondLayer.getChildren().add(mPegs[i]);
+                else thirdLayer.getChildren().add(mPegs[i]);
+            }
         }
 
-        getChildren().addAll(top, bottom);
+        getChildren().addAll(firstLayer, secondLayer, thirdLayer);
     }
 
     @Override

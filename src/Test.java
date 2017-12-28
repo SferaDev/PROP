@@ -18,7 +18,8 @@ public class Test extends Application {
         PresentationController.getInstance().launchNebulaForm(stage);
 
         // Move this to PresentationController
-        PresentationController.getInstance().getNebulaController().startGame(9);
-        new Thread(() -> DomainController.getInstance().getGameController().startNewGame("alexis", "FiveGuessComputer", "MAKER", 9, 9, 12)).start();
+        int pegs = 9;
+        PresentationController.getInstance().getNebulaController().startGame("MAKER", pegs, 9);
+        new Thread(() -> DomainController.getInstance().getGameController().startNewGame("alexis", "GeneticComputer", "MAKER", pegs, 9, 12)).start();
     }
 }

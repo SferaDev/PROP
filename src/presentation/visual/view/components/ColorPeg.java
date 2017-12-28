@@ -3,6 +3,7 @@ package presentation.visual.view.components;
 import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import presentation.visual.utils.ColorManager;
 
 public class ColorPeg extends JFXButton {
@@ -33,8 +34,10 @@ public class ColorPeg extends JFXButton {
     }
 
     public void setColor(int colorId, String color) {
-        setStyle("-fx-background-color: " + color);
+        setStyle("-fx-font-weight: bold; -fx-background-color: " + color);
         mColor = color;
         mColorId = colorId;
+        setText(String.valueOf(colorId));
+        setTextFill(Color.web(ColorManager.getContrast(colorId)));
     }
 }
