@@ -22,6 +22,8 @@ public class BoardView {
         builder.addDescription(Constants.GAME_HELP_INGAMEHELP);
         builder.addDescription(Constants.GAME_HELP_SAVE);
         builder.addDescription(Constants.GAME_HELP_QUIT);
+        if (board.getCorrectGuess() != null)
+            builder.addDescription("\nCombinació correcte: " + board.getCorrectGuess());
         builder.addDescription("\nTorns:\n");
         for (Turn turn : board.getTurns()) {
             String black = "";

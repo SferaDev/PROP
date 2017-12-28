@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Board {
     private final String gameTitle;
     private final ArrayList<Turn> mTurns = new ArrayList<>();
+    private Turn mCorrectGuess = null;
 
     /**
      * Instantiates a new Board.
@@ -44,6 +45,22 @@ public class Board {
     }
 
     /**
+     * Add correct guess.
+     *
+     * @param turn the turn
+     */
+    public void setCorrectGuess(Turn turn) {
+        mCorrectGuess = turn;
+    }
+
+    /**
+     * Add correct guess.
+     */
+    public Turn getCorrectGuess() {
+        return mCorrectGuess;
+    }
+
+    /**
      * Gets turns.
      *
      * @return the turns
@@ -68,7 +85,7 @@ public class Board {
      *
      * @param result the result
      */
-    public void addBlacksLastTurn(int result) {
+    private void addBlacksLastTurn(int result) {
         if (mTurns.size() == 0) return;
         mTurns.get(mTurns.size() - 1).setBlacks(result);
     }
@@ -78,7 +95,7 @@ public class Board {
      *
      * @param result the result
      */
-    public void addWhitesLastTurn(int result) {
+    private void addWhitesLastTurn(int result) {
         if (mTurns.size() == 0) return;
         mTurns.get(mTurns.size() - 1).setWhites(result);
     }

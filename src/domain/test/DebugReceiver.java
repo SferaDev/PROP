@@ -35,6 +35,11 @@ public class DebugReceiver implements Receiver {
     }
 
     @Override
+    public int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
+        return inputColorRow(pegs, colors);
+    }
+
+    @Override
     public void outputControlRow(int blacks, int whites) {
         TerminalUtils.getInstance().printLine("Blacks: " + blacks + " | Whites: " + whites);
     }

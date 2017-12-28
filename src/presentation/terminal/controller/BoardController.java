@@ -34,6 +34,15 @@ public class BoardController {
     }
 
     /**
+     * Add correct guess.
+     *
+     * @param turn the turn
+     */
+    public void setCorrectGuess(Turn turn) {
+        mModel.setCorrectGuess(turn);
+    }
+
+    /**
      * Print terminal.
      */
     public void printTerminal() {
@@ -48,23 +57,5 @@ public class BoardController {
      */
     public void addControlLastTurn(int blacks, int whites) {
         mModel.addControlLastTurn(blacks, whites);
-    }
-
-    /**
-     * Add blacks last turn.
-     *
-     * @param result the result
-     */
-    public void addBlacksLastTurn(int result) {
-        mModel.addBlacksLastTurn(result);
-    }
-
-    /**
-     * Add whites last turn.
-     *
-     * @param result the result
-     */
-    public void addWhitesLastTurn(int result) {
-        mModel.addWhitesLastTurn(result);
     }
 }

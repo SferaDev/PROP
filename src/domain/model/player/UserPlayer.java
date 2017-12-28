@@ -48,7 +48,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
      */
     @Override
     public ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
+        return new ColorRow(DomainController.getInstance().getGameInterface().inputCorrectColorRow(pegs, colors));
     }
 
     /**

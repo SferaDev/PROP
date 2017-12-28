@@ -1,9 +1,6 @@
 package presentation.visual.controller.receiver;
 
 import domain.model.Receiver;
-import domain.model.exceptions.CommandInterruptException;
-import domain.model.exceptions.FinishGameException;
-import presentation.terminal.utils.TerminalUtils;
 import presentation.visual.controller.PresentationController;
 import presentation.visual.utils.ComponentUtils;
 import presentation.visual.utils.ThreadUtils;
@@ -64,19 +61,15 @@ public class GameInterfaceReceiver implements Receiver {
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination
      * @return the combination of color pegs
-     * @throws FinishGameException       the finish game exception
-     * @throws CommandInterruptException the command interrupt exception
      */
     @Override
-    public int[] inputColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        int[] result = new int[pegs];
-        StringBuilder row = new StringBuilder();
-        TerminalUtils.getInstance().printLine("Introdueixi combinació de " + pegs + " fitxes i " + colors + " colors");
-        for (int i = 0; i < pegs; ++i) {
-            result[i] = 1;
-            row.append(result[i]).append(" ");
-        }
-        return result;
+    public int[] inputColorRow(int pegs, int colors) {
+        return new int[0];
+    }
+
+    @Override
+    public int[] inputCorrectColorRow(int pegs, int colors) {
+        return new int[0];
     }
 
     /**

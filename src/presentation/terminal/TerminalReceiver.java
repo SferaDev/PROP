@@ -69,6 +69,17 @@ public class TerminalReceiver implements Receiver {
         return result;
     }
 
+    @Override
+    public int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
+        int[] result = inputColorRow(pegs, colors);
+        StringBuilder row = new StringBuilder();
+        for (int i = 0; i < pegs; ++i) {
+            row.append(result[i]).append(" ");
+        }
+        PresentationController.getInstance().getCurrentBoard().setCorrectGuess(new Turn(row.toString().trim()));
+        return result;
+    }
+
     /**
      * Writes in the terminal the number of blacks and whites of the control combination
      *
