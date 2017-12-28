@@ -3,12 +3,12 @@ package presentation.visual.controller.receiver;
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
-import javafx.application.Platform;
 import presentation.terminal.utils.TerminalUtils;
 import presentation.visual.controller.PresentationController;
 import presentation.visual.utils.ComponentUtils;
 import presentation.visual.utils.ThreadUtils;
 import presentation.visual.view.components.ColorRow;
+import presentation.visual.view.components.ControlInput;
 
 /**
  * The type Game Interface Receiver
@@ -24,10 +24,17 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlBlacks() {
-        final int[] result = {0};
-        ThreadUtils.runAndWait(() -> result[0] = PresentationController.getInstance().getNebulaController()
-                .requestControl("Input Blacks")); // TODO: String
-        return result[0];
+        ControlInput controlInput = new ControlInput("Input Blacks"); // TODO: Strings
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlPane(controlInput));
+        synchronized (controlInput) {
+            try {
+                controlInput.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO: If invalid show error and wait again NumberFormatException
+        return Integer.parseInt(controlInput.getResult());
     }
 
 
@@ -38,10 +45,17 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlWhites() {
-        final int[] result = {0};
-        ThreadUtils.runAndWait(() -> result[0] = PresentationController.getInstance().getNebulaController()
-                .requestControl("Input Whites")); // TODO: String
-        return result[0];
+        ControlInput controlInput = new ControlInput("Input Whites"); // TODO: Strings
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlPane(controlInput));
+        synchronized (controlInput) {
+            try {
+                controlInput.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        // TODO: If invalid show error and wait again NumberFormatException
+        return Integer.parseInt(controlInput.getResult());
     }
 
 
@@ -75,7 +89,7 @@ public class GameInterfaceReceiver implements Receiver {
 
     @Override
     public void outputControlRow(int blacks, int whites) {
-        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().addControlLastTurn(blacks, whites));
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlLastTurn(blacks, whites));
     }
 
     /**
@@ -85,7 +99,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputColorRow(String row) {
-        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().addTurn(new ColorRow(row)));
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addTurn(new ColorRow(row)));
     }
 
     /**
@@ -96,7 +110,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputHintControlRow(int blacks, int whites) {
-        outputMessage("Aquesta es la teva ajuda:");
+        // TODO
     }
 
     /**
@@ -106,6 +120,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputHintColorRow(String row) {
+        // TODO
     }
 
     /**
@@ -115,7 +130,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputMessage(String message) {
-        ComponentUtils.showErrorDialog("Mastermind", message);
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog("Mastermind", message));
     }
 
     /**
@@ -123,7 +138,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void notifyInvalidInput() {
-        ComponentUtils.showErrorDialog("Entrada invalida", "Has fet algun error!"); // TODO: Strings
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog("Entrada invalida", "Has fet algun error!")); // TODO: Strings
     }
 
     /**
@@ -131,7 +146,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void finishGame() {
-        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().finishGame());
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
     /**
@@ -141,7 +156,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     public void finishGame(int score) {
         outputMessage("You won, with score: " + score);
-        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().finishGame());
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
     /**
@@ -149,7 +164,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void notifyInvalidControl() {
-        ComponentUtils.showErrorDialog("Això és mentida!", "Tranqui tots ho fem :)"); // TODO: Strings
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog("Això és mentida!", "Tranqui tots ho fem :)")); // TODO: Strings
     }
 
     /**
@@ -159,6 +174,6 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void startGame(String title) {
-        Platform.runLater(() -> PresentationController.getInstance().getNebulaController().startGame(Integer.parseInt(title.split("-")[2])));
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().startGame(Integer.parseInt(title.split("-")[2])));
     }
 }

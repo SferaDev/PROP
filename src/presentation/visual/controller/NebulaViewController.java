@@ -83,11 +83,8 @@ public class NebulaViewController implements Initializable {
         gameView.scrollDown();
     }
 
-    public int requestControl(String title) {
-        ControlInput controlInput = new ControlInput(title);
-        gameView.addControlPane(controlInput);
-        // TODO: If invalid show error and wait again NumberFormatException
-        return Integer.parseInt(controlInput.getResult());
+    public void addControlPane(ControlInput pane) {
+        gameView.addControlPane(pane);
     }
 
     private JFXButton createDrawerButton(String textId) {
