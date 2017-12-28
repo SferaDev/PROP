@@ -96,7 +96,7 @@ public class GeneticComputerDriver {
     }
 
     private static boolean executeOneGame(boolean showGuess) {
-        GeneticComputer gc = new GeneticComputer(Player.Role.BREAKER);
+        GeneticComputer gc = new GeneticComputer(Player.Role.Breaker);
         ColorRow guess = new ColorRow();
         boolean validTurn = true;
         boolean hasWin = false;

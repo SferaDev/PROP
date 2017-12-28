@@ -37,7 +37,7 @@ public class ComputerPlayerDriver {
     private static void testColorRowHelp() {
         ComputerPlayer cp;
         initializeGameInfo();
-        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
+        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.Maker);
         ColorRow correctGuessHelp = new ColorRow(cp.makerGuess(pegs, colors));
         terminalUtils.printLine("El secretCode es " + correctGuessHelp.toString());
         int[] inputColorsHelp = new int[0];
@@ -70,8 +70,8 @@ public class ComputerPlayerDriver {
 
     private static void testGeneticBreaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.BREAKER);
-        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.Breaker);
+        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.Breaker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -80,8 +80,8 @@ public class ComputerPlayerDriver {
 
     private static void testGeneticMaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.MAKER);
-        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+        cp = ComputerPlayer.newComputerByName("GeneticComputer", Player.Role.Maker);
+        if (!cp.getName().equals("Genetic") || !cp.getPlayerRole().equals(Player.Role.Maker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -90,8 +90,8 @@ public class ComputerPlayerDriver {
 
     private static void testFiveBreaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.BREAKER);
-        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.Breaker);
+        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.Breaker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -100,8 +100,8 @@ public class ComputerPlayerDriver {
 
     private static void testFiveMaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.MAKER);
-        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+        cp = ComputerPlayer.newComputerByName("FiveGuessComputer", Player.Role.Maker);
+        if (!cp.getName().equals("FiveGuess") || !cp.getPlayerRole().equals(Player.Role.Maker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -110,8 +110,8 @@ public class ComputerPlayerDriver {
 
     private static void testDummyBreaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.BREAKER);
-        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.BREAKER))
+        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.Breaker);
+        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.Breaker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -120,8 +120,8 @@ public class ComputerPlayerDriver {
 
     private static void testDummyMaker() {
         ComputerPlayer cp;
-        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.MAKER);
-        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.MAKER))
+        cp = ComputerPlayer.newComputerByName("DummyComputer", Player.Role.Maker);
+        if (!cp.getName().equals("Dummy") || !cp.getPlayerRole().equals(Player.Role.Maker))
             terminalUtils.printLine("The creation is incorrect (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
         else
             terminalUtils.printLine("The creation is correct (name, role): " + cp.getName() + ", " + cp.getPlayerRole().toString() + "\n");
@@ -131,7 +131,7 @@ public class ComputerPlayerDriver {
     private static void testCompare() {
         ComputerPlayer cp;
         initializeGameInfo();
-        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.MAKER);
+        cp = ComputerPlayer.newComputerByName("Dummy", Player.Role.Maker);
         ColorRow correctGuess = new ColorRow(cp.makerGuess(pegs, colors));
         terminalUtils.printLine("El secretCode es " + correctGuess.toString());
         int[] inputColors1 = new int[0];

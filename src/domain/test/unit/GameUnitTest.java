@@ -29,9 +29,9 @@ public class GameUnitTest {
      */
     @Before
     public void setUp() throws Exception {
-        gameInfo = new Game.GameInfo("TestUser2", Player.Role.BREAKER, 4, 4, 12);
-        mGame = new Game(new UserPlayer("TestUser1", Player.Role.MAKER),
-                new DummyComputer(Player.Role.BREAKER),
+        gameInfo = new Game.GameInfo("TestUser2", Player.Role.Breaker, 4, 4, 12);
+        mGame = new Game(new UserPlayer("TestUser1", Player.Role.Maker),
+                new DummyComputer(Player.Role.Breaker),
                 gameInfo);
     }
 

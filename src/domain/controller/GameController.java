@@ -72,9 +72,9 @@ public class GameController {
      */
     public void startNewGame(String computerName, int pegs, int colors, int turns) {
         try {
-            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.BREAKER);
-            currentGame = new Game(new DummyComputer(Player.Role.MAKER), computer,
-                    new Game.GameInfo(computerName, Player.Role.BREAKER, pegs, colors, turns));
+            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.Breaker);
+            currentGame = new Game(new DummyComputer(Player.Role.Maker), computer,
+                    new Game.GameInfo(computerName, Player.Role.Breaker, pegs, colors, turns));
             currentGame.startGame();
         } catch (FinishGameException e) {
             currentGame = null;

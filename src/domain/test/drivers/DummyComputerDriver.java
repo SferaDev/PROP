@@ -61,7 +61,7 @@ public class DummyComputerDriver {
 
     private static void testCorrect() {
         initializeGameInfo();
-        DummyComputer dc = new DummyComputer(Player.Role.MAKER);
+        DummyComputer dc = new DummyComputer(Player.Role.Maker);
         correctGuess = dc.makerGuess(pegs, colors);
         terminalUtils.printLine("El secretCode es " + correctGuess.toString());
 
@@ -116,7 +116,7 @@ public class DummyComputerDriver {
     }
 
     private static boolean executeOneGame(boolean showGuess) {
-        DummyComputer dc = new DummyComputer(Player.Role.BREAKER);
+        DummyComputer dc = new DummyComputer(Player.Role.Breaker);
         ColorRow guess = new ColorRow();
         boolean validTurn = true;
         boolean hasWon = false;

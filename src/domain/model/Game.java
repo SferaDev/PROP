@@ -67,11 +67,11 @@ public class Game implements java.io.Serializable {
         if (user1.getPlayerRole() == user2.getPlayerRole()) throw new EqualRolesException();
         // Depending the Role, set the player attributes
         switch (user1.getPlayerRole()) {
-            case MAKER:
+            case Maker:
                 gameMaker = user1;
                 gameBreaker = user2;
                 break;
-            case BREAKER:
+            case Breaker:
                 gameBreaker = user1;
                 gameMaker = user2;
                 break;

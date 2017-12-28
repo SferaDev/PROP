@@ -31,8 +31,8 @@ public abstract class Player implements java.io.Serializable {
      * @return the opposite role
      */
     public static Role oppositeRole(Role role) {
-        if (role == Role.BREAKER) return Role.MAKER;
-        else return Role.BREAKER;
+        if (role == Role.Breaker) return Role.Maker;
+        else return Role.Breaker;
     }
 
     /**
@@ -161,10 +161,10 @@ public abstract class Player implements java.io.Serializable {
         /**
          * Breaker role.
          */
-        BREAKER,
+        Breaker,
         /**
          * Maker role.
          */
-        MAKER
+        Maker
     }
 }

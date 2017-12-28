@@ -94,7 +94,7 @@ public class FiveGuessComputerDriver {
     }
 
     private static boolean executeOneGame(boolean showGuess) {
-        FiveGuessComputer fgc = new FiveGuessComputer(Player.Role.BREAKER);
+        FiveGuessComputer fgc = new FiveGuessComputer(Player.Role.Breaker);
         ColorRow guess = new ColorRow();
         boolean validTurn = true;
         boolean hasWin = false;

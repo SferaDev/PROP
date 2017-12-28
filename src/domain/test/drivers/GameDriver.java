@@ -33,9 +33,9 @@ public class GameDriver {
     }
 
     private static void testGameMaker() {
-        Player p1 = new UserPlayer("testPlayerMaker", Player.Role.MAKER);
-        Player p2 = new DummyComputer(Player.Role.BREAKER);
-        Game.GameInfo gameInfoMaker = new Game.GameInfo("testPlayerMaker", Player.Role.MAKER,
+        Player p1 = new UserPlayer("testPlayerMaker", Player.Role.Maker);
+        Player p2 = new DummyComputer(Player.Role.Breaker);
+        Game.GameInfo gameInfoMaker = new Game.GameInfo("testPlayerMaker", Player.Role.Maker,
                 4, 6, 12);
         try {
             Game g = new Game(p1, p2, gameInfoMaker);
@@ -46,9 +46,9 @@ public class GameDriver {
     }
 
     private static void testGameBreaker() {
-        Player p1 = new UserPlayer("testPlayerBreaker", Player.Role.BREAKER);
-        Player p2 = new DummyComputer(Player.Role.MAKER);
-        Game.GameInfo gameInfoBreaker = new Game.GameInfo("testPlayerBreaker", Player.Role.BREAKER,
+        Player p1 = new UserPlayer("testPlayerBreaker", Player.Role.Breaker);
+        Player p2 = new DummyComputer(Player.Role.Maker);
+        Game.GameInfo gameInfoBreaker = new Game.GameInfo("testPlayerBreaker", Player.Role.Breaker,
                 4, 6, 12);
         try {
             Game g = new Game(p1, p2, gameInfoBreaker);

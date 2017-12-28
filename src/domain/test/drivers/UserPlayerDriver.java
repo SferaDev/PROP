@@ -36,7 +36,7 @@ public class UserPlayerDriver {
     private static void testReceiveControl() {
         pegs = 4;
         colors = 6;
-        UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
+        UserPlayer up = new UserPlayer("testUser", Player.Role.Maker);
         ColorRow c = new ColorRow(1, 1, 1, 1);
         ControlRow control = new ControlRow(0, 0);
         try {
@@ -50,7 +50,7 @@ public class UserPlayerDriver {
 
     private static void testCreateBreakerGuess() {
         initializeGameInfo();
-        UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
+        UserPlayer up = new UserPlayer("testUser", Player.Role.Maker);
         ColorRow c = new ColorRow();
         try {
             c = up.breakerGuess(pegs, colors);
@@ -63,7 +63,7 @@ public class UserPlayerDriver {
 
     private static void testCreateMakerGuess() {
         initializeGameInfo();
-        UserPlayer up = new UserPlayer("testUser", Player.Role.MAKER);
+        UserPlayer up = new UserPlayer("testUser", Player.Role.Maker);
         ColorRow c = new ColorRow();
         try {
             c = up.makerGuess(pegs, colors);
