@@ -37,6 +37,10 @@ public class GameView extends GridPane {
         controlPane.getChildren().add(pane);
     }
 
+    public void removeControlPane() {
+        controlPane.getChildren().clear();
+    }
+
     private ColumnConstraints createColumnConstraint(int percent) {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(percent);
