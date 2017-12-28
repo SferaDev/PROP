@@ -50,7 +50,7 @@ public class GameView extends GridPane {
         informationPlaceholder.getChildren().add(correctGuess);
         informationPlaceholder.getChildren().add(buttonBox);
 
-        setMargin(informationPlaceholder, new Insets(10));
+        setMargin(informationPlaceholder, new Insets(15, 10, 0, 10));
 
         informationPane.add(informationPlaceholder, 0, 0);
         informationPane.add(controlPane, 0, 1);
