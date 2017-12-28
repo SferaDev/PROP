@@ -24,19 +24,8 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlBlacks() {
-        ControlInput controlInput = new ControlInput("Input Blacks"); // TODO: Strings
-        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlPane(controlInput));
-        synchronized (controlInput) {
-            try {
-                controlInput.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        // TODO: If invalid show error and wait again NumberFormatException
-        return Integer.parseInt(controlInput.getResult());
+        return inputControl("Input Blacks"); // TODO: Strings
     }
-
 
     /**
      * Reads the number of whites from the terminal
@@ -45,8 +34,13 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlWhites() {
-        ControlInput controlInput = new ControlInput("Input Whites"); // TODO: Strings
+        return inputControl("Input Whites"); // TODO: Strings
+    }
+
+    private int inputControl(String title) {
+        ControlInput controlInput = new ControlInput(title);
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlPane(controlInput));
+        ThreadUtils.runAndWait(controlInput::requestFocus);
         synchronized (controlInput) {
             try {
                 controlInput.wait();
@@ -54,10 +48,15 @@ public class GameInterfaceReceiver implements Receiver {
                 e.printStackTrace();
             }
         }
-        // TODO: If invalid show error and wait again NumberFormatException
-        return Integer.parseInt(controlInput.getResult());
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().removeControlPane());
+        int result = 0;
+        try {
+            result = Integer.parseInt(controlInput.getResult());
+        } catch (NumberFormatException e) {
+            outputMessage("NumberFormatException"); // TODO: Strings
+        }
+        return result;
     }
-
 
     /**
      * Reads a combination of color pegs from the terminal
