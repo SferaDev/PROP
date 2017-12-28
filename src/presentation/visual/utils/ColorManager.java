@@ -13,8 +13,8 @@ public class ColorManager {
     private static final String GREEN_DARK = "#1B5E20";
     private static final String YELLOW = "#FFEB3B";
     private static final String YELLOW_DARK = "#FFC107";
-    private static final String BROWN = "#3E2723";
-    private static final String BROWN_DARK = BROWN;
+    private static final String BROWN = "#795548";
+    private static final String BROWN_DARK = "#3E2723";
     private static final String PINK = "#E91E63";
     private static final String PINK_DARK = "#880E4F";
     private static final String BLACK = "#212121";
