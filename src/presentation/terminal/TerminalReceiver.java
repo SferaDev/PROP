@@ -29,9 +29,7 @@ public class TerminalReceiver implements Receiver {
     @Override
     public int inputControlBlacks() throws FinishGameException, CommandInterruptException {
         TerminalUtils.getInstance().printLine("Introdueixi el numero de Negres");
-        int result = TerminalUtils.getInstance().readGameInteger();
-        PresentationController.getInstance().getCurrentBoard().addBlacksLastTurn(result);
-        return result;
+        return TerminalUtils.getInstance().readGameInteger();
     }
 
 
@@ -45,9 +43,7 @@ public class TerminalReceiver implements Receiver {
     @Override
     public int inputControlWhites() throws FinishGameException, CommandInterruptException {
         TerminalUtils.getInstance().printLine("Introdueixi el numero de Blanques");
-        int result = TerminalUtils.getInstance().readGameInteger();
-        PresentationController.getInstance().getCurrentBoard().addWhitesLastTurn(result);
-        return result;
+        return TerminalUtils.getInstance().readGameInteger();
     }
 
 

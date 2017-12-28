@@ -154,6 +154,8 @@ public class Game implements java.io.Serializable {
 
         // Send Breaker the correct control and store it
         gameBreaker.receiveControl(correctControl);
+        gameMaker.receiveControl(correctControl);
+
         mControl.add(correctControl);
         gameStatus = Status.STATUS_CHECK;
     }
