@@ -4,6 +4,7 @@ import domain.model.Receiver;
 import presentation.visual.controller.PresentationController;
 import presentation.visual.utils.ComponentUtils;
 import presentation.visual.utils.ThreadUtils;
+import presentation.visual.view.components.ColorInput;
 import presentation.visual.view.components.ColorRow;
 import presentation.visual.view.components.ControlInput;
 
@@ -14,29 +15,19 @@ import presentation.visual.view.components.ControlInput;
  */
 public class GameInterfaceReceiver implements Receiver {
 
-    /**
-     * Reads the number of blacks from the terminal
-     *
-     * @return the number of blacks
-     */
     @Override
     public int inputControlBlacks() {
-        return inputControl("Input Blacks"); // TODO: Strings
+        return requestControl("Input Blacks"); // TODO: Strings
     }
 
-    /**
-     * Reads the number of whites from the terminal
-     *
-     * @return the number of whites
-     */
     @Override
     public int inputControlWhites() {
-        return inputControl("Input Whites"); // TODO: Strings
+        return requestControl("Input Whites"); // TODO: Strings
     }
 
-    private int inputControl(String title) {
+    private int requestControl(String title) {
         ControlInput controlInput = new ControlInput(title);
-        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlPane(controlInput));
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addActionPane(controlInput));
         ThreadUtils.runAndWait(controlInput::requestFocus);
         synchronized (controlInput) {
             try {
@@ -45,7 +36,7 @@ public class GameInterfaceReceiver implements Receiver {
                 e.printStackTrace();
             }
         }
-        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().removeControlPane());
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().removeActionPane());
         int result = 0;
         try {
             result = Integer.parseInt(controlInput.getResult());
@@ -64,12 +55,28 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int[] inputColorRow(int pegs, int colors) {
-        return new int[0];
+        return requestColorRow(pegs, colors).toIntArray();
     }
 
     @Override
     public int[] inputCorrectColorRow(int pegs, int colors) {
-        return new int[0];
+        ColorRow row = requestColorRow(pegs, colors);
+        // TODO: Store Correct Color Row
+        return row.toIntArray();
+    }
+
+    private ColorRow requestColorRow(int pegs, int colors) {
+        ColorInput colorInput = new ColorInput("Input Guess", pegs, colors);
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addActionPane(colorInput));
+        synchronized (colorInput) {
+            try {
+                colorInput.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().removeActionPane());
+        return colorInput.getResult();
     }
 
     /**

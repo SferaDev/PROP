@@ -32,12 +32,12 @@ public class GameView extends GridPane {
         scrollPane.setVvalue(1.0);
     }
 
-    public void addControlPane(Node pane) {
+    public void addActionPane(Node pane) {
         controlPane.getChildren().clear();
         controlPane.getChildren().add(pane);
     }
 
-    public void removeControlPane() {
+    public void removeActionPane() {
         controlPane.getChildren().clear();
     }
 

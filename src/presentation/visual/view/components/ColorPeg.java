@@ -6,17 +6,18 @@ import javafx.scene.layout.GridPane;
 import presentation.visual.utils.ColorManager;
 
 public class ColorPeg extends JFXButton {
+    private int mColorId;
     private String mColor;
 
-    public ColorPeg(int color) {
-        this(ColorManager.getColor(color));
+    public ColorPeg(int colorId) {
+        this(colorId, ColorManager.getColor(colorId));
     }
 
-    public ColorPeg(String color) {
+    public ColorPeg(int colorId, String color) {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("color-peg");
 
-        setColor(color);
+        setColor(colorId, color);
 
         GridPane.setMargin(this, new Insets(5, 5, 5, 5));
 
@@ -27,8 +28,13 @@ public class ColorPeg extends JFXButton {
         return mColor;
     }
 
-    public void setColor(String color) {
+    public int getColorId() {
+        return mColorId;
+    }
+
+    public void setColor(int colorId, String color) {
         setStyle("-fx-background-color: " + color);
         mColor = color;
+        mColorId = colorId;
     }
 }

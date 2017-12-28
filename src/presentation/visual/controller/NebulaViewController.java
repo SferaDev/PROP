@@ -3,6 +3,7 @@ package presentation.visual.controller;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -11,7 +12,6 @@ import presentation.visual.utils.ColorManager;
 import presentation.visual.utils.LocaleUtils;
 import presentation.visual.view.*;
 import presentation.visual.view.components.ColorRow;
-import presentation.visual.view.components.ControlInput;
 import presentation.visual.view.components.ControlRow;
 
 import java.net.URL;
@@ -88,12 +88,12 @@ public class NebulaViewController implements Initializable {
         currentGameView.scrollDown();
     }
 
-    public void addControlPane(ControlInput pane) {
-        currentGameView.addControlPane(pane);
+    public void addActionPane(Node pane) {
+        currentGameView.addActionPane(pane);
     }
 
-    public void removeControlPane() {
-        currentGameView.removeControlPane();
+    public void removeActionPane() {
+        currentGameView.removeActionPane();
     }
 
     private JFXButton createDrawerButton(String textId) {
