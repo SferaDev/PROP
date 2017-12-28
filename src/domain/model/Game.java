@@ -173,7 +173,7 @@ public class Game implements java.io.Serializable {
 
     private void actionScore() {
         // Notify the breaker his score
-        int score = ((int) Math.pow(gameInfo.mColors, gameInfo.mPegs)) / gameTurn;
+        int score = (int) Math.pow(gameInfo.mColors, gameInfo.mPegs) / gameTurn;
         gameBreaker.finishGame(score);
         // Store the score in the Stats if is not debug build and it's an UserPlayer
         if (!DomainController.getInstance().isDebugBuild() && gameBreaker instanceof UserPlayer) {
