@@ -1,6 +1,9 @@
 package presentation.visual.utils;
 
+import java.lang.reflect.Field;
+
 public class ColorManager {
+    private static final String WHITE = "#ECEFF1";
     private static final String RED = "#F44336";
     private static final String RED_DARK = "#B71C1C";
     private static final String PURPLE = "#9C27B0";
@@ -27,6 +30,16 @@ public class ColorManager {
     private static final String[] darkPalette = {
             BLUE_DARK, YELLOW_DARK, RED_DARK, PURPLE_DARK, GREEN_DARK, ORANGE_DARK, BROWN_DARK, LIME_DARK, TEAL_DARK
     };
+
+    public static String getColor(String name) {
+        try {
+            Field field = ColorManager.class.getDeclaredField(name);
+            field.setAccessible(true);
+            return (String) field.get(String.class);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return WHITE;
+        }
+    }
 
     public static String getColor(int color) {
         return colorPalette[color%colorPalette.length];
