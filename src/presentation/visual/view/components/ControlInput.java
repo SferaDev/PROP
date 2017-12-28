@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,6 +22,13 @@ public class ControlInput extends VBox {
         getChildren().add(titleLabel);
 
         textField.setPrefSize(40, 40);
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                synchronized (this) {
+                    notify();
+                }
+            }
+        });
         setMargin(textField, new Insets(0, 30, 0, 30));
         getChildren().add(textField);
 
@@ -35,5 +43,9 @@ public class ControlInput extends VBox {
 
     public String getResult() {
         return textField.getText();
+    }
+
+    public void requestFocus() {
+        textField.requestFocus();
     }
 }
