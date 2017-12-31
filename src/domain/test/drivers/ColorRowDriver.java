@@ -4,8 +4,8 @@ import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.row.ColorRow;
-import presentation.terminal.utils.TerminalMenuBuilder;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 /**
  * The type Color row driver.

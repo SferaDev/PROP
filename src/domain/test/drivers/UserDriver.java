@@ -1,8 +1,8 @@
 package domain.test.drivers;
 
 import domain.model.User;
-import presentation.terminal.utils.TerminalMenuBuilder;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 /**
  * The type User driver.

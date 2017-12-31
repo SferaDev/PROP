@@ -6,8 +6,8 @@ import domain.model.exceptions.FinishGameException;
 import domain.model.player.Player;
 import domain.model.player.UserPlayer;
 import domain.model.player.computer.DummyComputer;
-import presentation.terminal.utils.TerminalMenuBuilder;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 /**
  * The type Game driver.

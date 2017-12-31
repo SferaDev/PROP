@@ -2,7 +2,7 @@ package domain.test;
 
 import domain.controller.DomainController;
 import org.junit.Assert;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalUtils;
 
 public class AlgorithmTest {
     void newGame(String computerName, int pegs, int colors) throws Exception {

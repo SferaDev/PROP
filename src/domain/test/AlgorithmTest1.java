@@ -4,9 +4,9 @@ import domain.controller.DomainController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import presentation.terminal.utils.Constants;
-import presentation.terminal.utils.TerminalMenuBuilder;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.Constants;
+import presentation.utils.TerminalMenuBuilder;
+import presentation.utils.TerminalUtils;
 
 /**
  * The type Algorithm test.

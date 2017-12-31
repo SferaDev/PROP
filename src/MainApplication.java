@@ -1,8 +1,8 @@
 import javafx.application.Application;
-import presentation.terminal.TerminalMastermind;
-import presentation.terminal.utils.Constants;
-import presentation.terminal.utils.TerminalMenuBuilder;
-import presentation.visual.VisualMastermind;
+import presentation.TerminalMastermind;
+import presentation.VisualMastermind;
+import presentation.utils.Constants;
+import presentation.utils.TerminalMenuBuilder;
 
 /**
  * The type Master mind.
@@ -11,6 +11,7 @@ import presentation.visual.VisualMastermind;
  */
 public class MainApplication {
     public static void main(String[] args) {
+        // If run with --terminal open a terminal menu, otherwise launch default Visual app
         if (args.length > 0 && (args[0].equals("-t") || args[0].equals("--terminal"))) {
             TerminalMenuBuilder builder = new TerminalMenuBuilder();
             builder.addTitle(Constants.APP_TITLE);

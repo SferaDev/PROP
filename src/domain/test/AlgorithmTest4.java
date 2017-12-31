@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalUtils;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -3,7 +3,7 @@ package domain.test;
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
-import presentation.terminal.utils.TerminalUtils;
+import presentation.utils.TerminalUtils;
 
 /**
  * The type Debug input output.
