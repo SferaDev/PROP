@@ -5,7 +5,7 @@ import org.junit.Assert;
 import presentation.utils.TerminalUtils;
 
 public class AlgorithmTest {
-    void newGame(String computerName, int pegs, int colors) throws Exception {
+    void newGame(String computerName, int pegs, int colors) {
         TerminalUtils.getInstance().clearScreen();
         DomainController.getInstance().getGameController().startNewGame(computerName, pegs, colors, 12);
         String gameStatus = DomainController.getInstance().getGameController().getGameStatus();

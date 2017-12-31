@@ -13,7 +13,7 @@ import presentation.view.components.ControlInput;
  *
  * @author Alexis Rico Carreto
  */
-public class  GameInterfaceReceiver implements Receiver {
+public class GameInterfaceReceiver implements Receiver {
 
     @Override
     public int inputControlBlacks() {

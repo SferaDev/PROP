@@ -56,7 +56,7 @@ public class AlgorithmTest4 extends AlgorithmTest {
      * @throws Exception the exception
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         DomainController.getInstance().setGameInterface(new DebugReceiver());
         DomainController.getInstance().setDebugBuild(true);
     }
@@ -67,7 +67,7 @@ public class AlgorithmTest4 extends AlgorithmTest {
      * @throws Exception the exception
      */
     @After
-    public void after() throws Exception {
+    public void after() {
         TerminalUtils.getInstance().pressEnterToContinue();
     }
 

@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import presentation.visual.utils.LocaleUtils;
+import presentation.utils.LocaleUtils;
 
 public class ControlInput extends VBox {
     private TextField textField = new TextField();

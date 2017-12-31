@@ -55,7 +55,7 @@ public class GameUnitTest {
      * @throws Exception the exception
      */
     @Test
-    public void getGameStatus() throws Exception {
+    public void getGameStatus() {
         assertEquals(mGame.getGameStatus(), Game.Status.START.toString());
     }
 
@@ -101,7 +101,7 @@ public class GameUnitTest {
      * @throws Exception the exception
      */
     @Test
-    public void finishGame() throws Exception {
+    public void finishGame() {
         mGame.finishGame();
         assertEquals(mGame.getGameStatus(), Game.Status.FINISHED.toString());
     }

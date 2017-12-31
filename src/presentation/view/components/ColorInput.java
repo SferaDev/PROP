@@ -6,8 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import presentation.visual.utils.LocaleUtils;
+import presentation.utils.LocaleUtils;
 
 public class ColorInput extends VBox {
     private ColorRow colorRow;
