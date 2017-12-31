@@ -3,7 +3,6 @@ package persistence.model;
 import domain.controller.data.UserDataController;
 import domain.model.User;
 import domain.model.exceptions.UserNotFoundException;
-import persistence.DataModel;
 
 /**
  * The type User data model

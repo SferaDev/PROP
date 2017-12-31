@@ -1,11 +1,9 @@
-package persistence;
+package persistence.model;
 
 import domain.controller.data.DataController;
-import persistence.utils.Base64Encoder;
 import persistence.utils.FileUtils;
 
-import java.io.FileNotFoundException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,7 @@ import java.util.Map;
  * @author Alexis Rico Carreto
  */
 public abstract class DataModel<E extends Serializable> implements DataController<E> {
-    private final Map<String, String> mData = new HashMap<>();
+    private final Map<String, E> mData = new HashMap<>();
 
     private final String mPath;
 
@@ -26,7 +24,7 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
      *
      * @param path the path
      */
-    protected DataModel(String path) {
+    DataModel(String path) {
         mPath = path;
 
         ArrayList<String> files = FileUtils.listFiles(mPath);
@@ -56,11 +54,16 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
     @Override
     public void insert(String key, E item) {
         if (exists(key)) return;
+        mData.put(key, item);
 
-        String serialItem = Base64Encoder.toString(item);
-        mData.put(key, serialItem);
-        FileUtils.createFile(mPath + key);
-        FileUtils.writeToFile(mPath + key, serialItem);
+        try {
+            FileUtils.createFile(mPath + key);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(mPath + key), false));
+            oos.writeObject(item);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -96,12 +99,12 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
     @Override
     public E get(String key) {
         if (!exists(key)) return null;
-        String serialObject = mData.get(key);
-        if (serialObject == null) {
-            serialObject = readDisk(mPath + key);
-            mData.replace(key, serialObject);
+        E object = mData.get(key);
+        if (object == null) {
+            object = readDisk(mPath + key);
+            mData.replace(key, object);
         }
-        return (E) Base64Encoder.fromString(serialObject);
+        return object;
     }
 
     /**
@@ -114,12 +117,16 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
         return new ArrayList<>(mData.keySet());
     }
 
-    private String readDisk(String path) {
+    private E readDisk(String path) {
         try {
-            return FileUtils.readFromFile(path);
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
+            return (E) ois.readObject();
         } catch (FileNotFoundException e) {
             FileUtils.createFile(path);
             return null;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }

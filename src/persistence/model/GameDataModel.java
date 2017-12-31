@@ -1,7 +1,6 @@
 package persistence.model;
 
 import domain.model.Game;
-import persistence.DataModel;
 
 /**
  * The type Game data model.

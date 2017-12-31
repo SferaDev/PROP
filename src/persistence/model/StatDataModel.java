@@ -1,7 +1,6 @@
 package persistence.model;
 
 import domain.controller.StatController;
-import persistence.DataModel;
 
 import java.util.HashMap;
 
