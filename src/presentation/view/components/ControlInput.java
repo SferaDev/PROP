@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import presentation.visual.utils.LocaleUtils;
 
 public class ControlInput extends VBox {
     private TextField textField = new TextField();
@@ -32,7 +33,7 @@ public class ControlInput extends VBox {
         setMargin(textField, new Insets(0, 30, 0, 30));
         getChildren().add(textField);
 
-        RaisedButton button = new RaisedButton("Send"); // TODO: Strings
+        RaisedButton button = new RaisedButton(LocaleUtils.getInstance().getString("SEND"));
         button.setOnMouseClicked(event -> {
             synchronized (this) {
                 notify();
