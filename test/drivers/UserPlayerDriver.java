@@ -1,4 +1,4 @@
-package domain.test.drivers;
+package drivers;
 
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;

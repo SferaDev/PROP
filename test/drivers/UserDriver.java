@@ -1,4 +1,4 @@
-package domain.test.drivers;
+package drivers;
 
 import domain.model.User;
 import presentation.utils.TerminalMenuBuilder;

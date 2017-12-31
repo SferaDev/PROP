@@ -1,4 +1,4 @@
-package domain.test.drivers;
+package drivers;
 
 import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;

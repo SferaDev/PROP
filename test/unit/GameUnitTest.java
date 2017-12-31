@@ -1,4 +1,4 @@
-package domain.test.unit;
+package unit;
 
 import domain.model.Game;
 import domain.model.player.Player;

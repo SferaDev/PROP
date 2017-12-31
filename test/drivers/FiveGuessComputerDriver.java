@@ -1,11 +1,11 @@
-package domain.test.drivers;
+package drivers;
 
 import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import domain.model.player.ComputerPlayer;
 import domain.model.player.Player;
-import domain.model.player.computer.GeneticComputer;
+import domain.model.player.computer.FiveGuessComputer;
 import domain.model.row.ColorRow;
 import domain.model.row.ControlRow;
 import presentation.utils.TerminalMenuBuilder;
@@ -13,13 +13,12 @@ import presentation.utils.TerminalUtils;
 
 import java.util.Random;
 
-
 /**
- * The type Genetic computer driver.
+ * The type Five guess computer driver.
  *
  * @author Oriol Borrell Roig
  */
-public class GeneticComputerDriver {
+public class FiveGuessComputerDriver {
     private static final TerminalUtils terminalUtils = TerminalUtils.getInstance();
     private static int pegs, colors;
     private static ColorRow correctGuess;
@@ -43,7 +42,6 @@ public class GeneticComputerDriver {
             terminalUtils.printLine("Introdueixi el nombre de colors possibles");
             colors = terminalUtils.readInteger();
         } while (colors == -1);
-
     }
 
     /**
@@ -53,9 +51,9 @@ public class GeneticComputerDriver {
      */
     public static void main(String args[]) {
         TerminalMenuBuilder terminalMenuBuilder = new TerminalMenuBuilder();
-        terminalMenuBuilder.addTitle("Menu GeneticComputerDriver");
-        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", GeneticComputerDriver::testRandomSecret);
-        terminalMenuBuilder.addOption("Executar amb un secret code introduit per teclat", GeneticComputerDriver::testHardcodedSecret);
+        terminalMenuBuilder.addTitle("Mastermind: FiveGuessComputerDriver");
+        terminalMenuBuilder.addOption("Executar n cops amb secretCode aleatori", FiveGuessComputerDriver::testRandomSecret);
+        terminalMenuBuilder.addOption("Executar amb un secret code introduit per teclat", FiveGuessComputerDriver::testHardcodedSecret);
         terminalMenuBuilder.addOption("Enrere", terminalMenuBuilder::finishExecution);
         terminalMenuBuilder.execute();
     }
@@ -91,12 +89,12 @@ public class GeneticComputerDriver {
             }
         }
         if (allOK) terminalUtils.printLine("**Totes les execucions son correctes.\n");
-        else terminalUtils.printLine("**Hi han execucións incorrectes.\n");
+        else terminalUtils.printLine("**Hi han execucions incorrectes.\n");
         TerminalUtils.getInstance().pressEnterToContinue();
     }
 
     private static boolean executeOneGame(boolean showGuess) {
-        GeneticComputer gc = new GeneticComputer(Player.Role.Breaker);
+        FiveGuessComputer fgc = new FiveGuessComputer(Player.Role.Breaker);
         ColorRow guess = new ColorRow();
         boolean validTurn = true;
         boolean hasWin = false;
@@ -104,14 +102,14 @@ public class GeneticComputerDriver {
         Integer aux = 0;
         do {
             if (aux % 2 == 0) {
-                guess = gc.breakerGuess(pegs, colors);
+                guess = fgc.breakerGuess(pegs, colors);
                 if (showGuess) terminalUtils.printLine(guess.toString());
                 Integer maxturns = 12;
                 if (actualTurn.equals(maxturns)) validTurn = false;
                 else ++actualTurn;
             } else {
                 ControlRow control = ComputerPlayer.compareGuess(correctGuess, guess);
-                gc.receiveControl(control);
+                fgc.receiveControl(control);
                 if (control.getBlacks() == pegs) hasWin = true;
             }
             ++aux;

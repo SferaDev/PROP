@@ -1,5 +1,3 @@
-package domain.test;
-
 import domain.controller.DomainController;
 import org.junit.Assert;
 import presentation.utils.TerminalUtils;

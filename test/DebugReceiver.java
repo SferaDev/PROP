@@ -1,5 +1,3 @@
-package domain.test;
-
 import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
