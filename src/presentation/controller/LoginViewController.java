@@ -76,7 +76,7 @@ public class LoginViewController implements Initializable {
         });
         buttonPlaceholder.getChildren().add(loginButton);
 
-        RaisedButton registerButton = new RaisedButton("REGISTER");
+        RaisedButton registerButton = new RaisedButton(LocaleUtils.getInstance().getString("REGISTER"));
         registerButton.setOnMouseClicked(event ->
                 listener.onRegisterButton(usernameField.getText(), passwordField.getText()));
         registerButton.setOnKeyPressed(event -> {
