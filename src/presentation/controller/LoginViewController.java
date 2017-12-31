@@ -55,8 +55,9 @@ public class LoginViewController implements Initializable {
     private void setUpTextFields() {
         usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME"));
         usernameField.setOnKeyPressed(event -> {
-            if (event.getCode().equals(KeyCode.ENTER))
+            if (event.getCode().equals(KeyCode.ENTER) && !passwordField.getText().equals(""))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
+            else if (event.getCode().equals(KeyCode.ENTER)) passwordField.requestFocus();
         });
 
         passwordField.setPromptText(LocaleUtils.getInstance().getString("PASSWORD"));
