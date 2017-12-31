@@ -9,6 +9,7 @@ import presentation.controller.receiver.TerminalReceiver;
 import presentation.utils.Constants;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
+import presentation.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class TerminalMastermind {
         builder.addDescription(String.format("%-15.15s %-15.15s", "Total Count:", result.getRunCount()));
         builder.addDescription(String.format("%-15.15s %-15.15s", "Failure Count:", result.getFailureCount()));
         builder.addDescription(String.format("%-15.15s %-15.15s", "Ignored Count:", result.getIgnoreCount()));
-        builder.addDescription(String.format("%-15.15s %-15.15s", "Run time:", TerminalUtils.timestampToString(result.getRunTime())));
+        builder.addDescription(String.format("%-15.15s %-15.15s", "Run time:", TimeUtils.timestampToString(result.getRunTime())));
         builder.addOption("Enrere", builder::finishExecution);
         builder.execute();
     }
@@ -257,10 +258,10 @@ public class TerminalMastermind {
 
         for (Map.Entry<String, Long> entry : timeRanking.entrySet()) {
             String[] gameTitle = entry.getKey().split("-");
-            String tipus = "(" + gameTitle[2] + " " + Constants.PEGS + " | " + gameTitle[3] + " " + Constants.COLORS + ")";
+            String type = "(" + gameTitle[2] + " " + Constants.PEGS + " | " + gameTitle[3] + " " + Constants.COLORS + ")";
             if (Integer.parseInt(gameTitle[2]) > 3 && Integer.parseInt(gameTitle[2]) > 3)
                 entries.add(String.format("%-15.15s %-15.15s %-25.25s",
-                        TerminalUtils.timestampToString(entry.getValue()), gameTitle[0], tipus));
+                        TimeUtils.timestampToString(entry.getValue()), gameTitle[0], type));
         }
 
         Collections.sort(entries);
