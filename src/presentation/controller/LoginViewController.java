@@ -53,13 +53,13 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpTextFields() {
-        usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME")); // TODO: Strings
+        usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME"));
         usernameField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
         });
 
-        passwordField.setPromptText("Password"); // TODO: Strings
+        passwordField.setPromptText(LocaleUtils.getInstance().getString("PASSWORD"));
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
@@ -67,7 +67,7 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpButtons() {
-        RaisedButton loginButton = new RaisedButton("Login"); // TODO: Strings
+        RaisedButton loginButton = new RaisedButton(LocaleUtils.getInstance().getString("LOGIN"));
         loginButton.setOnMouseClicked(event ->
                 listener.onLoginButton(usernameField.getText(), passwordField.getText()));
         loginButton.setOnKeyPressed(event -> {
@@ -76,7 +76,7 @@ public class LoginViewController implements Initializable {
         });
         buttonPlaceholder.getChildren().add(loginButton);
 
-        RaisedButton registerButton = new RaisedButton("Register"); // TODO: Strings
+        RaisedButton registerButton = new RaisedButton("REGISTER");
         registerButton.setOnMouseClicked(event ->
                 listener.onRegisterButton(usernameField.getText(), passwordField.getText()));
         registerButton.setOnKeyPressed(event -> {
