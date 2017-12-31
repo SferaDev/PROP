@@ -61,7 +61,7 @@ public class Game implements java.io.Serializable {
      * @param user1 the user 1 is the user
      * @param user2 the user 2 is the computer
      * @param info  is a class GameInfo and contains the user, the role, the number of pegs, the number of colors, the number of turns, the date and the time spent.
-     * @pre user1 and user2 roles are opposite
+     * @throws EqualRolesException if the roles are equal
      */
     public Game(Player user1, Player user2, GameInfo info) throws EqualRolesException {
         if (user1.getPlayerRole() == user2.getPlayerRole()) throw new EqualRolesException();
