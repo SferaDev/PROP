@@ -4,10 +4,8 @@ package presentation.view;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -15,12 +13,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import presentation.controller.PresentationController;
 
-
-import java.awt.*;
-
 public class UserOptionsView extends VBox {
     //private PresentationController presentationController = PresentationController.getInstance();
-    //private String username = presentationController.getNebulaController().getUsername();
+    //private String username = PresentationController.getInstance().getNebulaController().getUsername();
 
     public UserOptionsView() {
         GridPane grid = new GridPane();
@@ -53,6 +48,7 @@ public class UserOptionsView extends VBox {
         JFXButton changePasswordButton = new JFXButton("Change");
         changePasswordButton.setStyle("-fx-background-color: #eceff1;");
         grid.add(changePasswordButton, 3, 2);
+        changePasswordButton.setOnMouseClicked(event -> changePassword(oldPasswordField.getText(), newPasswordField.getText()));
 
         //About the Language...
         MyLabel textLanguageLable = new MyLabel("Selected language: ");
@@ -82,6 +78,11 @@ public class UserOptionsView extends VBox {
 
 
         getChildren().addAll(grid);
+    }
+
+    private void changePassword(String oldPassword, String newPassword) {
+        //String username = p; //TODO: Get real username
+        //Boolean correctOldPassword = PresentationController.getInstance().requestLogin(username, oldPassword);
     }
 
     private class MyLabel extends javafx.scene.control.Label {

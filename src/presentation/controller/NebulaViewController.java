@@ -104,6 +104,7 @@ public class NebulaViewController implements Initializable {
         button.setPrefWidth(100);
         button.setText(LocaleUtils.getInstance().getString(textId));
         button.setTextFill(Color.WHITE);
+        button.setStyle("-fx-background-radius: 0px");
         button.setFont(new Font(20));
         button.setOnAction(event -> onNavigationDrawerClick(textId));
         return button;
