@@ -45,7 +45,7 @@ public class ColorManager {
     }
 
     public static String getColor(int color) {
-        return colorPalette[color % colorPalette.length];
+        return colorPalette[(color - 1) % colorPalette.length];
     }
 
     public static String getDarkColor(int color) {

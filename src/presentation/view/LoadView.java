@@ -35,16 +35,16 @@ public class LoadView extends GridPane {
         ToggleGroup roleGroup = new ToggleGroup();
         ToggleGroup algorithmGroup = new ToggleGroup();
 
-        JFXRadioButton breakerRole = createRadioButton("Breaker"); // TODO: Strings
-        JFXRadioButton makerRole = createRadioButton("Maker"); // TODO: Strings
+        JFXRadioButton breakerRole = createRadioButton("Breaker");
+        JFXRadioButton makerRole = createRadioButton("Maker");
 
         breakerRole.setToggleGroup(roleGroup);
         makerRole.setToggleGroup(roleGroup);
 
         breakerRole.setSelected(true);
 
-        JFXRadioButton fiveGuessAlgorithm = createRadioButton("Five Guess"); // TODO: Strings
-        JFXRadioButton geneticAlgorithm = createRadioButton("Genetic"); // TODO: Strings
+        JFXRadioButton fiveGuessAlgorithm = createRadioButton("FiveGuess");
+        JFXRadioButton geneticAlgorithm = createRadioButton("Genetic");
 
         fiveGuessAlgorithm.setToggleGroup(algorithmGroup);
         geneticAlgorithm.setToggleGroup(algorithmGroup);
@@ -75,7 +75,7 @@ public class LoadView extends GridPane {
         newGameBox.getChildren().addAll(roleLabel, roleBox, algorithmLabel, algorithmBox);
 
         button.setOnAction(event -> {
-            String computerName = (String) algorithmGroup.getSelectedToggle().getUserData();
+            String computerName = (String) algorithmGroup.getSelectedToggle().getUserData() + "Computer";
             String role = (String) roleGroup.getSelectedToggle().getUserData();
             PresentationController.getInstance().requestStartGame(computerName, role, 6, 6); // TODO
         });

@@ -10,11 +10,11 @@ public class ColorPeg extends JFXButton {
     private int mColorId;
     private String mColor;
 
-    public ColorPeg(int colorId) {
-        this(colorId, ColorManager.getColor(colorId));
+    ColorPeg(int colorId) {
+        this(colorId + 1, ColorManager.getColor(colorId + 1));
     }
 
-    public ColorPeg(int colorId, String color) {
+    private ColorPeg(int colorId, String color) {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("color-peg");
 

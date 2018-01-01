@@ -21,7 +21,7 @@ public class ColorInput extends VBox {
         getChildren().add(titleLabel);
 
         StringBuilder row = new StringBuilder();
-        for (int i = 0; i < pegs; ++i) row.append("0 ");
+        for (int i = 0; i < pegs; ++i) row.append("1 ");
         colorRow = new ColorRow(row.toString().trim());
         colorRow.setSelectionActionListener(colors);
         setMargin(colorRow, new Insets(0, 30, 0, 30));

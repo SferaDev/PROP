@@ -44,7 +44,7 @@ public class ColorRow extends VBox {
         String[] pegsString = row.split(" ");
         ColorPeg[] pegs = new ColorPeg[pegsString.length];
         for (int i = 0; i < pegsString.length; ++i) {
-            pegs[i] = new ColorPeg(Integer.parseInt(pegsString[i]));
+            pegs[i] = new ColorPeg(Integer.parseInt(pegsString[i]) - 1);
         }
         return pegs;
     }
@@ -72,7 +72,7 @@ public class ColorRow extends VBox {
     public void setSelectionActionListener(int colors) {
         for (ColorPeg peg : mPegs) {
             peg.setOnMouseClicked(event -> {
-                int color = (peg.getColorId() + 1) % colors;
+                int color = (peg.getColorId() % colors) + 1;
                 peg.setColor(color, ColorManager.getColor(color));
             });
         }
