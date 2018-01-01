@@ -75,8 +75,8 @@ public class LoadView extends GridPane {
         newGameBox.getChildren().addAll(roleLabel, roleBox, algorithmLabel, algorithmBox);
 
         button.setOnAction(event -> {
-            String computerName = (String) algorithmGroup.getSelectedToggle().getUserData() + "Computer";
-            String role = (String) roleGroup.getSelectedToggle().getUserData();
+            String computerName = algorithmGroup.getSelectedToggle().getUserData() + "Computer";
+            String role = roleGroup.getSelectedToggle().getUserData().toString();
             PresentationController.getInstance().requestStartGame(computerName, role, 6, 6); // TODO
         });
     }
