@@ -15,7 +15,6 @@ public class ControlPeg extends JFXButton {
 
     public enum Type {
         black,
-        white,
-        none
+        white
     }
 }

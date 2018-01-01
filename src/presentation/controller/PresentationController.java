@@ -85,4 +85,9 @@ public class PresentationController {
         return nebulaController;
     }
 
+    public void requestStartGame(String computerName, String role, int pegs, int colors) {
+        DomainController.getInstance().getGameController().startNewGame(nebulaController.getUsername(),
+                computerName, role, pegs, colors, -1);
+        nebulaController.startGame(role, computerName, pegs, colors);
+    }
 }

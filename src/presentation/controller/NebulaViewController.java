@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import presentation.utils.ColorManager;
 import presentation.utils.LocaleUtils;
 import presentation.view.*;
 import presentation.view.components.ColorRow;
@@ -25,6 +24,8 @@ public class NebulaViewController implements Initializable {
 
     private BoardPane boardPane;
     private boolean isPlaying = false;
+
+    private String username;
 
     private GameView currentGameView;
     private LoadView newGameView = new LoadView();
@@ -68,10 +69,10 @@ public class NebulaViewController implements Initializable {
         }
     }
 
-    public void startGame(String role, int pegs, int colors) {
+    public void startGame(String role, String computer, int pegs, int colors) {
         isPlaying = true;
-        boardPane = new BoardPane(pegs);
-        currentGameView = new GameView(boardPane, role, pegs, colors);
+        boardPane = new BoardPane();
+        currentGameView = new GameView(boardPane, role, computer, pegs, colors);
         mainContent.setCenter(currentGameView);
     }
 
@@ -81,13 +82,11 @@ public class NebulaViewController implements Initializable {
     }
 
     public void addControlLastTurn(int blacks, int whites) {
-        boardPane.addControlRow(new ControlRow(boardPane.getSize(), blacks, whites));
-        currentGameView.scrollDown();
+        boardPane.addControlRow(new ControlRow(blacks, whites));
     }
 
     public void addTurn(ColorRow colorRow) {
         boardPane.addColorRow(colorRow);
-        currentGameView.scrollDown();
     }
 
     public void addActionPane(Node pane) {
@@ -96,13 +95,15 @@ public class NebulaViewController implements Initializable {
 
     public void removeActionPane() {
         currentGameView.removeActionPane();
+        // TODO: Spinner
+        //currentGameView.addActionPane(new JFXSpinner());
     }
 
     private JFXButton createDrawerButton(String textId) {
         JFXButton button = new JFXButton();
         button.setPrefWidth(100);
         button.setText(LocaleUtils.getInstance().getString(textId));
-        button.setTextFill(Color.web(ColorManager.getColor("WHITE"))); // TODO: Colors
+        button.setTextFill(Color.WHITE);
         button.setFont(new Font(20));
         button.setOnAction(event -> onNavigationDrawerClick(textId));
         return button;
@@ -110,5 +111,13 @@ public class NebulaViewController implements Initializable {
 
     public void addCorrectRow(ColorRow row) {
         currentGameView.addCorrectRow(row);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

@@ -136,6 +136,7 @@ public class Game implements java.io.Serializable {
         ColorRow input = gameBreaker.breakerGuess(gameInfo.mPegs, gameInfo.mColors);
         if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
             mGuess.add(input);
+            gameBreaker.receiveColor(input);
             gameStatus = Status.CONTROL;
         } else {
             gameBreaker.notifyInvalidInput();
@@ -164,7 +165,7 @@ public class Game implements java.io.Serializable {
         // Update gameStatus
         if (mGuess.get(mGuess.size() - 1).equals(correctGuess)) {
             gameStatus = Status.SCORE;
-        } else if ((gameTurn + 1) > gameInfo.mTurns) {
+        } else if (gameInfo.mTurns > 0 && (gameTurn + 1) > gameInfo.mTurns) {
             gameBreaker.finishGame();
             gameStatus = Status.FINISHED;
         } else {
@@ -294,11 +295,9 @@ public class Game implements java.io.Serializable {
      * It is the game information
      */
     public static class GameInfo implements java.io.Serializable {
-        private final String mUser;
+        private final String mUser, mComputer;
         private final Player.Role mRole;
-        private final int mPegs;
-        private final int mColors;
-        private final int mTurns;
+        private final int mPegs, mColors, mTurns;
         private Date mStart = new Date();
         private long mTotalTime = 0;
 
@@ -311,9 +310,10 @@ public class Game implements java.io.Serializable {
          * @param colors the number of possible colors in a combination
          * @param turns  the number of maxim turns in the game
          */
-        public GameInfo(String user, Player.Role role, int pegs, int colors, int turns) {
+        public GameInfo(String user, Player.Role role, String computer, int pegs, int colors, int turns) {
             mUser = user;
             mRole = role;
+            mComputer = computer;
             mPegs = pegs;
             mColors = colors;
             mTurns = turns;
@@ -325,7 +325,7 @@ public class Game implements java.io.Serializable {
          * @return the game title
          */
         String getGameTitle() {
-            return (mUser + "-" + mRole + "-" + mPegs + "-" + mColors + "-" + mStart)
+            return (mUser + "-" + mRole + "-" + mComputer + "-" + mPegs + "-" + mColors + "-" + mStart)
                     .replace(":", "_");
         }
 

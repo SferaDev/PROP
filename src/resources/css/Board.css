@@ -19,11 +19,7 @@
 }
 
 .control-peg-black {
-    -fx-background-color: BLACK;
-}
-
-.control-peg-white {
-    -fx-background-color: #607D8B;
+    -fx-background-color: #212121;
 }
 
 .board-background {

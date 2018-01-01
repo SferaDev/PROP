@@ -11,10 +11,9 @@ import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
 
 public class BoardPane extends GridPane {
-    private int posColorRow, posControlRow, size;
+    private int posColorRow, posControlRow;
 
-    public BoardPane(int size) {
-        this.size = size;
+    public BoardPane() {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("board-background");
         setAlignment(Pos.CENTER);
@@ -43,10 +42,6 @@ public class BoardPane extends GridPane {
             add(box, 2, posControlRow);
             posControlRow++;
         }
-    }
-
-    public int getSize() {
-        return size;
     }
 
     private class TurnLabel extends Label {

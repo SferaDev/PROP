@@ -175,6 +175,6 @@ public class GameInterfaceReceiver implements Receiver {
     public void startGame(String title) {
         String[] gameInfo = title.split("-");
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().startGame(gameInfo[1],
-                Integer.parseInt(gameInfo[2]), Integer.parseInt(gameInfo[3])));
+                gameInfo[2], Integer.parseInt(gameInfo[3]), Integer.parseInt(gameInfo[4])));
     }
 }

@@ -30,6 +30,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
                 if (loginSuccessful) {
                     presentationController.closeWindow(stage);
                     presentationController.launchNebulaForm(stage);
+                    presentationController.getNebulaController().setUsername(username);
                 } else {
                     ComponentUtils.showErrorDialog("Invalid password", "Please, try again!"); // TODO: Strings
                 }
@@ -46,6 +47,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
         } else {
             try {
                 presentationController.requestRegister(username, password);
+                onLoginButton(username, password);
             } catch (UserAlreadyExistsException e) {
                 ComponentUtils.showErrorDialog("User already exists",
                         "Please login with your password!"); // TODO: Strings

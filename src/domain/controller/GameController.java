@@ -46,20 +46,22 @@ public class GameController {
      * @param turns        the maxim number of turns than can be played
      */
     public void startNewGame(String userName, String computerName, String role, int pegs, int colors, int turns) {
-        try {
-            Player.Role userRole = Player.Role.valueOf(role);
+        new Thread(() -> {
+            try {
+                Player.Role userRole = Player.Role.valueOf(role);
 
-            Player.Role computerRole = Player.oppositeRole(userRole);
-            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, computerRole);
+                Player.Role computerRole = Player.oppositeRole(userRole);
+                ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, computerRole);
 
-            currentGame = new Game(new UserPlayer(userName, userRole), computer,
-                    new Game.GameInfo(userName, userRole, pegs, colors, turns));
-            currentGame.startGame();
-        } catch (FinishGameException e) {
-            currentGame = null;
-        } catch (EqualRolesException e) {
-            e.printStackTrace();
-        }
+                currentGame = new Game(new UserPlayer(userName, userRole), computer,
+                        new Game.GameInfo(userName, userRole, computerName, pegs, colors, turns));
+                currentGame.startGame();
+            } catch (FinishGameException e) {
+                currentGame = null;
+            } catch (EqualRolesException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     /**
@@ -71,16 +73,18 @@ public class GameController {
      * @param turns        the turns
      */
     public void startNewGame(String computerName, int pegs, int colors, int turns) {
-        try {
-            ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.Breaker);
-            currentGame = new Game(new DummyComputer(Player.Role.Maker), computer,
-                    new Game.GameInfo(computerName, Player.Role.Breaker, pegs, colors, turns));
-            currentGame.startGame();
-        } catch (FinishGameException e) {
-            currentGame = null;
-        } catch (EqualRolesException e) {
-            e.printStackTrace();
-        }
+        new Thread(() -> {
+            try {
+                ComputerPlayer computer = ComputerPlayer.newComputerByName(computerName, Player.Role.Breaker);
+                currentGame = new Game(new DummyComputer(Player.Role.Maker), computer,
+                        new Game.GameInfo(computerName, Player.Role.Breaker, computerName, pegs, colors, turns));
+                currentGame.startGame();
+            } catch (FinishGameException e) {
+                currentGame = null;
+            } catch (EqualRolesException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     /**

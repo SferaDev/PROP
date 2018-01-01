@@ -21,11 +21,12 @@ public class GameView extends GridPane {
     private StackPane correctGuess = new StackPane();
     private ScrollPane scrollPane;
 
-    public GameView(BoardPane boardPane, String role, int pegs, int colors) {
+    public GameView(BoardPane boardPane, String role, String computer, int pegs, int colors) {
         scrollPane = new ScrollPane(boardPane);
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color:transparent;");
+        boardPane.heightProperty().addListener(((observable, oldValue, newValue) -> scrollPane.setVvalue(1.0)));
 
         GridPane informationPane = new GridPane();
         informationPane.getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(100));
@@ -67,10 +68,6 @@ public class GameView extends GridPane {
         label.setFont(new Font(18));
         label.setTextFill(Color.WHITE);
         return label;
-    }
-
-    public void scrollDown() {
-        scrollPane.setVvalue(1.0);
     }
 
     public void addActionPane(Node pane) {
