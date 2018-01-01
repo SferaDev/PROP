@@ -27,7 +27,7 @@ public class NebulaViewController implements Initializable {
     private boolean isPlaying = false;
 
     private GameView currentGameView;
-    private NewGameView newGameView = new NewGameView();
+    private LoadView newGameView = new LoadView();
     private StatsView statsView = new StatsView();
     private UserOptionsView userOptionsView = new UserOptionsView();
     private HelpView helpView = new HelpView();
@@ -35,6 +35,7 @@ public class NebulaViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpDrawer();
+        onNavigationDrawerClick("");
     }
 
     private void setUpDrawer() {
@@ -47,6 +48,7 @@ public class NebulaViewController implements Initializable {
 
     private void onNavigationDrawerClick(String item) {
         switch (item) {
+            default:
             case "PLAY":
                 if (isPlaying) mainContent.setCenter(currentGameView);
                 else mainContent.setCenter(newGameView);
@@ -102,7 +104,7 @@ public class NebulaViewController implements Initializable {
         button.setText(LocaleUtils.getInstance().getString(textId));
         button.setTextFill(Color.web(ColorManager.getColor("WHITE"))); // TODO: Colors
         button.setFont(new Font(20));
-        button.setOnMouseClicked(event -> onNavigationDrawerClick(textId));
+        button.setOnAction(event -> onNavigationDrawerClick(textId));
         return button;
     }
 

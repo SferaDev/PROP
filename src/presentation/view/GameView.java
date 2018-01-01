@@ -5,10 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import presentation.controller.PresentationController;
+import presentation.utils.ComponentUtils;
 import presentation.view.components.ColorRow;
 import presentation.view.components.RaisedButton;
 
@@ -24,11 +28,11 @@ public class GameView extends GridPane {
         scrollPane.setStyle("-fx-background-color:transparent;");
 
         GridPane informationPane = new GridPane();
-        informationPane.getColumnConstraints().addAll(createColumnConstraint(100));
-        informationPane.getRowConstraints().addAll(createRowConstraint(50), createRowConstraint(50));
+        informationPane.getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(100));
+        informationPane.getRowConstraints().addAll(ComponentUtils.createRowConstraint(50), ComponentUtils.createRowConstraint(50));
 
-        getColumnConstraints().addAll(createColumnConstraint(30), createColumnConstraint(70));
-        getRowConstraints().addAll(createRowConstraint(100));
+        getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(30), ComponentUtils.createColumnConstraint(70));
+        getRowConstraints().addAll(ComponentUtils.createRowConstraint(100));
 
         HBox buttonBox = new HBox();
         buttonBox.setAlignment(Pos.CENTER);
@@ -81,19 +85,5 @@ public class GameView extends GridPane {
     public void addCorrectRow(ColorRow correctRow) {
         correctGuess.getChildren().clear();
         correctGuess.getChildren().add(correctRow);
-    }
-
-    private ColumnConstraints createColumnConstraint(int percent) {
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(percent);
-        columnConstraints.setHgrow(Priority.SOMETIMES);
-        return columnConstraints;
-    }
-
-    private RowConstraints createRowConstraint(int percent) {
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(percent);
-        rowConstraints.setVgrow(Priority.SOMETIMES);
-        return rowConstraints;
     }
 }
