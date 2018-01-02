@@ -2,12 +2,9 @@ package presentation.view;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.cells.editors.IntegerTextFieldEditorBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -25,8 +22,6 @@ public class LoadView extends GridPane {
         VBox newGameBox = new VBox();
         VBox savedGameBox = new VBox();
 
-
-
         RaisedButton newGameButton = new RaisedButton("Start Game"); // TODO: Strings
         RaisedButton savedGameButton = new RaisedButton("Start Game"); // TODO: Strings
 
@@ -40,7 +35,6 @@ public class LoadView extends GridPane {
     }
 
     private void populateNewGameBox(VBox newGameBox, RaisedButton button) {
-
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.TOP_LEFT);
         grid.setHgap(15);
@@ -50,15 +44,10 @@ public class LoadView extends GridPane {
         Label labelPegs = createLabel("Pegs:");
         labelPegs.setFont(Font.font(18));
         grid.add(labelPegs, 0, 0);
-        JFXComboBox<String> pegsComboBox = new JFXComboBox();
+
+        JFXComboBox<String> pegsComboBox = new JFXComboBox<>();
         pegsComboBox.setStyle("-fx-background-color: #cfd8dc;");
-        pegsComboBox.getItems().add("3");
-        pegsComboBox.getItems().add("4");
-        pegsComboBox.getItems().add("5");
-        pegsComboBox.getItems().add("6");
-        pegsComboBox.getItems().add("7");
-        pegsComboBox.getItems().add("8");
-        pegsComboBox.getItems().add("9");
+        fillComboBox(pegsComboBox, 3, 9);
         pegsComboBox.getSelectionModel().clearAndSelect(0);
         pegsComboBox.setOnAction(event -> handleComboBoxPegs(pegsComboBox.getSelectionModel().getSelectedItem()));
         grid.add(pegsComboBox, 1, 0);
@@ -66,19 +55,13 @@ public class LoadView extends GridPane {
         Label labelColors = createLabel("Colors:");
         labelColors.setFont(Font.font(18));
         grid.add(labelColors, 2, 0);
-        JFXComboBox<String> colorComboBox = new JFXComboBox();
+
+        JFXComboBox<String> colorComboBox = new JFXComboBox<>();
         colorComboBox.setStyle("-fx-background-color: #cfd8dc;");
-        colorComboBox.getItems().add("3");
-        colorComboBox.getItems().add("4");
-        colorComboBox.getItems().add("5");
-        colorComboBox.getItems().add("6");
-        colorComboBox.getItems().add("7");
-        colorComboBox.getItems().add("8");
-        colorComboBox.getItems().add("9");
+        fillComboBox(colorComboBox, 3, 9);
         colorComboBox.getSelectionModel().clearAndSelect(0);
         colorComboBox.setOnAction(event -> handleComboBoxColor(colorComboBox.getSelectionModel().getSelectedItem()));
         grid.add(colorComboBox, 3, 0);
-
 
         ToggleGroup roleGroup = new ToggleGroup();
         ToggleGroup algorithmGroup = new ToggleGroup();
@@ -88,15 +71,13 @@ public class LoadView extends GridPane {
 
         breakerRole.setToggleGroup(roleGroup);
         makerRole.setToggleGroup(roleGroup);
-
         breakerRole.setSelected(true);
+
         JFXRadioButton geneticAlgorithm = createRadioButton("Genetic");
         JFXRadioButton fiveGuessAlgorithm = createRadioButton("FiveGuess");
 
-
         geneticAlgorithm.setToggleGroup(algorithmGroup);
         fiveGuessAlgorithm.setToggleGroup(algorithmGroup);
-
 
         breakerRole.setSelected(true);
         geneticAlgorithm.setSelected(true);
@@ -112,43 +93,25 @@ public class LoadView extends GridPane {
         Label roleLabel = createLabel("Role"); // TODO: Strings
         Label algorithmLabel = createLabel("Algorithm"); // TODO: Strings
 
-
-
         roleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             algorithmBox.setVisible(newValue.getUserData().equals("Maker"));
             algorithmLabel.setVisible(newValue.getUserData().equals("Maker"));
 
             if (newValue.getUserData().equals("Breaker") && colorComboBox.getItems().size() == 4) {
-                colorComboBox.getItems().add("7");
-                colorComboBox.getItems().add("8");
-                colorComboBox.getItems().add("9");
+                fillComboBox(pegsComboBox, 3, 9);
+                fillComboBox(colorComboBox, 3, 9);
 
-                pegsComboBox.getItems().add("7");
-                pegsComboBox.getItems().add("8");
-                pegsComboBox.getItems().add("9");
                 geneticAlgorithm.setSelected(true);
-
-
             }
 
             algorithmGroup.selectedToggleProperty().addListener((observable1, oldValue1, newValue1) -> {
                 if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 7){
-                    colorComboBox.getItems().remove("7");
-                    colorComboBox.getItems().remove("8");
-                    colorComboBox.getItems().remove("9");
-
-                    pegsComboBox.getItems().remove("7");
-                    pegsComboBox.getItems().remove("8");
-                    pegsComboBox.getItems().remove("9");
+                    fillComboBox(pegsComboBox, 3, 6);
+                    fillComboBox(colorComboBox, 3, 6);
                 }
                 else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 4) {
-                    colorComboBox.getItems().add("7");
-                    colorComboBox.getItems().add("8");
-                    colorComboBox.getItems().add("9");
-
-                    pegsComboBox.getItems().add("7");
-                    pegsComboBox.getItems().add("8");
-                    pegsComboBox.getItems().add("9");
+                    fillComboBox(pegsComboBox, 3, 9);
+                    fillComboBox(colorComboBox, 3, 9);
                 }
             });
         });
@@ -165,6 +128,11 @@ public class LoadView extends GridPane {
             String role = roleGroup.getSelectedToggle().getUserData().toString();
             PresentationController.getInstance().requestStartGame(computerName, role, pegs, colors); // TODO
         });
+    }
+
+    private void fillComboBox(JFXComboBox<String> comboBox, int start, int end) {
+        comboBox.getItems().clear();
+        for (int i = start; i <= end; ++i) comboBox.getItems().add(String.valueOf(i));
     }
 
     private void handleComboBoxPegs(String selectedItem) {
