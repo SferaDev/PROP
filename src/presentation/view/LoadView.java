@@ -7,6 +7,7 @@ import com.jfoenix.controls.cells.editors.IntegerTextFieldEditorBuilder;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -90,15 +91,16 @@ public class LoadView extends GridPane {
         makerRole.setToggleGroup(roleGroup);
 
         breakerRole.setSelected(true);
-
-        JFXRadioButton fiveGuessAlgorithm = createRadioButton("FiveGuess");
         JFXRadioButton geneticAlgorithm = createRadioButton("Genetic");
+        JFXRadioButton fiveGuessAlgorithm = createRadioButton("FiveGuess");
 
-        fiveGuessAlgorithm.setToggleGroup(algorithmGroup);
+
         geneticAlgorithm.setToggleGroup(algorithmGroup);
+        fiveGuessAlgorithm.setToggleGroup(algorithmGroup);
+
 
         breakerRole.setSelected(true);
-        fiveGuessAlgorithm.setSelected(true);
+        geneticAlgorithm.setSelected(true);
 
         VBox roleBox = new VBox();
         roleBox.setSpacing(25);
@@ -106,18 +108,52 @@ public class LoadView extends GridPane {
 
         VBox algorithmBox = new VBox();
         algorithmBox.setSpacing(25);
-        algorithmBox.getChildren().addAll(fiveGuessAlgorithm, geneticAlgorithm);
+        algorithmBox.getChildren().addAll(geneticAlgorithm, fiveGuessAlgorithm);
 
         Label roleLabel = createLabel("Role"); // TODO: Strings
         Label algorithmLabel = createLabel("Algorithm"); // TODO: Strings
 
+
+
         roleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             algorithmBox.setVisible(newValue.getUserData().equals("Maker"));
             algorithmLabel.setVisible(newValue.getUserData().equals("Maker"));
+
+            if (newValue.getUserData().equals("Breaker") && colorComboBox.getItems().size() == 5) {
+                colorComboBox.getItems().add("8");
+                colorComboBox.getItems().add("9");
+                colorComboBox.getItems().add("10");
+
+                pegsComboBox.getItems().add("8");
+                pegsComboBox.getItems().add("9");
+                geneticAlgorithm.setSelected(true);
+
+
+            }
+
+            algorithmGroup.selectedToggleProperty().addListener((observable1, oldValue1, newValue1) -> {
+                if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 8){
+                    colorComboBox.getItems().remove("8");
+                    colorComboBox.getItems().remove("9");
+                    colorComboBox.getItems().remove("10");
+
+                    pegsComboBox.getItems().remove("8");
+                    pegsComboBox.getItems().remove("9");
+                }
+                else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 5) {
+                    colorComboBox.getItems().add("8");
+                    colorComboBox.getItems().add("9");
+                    colorComboBox.getItems().add("10");
+
+                    pegsComboBox.getItems().add("8");
+                    pegsComboBox.getItems().add("9");
+                }
+            });
         });
 
         algorithmBox.setVisible(false);
         algorithmLabel.setVisible(false);
+
 
         newGameBox.setSpacing(20);
         newGameBox.getChildren().addAll(grid, roleLabel, roleBox, algorithmLabel, algorithmBox);
