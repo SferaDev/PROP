@@ -6,7 +6,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,12 +17,10 @@ public class UserOptionsView extends VBox {
 
     public UserOptionsView() {
         setSpacing(10);
-        setAlignment(Pos.TOP_CENTER);
+        setAlignment(Pos.TOP_LEFT);
 
         Label textUsernameLabel = createLabel("Welcome, " + username, 25); // TODO: Strings
         getChildren().add(textUsernameLabel);
-
-        getChildren().add(new Separator());
 
         Label textPasswordLabel = createLabel("Change password", 18);
         getChildren().add(textPasswordLabel);
@@ -37,12 +34,9 @@ public class UserOptionsView extends VBox {
         getChildren().add(newPasswordField);
 
         JFXButton changePasswordButton = new JFXButton("Change");
-        changePasswordButton.setStyle("-fx-background-color: #eceff1;");
         getChildren().add(changePasswordButton);
         //changePasswordButton.setOnMouseClicked(event -> PresentationController.getInstance()
                 //.requestPasswordChange(username, oldPasswordField.getText(), newPasswordField.getText()));
-
-        getChildren().add(new Separator());
 
         Label textLanguageLabel = createLabel("Selected language: " + LocaleUtils.getInstance().getLanguage(), 18); // TODO: Strings
         getChildren().add(textLanguageLabel);
