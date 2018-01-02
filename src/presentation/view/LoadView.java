@@ -75,7 +75,6 @@ public class LoadView extends GridPane {
         colorComboBox.getItems().add("7");
         colorComboBox.getItems().add("8");
         colorComboBox.getItems().add("9");
-        colorComboBox.getItems().add("10");
         colorComboBox.getSelectionModel().clearAndSelect(0);
         colorComboBox.setOnAction(event -> handleComboBoxColor(colorComboBox.getSelectionModel().getSelectedItem()));
         grid.add(colorComboBox, 3, 0);
@@ -119,11 +118,12 @@ public class LoadView extends GridPane {
             algorithmBox.setVisible(newValue.getUserData().equals("Maker"));
             algorithmLabel.setVisible(newValue.getUserData().equals("Maker"));
 
-            if (newValue.getUserData().equals("Breaker") && colorComboBox.getItems().size() == 5) {
+            if (newValue.getUserData().equals("Breaker") && colorComboBox.getItems().size() == 4) {
+                colorComboBox.getItems().add("7");
                 colorComboBox.getItems().add("8");
                 colorComboBox.getItems().add("9");
-                colorComboBox.getItems().add("10");
 
+                pegsComboBox.getItems().add("7");
                 pegsComboBox.getItems().add("8");
                 pegsComboBox.getItems().add("9");
                 geneticAlgorithm.setSelected(true);
@@ -132,19 +132,21 @@ public class LoadView extends GridPane {
             }
 
             algorithmGroup.selectedToggleProperty().addListener((observable1, oldValue1, newValue1) -> {
-                if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 8){
+                if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 7){
+                    colorComboBox.getItems().remove("7");
                     colorComboBox.getItems().remove("8");
                     colorComboBox.getItems().remove("9");
-                    colorComboBox.getItems().remove("10");
 
+                    pegsComboBox.getItems().remove("7");
                     pegsComboBox.getItems().remove("8");
                     pegsComboBox.getItems().remove("9");
                 }
-                else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 5) {
+                else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 4) {
+                    colorComboBox.getItems().add("7");
                     colorComboBox.getItems().add("8");
                     colorComboBox.getItems().add("9");
-                    colorComboBox.getItems().add("10");
 
+                    pegsComboBox.getItems().add("7");
                     pegsComboBox.getItems().add("8");
                     pegsComboBox.getItems().add("9");
                 }
