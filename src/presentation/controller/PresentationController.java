@@ -23,6 +23,8 @@ public class PresentationController {
     private static final String LOGIN_FXML_PATH = "/resources/layout/Login.fxml";
     private static final String NEBULA_FXML_PATH = "/resources/layout/Nebula.fxml";
 
+    private String mUsername;
+
     private NebulaViewController nebulaController;
 
     private PresentationController() {
@@ -86,8 +88,37 @@ public class PresentationController {
     }
 
     public void requestStartGame(String computerName, String role, int pegs, int colors) {
-        DomainController.getInstance().getGameController().startNewGame(nebulaController.getUsername(),
+        DomainController.getInstance().getGameController().startNewGame(getUsername(),
                 computerName, role, pegs, colors, -1);
         nebulaController.startGame(role, computerName, pegs, colors);
+    }
+
+    public void setUsername(String username) {
+        mUsername = username;
+    }
+
+    public String getUsername() {
+        return mUsername;
+    }
+
+    public void requestPasswordChange(String username, String oldPassword, String newPassword) {
+        try {
+            if (PresentationController.getInstance().requestLogin(username, oldPassword)) {
+                if (oldPassword.equals(newPassword)){
+                    ComponentUtils.showWarningDialog("Same password", "Please choose a different password."); // TODO: Strings
+                } else {
+                    DomainController.getInstance().getUserController().changePassword(username, newPassword);
+                    ComponentUtils.showInformationDialog("Password Changed", "The new password has been changed successfully."); // TODO: Strings
+                }
+            } else {
+                ComponentUtils.showErrorDialog("Invalid Password", "The old password is incorrect. Please, try again"); // TODO: Strings
+            }
+        } catch (UserNotFoundException e) {
+            ComponentUtils.showErrorDialog("User not found", "Looks like the user is not in our database!"); // TODO: Strings
+        }
+    }
+
+    public void requestChangeLanguage(String username, String selectedItem) {
+        // TODO
     }
 }

@@ -10,6 +10,22 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 public class ComponentUtils {
+
+    public static void showInformationDialog(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    public static void showWarningDialog(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
     public static void showErrorDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));

@@ -25,8 +25,6 @@ public class NebulaViewController implements Initializable {
     private BoardPane boardPane;
     private boolean isPlaying = false;
 
-    private String username;
-
     private GameView currentGameView;
     private LoadView newGameView = new LoadView();
     private StatsView statsView = new StatsView();
@@ -112,14 +110,5 @@ public class NebulaViewController implements Initializable {
 
     public void addCorrectRow(ColorRow row) {
         currentGameView.addCorrectRow(row);
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-        userOptionsView.setUsername(username);
     }
 }
