@@ -10,6 +10,10 @@ public class ColorPeg extends JFXButton {
     private int mColorId;
     private String mColor;
 
+    ColorPeg() {
+        this(-1, "TRANSPARENT");
+    }
+
     ColorPeg(int colorId) {
         this(colorId + 1, ColorManager.getColor(colorId + 1));
     }

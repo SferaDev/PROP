@@ -71,6 +71,14 @@ public class PresentationController {
         }
     }
 
+    public void requestQuitCurrentGame() {
+        try {
+            DomainController.getInstance().getGameController().stopCurrentGame();
+        } catch (FinishGameException e) {
+            nebulaController.finishGame();
+        }
+    }
+
     public void requestHelpCurrentGame() {
         DomainController.getInstance().getGameController().provideHelp();
     }
@@ -89,7 +97,7 @@ public class PresentationController {
 
     public void requestStartGame(String computerName, String role, int pegs, int colors) {
         DomainController.getInstance().getGameController().startNewGame(getUsername(),
-                computerName, role, pegs, colors, -1);
+                computerName + "Computer", role, pegs, colors, -1);
         nebulaController.startGame(role, computerName, pegs, colors);
     }
 

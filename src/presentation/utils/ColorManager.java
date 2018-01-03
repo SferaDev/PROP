@@ -53,6 +53,7 @@ public class ColorManager {
     }
 
     public static String getContrast(int color) {
+        if (color == -1) return WHITE_DARK;
         Color paint = Color.web(colorPalette[color % colorPalette.length]);
         double a = 1 - (0.299 * paint.getRed() + 0.587 * paint.getGreen() + 0.114 * paint.getBlue() / 255);
         if (a < 0.5) return BLACK;

@@ -1,5 +1,6 @@
 package presentation.utils;
 
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,6 +32,14 @@ public class ComponentUtils {
         alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public static void showCustomDialog(String header, Node item) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setHeaderText(header);
+        alert.setGraphic(item);
         alert.showAndWait();
     }
 

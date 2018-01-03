@@ -10,6 +10,16 @@ import presentation.utils.ColorManager;
 public class ColorRow extends VBox {
     private ColorPeg[] mPegs;
 
+    public ColorRow(int pegs) {
+        this(emptyColorRow(pegs));
+    }
+
+    private static ColorPeg[] emptyColorRow(int pegs) {
+        ColorPeg[] result = new ColorPeg[pegs];
+        for (int i = 0; i < pegs; ++i) result[i] = new ColorPeg();
+        return result;
+    }
+
     public ColorRow(String row) {
         this(stringToArray(row));
     }

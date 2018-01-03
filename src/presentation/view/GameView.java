@@ -5,10 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import presentation.controller.PresentationController;
@@ -18,7 +15,7 @@ import presentation.view.components.RaisedButton;
 
 public class GameView extends GridPane {
     private StackPane controlPane = new StackPane();
-    private StackPane correctGuess = new StackPane();
+    private ColorRow correctGuess;
     private ScrollPane scrollPane;
 
     public GameView(BoardPane boardPane, String role, String computer, int pegs, int colors) {
@@ -35,29 +32,45 @@ public class GameView extends GridPane {
         getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(30), ComponentUtils.createColumnConstraint(70));
         getRowConstraints().addAll(ComponentUtils.createRowConstraint(100));
 
-        HBox buttonBox = new HBox();
-        buttonBox.setAlignment(Pos.CENTER);
-        buttonBox.setSpacing(10);
-
-        RaisedButton saveButton = new RaisedButton("Save");
-        saveButton.setOnMouseClicked(event -> PresentationController.getInstance().requestSaveCurrentGame());
-        buttonBox.getChildren().add(saveButton);
-
-        RaisedButton helpButton = new RaisedButton("Help");
-        helpButton.setOnMouseClicked(event -> PresentationController.getInstance().requestHelpCurrentGame());
-        buttonBox.getChildren().add(helpButton);
-
         VBox informationPlaceholder = new VBox();
         informationPlaceholder.setAlignment(Pos.CENTER);
         informationPlaceholder.setSpacing(10);
-        informationPlaceholder.getChildren().add(createNewLabel("Role: " + role));
-        informationPlaceholder.getChildren().add(createNewLabel("Pegs: " + pegs + " | Colors: " + colors));
-        informationPlaceholder.getChildren().add(correctGuess);
-        informationPlaceholder.getChildren().add(buttonBox);
+        if (role.equals("Maker")) informationPlaceholder.getChildren().add(createNewLabel(computer));
+        else informationPlaceholder.getChildren().add(createNewLabel("Role: " + role));
+        informationPlaceholder.getChildren().add(createNewLabel("Pegs: " + pegs + " Colors: " + colors));
+
+        HBox buttonBoxHelp = new HBox();
+        buttonBoxHelp.setAlignment(Pos.CENTER);
+        buttonBoxHelp.setSpacing(5);
+        VBox.setMargin(buttonBoxHelp, new Insets(5));
+
+        RaisedButton correctButton = new RaisedButton("Correct"); // TODO: Strings
+        correctButton.setOnMouseClicked(event -> ComponentUtils.showCustomDialog("Correct Guess", correctGuess)); // TODO: Strings
+        if (role.equals("Maker")) buttonBoxHelp.getChildren().add(correctButton);
+
+        RaisedButton helpButton = new RaisedButton("Help"); // TODO: Strings
+        helpButton.setOnMouseClicked(event -> PresentationController.getInstance().requestHelpCurrentGame());
+        buttonBoxHelp.getChildren().add(helpButton);
+
+        HBox buttonBoxQuit = new HBox();
+        buttonBoxQuit.setAlignment(Pos.CENTER);
+        buttonBoxQuit.setSpacing(5);
+        VBox.setMargin(buttonBoxQuit, new Insets(5));
+
+        RaisedButton saveButton = new RaisedButton("Save"); // TODO: Strings
+        saveButton.setOnMouseClicked(event -> PresentationController.getInstance().requestSaveCurrentGame());
+        buttonBoxQuit.getChildren().add(saveButton);
+
+        RaisedButton quitButton = new RaisedButton("Quit"); // TODO: Strings
+        quitButton.setOnMouseClicked(event -> PresentationController.getInstance().requestQuitCurrentGame());
+        buttonBoxQuit.getChildren().add(quitButton);
+
+        informationPlaceholder.getChildren().addAll(buttonBoxHelp, buttonBoxQuit);
 
         setMargin(informationPlaceholder, new Insets(15, 10, 0, 10));
 
         informationPane.add(informationPlaceholder, 0, 0);
+        GridPane.setMargin(controlPane, new Insets(30, 10, 10, 10));
         informationPane.add(controlPane, 0, 1);
         add(informationPane, 0, 0);
         add(scrollPane, 1, 0);
@@ -67,6 +80,7 @@ public class GameView extends GridPane {
         Label label = new Label(s);
         label.setFont(new Font(18));
         label.setTextFill(Color.WHITE);
+        VBox.setMargin(label, new Insets(10));
         return label;
     }
 
@@ -80,7 +94,6 @@ public class GameView extends GridPane {
     }
 
     public void addCorrectRow(ColorRow correctRow) {
-        correctGuess.getChildren().clear();
-        correctGuess.getChildren().add(correctRow);
+        correctGuess = correctRow;
     }
 }

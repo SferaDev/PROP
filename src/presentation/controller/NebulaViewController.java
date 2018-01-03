@@ -1,6 +1,7 @@
 package presentation.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSpinner;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -93,8 +94,9 @@ public class NebulaViewController implements Initializable {
 
     public void removeActionPane() {
         currentGameView.removeActionPane();
-        // TODO: Spinner
-        //currentGameView.addActionPane(new JFXSpinner());
+        JFXSpinner spinner = new JFXSpinner();
+        spinner.setRadius(25);
+        currentGameView.addActionPane(spinner);
     }
 
     private JFXButton createDrawerButton(String textId) {

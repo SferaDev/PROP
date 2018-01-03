@@ -46,24 +46,22 @@ public class LoadView extends GridPane {
         labelPegs.setFont(Font.font(18));
         settingsBox.getChildren().add(labelPegs);
 
-        JFXComboBox<String> pegsComboBox = new JFXComboBox<>();
+        JFXComboBox<Integer> pegsComboBox = new JFXComboBox<>();
         pegsComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(pegsComboBox, 3, 9);
         pegsComboBox.getSelectionModel().selectFirst();
-        pegsComboBox.selectionModelProperty().addListener((observable, oldValue, newValue) ->
-                pegs = Integer.parseInt(newValue.getSelectedItem()));
+        pegsComboBox.setOnAction(event -> pegs = pegsComboBox.getSelectionModel().getSelectedItem());
         settingsBox.getChildren().add(pegsComboBox);
 
         Label labelColors = createLabel("Colors:");
         labelColors.setFont(Font.font(18));
         settingsBox.getChildren().add(labelColors);
 
-        JFXComboBox<String> colorComboBox = new JFXComboBox<>();
+        JFXComboBox<Integer> colorComboBox = new JFXComboBox<>();
         colorComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(colorComboBox, 3, 9);
         colorComboBox.getSelectionModel().selectFirst();
-        colorComboBox.selectionModelProperty().addListener((observable, oldValue, newValue) ->
-                colors = Integer.parseInt(newValue.getSelectedItem()));
+        colorComboBox.setOnAction(event -> colors = colorComboBox.getSelectionModel().getSelectedItem());
         settingsBox.getChildren().add(colorComboBox);
 
         ToggleGroup roleGroup = new ToggleGroup();
@@ -131,15 +129,15 @@ public class LoadView extends GridPane {
         newGameBox.getChildren().addAll(roleLabel, roleBox, algorithmLabel, algorithmBox, settingsLabel, settingsBox);
 
         button.setOnAction(event -> {
-            String computerName = algorithmGroup.getSelectedToggle().getUserData() + "Computer";
+            String computerName = algorithmGroup.getSelectedToggle().getUserData().toString();
             String role = roleGroup.getSelectedToggle().getUserData().toString();
             PresentationController.getInstance().requestStartGame(computerName, role, pegs, colors); // TODO
         });
     }
 
-    private void fillComboBox(JFXComboBox<String> comboBox, int start, int end) {
+    private void fillComboBox(JFXComboBox<Integer> comboBox, int start, int end) {
         comboBox.getItems().clear();
-        for (int i = start; i <= end; ++i) comboBox.getItems().add(String.valueOf(i));
+        for (int i = start; i <= end; ++i) comboBox.getItems().add(i);
         comboBox.getSelectionModel().clearAndSelect(0);
     }
 

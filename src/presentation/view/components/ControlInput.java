@@ -22,7 +22,6 @@ public class ControlInput extends VBox {
         titleLabel.setTextFill(Color.WHITE);
         getChildren().add(titleLabel);
 
-        textField.setPrefSize(40, 40);
         textField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 synchronized (this) {
