@@ -26,6 +26,14 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
         return mInstance;
     }
 
+    /**
+     * Checks if the user exists, and if it exists, checks if the password is correct
+     *
+     * @param name is the name of the user user entered (can be not correct)
+     * @param pass is the password that the user entered (can be not correct)
+     * @return  if exists a username with the password given.
+     * @throws UserNotFoundException in case that the username does not exist.
+     */
     @Override
     public boolean login(String name, String pass) throws UserNotFoundException {
         if (!exists(name)) throw new UserNotFoundException();
