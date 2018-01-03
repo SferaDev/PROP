@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,7 +19,9 @@ import presentation.view.components.RaisedButton;
 public class LoadView extends GridPane {
     private Integer pegs = 3;
     private Integer colors = 3;
+
     public LoadView() {
+        setVgap(10);
         VBox newGameBox = new VBox();
         VBox savedGameBox = new VBox();
 
@@ -35,33 +38,33 @@ public class LoadView extends GridPane {
     }
 
     private void populateNewGameBox(VBox newGameBox, RaisedButton button) {
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.TOP_LEFT);
-        grid.setHgap(15);
-        grid.setVgap(15);
-        grid.setPadding(new Insets(0, 0, 0, 0));
+        HBox settingsBox = new HBox();
+        settingsBox.setAlignment(Pos.CENTER);
+        settingsBox.setSpacing(15);
 
         Label labelPegs = createLabel("Pegs:");
         labelPegs.setFont(Font.font(18));
-        grid.add(labelPegs, 0, 0);
+        settingsBox.getChildren().add(labelPegs);
 
         JFXComboBox<String> pegsComboBox = new JFXComboBox<>();
         pegsComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(pegsComboBox, 3, 9);
-        pegsComboBox.getSelectionModel().clearAndSelect(0);
-        pegsComboBox.setOnAction(event -> handleComboBoxPegs(pegsComboBox.getSelectionModel().getSelectedItem()));
-        grid.add(pegsComboBox, 1, 0);
+        pegsComboBox.getSelectionModel().selectFirst();
+        pegsComboBox.selectionModelProperty().addListener((observable, oldValue, newValue) ->
+                pegs = Integer.parseInt(newValue.getSelectedItem()));
+        settingsBox.getChildren().add(pegsComboBox);
 
         Label labelColors = createLabel("Colors:");
         labelColors.setFont(Font.font(18));
-        grid.add(labelColors, 2, 0);
+        settingsBox.getChildren().add(labelColors);
 
         JFXComboBox<String> colorComboBox = new JFXComboBox<>();
         colorComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(colorComboBox, 3, 9);
-        colorComboBox.getSelectionModel().clearAndSelect(0);
-        colorComboBox.setOnAction(event -> handleComboBoxColor(colorComboBox.getSelectionModel().getSelectedItem()));
-        grid.add(colorComboBox, 3, 0);
+        colorComboBox.getSelectionModel().selectFirst();
+        colorComboBox.selectionModelProperty().addListener((observable, oldValue, newValue) ->
+                colors = Integer.parseInt(newValue.getSelectedItem()));
+        settingsBox.getChildren().add(colorComboBox);
 
         ToggleGroup roleGroup = new ToggleGroup();
         ToggleGroup algorithmGroup = new ToggleGroup();
@@ -79,9 +82,6 @@ public class LoadView extends GridPane {
         geneticAlgorithm.setToggleGroup(algorithmGroup);
         fiveGuessAlgorithm.setToggleGroup(algorithmGroup);
 
-        breakerRole.setSelected(true);
-        geneticAlgorithm.setSelected(true);
-
         VBox roleBox = new VBox();
         roleBox.setSpacing(25);
         roleBox.getChildren().addAll(breakerRole, makerRole);
@@ -92,9 +92,12 @@ public class LoadView extends GridPane {
 
         Label roleLabel = createLabel("Role"); // TODO: Strings
         Label algorithmLabel = createLabel("Algorithm"); // TODO: Strings
+        Label settingsLabel = createLabel("Settings"); // TODO: Strings
 
         roleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            algorithmBox.setManaged(newValue.getUserData().equals("Maker"));
             algorithmBox.setVisible(newValue.getUserData().equals("Maker"));
+            algorithmLabel.setManaged(newValue.getUserData().equals("Maker"));
             algorithmLabel.setVisible(newValue.getUserData().equals("Maker"));
 
             if (newValue.getUserData().equals("Breaker") && colorComboBox.getItems().size() == 4) {
@@ -116,12 +119,16 @@ public class LoadView extends GridPane {
             });
         });
 
+        breakerRole.setSelected(true);
+        geneticAlgorithm.setSelected(true);
+
+        algorithmBox.setManaged(false);
         algorithmBox.setVisible(false);
+        algorithmLabel.setManaged(false);
         algorithmLabel.setVisible(false);
 
-
         newGameBox.setSpacing(20);
-        newGameBox.getChildren().addAll(grid, roleLabel, roleBox, algorithmLabel, algorithmBox);
+        newGameBox.getChildren().addAll(roleLabel, roleBox, algorithmLabel, algorithmBox, settingsLabel, settingsBox);
 
         button.setOnAction(event -> {
             String computerName = algorithmGroup.getSelectedToggle().getUserData() + "Computer";
@@ -133,14 +140,7 @@ public class LoadView extends GridPane {
     private void fillComboBox(JFXComboBox<String> comboBox, int start, int end) {
         comboBox.getItems().clear();
         for (int i = start; i <= end; ++i) comboBox.getItems().add(String.valueOf(i));
-    }
-
-    private void handleComboBoxPegs(String selectedItem) {
-        this.pegs = Integer.parseInt(selectedItem);
-    }
-
-    private void handleComboBoxColor(String selectedItem) {
-        this.colors = Integer.parseInt(selectedItem);
+        comboBox.getSelectionModel().clearAndSelect(0);
     }
 
     private JFXRadioButton createRadioButton(String title) {
@@ -155,20 +155,21 @@ public class LoadView extends GridPane {
         Label result = new Label(title);
         result.setFont(Font.font(25));
         result.setTextFill(Color.WHITE);
+        VBox.setMargin(result, new Insets(10));
         return result;
     }
 
     private BorderPane createBorderPane(String title, VBox mainContent, RaisedButton button) {
         BorderPane result = new BorderPane();
         Label titleLabel = createLabel(title);
-        BorderPane.setMargin(titleLabel, new Insets(30));
+        BorderPane.setMargin(titleLabel, new Insets(30, 30, 0, 30));
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
         result.setTop(titleLabel);
-        BorderPane.setMargin(mainContent, new Insets(30));
+        BorderPane.setMargin(mainContent, new Insets(0, 30, 0, 30));
         mainContent.setSpacing(10);
         mainContent.setAlignment(Pos.TOP_CENTER);
         result.setCenter(mainContent);
-        BorderPane.setMargin(button, new Insets(30));
+        BorderPane.setMargin(button, new Insets(0, 30, 20, 30));
         BorderPane.setAlignment(button, Pos.CENTER);
         result.setBottom(button);
         return result;
