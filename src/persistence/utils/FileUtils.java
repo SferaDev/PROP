@@ -55,6 +55,7 @@ public class FileUtils {
      * @param path the path
      */
     public static void deleteFile(String path) {
+        //noinspection ResultOfMethodCallIgnored
         new File(path).delete();
     }
 }

@@ -19,6 +19,7 @@ public class ComponentUtils {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     public static void showWarningDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));

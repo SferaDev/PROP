@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import presentation.utils.LocaleUtils;
 
 public class ColorInput extends VBox {
-    private ColorRow colorRow;
+    private final ColorRow colorRow;
 
     public ColorInput(String title, int pegs, int colors) {
         setAlignment(Pos.CENTER);

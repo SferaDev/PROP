@@ -101,18 +101,18 @@ public class PresentationController {
         nebulaController.startGame(role, computerName, pegs, colors);
     }
 
-    public void setUsername(String username) {
-        mUsername = username;
-    }
-
     public String getUsername() {
         return mUsername;
+    }
+
+    public void setUsername(String username) {
+        mUsername = username;
     }
 
     public void requestPasswordChange(String username, String oldPassword, String newPassword) {
         try {
             if (PresentationController.getInstance().requestLogin(username, oldPassword)) {
-                if (oldPassword.equals(newPassword)){
+                if (oldPassword.equals(newPassword)) {
                     ComponentUtils.showWarningDialog("Same password", "Please choose a different password."); // TODO: Strings
                 } else {
                     DomainController.getInstance().getUserController().changePassword(username, newPassword);

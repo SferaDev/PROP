@@ -5,7 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import presentation.controller.PresentationController;
@@ -14,9 +17,10 @@ import presentation.view.components.ColorRow;
 import presentation.view.components.RaisedButton;
 
 public class GameView extends GridPane {
-    private StackPane controlPane = new StackPane();
+    private final StackPane controlPane = new StackPane();
+    private final ScrollPane scrollPane;
+
     private ColorRow correctGuess;
-    private ScrollPane scrollPane;
 
     public GameView(BoardPane boardPane, String role, String computer, int pegs, int colors) {
         scrollPane = new ScrollPane(boardPane);

@@ -31,7 +31,7 @@ public class UserDataModel<E extends User> extends DataModel<E> implements UserD
      *
      * @param name is the name of the user user entered (can be not correct)
      * @param pass is the password that the user entered (can be not correct)
-     * @return  if exists a username with the password given.
+     * @return if exists a username with the password given.
      * @throws UserNotFoundException in case that the username does not exist.
      */
     @Override

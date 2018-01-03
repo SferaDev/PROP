@@ -6,8 +6,8 @@ package domain.model.row;
  * @author Alexis Rico Carreto
  */
 public class ControlRow implements java.io.Serializable {
-    private int mBlacks = 0;
-    private int mWhites = 0;
+    private int mBlacks;
+    private int mWhites;
 
     /**
      * Instantiates a new Control row

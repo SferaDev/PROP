@@ -8,16 +8,10 @@ import javafx.scene.layout.VBox;
 import presentation.utils.ColorManager;
 
 public class ColorRow extends VBox {
-    private ColorPeg[] mPegs;
+    private final ColorPeg[] mPegs;
 
     public ColorRow(int pegs) {
         this(emptyColorRow(pegs));
-    }
-
-    private static ColorPeg[] emptyColorRow(int pegs) {
-        ColorPeg[] result = new ColorPeg[pegs];
-        for (int i = 0; i < pegs; ++i) result[i] = new ColorPeg();
-        return result;
     }
 
     public ColorRow(String row) {
@@ -41,13 +35,27 @@ public class ColorRow extends VBox {
                 if (i % 2 == 0) firstLayer.getChildren().add(mPegs[i]);
                 else secondLayer.getChildren().add(mPegs[i]);
             } else {
-                if (i % 3 == 0) firstLayer.getChildren().add(mPegs[i]);
-                else if (i % 3 == 1) secondLayer.getChildren().add(mPegs[i]);
-                else thirdLayer.getChildren().add(mPegs[i]);
+                switch (i % 3) {
+                    case 0:
+                        firstLayer.getChildren().add(mPegs[i]);
+                        break;
+                    case 1:
+                        secondLayer.getChildren().add(mPegs[i]);
+                        break;
+                    default:
+                        thirdLayer.getChildren().add(mPegs[i]);
+                        break;
+                }
             }
         }
 
         getChildren().addAll(firstLayer, secondLayer, thirdLayer);
+    }
+
+    private static ColorPeg[] emptyColorRow(int pegs) {
+        ColorPeg[] result = new ColorPeg[pegs];
+        for (int i = 0; i < pegs; ++i) result[i] = new ColorPeg();
+        return result;
     }
 
     private static ColorPeg[] stringToArray(String row) {

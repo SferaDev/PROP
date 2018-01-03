@@ -104,6 +104,7 @@ public class TerminalUtils {
     public void pressEnterToContinue() {
         printLine("Press Enter key to continue...");
         try {
+            //noinspection ResultOfMethodCallIgnored
             System.in.read();
         } catch (IOException ignored) {
         }
@@ -111,9 +112,10 @@ public class TerminalUtils {
 
     /**
      * Execute the in-game commands.
+     *
      * @param token string to evaluate
-     * @throws FinishGameException in case the command finishes the current game
      * @return true if executed, false if no command found
+     * @throws FinishGameException in case the command finishes the current game
      */
     private boolean executeCommands(String token) throws FinishGameException {
         switch (token.toLowerCase()) {

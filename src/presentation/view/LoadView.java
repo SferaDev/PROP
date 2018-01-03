@@ -106,11 +106,10 @@ public class LoadView extends GridPane {
             }
 
             algorithmGroup.selectedToggleProperty().addListener((observable1, oldValue1, newValue1) -> {
-                if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 7){
+                if (newValue1.getUserData().equals("FiveGuess") && colorComboBox.getItems().size() == 7) {
                     fillComboBox(pegsComboBox, 3, 6);
                     fillComboBox(colorComboBox, 3, 6);
-                }
-                else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 4) {
+                } else if (newValue1.getUserData().equals("Genetic") && colorComboBox.getItems().size() == 4) {
                     fillComboBox(pegsComboBox, 3, 9);
                     fillComboBox(colorComboBox, 3, 9);
                 }
@@ -135,6 +134,7 @@ public class LoadView extends GridPane {
         });
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void fillComboBox(JFXComboBox<Integer> comboBox, int start, int end) {
         comboBox.getItems().clear();
         for (int i = start; i <= end; ++i) comboBox.getItems().add(i);

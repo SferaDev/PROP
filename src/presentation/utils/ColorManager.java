@@ -25,6 +25,8 @@ public class ColorManager {
     private static final String BLACK_DARK = "#000000";
     private static final String WHITE = "#FFFFFF";
     private static final String WHITE_DARK = "#ECEFF1";
+
+    @SuppressWarnings("unused")
     private static final String MAIN_COLOR = "#37474F";
 
     private static final String[] colorPalette = {
@@ -49,6 +51,7 @@ public class ColorManager {
         return colorPalette[(color - 1) % colorPalette.length];
     }
 
+    @SuppressWarnings("unused")
     public static String getDarkColor(int color) {
         return darkPalette[color % colorPalette.length];
     }

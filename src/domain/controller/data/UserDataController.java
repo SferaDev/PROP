@@ -15,8 +15,8 @@ public interface UserDataController<E extends User> extends DataController<E> {
      *
      * @param name the user name
      * @param pass the password
-     * @throws UserNotFoundException if the user is not found
      * @return true if the user can be logged in, false otherwise
+     * @throws UserNotFoundException if the user is not found
      */
     boolean login(String name, String pass) throws UserNotFoundException;
 }

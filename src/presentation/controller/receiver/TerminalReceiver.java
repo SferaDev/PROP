@@ -68,7 +68,7 @@ public class TerminalReceiver implements Receiver {
     }
 
     /**
-     *Stores a combination given by inputColorRow() as the correct guess.
+     * Stores a combination given by inputColorRow() as the correct guess.
      *
      * @param pegs   is the number of pegs in the combination
      * @param colors is the number of different possible colors in a combination

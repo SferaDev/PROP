@@ -18,19 +18,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NebulaViewController implements Initializable {
+    private final LoadView newGameView = new LoadView();
+    private final StatsView statsView = new StatsView();
+    private final UserOptionsView userOptionsView = new UserOptionsView();
+    private final HelpView helpView = new HelpView();
     @FXML
     private VBox navDrawer;
     @FXML
     private BorderPane mainContent;
-
     private BoardPane boardPane;
-    private boolean isPlaying = false;
-
     private GameView currentGameView;
-    private LoadView newGameView = new LoadView();
-    private StatsView statsView = new StatsView();
-    private UserOptionsView userOptionsView = new UserOptionsView();
-    private HelpView helpView = new HelpView();
+    private boolean isPlaying = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -127,7 +127,7 @@ public class GameController {
      * @param userName the user name
      * @return all games of an user
      */
-    public ArrayList<String> getAllGames(String userName) {
+    public ArrayList getAllGames(String userName) {
         ArrayList games = gameDataController.allKeys();
         ArrayList valuesToRemove = new ArrayList();
         for (Object game : games) {

@@ -55,7 +55,7 @@ public class StatController {
     /**
      * Update the Stats on the Data Controller
      */
-    public void updateStats() {
+    private void updateStats() {
         statDataController.replace("pointRanking", pointRanking);
         statDataController.replace("timeRanking", timeRanking);
     }

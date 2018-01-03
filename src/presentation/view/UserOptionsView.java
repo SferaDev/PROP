@@ -14,7 +14,7 @@ import presentation.controller.PresentationController;
 import presentation.utils.LocaleUtils;
 
 public class UserOptionsView extends VBox {
-    private String username = PresentationController.getInstance().getUsername();
+    private final String username = PresentationController.getInstance().getUsername();
 
     public UserOptionsView() {
         setSpacing(10);

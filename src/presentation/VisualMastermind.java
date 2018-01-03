@@ -11,10 +11,11 @@ import presentation.controller.receiver.GameInterfaceReceiver;
  * @author Alexis Rico Carreto
  */
 public class VisualMastermind extends Application {
-    private PresentationController presentationController = PresentationController.getInstance();
+    private final PresentationController presentationController = PresentationController.getInstance();
 
     /**
      * Starts the Visual Mastermind
+     *
      * @param primaryStage is used to build the scene.
      */
     @Override

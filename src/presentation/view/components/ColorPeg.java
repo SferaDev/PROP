@@ -8,7 +8,6 @@ import presentation.utils.ColorManager;
 
 public class ColorPeg extends JFXButton {
     private int mColorId;
-    private String mColor;
 
     ColorPeg() {
         this(-1, "TRANSPARENT");
@@ -29,17 +28,12 @@ public class ColorPeg extends JFXButton {
         setMinSize(35, 35);
     }
 
-    public String getColor() {
-        return mColor;
-    }
-
     public int getColorId() {
         return mColorId;
     }
 
     public void setColor(int colorId, String color) {
         setStyle("-fx-font-weight: bold; -fx-background-color: " + color);
-        mColor = color;
         mColorId = colorId;
         setText(String.valueOf(colorId));
         setTextFill(Color.web(ColorManager.getContrast(colorId)));

@@ -11,7 +11,7 @@ import javafx.scene.text.Font;
 import presentation.utils.LocaleUtils;
 
 public class ControlInput extends VBox {
-    private TextField textField = new TextField();
+    private final TextField textField = new TextField();
 
     public ControlInput(String title) {
         setAlignment(Pos.CENTER);

@@ -20,6 +20,7 @@ public class GameInterfaceReceiver implements Receiver {
 
     /**
      * Request the number of blacks
+     *
      * @return Returns the number of blacks.
      */
     @Override
@@ -29,6 +30,7 @@ public class GameInterfaceReceiver implements Receiver {
 
     /**
      * Request the number of whites
+     *
      * @return Returns the number of whites.
      */
     @Override

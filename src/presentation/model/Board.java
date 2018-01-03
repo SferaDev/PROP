@@ -46,6 +46,7 @@ public class Board {
 
     /**
      * Add correct guess.
+     *
      * @return The correct guess
      */
     public Turn getCorrectGuess() {
