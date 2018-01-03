@@ -67,6 +67,16 @@ public class TerminalReceiver implements Receiver {
         return result;
     }
 
+    /**
+     *Stores a combination given by inputColorRow() as the correct guess.
+     *
+     * @param pegs   is the number of pegs in the combination
+     * @param colors is the number of different possible colors in a combination
+     * @return the correct color row as a array of ints.
+     * @throws FinishGameException       the finish game exception
+     * @throws CommandInterruptException the command interrupt exception
+     * @see #inputColorRow(int, int)
+     */
     @Override
     public int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
         int[] result = inputColorRow(pegs, colors);

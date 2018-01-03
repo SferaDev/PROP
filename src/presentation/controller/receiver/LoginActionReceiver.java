@@ -16,10 +16,19 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     private PresentationController presentationController = PresentationController.getInstance();
     private Stage stage;
 
+    /**
+     * Recives the stage
+     * @param stage is the stage that will be ust to bild the login
+     */
     public LoginActionReceiver(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Checks if the password and user are valid. Executed when loggin button pressed.
+     * @param username is the username given by the user.
+     * @param password is the password given by the user.
+     */
     @Override
     public void onLoginButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
@@ -40,6 +49,11 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
         }
     }
 
+    /**
+     * Checks if the password and user are valid, and if so it registers the user. Executed when register button is pressed.
+     * @param username is the username given by the user.
+     * @param password is the password given by the user.
+     */
     @Override
     public void onRegisterButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {

@@ -21,10 +21,12 @@ import java.util.Map;
  * @author Alexis Rico Carreto
  */
 public class TerminalMastermind {
-
     private final DomainController domainController = DomainController.getInstance();
     private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
 
+    /**
+     * Starts the Mastermind in a terminal
+     */
     public void startTerminalApplication() {
         domainController.setGameInterface(new TerminalReceiver());
 

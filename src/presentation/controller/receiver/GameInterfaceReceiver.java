@@ -15,11 +15,19 @@ import presentation.view.components.ControlInput;
  */
 public class GameInterfaceReceiver implements Receiver {
 
+    /**
+     * Request the number of blacks
+     * @return Returns the number of blacks.
+     */
     @Override
     public int inputControlBlacks() {
         return requestControl("Input Blacks"); // TODO: Strings
     }
 
+    /**
+     * Request the number of whites
+     * @return Returns the number of whites.
+     */
     @Override
     public int inputControlWhites() {
         return requestControl("Input Whites"); // TODO: Strings
@@ -58,6 +66,14 @@ public class GameInterfaceReceiver implements Receiver {
         return requestColorRow(pegs, colors).toIntArray();
     }
 
+
+    /**
+     * Adds the correct control row.
+     *
+     * @param pegs   is the number of pegs in the combination.
+     * @param colors is the number of different possible colors in a combination.
+     * @return Returns the correct control row as a array of ints.
+     */
     @Override
     public int[] inputCorrectColorRow(int pegs, int colors) {
         ColorRow row = requestColorRow(pegs, colors);
@@ -169,7 +185,7 @@ public class GameInterfaceReceiver implements Receiver {
     /**
      * Starts the game
      *
-     * @param title the title
+     * @param title is the name of the game
      */
     @Override
     public void startGame(String title) {
