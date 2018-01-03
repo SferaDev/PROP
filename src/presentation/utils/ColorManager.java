@@ -25,6 +25,7 @@ public class ColorManager {
     private static final String BLACK_DARK = "#000000";
     private static final String WHITE = "#FFFFFF";
     private static final String WHITE_DARK = "#ECEFF1";
+    private static final String MAIN_COLOR = "#37474F";
 
     private static final String[] colorPalette = {
             BLUE, YELLOW, RED, GREEN, PURPLE, PINK, BROWN, ORANGE, BLACK, WHITE

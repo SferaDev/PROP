@@ -167,6 +167,7 @@ public class Game implements java.io.Serializable {
             gameStatus = Status.SCORE;
         } else if (gameInfo.mTurns > 0 && (gameTurn + 1) > gameInfo.mTurns) {
             gameBreaker.finishGame();
+            gameMaker.finishGame();
             gameStatus = Status.FINISHED;
         } else {
             gameTurn++;
@@ -178,6 +179,7 @@ public class Game implements java.io.Serializable {
         // Notify the breaker his score
         int score = (int) Math.pow(gameInfo.mColors, gameInfo.mPegs) / gameTurn;
         gameBreaker.finishGame(score);
+        gameMaker.finishGame();
         // Store the score in the Stats if is not debug build and it's an UserPlayer
         if (!DomainController.getInstance().isDebugBuild() && gameBreaker instanceof UserPlayer) {
             StatController.getInstance().addScore(gameInfo.mUser, gameInfo.getGameTitle(),

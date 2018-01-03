@@ -1,12 +1,15 @@
 package presentation.controller.receiver;
 
 import domain.model.Receiver;
+import javafx.geometry.Insets;
 import presentation.controller.PresentationController;
+import presentation.utils.ColorManager;
 import presentation.utils.ComponentUtils;
 import presentation.utils.ThreadUtils;
 import presentation.view.components.ColorInput;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlInput;
+import presentation.view.components.ControlRow;
 
 /**
  * The type Game Interface Receiver
@@ -49,7 +52,7 @@ public class GameInterfaceReceiver implements Receiver {
         try {
             result = Integer.parseInt(controlInput.getResult());
         } catch (NumberFormatException e) {
-            outputMessage("NumberFormatException"); // TODO: Strings
+            outputMessage("The number you entered is not valid"); // TODO: Strings
         }
         return result;
     }
@@ -101,7 +104,6 @@ public class GameInterfaceReceiver implements Receiver {
      * @param blacks the number of blacks in the combination
      * @param whites the number of whites int he combination
      */
-
     @Override
     public void outputControlRow(int blacks, int whites) {
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addControlLastTurn(blacks, whites));
@@ -125,7 +127,10 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputHintControlRow(int blacks, int whites) {
-        // TODO
+        ControlRow controlRow = new ControlRow(blacks, whites);
+        controlRow.setStyle("-fx-background-color: " + ColorManager.getColor("MAIN_COLOR"));
+        controlRow.setPadding(new Insets(15));
+        ThreadUtils.runAndWait(() -> ComponentUtils.showCustomDialog("Correct control", controlRow));
     }
 
     /**
@@ -135,7 +140,10 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputHintColorRow(String row) {
-        // TODO
+        ColorRow colorRow = new ColorRow(row);
+        colorRow.setStyle("-fx-background-color: " + ColorManager.getColor("MAIN_COLOR"));
+        colorRow.setPadding(new Insets(15));
+        ThreadUtils.runAndWait(() -> ComponentUtils.showCustomDialog("Possible Guess", colorRow));
     }
 
     /**
@@ -161,6 +169,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void finishGame() {
+        outputMessage("The game has finished!");
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
@@ -170,7 +179,7 @@ public class GameInterfaceReceiver implements Receiver {
      * @param score the score obtained in the game
      */
     public void finishGame(int score) {
-        outputMessage("You won, with score: " + score);
+        outputMessage("You won! Your score is: " + score);
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
