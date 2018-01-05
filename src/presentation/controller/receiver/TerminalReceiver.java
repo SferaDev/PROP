@@ -121,8 +121,10 @@ public class TerminalReceiver implements Receiver {
      */
     @Override
     public void outputHintControlRow(int blacks, int whites) {
-        outputMessage("Aquesta es la teva ajuda:");
-        outputRow(blacks, whites);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Aquesta es la teva ajuda:");
+        builder.addDescription("Negres: " + blacks + " | Blanques: " + whites);
+        builder.execute();
     }
 
     /**
@@ -132,16 +134,10 @@ public class TerminalReceiver implements Receiver {
      */
     @Override
     public void outputHintColorRow(String row) {
-        outputMessage("Aquesta es la teva ajuda:");
-        outputRow(row);
-    }
-
-    private void outputRow(int blacks, int whites) {
-        TerminalUtils.getInstance().printLine("Negres: " + blacks + " | Blanques: " + whites);
-    }
-
-    private void outputRow(String row) {
-        TerminalUtils.getInstance().printLine(row);
+        TerminalMenuBuilder builder = new TerminalMenuBuilder();
+        builder.addTitle("Aquesta es la teva ajuda:");
+        builder.addDescription(row);
+        builder.execute();
     }
 
     /**
