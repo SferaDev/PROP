@@ -14,9 +14,9 @@ import javafx.stage.Stage;
 import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 
-public class UserOptionsView extends VBox {
+public class UserView extends VBox {
 
-    public UserOptionsView() {
+    public UserView() {
         setSpacing(10);
         setPadding(new Insets(15));
         setAlignment(Pos.TOP_LEFT);

@@ -27,7 +27,7 @@ public class NebulaViewController implements Initializable {
 
     private final LoadView newGameView = new LoadView();
     private final StatsView statsView = new StatsView();
-    private final UserOptionsView userOptionsView = new UserOptionsView();
+    private final UserView userOptionsView = new UserView();
     private final HelpView helpView = new HelpView();
 
     private BoardPane boardPane;
