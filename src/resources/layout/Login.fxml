@@ -26,7 +26,7 @@
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                 <BorderPane>
                     <center>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome!" textFill="#263238"
+                        <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" textFill="#263238"
                                BorderPane.alignment="CENTER">
                             <font>
                                 <Font size="32.0"/>

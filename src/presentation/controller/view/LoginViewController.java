@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,6 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
+    @FXML
+    public Label title;
     @FXML
     private ImageView logoImageView;
     @FXML
@@ -33,6 +36,7 @@ public class LoginViewController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle bundle) {
+        title.setText(LocaleController.getInstance().getString("WELCOME"));
         setUpImageViews();
         setUpTextFields();
         setUpButtons();
