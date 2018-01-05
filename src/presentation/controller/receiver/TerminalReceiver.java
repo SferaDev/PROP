@@ -6,7 +6,7 @@ import domain.model.exceptions.FinishGameException;
 import presentation.controller.TerminalController;
 import presentation.model.Board;
 import presentation.model.Turn;
-import presentation.utils.Constants;
+import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -170,7 +170,7 @@ public class TerminalReceiver implements Receiver {
         TerminalController.getInstance().setCurrentBoard(null);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Ho sentim, t'has quedat sense torns!");
-        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.addOption(TerminalConstants.BACK, builder::finishExecution);
         builder.execute();
     }
 
@@ -184,7 +184,7 @@ public class TerminalReceiver implements Receiver {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Enhorabona, has guanyat!");
         builder.addDescription("La teva puntuació és: " + score);
-        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.addOption(TerminalConstants.BACK, builder::finishExecution);
         builder.execute();
     }
 

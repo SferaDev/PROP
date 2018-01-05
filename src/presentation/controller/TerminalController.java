@@ -2,7 +2,7 @@ package presentation.controller;
 
 import presentation.model.Board;
 import presentation.model.Turn;
-import presentation.utils.Constants;
+import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
 
 /**
@@ -80,9 +80,9 @@ public class TerminalController {
         public void printTerminal() {
             TerminalMenuBuilder builder = new TerminalMenuBuilder();
             builder.addTitle(mModel.getGameTitle());
-            builder.addDescription(Constants.GAME_HELP_INGAMEHELP);
-            builder.addDescription(Constants.GAME_HELP_SAVE);
-            builder.addDescription(Constants.GAME_HELP_QUIT);
+            builder.addDescription(TerminalConstants.GAME_HELP_INGAMEHELP);
+            builder.addDescription(TerminalConstants.GAME_HELP_SAVE);
+            builder.addDescription(TerminalConstants.GAME_HELP_QUIT);
             if (mModel.getCorrectGuess() != null)
                 builder.addDescription("\nCombinació correcte: " + mModel.getCorrectGuess());
             builder.addDescription("\nTorns:\n");

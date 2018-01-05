@@ -1,11 +1,11 @@
-package presentation.utils;
+package resources.strings;
 
 /**
- * The type Constants.
+ * The type TerminalConstants.
  *
  * @author Elena Alonso Gonzalez
  */
-public class Constants {
+public class TerminalConstants {
     /**
      * The Main exit title.
      */

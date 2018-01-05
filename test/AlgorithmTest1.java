@@ -2,7 +2,7 @@ import domain.controller.DomainController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import presentation.utils.Constants;
+import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -28,8 +28,8 @@ public class AlgorithmTest1 extends AlgorithmTest {
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: CPU vs CPU");
-        builder.addOption(Constants.NEW_GAME_FIVEGUESS, () -> setComputerName("FiveGuessComputer"));
-        builder.addOption(Constants.NEW_GAME_GENETIC, () -> setComputerName("GeneticComputer"));
+        builder.addOption(TerminalConstants.NEW_GAME_FIVEGUESS, () -> setComputerName("FiveGuessComputer"));
+        builder.addOption(TerminalConstants.NEW_GAME_GENETIC, () -> setComputerName("GeneticComputer"));
         builder.onExitGoBackToStart(true);
         builder.execute();
 

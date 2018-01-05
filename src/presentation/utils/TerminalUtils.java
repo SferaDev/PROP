@@ -3,6 +3,7 @@ package presentation.utils;
 import domain.controller.DomainController;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
+import resources.strings.TerminalConstants;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -48,7 +49,7 @@ public class TerminalUtils {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle("Mastermind: Error");
         builder.addDescription(string);
-        builder.addOption(Constants.BACK, builder::finishExecution);
+        builder.addOption(TerminalConstants.BACK, builder::finishExecution);
         builder.execute();
     }
 
