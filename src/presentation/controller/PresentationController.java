@@ -134,8 +134,7 @@ public class PresentationController {
     }
 
     public void requestChangeLanguage(LocaleController.Language newLanguage) {
-        if (mUsername == null) return;
-        DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
         LocaleController.getInstance().setLanguage(newLanguage);
+        if (mUsername != null) DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
     }
 }
