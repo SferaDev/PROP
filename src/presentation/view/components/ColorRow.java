@@ -5,7 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import presentation.utils.ColorManager;
+import presentation.controller.ColorController;
 
 public class ColorRow extends VBox {
     private final ColorPeg[] mPegs;
@@ -91,7 +91,7 @@ public class ColorRow extends VBox {
         for (ColorPeg peg : mPegs) {
             peg.setOnMouseClicked(event -> {
                 int color = (peg.getColorId() % colors) + 1;
-                peg.setColor(color, ColorManager.getColor(color));
+                peg.setColor(color, ColorController.getColor(color));
             });
         }
     }

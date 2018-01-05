@@ -2,9 +2,9 @@ package presentation.controller.receiver;
 
 import domain.model.Receiver;
 import javafx.geometry.Insets;
+import presentation.controller.ColorController;
 import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
-import presentation.utils.ColorManager;
 import presentation.utils.ComponentUtils;
 import presentation.utils.ThreadUtils;
 import presentation.view.components.ColorInput;
@@ -131,7 +131,7 @@ public class GameInterfaceReceiver implements Receiver {
     @Override
     public void outputHintControlRow(int blacks, int whites) {
         ControlRow controlRow = new ControlRow(blacks, whites);
-        controlRow.setStyle("-fx-background-color: " + ColorManager.getColor("MAIN_COLOR"));
+        controlRow.setStyle("-fx-background-color: " + ColorController.getColor("MAIN_COLOR"));
         controlRow.setPadding(new Insets(15));
         ThreadUtils.runAndWait(() -> ComponentUtils.showCustomDialog("Correct control", controlRow));
     }
@@ -144,7 +144,7 @@ public class GameInterfaceReceiver implements Receiver {
     @Override
     public void outputHintColorRow(String row) {
         ColorRow colorRow = new ColorRow(row);
-        colorRow.setStyle("-fx-background-color: " + ColorManager.getColor("MAIN_COLOR"));
+        colorRow.setStyle("-fx-background-color: " + ColorController.getColor("MAIN_COLOR"));
         colorRow.setPadding(new Insets(15));
         ThreadUtils.runAndWait(() -> ComponentUtils.showCustomDialog("Possible Guess", colorRow));
     }

@@ -4,7 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import presentation.utils.ColorManager;
+import presentation.controller.ColorController;
 
 public class ColorPeg extends JFXButton {
     private int mColorId;
@@ -14,7 +14,7 @@ public class ColorPeg extends JFXButton {
     }
 
     ColorPeg(int colorId) {
-        this(colorId + 1, ColorManager.getColor(colorId + 1));
+        this(colorId + 1, ColorController.getColor(colorId + 1));
     }
 
     private ColorPeg(int colorId, String color) {
@@ -36,6 +36,6 @@ public class ColorPeg extends JFXButton {
         setStyle("-fx-font-weight: bold; -fx-background-color: " + color);
         mColorId = colorId;
         setText(String.valueOf(colorId));
-        setTextFill(Color.web(ColorManager.getContrast(colorId)));
+        setTextFill(Color.web(ColorController.getContrast(colorId)));
     }
 }

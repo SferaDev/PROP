@@ -1,10 +1,10 @@
-package presentation.utils;
+package presentation.controller;
 
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Field;
 
-public class ColorManager {
+public class ColorController {
     private static final String RED = "#F44336";
     private static final String RED_DARK = "#B71C1C";
     private static final String PURPLE = "#4A148C";
@@ -39,7 +39,7 @@ public class ColorManager {
 
     public static String getColor(String name) {
         try {
-            Field field = ColorManager.class.getDeclaredField(name);
+            Field field = ColorController.class.getDeclaredField(name);
             field.setAccessible(true);
             return (String) field.get(String.class);
         } catch (NoSuchFieldException | IllegalAccessException e) {
