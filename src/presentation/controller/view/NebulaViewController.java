@@ -9,7 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import presentation.controller.LocaleController;
+import presentation.controller.PresentationController;
 import presentation.view.*;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
@@ -18,14 +20,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NebulaViewController implements Initializable {
-    private final LoadView newGameView = new LoadView();
-    private final StatsView statsView = new StatsView();
-    private final UserOptionsView userOptionsView = new UserOptionsView();
-    private final HelpView helpView = new HelpView();
     @FXML
     private VBox navDrawer;
     @FXML
     private BorderPane mainContent;
+
+    private final LoadView newGameView = new LoadView();
+    private final StatsView statsView = new StatsView();
+    private final UserOptionsView userOptionsView = new UserOptionsView();
+    private final HelpView helpView = new HelpView();
+
     private BoardPane boardPane;
     private GameView currentGameView;
     private boolean isPlaying = false;
@@ -61,7 +65,9 @@ public class NebulaViewController implements Initializable {
                 mainContent.setCenter(helpView);
                 break;
             case "LOG_OUT":
-                System.exit(0); // TODO: Should close and launch LoginView
+                Stage stage = (Stage) mainContent.getScene().getWindow();
+                stage.close();
+                PresentationController.getInstance().launchLoginForm(stage);
                 break;
         }
     }

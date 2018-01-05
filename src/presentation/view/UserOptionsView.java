@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 
@@ -48,8 +49,13 @@ public class UserOptionsView extends VBox {
             languageComboBox.getItems().add(language.name());
         }
         languageComboBox.getSelectionModel().select(LocaleController.getInstance().getLanguage().name());
-        languageComboBox.setOnAction(event -> PresentationController.getInstance().requestChangeLanguage(
-                LocaleController.Language.valueOf(languageComboBox.getSelectionModel().getSelectedItem())));
+        languageComboBox.setOnAction(event -> {
+            PresentationController.getInstance().requestChangeLanguage(
+                    LocaleController.Language.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
+            Stage stage = (Stage) getScene().getWindow();
+            stage.close();
+            PresentationController.getInstance().launchNebulaForm(stage);
+        });
         getChildren().add(languageComboBox);
     }
 
