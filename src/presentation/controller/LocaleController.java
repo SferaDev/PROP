@@ -9,6 +9,7 @@ public class LocaleController {
 
     private LocaleController() {
         mLanguage = PresentationController.getInstance().requestUserLanguage();
+        if (mLanguage == null) mLanguage = Language.ENGLISH;
     }
 
     public static LocaleController getInstance() {

@@ -48,8 +48,8 @@ public class PresentationController {
     }
 
     public void launchNebulaForm(String username, Stage stage) {
-        mUsername = username;
         try {
+            mUsername = username;
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
             nebulaController = loader.getController();
