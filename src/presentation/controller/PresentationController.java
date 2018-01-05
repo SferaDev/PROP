@@ -47,9 +47,8 @@ public class PresentationController {
         }
     }
 
-    public void launchNebulaForm(String username, Stage stage) {
+    public void launchNebulaForm(Stage stage) {
         try {
-            mUsername = username;
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
             nebulaController = loader.getController();
@@ -63,7 +62,10 @@ public class PresentationController {
     }
 
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
-        return DomainController.getInstance().getUserController().loginUser(username, password);
+        if (!DomainController.getInstance().getUserController().loginUser(username, password)) return false;
+        mUsername = username;
+        LocaleController.getInstance().setLanguage(requestUserLanguage());
+        return true;
     }
 
     public void requestSaveCurrentGame() {
@@ -126,7 +128,7 @@ public class PresentationController {
         }
     }
 
-    public LocaleController.Language requestUserLanguage() {
+    private LocaleController.Language requestUserLanguage() {
         if (mUsername == null) return null;
         return LocaleController.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
     }

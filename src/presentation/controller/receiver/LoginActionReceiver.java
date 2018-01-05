@@ -41,7 +41,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
                 boolean loginSuccessful = presentationController.requestLogin(username, password);
                 if (loginSuccessful) {
                     presentationController.closeWindow(stage);
-                    presentationController.launchNebulaForm(username, stage);
+                    presentationController.launchNebulaForm(stage);
                 } else {
                     ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_PASSWORD"), LocaleController.getInstance().getString("TRY_AGAIN"));
                 }

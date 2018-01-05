@@ -8,8 +8,7 @@ public class LocaleController {
     private Language mLanguage;
 
     private LocaleController() {
-        mLanguage = PresentationController.getInstance().requestUserLanguage();
-        if (mLanguage == null) mLanguage = Language.ENGLISH;
+        // Empty constructor
     }
 
     public static LocaleController getInstance() {
@@ -18,11 +17,12 @@ public class LocaleController {
 
     public String getString(String key) {
         return ResourceBundle.getBundle("resources/strings/MessagesBundle",
-                mLanguage.toLocale()).getString(key);
+                getLanguage().toLocale()).getString(key);
     }
 
     public Language getLanguage() {
-        return mLanguage;
+        // If language is not set, default to ENGLISH
+        return mLanguage != null ? mLanguage : Language.ENGLISH;
     }
 
     public void setLanguage(Language locale) {
