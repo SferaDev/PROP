@@ -6,9 +6,9 @@ import domain.model.exceptions.FinishGameException;
 import presentation.controller.TerminalController;
 import presentation.model.Board;
 import presentation.model.Turn;
-import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
+import resources.strings.TerminalConstants;
 
 /**
  * The type Terminal input

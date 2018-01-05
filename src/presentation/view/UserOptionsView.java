@@ -10,17 +10,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
-import presentation.utils.LocaleUtils;
 
 public class UserOptionsView extends VBox {
-    private final String username = PresentationController.getInstance().getUsername();
 
     public UserOptionsView() {
         setSpacing(10);
         setPadding(new Insets(15));
         setAlignment(Pos.TOP_LEFT);
 
+        String username = PresentationController.getInstance().getUsername();
         Label textUsernameLabel = createLabel("Welcome, " + username, 25); // TODO: Strings
         getChildren().add(textUsernameLabel);
 
@@ -38,18 +38,18 @@ public class UserOptionsView extends VBox {
         JFXButton changePasswordButton = new JFXButton("Change");
         getChildren().add(changePasswordButton);
         changePasswordButton.setOnMouseClicked(event -> PresentationController.getInstance()
-                .requestPasswordChange(username, oldPasswordField.getText(), newPasswordField.getText()));
+                .requestPasswordChange(oldPasswordField.getText(), newPasswordField.getText()));
 
         Label textLanguageLabel = createLabel("User Interface Language", 18); // TODO: Strings
         getChildren().add(textLanguageLabel);
 
         JFXComboBox<String> languageComboBox = new JFXComboBox<>();
-        for (LocaleUtils.Language language : LocaleUtils.Language.values()) {
-            languageComboBox.getItems().add(language.name()); // TODO: Strings
+        for (LocaleController.Language language : LocaleController.Language.values()) {
+            languageComboBox.getItems().add(language.name());
         }
-        languageComboBox.getSelectionModel().select(LocaleUtils.getInstance().getLanguage().name());
-        languageComboBox.setOnAction(event -> PresentationController.getInstance().requestChangeLanguage(username,
-                languageComboBox.getSelectionModel().getSelectedItem()));
+        languageComboBox.getSelectionModel().select(LocaleController.getInstance().getLanguage().name());
+        languageComboBox.setOnAction(event -> PresentationController.getInstance().requestChangeLanguage(
+                LocaleController.Language.valueOf(languageComboBox.getSelectionModel().getSelectedItem())));
         getChildren().add(languageComboBox);
     }
 

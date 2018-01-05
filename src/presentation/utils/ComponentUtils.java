@@ -9,12 +9,13 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import presentation.controller.LocaleController;
 
 public class ComponentUtils {
 
     public static void showInformationDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -22,7 +23,7 @@ public class ComponentUtils {
 
     public static void showWarningDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -30,7 +31,7 @@ public class ComponentUtils {
 
     public static void showErrorDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -38,14 +39,14 @@ public class ComponentUtils {
 
     public static void showCustomDialog(String header, Node item) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setGraphic(item);
         alert.showAndWait();
     }
 
     public static void buildScene(Class context, Stage stage, Parent parent, double minWidth, double minHeight) {
-        stage.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
+        stage.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         stage.setScene(new Scene(parent));
         stage.setMinWidth(minWidth);
         stage.setMinHeight(minHeight);

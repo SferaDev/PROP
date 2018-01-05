@@ -1,4 +1,4 @@
-package presentation.controller;
+package presentation.controller.view;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSpinner;
@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import presentation.utils.LocaleUtils;
+import presentation.controller.LocaleController;
 import presentation.view.*;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
@@ -100,7 +100,7 @@ public class NebulaViewController implements Initializable {
     private JFXButton createDrawerButton(String textId) {
         JFXButton button = new JFXButton();
         button.setPrefWidth(100);
-        button.setText(LocaleUtils.getInstance().getString(textId));
+        button.setText(LocaleController.getInstance().getString(textId));
         button.setTextFill(Color.WHITE);
         button.setStyle("-fx-background-radius: 0px");
         button.setFont(new Font(20));

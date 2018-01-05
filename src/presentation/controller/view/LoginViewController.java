@@ -1,4 +1,4 @@
-package presentation.controller;
+package presentation.controller.view;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import presentation.utils.LocaleUtils;
+import presentation.controller.LocaleController;
 import presentation.view.components.RaisedButton;
 
 import java.net.URL;
@@ -53,14 +53,14 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpTextFields() {
-        usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME"));
+        usernameField.setPromptText(LocaleController.getInstance().getString("USERNAME"));
         usernameField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && !passwordField.getText().equals(""))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
             else if (event.getCode().equals(KeyCode.ENTER)) passwordField.requestFocus();
         });
 
-        passwordField.setPromptText(LocaleUtils.getInstance().getString("PASSWORD"));
+        passwordField.setPromptText(LocaleController.getInstance().getString("PASSWORD"));
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
@@ -68,7 +68,7 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpButtons() {
-        RaisedButton loginButton = new RaisedButton(LocaleUtils.getInstance().getString("LOGIN"));
+        RaisedButton loginButton = new RaisedButton(LocaleController.getInstance().getString("LOGIN"));
         loginButton.setOnMouseClicked(event ->
                 listener.onLoginButton(usernameField.getText(), passwordField.getText()));
         loginButton.setOnKeyPressed(event -> {
@@ -77,7 +77,7 @@ public class LoginViewController implements Initializable {
         });
         buttonPlaceholder.getChildren().add(loginButton);
 
-        RaisedButton registerButton = new RaisedButton(LocaleUtils.getInstance().getString("REGISTER"));
+        RaisedButton registerButton = new RaisedButton(LocaleController.getInstance().getString("REGISTER"));
         registerButton.setOnMouseClicked(event ->
                 listener.onRegisterButton(usernameField.getText(), passwordField.getText()));
         registerButton.setOnKeyPressed(event -> {

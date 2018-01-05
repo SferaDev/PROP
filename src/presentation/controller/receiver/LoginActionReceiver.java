@@ -3,10 +3,10 @@ package presentation.controller.receiver;
 import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
 import javafx.stage.Stage;
-import presentation.controller.LoginViewController;
+import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
+import presentation.controller.view.LoginViewController;
 import presentation.utils.ComponentUtils;
-import presentation.utils.LocaleUtils;
 
 /**
  * The LoginActionReceiver
@@ -35,19 +35,18 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     @Override
     public void onLoginButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
+            ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_INPUT"), LocaleController.getInstance().getString("TRY_AGAIN"));
         } else {
             try {
                 boolean loginSuccessful = presentationController.requestLogin(username, password);
                 if (loginSuccessful) {
                     presentationController.closeWindow(stage);
-                    presentationController.setUsername(username);
-                    presentationController.launchNebulaForm(stage);
+                    presentationController.launchNebulaForm(username, stage);
                 } else {
-                    ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
+                    ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_PASSWORD"), LocaleController.getInstance().getString("TRY_AGAIN"));
                 }
             } catch (UserNotFoundException e) {
-                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"), LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
+                ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("USER_NOT_FOUND"), LocaleController.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
             }
         }
     }
@@ -61,14 +60,14 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     @Override
     public void onRegisterButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
+            ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_INPUT"), LocaleController.getInstance().getString("TRY_AGAIN"));
         } else {
             try {
-                presentationController.requestRegister(username, password);
+                presentationController.requestRegister(username, password, LocaleController.getInstance().getLanguage().name());
                 onLoginButton(username, password);
             } catch (UserAlreadyExistsException e) {
-                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_EXISTS"),
-                        LocaleUtils.getInstance().getString("CHANGE_USERNAME"));
+                ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("USER_EXISTS"),
+                        LocaleController.getInstance().getString("CHANGE_USERNAME"));
             }
         }
     }

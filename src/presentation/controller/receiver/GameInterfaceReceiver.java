@@ -2,10 +2,10 @@ package presentation.controller.receiver;
 
 import domain.model.Receiver;
 import javafx.geometry.Insets;
+import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 import presentation.utils.ColorManager;
 import presentation.utils.ComponentUtils;
-import presentation.utils.LocaleUtils;
 import presentation.utils.ThreadUtils;
 import presentation.view.components.ColorInput;
 import presentation.view.components.ColorRow;
@@ -26,7 +26,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlBlacks() {
-        return requestControl(LocaleUtils.getInstance().getString("INPUT_BLACKS"));
+        return requestControl(LocaleController.getInstance().getString("INPUT_BLACKS"));
     }
 
     /**
@@ -36,7 +36,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public int inputControlWhites() {
-        return requestControl(LocaleUtils.getInstance().getString("INPUT_WHITES"));
+        return requestControl(LocaleController.getInstance().getString("INPUT_WHITES"));
     }
 
     private int requestControl(String title) {
@@ -55,7 +55,7 @@ public class GameInterfaceReceiver implements Receiver {
         try {
             result = Integer.parseInt(controlInput.getResult());
         } catch (NumberFormatException e) {
-            outputMessage(LocaleUtils.getInstance().getString("NUMBER_FORMAT_EX"));
+            outputMessage(LocaleController.getInstance().getString("NUMBER_FORMAT_EX"));
         }
         return result;
     }
@@ -88,7 +88,7 @@ public class GameInterfaceReceiver implements Receiver {
     }
 
     private ColorRow requestColorRow(int pegs, int colors) {
-        ColorInput colorInput = new ColorInput(LocaleUtils.getInstance().getString("INPUT_GUESS"), pegs, colors);
+        ColorInput colorInput = new ColorInput(LocaleController.getInstance().getString("INPUT_GUESS"), pegs, colors);
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addActionPane(colorInput));
         synchronized (colorInput) {
             try {
@@ -156,7 +156,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void outputMessage(String message) {
-        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("APP_TITLE"), message));
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("APP_TITLE"), message));
     }
 
     /**
@@ -164,7 +164,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void notifyInvalidInput() {
-        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"), LocaleUtils.getInstance().getString("MISTAKE")));
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_INPUT"), LocaleController.getInstance().getString("MISTAKE")));
     }
 
     /**
@@ -172,7 +172,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void finishGame() {
-        outputMessage(LocaleUtils.getInstance().getString("GAME_FINISHED"));
+        outputMessage(LocaleController.getInstance().getString("GAME_FINISHED"));
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
@@ -182,7 +182,7 @@ public class GameInterfaceReceiver implements Receiver {
      * @param score the score obtained in the game
      */
     public void finishGame(int score) {
-        outputMessage(LocaleUtils.getInstance().getString("YOU_WON") + score);
+        outputMessage(LocaleController.getInstance().getString("YOU_WON") + score);
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().finishGame());
     }
 
@@ -191,7 +191,7 @@ public class GameInterfaceReceiver implements Receiver {
      */
     @Override
     public void notifyInvalidControl() {
-        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("LIE"), LocaleUtils.getInstance().getString("KEEP_CALM")));
+        ThreadUtils.runAndWait(() -> ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("LIE"), LocaleController.getInstance().getString("KEEP_CALM")));
     }
 
     /**

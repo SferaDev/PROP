@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="800.0"
             style="-fx-background-color: #37474F;" xmlns="http://javafx.com/javafx/8.0.121"
-            fx:id="mainContent" fx:controller="presentation.controller.NebulaViewController">
+            fx:id="mainContent" fx:controller="presentation.controller.view.NebulaViewController">
     <left>
         <JFXDrawer style="-fx-background-color: #263238;" BorderPane.alignment="CENTER">
             <VBox fx:id="navDrawer" alignment="TOP_CENTER" style="-fx-background-color: #263238;"

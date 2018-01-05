@@ -10,6 +10,7 @@ public class
 User implements java.io.Serializable {
     private final String playerName;
     private final String playerPassword;
+    private final String playerLanguage;
 
     /**
      * Instantiates a new User
@@ -17,9 +18,10 @@ User implements java.io.Serializable {
      * @param name     the user name
      * @param password the user password
      */
-    public User(String name, String password) {
+    public User(String name, String password, String language) {
         playerName = name;
         playerPassword = password;
+        playerLanguage = language;
     }
 
     /**
@@ -32,7 +34,7 @@ User implements java.io.Serializable {
     }
 
     /**
-     * Gets password
+     * Gets user password
      *
      * @return the password
      */
@@ -40,4 +42,12 @@ User implements java.io.Serializable {
         return playerPassword;
     }
 
+    /**
+     * Gets user language
+     *
+     * @return the password
+     */
+    public String getLanguage() {
+        return playerLanguage;
+    }
 }

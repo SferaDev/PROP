@@ -9,8 +9,9 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import presentation.controller.receiver.GameInterfaceReceiver;
 import presentation.controller.receiver.LoginActionReceiver;
+import presentation.controller.view.LoginViewController;
+import presentation.controller.view.NebulaViewController;
 import presentation.utils.ComponentUtils;
-import presentation.utils.LocaleUtils;
 
 import java.io.IOException;
 
@@ -46,7 +47,8 @@ public class PresentationController {
         }
     }
 
-    public void launchNebulaForm(Stage stage) {
+    public void launchNebulaForm(String username, Stage stage) {
+        mUsername = username;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
             Parent root = loader.load();
@@ -56,8 +58,8 @@ public class PresentationController {
         }
     }
 
-    public void requestRegister(String username, String password) throws UserAlreadyExistsException {
-        DomainController.getInstance().getUserController().createUser(username, password);
+    public void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
+        DomainController.getInstance().getUserController().createUser(username, password, language);
     }
 
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
@@ -106,28 +108,32 @@ public class PresentationController {
         return mUsername;
     }
 
-    public void setUsername(String username) {
-        mUsername = username;
-    }
-
-    public void requestPasswordChange(String username, String oldPassword, String newPassword) {
+    public void requestPasswordChange(String oldPassword, String newPassword) {
+        if (mUsername == null) return;
         try {
-            if (PresentationController.getInstance().requestLogin(username, oldPassword)) {
+            if (PresentationController.getInstance().requestLogin(mUsername, oldPassword)) {
                 if (oldPassword.equals(newPassword)) {
-                    ComponentUtils.showWarningDialog(LocaleUtils.getInstance().getString("SAME_PASSWORD"), LocaleUtils.getInstance().getString("CHOOSE_DIF_PASSWORD"));
+                    ComponentUtils.showWarningDialog(LocaleController.getInstance().getString("SAME_PASSWORD"), LocaleController.getInstance().getString("CHOOSE_DIF_PASSWORD"));
                 } else {
-                    DomainController.getInstance().getUserController().changePassword(username, newPassword);
-                    ComponentUtils.showInformationDialog(LocaleUtils.getInstance().getString("PASSWORD_CHANGED"), LocaleUtils.getInstance().getString("CHANGED_SUCCESSFULLY"));
+                    DomainController.getInstance().getUserController().changePassword(mUsername, newPassword);
+                    ComponentUtils.showInformationDialog(LocaleController.getInstance().getString("PASSWORD_CHANGED"), LocaleController.getInstance().getString("CHANGED_SUCCESSFULLY"));
                 }
             } else {
-                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"), LocaleUtils.getInstance().getString("OLD_PASSWORD_INCORRECT"));
+                ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_PASSWORD"), LocaleController.getInstance().getString("OLD_PASSWORD_INCORRECT"));
             }
         } catch (UserNotFoundException e) {
-            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"), LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
+            ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("USER_NOT_FOUND"), LocaleController.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
         }
     }
 
-    public void requestChangeLanguage(String username, String selectedItem) {
-        // TODO
+    public LocaleController.Language requestUserLanguage() {
+        if (mUsername == null) return null;
+        return LocaleController.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
+    }
+
+    public void requestChangeLanguage(LocaleController.Language newLanguage) {
+        if (mUsername == null) return;
+        DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
+        LocaleController.getInstance().setLanguage(newLanguage);
     }
 }

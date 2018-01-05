@@ -1,6 +1,7 @@
 package drivers;
 
 import domain.model.User;
+import presentation.controller.LocaleController;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 
@@ -30,7 +31,7 @@ public class UserDriver {
         String nameUser = terminalUtils.readString();
         terminalUtils.printLine("Introdueixi pasword:");
         String password = terminalUtils.readString();
-        User u = new User(nameUser, password);
+        User u = new User(nameUser, password, LocaleController.getInstance().getLanguage().name());
         terminalUtils.printLine("S'ha creat l'usuari " + u.getName() + " amb contrassenya " + u.getPassword());
         TerminalUtils.getInstance().pressEnterToContinue();
     }

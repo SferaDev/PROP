@@ -3,11 +3,12 @@ package presentation;
 import domain.controller.DomainController;
 import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
+import presentation.controller.LocaleController;
 import presentation.controller.receiver.TerminalReceiver;
-import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 import presentation.utils.TimeUtils;
+import resources.strings.TerminalConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -190,7 +191,8 @@ public class TerminalMastermind {
             terminalUtils.errorLine(TerminalConstants.USER_ALREADY_EXISTS);
         } else {
             try {
-                domainController.getUserController().createUser(username, inputPassword());
+                domainController.getUserController().createUser(username, inputPassword(),
+                        LocaleController.getInstance().getLanguage().name());
                 showPlayMenu(username);
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();

@@ -2,8 +2,8 @@ package presentation.controller;
 
 import presentation.model.Board;
 import presentation.model.Turn;
-import resources.strings.TerminalConstants;
 import presentation.utils.TerminalMenuBuilder;
+import resources.strings.TerminalConstants;
 
 /**
  * The type Presentation controller.

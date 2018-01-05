@@ -1,18 +1,17 @@
-package presentation.utils;
+package presentation.controller;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LocaleUtils {
-    private static final LocaleUtils mInstance = new LocaleUtils();
+public class LocaleController {
+    private static final LocaleController mInstance = new LocaleController();
     private Language mLanguage;
 
-    private LocaleUtils() {
-        // TODO: Load from disk last locale
-        mLanguage = Language.ENGLISH;
+    private LocaleController() {
+        mLanguage = PresentationController.getInstance().requestUserLanguage();
     }
 
-    public static LocaleUtils getInstance() {
+    public static LocaleController getInstance() {
         return mInstance;
     }
 
@@ -27,7 +26,6 @@ public class LocaleUtils {
 
     public void setLanguage(Language locale) {
         mLanguage = locale;
-        // TODO: Store in disk current locale
     }
 
     public enum Language {

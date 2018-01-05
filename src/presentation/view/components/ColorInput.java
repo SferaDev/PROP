@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import presentation.utils.LocaleUtils;
+import presentation.controller.LocaleController;
 
 public class ColorInput extends VBox {
     private final ColorRow colorRow;
@@ -27,7 +27,7 @@ public class ColorInput extends VBox {
         setMargin(colorRow, new Insets(0, 30, 0, 30));
         getChildren().add(colorRow);
 
-        RaisedButton button = new RaisedButton(LocaleUtils.getInstance().getString("SEND"));
+        RaisedButton button = new RaisedButton(LocaleController.getInstance().getString("SEND"));
         button.setOnMouseClicked(event -> {
             synchronized (this) {
                 notify();
