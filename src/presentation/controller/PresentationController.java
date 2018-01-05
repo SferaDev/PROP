@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import presentation.controller.receiver.GameInterfaceReceiver;
 import presentation.controller.receiver.LoginActionReceiver;
 import presentation.utils.ComponentUtils;
+import presentation.utils.LocaleUtils;
 
 import java.io.IOException;
 
@@ -113,16 +114,16 @@ public class PresentationController {
         try {
             if (PresentationController.getInstance().requestLogin(username, oldPassword)) {
                 if (oldPassword.equals(newPassword)) {
-                    ComponentUtils.showWarningDialog("Same password", "Please choose a different password."); // TODO: Strings
+                    ComponentUtils.showWarningDialog(LocaleUtils.getInstance().getString("SAME_PASSWORD"), LocaleUtils.getInstance().getString("CHOOSE_DIF_PASSWORD"));
                 } else {
                     DomainController.getInstance().getUserController().changePassword(username, newPassword);
-                    ComponentUtils.showInformationDialog("Password Changed", "The new password has been changed successfully."); // TODO: Strings
+                    ComponentUtils.showInformationDialog(LocaleUtils.getInstance().getString("PASSWORD_CHANGED"), LocaleUtils.getInstance().getString("CHANGED_SUCCESSFULLY"));
                 }
             } else {
-                ComponentUtils.showErrorDialog("Invalid Password", "The old password is incorrect. Please, try again"); // TODO: Strings
+                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"), LocaleUtils.getInstance().getString("OLD_PASSWORD_INCORRECT"));
             }
         } catch (UserNotFoundException e) {
-            ComponentUtils.showErrorDialog("User not found", "Looks like the user is not in our database!"); // TODO: Strings
+            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"), LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
         }
     }
 

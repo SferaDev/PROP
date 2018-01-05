@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import presentation.controller.LoginViewController;
 import presentation.controller.PresentationController;
 import presentation.utils.ComponentUtils;
+import presentation.utils.LocaleUtils;
 
 /**
  * The LoginActionReceiver
@@ -34,7 +35,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     @Override
     public void onLoginButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            ComponentUtils.showErrorDialog("Invalid input", "Please, try again"); // TODO: Strings
+            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
         } else {
             try {
                 boolean loginSuccessful = presentationController.requestLogin(username, password);
@@ -43,10 +44,10 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
                     presentationController.setUsername(username);
                     presentationController.launchNebulaForm(stage);
                 } else {
-                    ComponentUtils.showErrorDialog("Invalid password", "Please, try again!"); // TODO: Strings
+                    ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
                 }
             } catch (UserNotFoundException e) {
-                ComponentUtils.showErrorDialog("User not found", "Looks like the user is not in our database!"); // TODO: Strings
+                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"), LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
             }
         }
     }
@@ -60,14 +61,14 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     @Override
     public void onRegisterButton(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            ComponentUtils.showErrorDialog("Invalid input", "Please, try again"); // TODO: Strings
+            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"), LocaleUtils.getInstance().getString("TRY_AGAIN"));
         } else {
             try {
                 presentationController.requestRegister(username, password);
                 onLoginButton(username, password);
             } catch (UserAlreadyExistsException e) {
-                ComponentUtils.showErrorDialog("User already exists",
-                        "Please login with your password!"); // TODO: Strings
+                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_EXISTS"),
+                        LocaleUtils.getInstance().getString("CHANGE_USERNAME"));
             }
         }
     }
