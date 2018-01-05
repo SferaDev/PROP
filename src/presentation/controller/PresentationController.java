@@ -42,7 +42,7 @@ public class PresentationController {
             Parent root = loader.load();
             LoginViewController controller = loader.getController();
             controller.setListener(new LoginActionReceiver(stage));
-            ComponentUtils.buildScene(getClass(), stage, root, 600, 350);
+            ComponentUtils.buildScene(getClass(), stage, root, 700, 400);
         } catch (IOException ignored) {
         }
     }

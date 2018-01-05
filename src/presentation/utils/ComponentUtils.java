@@ -50,6 +50,8 @@ public class ComponentUtils {
         stage.setScene(new Scene(parent));
         stage.setMinWidth(minWidth);
         stage.setMinHeight(minHeight);
+        stage.setWidth(minWidth);
+        stage.setHeight(minHeight);
         stage.getIcons().add(new Image(context.getResource("/resources/img/ic_launcher.png").toExternalForm()));
         stage.show();
     }
