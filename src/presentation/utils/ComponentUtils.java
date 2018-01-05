@@ -47,7 +47,8 @@ public class ComponentUtils {
 
     public static void buildScene(Class context, Stage stage, Parent parent, double minWidth, double minHeight) {
         stage.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
-        stage.setScene(new Scene(parent));
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
         stage.setMinWidth(minWidth);
         stage.setMinHeight(minHeight);
         stage.setWidth(minWidth);

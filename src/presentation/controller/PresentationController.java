@@ -14,6 +14,7 @@ import presentation.controller.view.NebulaViewController;
 import presentation.utils.ComponentUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The type Presentation controller.
@@ -136,5 +137,14 @@ public class PresentationController {
     public void requestChangeLanguage(LocaleController.Language newLanguage) {
         LocaleController.getInstance().setLanguage(newLanguage);
         if (mUsername != null) DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
+    }
+
+    public ArrayList requestSavedGames() {
+        if (mUsername == null) return null;
+        return DomainController.getInstance().getGameController().getAllGames(mUsername);
+    }
+
+    public void requestStartSavedGame(String game) {
+        DomainController.getInstance().getGameController().continueGame(game);
     }
 }

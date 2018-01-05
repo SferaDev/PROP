@@ -57,7 +57,9 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
         mData.put(key, item);
 
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(mPath + key), false));
+            File file = new File(mPath + key);
+            if (!file.exists()) FileUtils.createFile(mPath + key);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false));
             oos.writeObject(item);
             oos.close();
         } catch (IOException e) {

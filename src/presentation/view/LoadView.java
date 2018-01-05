@@ -1,6 +1,7 @@
 package presentation.view;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,8 @@ import presentation.controller.PresentationController;
 import presentation.utils.ComponentUtils;
 import presentation.view.components.RaisedButton;
 
+import java.util.ArrayList;
+
 public class LoadView extends GridPane {
     private Integer pegs = 3;
     private Integer colors = 3;
@@ -29,12 +32,28 @@ public class LoadView extends GridPane {
         RaisedButton savedGameButton = new RaisedButton("Start Game"); // TODO: Strings
 
         populateNewGameBox(newGameBox, newGameButton);
+        populateSavedGameBox(savedGameBox, savedGameButton);
 
         getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(50), ComponentUtils.createColumnConstraint(50));
         getRowConstraints().addAll(ComponentUtils.createRowConstraint(100));
 
         add(createBorderPane("New Game", newGameBox, newGameButton), 0, 0); // TODO: Strings
         add(createBorderPane("Saved Games", savedGameBox, savedGameButton), 1, 0); // TODO: Strings
+    }
+
+    private void populateSavedGameBox(VBox savedGameBox, RaisedButton button) {
+        JFXListView<Label> listView = new JFXListView<>();
+        listView.prefHeightProperty().bind(savedGameBox.heightProperty());
+        ArrayList savedGames = PresentationController.getInstance().requestSavedGames();
+        for (Object game : savedGames) {
+            listView.getItems().add(new Label((String) game));
+        }
+        button.setOnAction(event -> {
+            PresentationController.getInstance().requestStartSavedGame(listView.getSelectionModel().getSelectedItem().getText());
+        });
+        savedGameBox.getChildren().add(listView);
+        savedGameBox.setAlignment(Pos.CENTER);
+        VBox.setMargin(listView, new Insets(15));
     }
 
     private void populateNewGameBox(VBox newGameBox, RaisedButton button) {

@@ -63,11 +63,11 @@ public class TerminalMastermind {
     }
 
     private void showContinueGameMenu(String userName) {
-        ArrayList<String> games = domainController.getGameController().getAllGames(userName);
+        ArrayList games = domainController.getGameController().getAllGames(userName);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.PREVIOUS_GAME_MENU);
-        for (String game : games)
-            builder.addOption(game, () -> continueGame(game));
+        for (Object game : games)
+            builder.addOption((String) game, () -> continueGame((String) game));
         builder.addOption(TerminalConstants.BACK, builder::finishExecution);
         builder.onExitGoBackToStart(true);
         builder.execute();
