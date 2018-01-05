@@ -25,9 +25,9 @@ public class NebulaViewController implements Initializable {
     @FXML
     private BorderPane mainContent;
 
-    private final LoadView newGameView = new LoadView();
+    private final LoadView loadView = new LoadView();
     private final StatsView statsView = new StatsView();
-    private final UserView userOptionsView = new UserView();
+    private final UserView userView = new UserView();
     private final HelpView helpView = new HelpView();
 
     private BoardPane boardPane;
@@ -53,13 +53,13 @@ public class NebulaViewController implements Initializable {
             default:
             case "PLAY":
                 if (isPlaying) mainContent.setCenter(currentGameView);
-                else mainContent.setCenter(newGameView);
+                else mainContent.setCenter(loadView);
                 break;
             case "STATS":
                 mainContent.setCenter(statsView);
                 break;
             case "USER":
-                mainContent.setCenter(userOptionsView);
+                mainContent.setCenter(userView);
                 break;
             case "HELP":
                 mainContent.setCenter(helpView);
@@ -81,7 +81,8 @@ public class NebulaViewController implements Initializable {
 
     public void finishGame() {
         isPlaying = false;
-        mainContent.setCenter(newGameView);
+        loadView.reset();
+        mainContent.setCenter(loadView);
     }
 
     public void addControlLastTurn(int blacks, int whites) {

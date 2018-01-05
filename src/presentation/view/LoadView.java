@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -20,6 +21,8 @@ import presentation.view.components.RaisedButton;
 import java.util.ArrayList;
 
 public class LoadView extends GridPane {
+    private final JFXListView<Label> gameListView = new JFXListView<>();
+
     private Integer pegs = 3;
     private Integer colors = 3;
 
@@ -39,21 +42,20 @@ public class LoadView extends GridPane {
 
         add(createBorderPane("New Game", newGameBox, newGameButton), 0, 0); // TODO: Strings
         add(createBorderPane("Saved Games", savedGameBox, savedGameButton), 1, 0); // TODO: Strings
+
+        reset();
     }
 
     private void populateSavedGameBox(VBox savedGameBox, RaisedButton button) {
-        JFXListView<Label> listView = new JFXListView<>();
-        listView.prefHeightProperty().bind(savedGameBox.heightProperty());
-        ArrayList savedGames = PresentationController.getInstance().requestSavedGames();
-        for (Object game : savedGames) {
-            listView.getItems().add(new Label((String) game));
-        }
+        gameListView.prefHeightProperty().bind(savedGameBox.heightProperty());
+        gameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         button.setOnAction(event -> {
-            PresentationController.getInstance().requestStartSavedGame(listView.getSelectionModel().getSelectedItem().getText());
+            String game = gameListView.getSelectionModel().getSelectedItem().getText();
+            PresentationController.getInstance().requestStartSavedGame(game);
         });
-        savedGameBox.getChildren().add(listView);
+        savedGameBox.getChildren().add(gameListView);
         savedGameBox.setAlignment(Pos.CENTER);
-        VBox.setMargin(listView, new Insets(15));
+        VBox.setMargin(gameListView, new Insets(15));
     }
 
     private void populateNewGameBox(VBox newGameBox, RaisedButton button) {
@@ -190,5 +192,14 @@ public class LoadView extends GridPane {
         BorderPane.setAlignment(button, Pos.CENTER);
         result.setBottom(button);
         return result;
+    }
+
+    public void reset() {
+        // TODO: Reset focus on ToggleGroups
+        gameListView.getItems().clear();
+        ArrayList savedGames = PresentationController.getInstance().requestSavedGames();
+        for (Object game : savedGames) {
+            gameListView.getItems().add(new Label((String) game));
+        }
     }
 }
