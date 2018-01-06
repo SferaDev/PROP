@@ -6,8 +6,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class HelpView extends VBox {
@@ -15,19 +15,14 @@ public class HelpView extends VBox {
         setSpacing(10);
         setPadding(new Insets(5));
         setAlignment(Pos.TOP_CENTER);
-
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-        String path = new File("").getAbsolutePath();
-        path += "\\docs\\proba.html";
         try {
-            File file = new File(path);
-            URL url = file.toURI().toURL();
+            WebView webView = new WebView();
+            WebEngine webEngine = webView.getEngine();
+            URL url = getClass().getResource("/resources/html/ManualUsuari.html").toURI().toURL();
             webEngine.load(url.toString());
-        } catch (MalformedURLException e) {
+            getChildren().addAll(webView);
+        } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
         }
-
-        getChildren().addAll(webView);
     }
 }
