@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -41,9 +42,25 @@ public class UserView extends VBox {
         JFXPasswordField oldPasswordField = createPasswordField(LocaleController.getInstance().getString("OLD_PASSWORD"));
         JFXPasswordField newPasswordField = createPasswordField(LocaleController.getInstance().getString("NEW_PASSWORD"));
 
+        oldPasswordField.requestFocus();
+
         RaisedButton changePasswordButton = new RaisedButton(LocaleController.getInstance().getString("CHANGE"));
-        changePasswordButton.setOnMouseClicked(event -> PresentationController.getInstance()
-                .requestPasswordChange(oldPasswordField.getText(), newPasswordField.getText()));
+        changePasswordButton.setOnAction(event -> {
+            PresentationController.getInstance().requestPasswordChange(oldPasswordField.getText(), newPasswordField.getText());
+            oldPasswordField.setText("");
+            newPasswordField.setText("");
+            oldPasswordField.requestFocus();
+        });
+
+        oldPasswordField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && !newPasswordField.getText().equals(""))
+                changePasswordButton.fire();
+            else if (event.getCode().equals(KeyCode.ENTER)) newPasswordField.requestFocus();
+        });
+
+        newPasswordField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) changePasswordButton.fire();
+        });
 
         JFXComboBox<String> languageComboBox = new JFXComboBox<>();
         languageComboBox.setBackground(new Background(new BackgroundFill(Color.web("#cfd8dc"), null, null)));
