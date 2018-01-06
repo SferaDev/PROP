@@ -103,11 +103,11 @@ public class TerminalConstants {
     /**
      * The constant ROLE_BREAKER.
      */
-    public static final String ROLE_BREAKER = "BREAKER";
+    public static final String ROLE_BREAKER = "Breaker";
     /**
      * The constant ROLE_MAKER.
      */
-    public static final String ROLE_MAKER = "MAKER";
+    public static final String ROLE_MAKER = "Maker";
     /**
      * The constant COMPUTER_DUMMY.
      */
