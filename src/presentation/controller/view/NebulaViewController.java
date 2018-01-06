@@ -54,6 +54,7 @@ public class NebulaViewController implements Initializable {
                 else mainContent.setCenter(loadView);
                 break;
             case "STATS":
+                statsView.reset();
                 mainContent.setCenter(statsView);
                 break;
             case "USER":
