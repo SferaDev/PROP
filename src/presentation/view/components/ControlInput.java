@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import presentation.controller.LocaleController;
 
 public class ControlInput extends VBox {
@@ -18,6 +19,8 @@ public class ControlInput extends VBox {
         setSpacing(20);
 
         Label titleLabel = new Label(title);
+        titleLabel.setWrapText(true);
+        titleLabel.setTextAlignment(TextAlignment.CENTER);
         titleLabel.setFont(new Font(18));
         titleLabel.setTextFill(Color.WHITE);
         getChildren().add(titleLabel);
