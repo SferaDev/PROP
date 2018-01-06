@@ -136,7 +136,8 @@ public class PresentationController {
 
     public void requestChangeLanguage(LocaleController.Language newLanguage) {
         LocaleController.getInstance().setLanguage(newLanguage);
-        if (mUsername != null) DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
+        if (mUsername != null)
+            DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
     }
 
     public ArrayList requestSavedGames() {

@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 import presentation.utils.ComponentUtils;
 import presentation.view.components.ColorRow;
@@ -39,20 +40,22 @@ public class GameView extends GridPane {
         VBox informationPlaceholder = new VBox();
         informationPlaceholder.setAlignment(Pos.CENTER);
         informationPlaceholder.setSpacing(10);
-        if (role.equals("Maker")) informationPlaceholder.getChildren().add(createNewLabel(computer));
-        else informationPlaceholder.getChildren().add(createNewLabel("Role: " + role));
-        informationPlaceholder.getChildren().add(createNewLabel("Pegs: " + pegs + " Colors: " + colors));
+        if (role.equals(LocaleController.getInstance().getString("MAKER")))
+            informationPlaceholder.getChildren().add(createNewLabel(computer));
+        else
+            informationPlaceholder.getChildren().add(createNewLabel(LocaleController.getInstance().getString("ROLE") + ": " + role));
+        informationPlaceholder.getChildren().add(createNewLabel(LocaleController.getInstance().getString("PEGS") + ": " + pegs + "   " + LocaleController.getInstance().getString("COLORS") + ": " + colors));
 
         HBox buttonBoxHelp = new HBox();
         buttonBoxHelp.setAlignment(Pos.CENTER);
         buttonBoxHelp.setSpacing(5);
         VBox.setMargin(buttonBoxHelp, new Insets(5));
 
-        RaisedButton correctButton = new RaisedButton("Correct"); // TODO: Strings
-        correctButton.setOnMouseClicked(event -> ComponentUtils.showCustomDialog("Correct Guess", correctGuess)); // TODO: Strings
+        RaisedButton correctButton = new RaisedButton(LocaleController.getInstance().getString("CORRECT"));
+        correctButton.setOnMouseClicked(event -> ComponentUtils.showCustomDialog(LocaleController.getInstance().getString("CORRECT_GUESS"), correctGuess));
         if (role.equals("Maker")) buttonBoxHelp.getChildren().add(correctButton);
 
-        RaisedButton helpButton = new RaisedButton("Help"); // TODO: Strings
+        RaisedButton helpButton = new RaisedButton(LocaleController.getInstance().getString("HELP"));
         helpButton.setOnMouseClicked(event -> PresentationController.getInstance().requestHelpCurrentGame());
         buttonBoxHelp.getChildren().add(helpButton);
 
@@ -61,11 +64,11 @@ public class GameView extends GridPane {
         buttonBoxQuit.setSpacing(5);
         VBox.setMargin(buttonBoxQuit, new Insets(5));
 
-        RaisedButton saveButton = new RaisedButton("Save"); // TODO: Strings
+        RaisedButton saveButton = new RaisedButton(LocaleController.getInstance().getString("SAVE"));
         saveButton.setOnMouseClicked(event -> PresentationController.getInstance().requestSaveCurrentGame());
         buttonBoxQuit.getChildren().add(saveButton);
 
-        RaisedButton quitButton = new RaisedButton("Quit"); // TODO: Strings
+        RaisedButton quitButton = new RaisedButton(LocaleController.getInstance().getString(LocaleController.getInstance().getString("QUIT")));
         quitButton.setOnMouseClicked(event -> PresentationController.getInstance().requestQuitCurrentGame());
         buttonBoxQuit.getChildren().add(quitButton);
 

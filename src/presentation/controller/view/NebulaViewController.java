@@ -20,16 +20,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class NebulaViewController implements Initializable {
-    @FXML
-    private VBox navDrawer;
-    @FXML
-    private BorderPane mainContent;
-
     private final LoadView loadView = new LoadView();
     private final StatsView statsView = new StatsView();
     private final UserView userView = new UserView();
     private final HelpView helpView = new HelpView();
-
+    @FXML
+    private VBox navDrawer;
+    @FXML
+    private BorderPane mainContent;
     private BoardPane boardPane;
     private GameView currentGameView;
     private boolean isPlaying = false;

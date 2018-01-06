@@ -5,7 +5,10 @@ import com.jfoenix.controls.JFXPasswordField;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -22,8 +25,8 @@ public class UserView extends VBox {
         setPadding(new Insets(30));
         setAlignment(Pos.TOP_CENTER);
 
-        Label textUsernameLabel = createLabel("Welcome, " +
-                PresentationController.getInstance().getUsername() + "!", 25); // TODO: Strings
+        Label textUsernameLabel = createLabel(LocaleController.getInstance().getString("WELCOME") + ", " +
+                PresentationController.getInstance().getUsername() + "!", 25);
 
         GridPane mainContent = new GridPane();
         mainContent.getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(50),
@@ -32,13 +35,13 @@ public class UserView extends VBox {
 
         getChildren().addAll(textUsernameLabel, mainContent);
 
-        Label textPasswordLabel = createLabel("Change password", 20);
-        Label textLanguageLabel = createLabel("User Interface Language", 20); // TODO: Strings
+        Label textPasswordLabel = createLabel(LocaleController.getInstance().getString("CHANGE_PASSWORD"), 20);
+        Label textLanguageLabel = createLabel(LocaleController.getInstance().getString("INTERFACE_LANGUAGE"), 20);
 
-        JFXPasswordField oldPasswordField = createPasswordField("Old password");
-        JFXPasswordField newPasswordField = createPasswordField("New password");
+        JFXPasswordField oldPasswordField = createPasswordField(LocaleController.getInstance().getString("OLD_PASSWORD"));
+        JFXPasswordField newPasswordField = createPasswordField(LocaleController.getInstance().getString("NEW_PASSWORD"));
 
-        RaisedButton changePasswordButton = new RaisedButton("Change");
+        RaisedButton changePasswordButton = new RaisedButton(LocaleController.getInstance().getString("CHANGE"));
         changePasswordButton.setOnMouseClicked(event -> PresentationController.getInstance()
                 .requestPasswordChange(oldPasswordField.getText(), newPasswordField.getText()));
 

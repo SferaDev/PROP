@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 import presentation.utils.ComponentUtils;
 import presentation.view.components.RaisedButton;
@@ -31,8 +32,8 @@ public class LoadView extends GridPane {
         VBox newGameBox = new VBox();
         VBox savedGameBox = new VBox();
 
-        RaisedButton newGameButton = new RaisedButton("Start Game"); // TODO: Strings
-        RaisedButton savedGameButton = new RaisedButton("Start Game"); // TODO: Strings
+        RaisedButton newGameButton = new RaisedButton(LocaleController.getInstance().getString("START_GAME"));
+        RaisedButton savedGameButton = new RaisedButton(LocaleController.getInstance().getString("START_GAME"));
 
         populateNewGameBox(newGameBox, newGameButton);
         populateSavedGameBox(savedGameBox, savedGameButton);
@@ -40,9 +41,9 @@ public class LoadView extends GridPane {
         getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(50), ComponentUtils.createColumnConstraint(50));
         getRowConstraints().addAll(ComponentUtils.createRowConstraint(100));
 
-        add(createBorderPane("New Game", newGameBox, newGameButton), 0, 0); // TODO: Strings
-        add(createBorderPane("Saved Games", savedGameBox, savedGameButton), 1, 0); // TODO: Strings
 
+        add(createBorderPane(LocaleController.getInstance().getString("NEW_GAME"), newGameBox, newGameButton), 0, 0);
+        add(createBorderPane(LocaleController.getInstance().getString("SAVED_GAMES"), savedGameBox, savedGameButton), 1, 0);
         reset();
     }
 
@@ -56,6 +57,7 @@ public class LoadView extends GridPane {
         savedGameBox.getChildren().add(gameListView);
         savedGameBox.setAlignment(Pos.CENTER);
         VBox.setMargin(gameListView, new Insets(15));
+
     }
 
     private void populateNewGameBox(VBox newGameBox, RaisedButton button) {
@@ -63,7 +65,7 @@ public class LoadView extends GridPane {
         settingsBox.setAlignment(Pos.CENTER);
         settingsBox.setSpacing(15);
 
-        Label labelPegs = createLabel("Pegs:");
+        Label labelPegs = createLabel(LocaleController.getInstance().getString("PEGS") + ": ");
         labelPegs.setFont(Font.font(18));
         settingsBox.getChildren().add(labelPegs);
 
@@ -74,7 +76,7 @@ public class LoadView extends GridPane {
         pegsComboBox.setOnAction(event -> pegs = pegsComboBox.getSelectionModel().getSelectedItem());
         settingsBox.getChildren().add(pegsComboBox);
 
-        Label labelColors = createLabel("Colors:");
+        Label labelColors = createLabel(LocaleController.getInstance().getString("COLORS" + ": "));
         labelColors.setFont(Font.font(18));
         settingsBox.getChildren().add(labelColors);
 
@@ -109,9 +111,9 @@ public class LoadView extends GridPane {
         algorithmBox.setSpacing(25);
         algorithmBox.getChildren().addAll(geneticAlgorithm, fiveGuessAlgorithm);
 
-        Label roleLabel = createLabel("Role"); // TODO: Strings
-        Label algorithmLabel = createLabel("Algorithm"); // TODO: Strings
-        Label settingsLabel = createLabel("Settings"); // TODO: Strings
+        Label roleLabel = createLabel(LocaleController.getInstance().getString("ROLE"));
+        Label algorithmLabel = createLabel(LocaleController.getInstance().getString("ALGORITHM"));
+        Label settingsLabel = createLabel(LocaleController.getInstance().getString("SETTINGS"));
 
         roleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             algorithmBox.setManaged(newValue.getUserData().equals("Maker"));
