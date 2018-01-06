@@ -30,8 +30,8 @@ public class ColorRow extends VBox {
         HBox thirdLayer = createRowBox();
 
         for (int i = 0; i < mPegs.length; i++) {
-            if (mPegs.length < 5) firstLayer.getChildren().add(mPegs[i]);
-            else if (mPegs.length < 8) {
+            if (mPegs.length < 4) firstLayer.getChildren().add(mPegs[i]);
+            else if (mPegs.length < 7) {
                 if (i % 2 == 0) firstLayer.getChildren().add(mPegs[i]);
                 else secondLayer.getChildren().add(mPegs[i]);
             } else {
