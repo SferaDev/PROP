@@ -20,8 +20,8 @@ import java.util.Map;
 
 public class StatsView extends GridPane {
 
-    private static final String Column1MapKey = "Username";
-    private static final String Column2MapKey = "Points";
+    private static final String Column1MapKey = "Column1";
+    private static final String Column2MapKey = "Column2";
 
     private TableView tableViewPoints = new TableView<>();
     private TableView tableViewTime = new TableView<>();
@@ -32,6 +32,9 @@ public class StatsView extends GridPane {
 
         BorderPane borderPanePoints = createBorderPane("Point Stats", "Username", "Points", tableViewPoints);
         BorderPane borderPaneTime = createBorderPane("Time Stats", "Username", "Time", tableViewTime);
+
+        borderPanePoints.prefWidthProperty().bind(widthProperty().divide(2.25));
+        borderPaneTime.prefWidthProperty().bind(widthProperty().divide(2.25));
 
         add(borderPanePoints, 0, 0);
         add(borderPaneTime, 1, 0);
@@ -45,7 +48,9 @@ public class StatsView extends GridPane {
         Label headTitle = new Label(title);
         headTitle.setTextFill(Color.WHITE);
         headTitle.setFont(Font.font(30));
-        headTitle.setAlignment(Pos.CENTER);
+
+        BorderPane.setAlignment(headTitle, Pos.CENTER);
+        BorderPane.setAlignment(table, Pos.CENTER);
 
         BorderPane.setMargin(headTitle, new Insets(10));
         BorderPane.setMargin(table, new Insets(10));
@@ -58,7 +63,8 @@ public class StatsView extends GridPane {
         firstDataColumn.setCellValueFactory(new MapValueFactory(Column1MapKey));
         secondDataColumn.setCellValueFactory(new MapValueFactory(Column2MapKey));
 
-        table.setColumnResizePolicy((param -> true));
+        firstDataColumn.prefWidthProperty().bind(table.widthProperty().divide(2));
+        secondDataColumn.prefWidthProperty().bind(table.widthProperty().divide(2));
 
         table.getSelectionModel().setCellSelectionEnabled(true);
         table.getColumns().setAll(firstDataColumn, secondDataColumn);
