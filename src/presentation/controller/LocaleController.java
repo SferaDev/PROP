@@ -11,20 +11,37 @@ public class LocaleController {
         // Empty constructor
     }
 
+    /**
+     * Gets the instance of the LocaleController.
+     * @return the instance of the LocaleController.
+     */
     public static LocaleController getInstance() {
         return mInstance;
     }
 
+    /**
+     * Gets the string in the MessagesBundle from a given key
+     * @param key is the identifier of the string
+     * @return the string
+     */
     public String getString(String key) {
         return ResourceBundle.getBundle("resources/strings/MessagesBundle",
                 getLanguage().toLocale()).getString(key);
     }
 
+    /**
+     * Gets the language of the user
+     * @return returns a language
+     */
     public Language getLanguage() {
         // If language is not set, default to ENGLISH
         return mLanguage != null ? mLanguage : Language.ENGLISH;
     }
 
+    /**
+     * Sets a neew language
+     * @param locale is the neew language
+     */
     public void setLanguage(Language locale) {
         mLanguage = locale;
     }

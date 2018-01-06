@@ -17,6 +17,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
+    /**
+     * The title of the view
+     */
     @FXML
     public Label title;
     @FXML
@@ -34,6 +37,11 @@ public class LoginViewController implements Initializable {
 
     private LoginListener listener;
 
+    /**
+     * Inicialize the LoginView
+     * @param url is the url where to find Login.fxml
+     * @param bundle is the recoure bundle
+     */
     @FXML
     public void initialize(URL url, ResourceBundle bundle) {
         title.setText(LocaleController.getInstance().getString("WELCOME"));
@@ -42,6 +50,10 @@ public class LoginViewController implements Initializable {
         setUpButtons();
     }
 
+    /**
+     * Sets the listener to private class variable
+     * @param listener the listener to set
+     */
     public void setListener(LoginListener listener) {
         this.listener = listener;
     }

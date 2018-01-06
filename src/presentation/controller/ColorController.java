@@ -37,6 +37,11 @@ public class ColorController {
             BLUE_DARK, YELLOW_DARK, RED_DARK, GREEN_DARK, PURPLE_DARK, PINK_DARK, BROWN_DARK, ORANGE_DARK, BLACK_DARK, WHITE_DARK
     };
 
+    /**
+     * Gets the color in hexadecimal.
+     * @param name is the name of the color.
+     * @return the color in hexadecimal.
+     */
     public static String getColor(String name) {
         try {
             Field field = ColorController.class.getDeclaredField(name);
@@ -47,15 +52,30 @@ public class ColorController {
         }
     }
 
+    /**
+     * Gets the color as a string.
+     * @param color the color as a int.
+     * @return the color as a string.
+     */
     public static String getColor(int color) {
         return colorPalette[(color - 1) % colorPalette.length];
     }
 
+    /**
+     * Gets the dark color as a string.
+     * @param color the color as a int.
+     * @return the color as a string.
+     */
     @SuppressWarnings("unused")
     public static String getDarkColor(int color) {
         return darkPalette[color % colorPalette.length];
     }
 
+    /**
+     * Gets the contrast(Black or white) of the color.
+     * @param color the color which is needed to calculate the contrast.
+     * @return the contrast as a string.
+     */
     public static String getContrast(int color) {
         if (color <= 0) return WHITE_DARK;
         Color paint = Color.web(colorPalette[(color - 1) % colorPalette.length]);

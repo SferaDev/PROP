@@ -33,10 +33,18 @@ public class PresentationController {
     private PresentationController() {
     }
 
+    /**
+     * Gets the instance of the PresentationController.
+     * @return the instance of the PresentationController.
+     */
     public static PresentationController getInstance() {
         return mInstance;
     }
 
+    /**
+     * Launch the login view
+     * @param stage the stage that we will use to built the scene
+     */
     public void launchLoginForm(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_FXML_PATH));
@@ -49,6 +57,10 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Launch the nebula view
+     * @param stage the stage that we will use to built the scene
+     */
     public void launchNebulaForm(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(NEBULA_FXML_PATH));
@@ -60,10 +72,24 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Request the register of a user
+     * @param username the username that will be registered
+     * @param password the password that will be tested
+     * @param language the language of the user
+     * @throws UserAlreadyExistsException
+     */
     public void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
         DomainController.getInstance().getUserController().createUser(username, password, language);
     }
 
+    /**
+     * Checks if the username and the password match
+     * @param username the username that will be registered
+     * @param password the password that will be tested
+     * @return Returns if the user and password match or not
+     * @throws UserNotFoundException
+     */
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
         if (!DomainController.getInstance().getUserController().loginUser(username, password)) return false;
         mUsername = username;

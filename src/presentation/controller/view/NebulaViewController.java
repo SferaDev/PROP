@@ -32,6 +32,11 @@ public class NebulaViewController implements Initializable {
     private GameView currentGameView;
     private boolean isPlaying = false;
 
+    /**
+     * Inicialize the nebula view controller
+     * @param location is the url where to find the Nebula.fxml
+     * @param resources is the recoure bundle
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpDrawer();
@@ -71,6 +76,13 @@ public class NebulaViewController implements Initializable {
         }
     }
 
+    /**
+     * Starts a game with the given parameters
+     * @param role is the role of the user.
+     * @param computer is the computer who you want to play against
+     * @param pegs number of pegs of the game
+     * @param colors number of colors of the game
+     */
     public void startGame(String role, String computer, int pegs, int colors) {
         isPlaying = true;
         boardPane = new BoardPane();
@@ -78,24 +90,43 @@ public class NebulaViewController implements Initializable {
         mainContent.setCenter(currentGameView);
     }
 
+    /**
+     * Enda a game
+     */
     public void finishGame() {
         isPlaying = false;
         loadView.reset();
         mainContent.setCenter(loadView);
     }
 
+    /**
+     * Adds the control of the last turn
+     * @param blacks is the number of black pegs of the control row
+     * @param whites is the number of whites pegs of the control row
+     */
     public void addControlLastTurn(int blacks, int whites) {
         boardPane.addControlRow(new ControlRow(blacks, whites));
     }
 
+    /**
+     * Adds a color row to the board pane.
+     * @param colorRow is the color row that will be added.
+     */
     public void addTurn(ColorRow colorRow) {
         boardPane.addColorRow(colorRow);
     }
 
+    /**
+     * Adds a action pane to the GameView
+     * @param pane the Node that will be added
+     */
     public void addActionPane(Node pane) {
         currentGameView.addActionPane(pane);
     }
 
+    /**
+     * Removes a action pane from the GameView
+     */
     public void removeActionPane() {
         currentGameView.removeActionPane();
         JFXSpinner spinner = new JFXSpinner();
@@ -114,6 +145,10 @@ public class NebulaViewController implements Initializable {
         return button;
     }
 
+    /**
+     * Adds the correct row to the GameView
+     * @param row is the row that will be added
+     */
     public void addCorrectRow(ColorRow row) {
         currentGameView.addCorrectRow(row);
     }
