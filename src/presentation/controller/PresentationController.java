@@ -106,7 +106,6 @@ public class PresentationController {
     public void requestStartGame(String computerName, String role, int pegs, int colors) {
         DomainController.getInstance().getGameController().startNewGame(getUsername(),
                 computerName + "Computer", role, pegs, colors, -1);
-        nebulaController.startGame(role, computerName, pegs, colors);
     }
 
     public String getUsername() {
