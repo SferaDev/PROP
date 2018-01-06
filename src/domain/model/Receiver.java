@@ -41,7 +41,7 @@ public interface Receiver {
     /**
      * Input the correct combination of colors
      *
-     * @param row   is the correct row
+     * @param row is the correct row
      */
     void notifyCorrectRow(String row);
 

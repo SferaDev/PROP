@@ -76,7 +76,7 @@ public class GameInterfaceReceiver implements Receiver {
     /**
      * Adds the correct control row.
      *
-     * @param row   is the correct combination.
+     * @param row is the correct combination.
      */
     @Override
     public void notifyCorrectRow(String row) {

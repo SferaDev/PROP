@@ -70,7 +70,7 @@ public class TerminalReceiver implements Receiver {
     /**
      * Stores a combination as the correct guess.
      *
-     * @param row   is the correct combination
+     * @param row is the correct combination
      */
     @Override
     public void notifyCorrectRow(String row) {
