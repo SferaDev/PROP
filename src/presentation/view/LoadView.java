@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 public class LoadView extends GridPane {
     private final JFXListView<Label> gameListView = new JFXListView<>();
+    private final ToggleGroup roleGroup = new ToggleGroup();
+    private final ToggleGroup algorithmGroup = new ToggleGroup();
 
     private Integer pegs = 3;
     private Integer colors = 3;
@@ -41,7 +43,6 @@ public class LoadView extends GridPane {
         getColumnConstraints().addAll(ComponentUtils.createColumnConstraint(50), ComponentUtils.createColumnConstraint(50));
         getRowConstraints().addAll(ComponentUtils.createRowConstraint(100));
 
-
         add(createBorderPane(LocaleController.getInstance().getString("NEW_GAME"), newGameBox, newGameButton), 0, 0);
         add(createBorderPane(LocaleController.getInstance().getString("SAVED_GAMES"), savedGameBox, savedGameButton), 1, 0);
         reset();
@@ -51,7 +52,7 @@ public class LoadView extends GridPane {
         gameListView.prefHeightProperty().bind(savedGameBox.heightProperty());
         gameListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         button.setOnAction(event -> {
-            String game = gameListView.getSelectionModel().getSelectedItem().getText();
+            String game = (String) gameListView.getSelectionModel().getSelectedItem().getUserData();
             PresentationController.getInstance().requestStartSavedGame(game);
         });
         savedGameBox.getChildren().add(gameListView);
@@ -70,6 +71,7 @@ public class LoadView extends GridPane {
         settingsBox.getChildren().add(labelPegs);
 
         JFXComboBox<Integer> pegsComboBox = new JFXComboBox<>();
+        pegsComboBox.setPrefWidth(2);
         pegsComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(pegsComboBox, 3, 9);
         pegsComboBox.getSelectionModel().selectFirst();
@@ -81,21 +83,18 @@ public class LoadView extends GridPane {
         settingsBox.getChildren().add(labelColors);
 
         JFXComboBox<Integer> colorComboBox = new JFXComboBox<>();
+        colorComboBox.setPrefWidth(2);
         colorComboBox.setStyle("-fx-background-color: #cfd8dc;");
         fillComboBox(colorComboBox, 3, 9);
         colorComboBox.getSelectionModel().selectFirst();
         colorComboBox.setOnAction(event -> colors = colorComboBox.getSelectionModel().getSelectedItem());
         settingsBox.getChildren().add(colorComboBox);
 
-        ToggleGroup roleGroup = new ToggleGroup();
-        ToggleGroup algorithmGroup = new ToggleGroup();
-
         JFXRadioButton breakerRole = createRadioButton("Breaker");
         JFXRadioButton makerRole = createRadioButton("Maker");
 
         breakerRole.setToggleGroup(roleGroup);
         makerRole.setToggleGroup(roleGroup);
-        breakerRole.setSelected(true);
 
         JFXRadioButton geneticAlgorithm = createRadioButton("Genetic");
         JFXRadioButton fiveGuessAlgorithm = createRadioButton("FiveGuess");
@@ -138,9 +137,6 @@ public class LoadView extends GridPane {
                 }
             });
         });
-
-        breakerRole.setSelected(true);
-        geneticAlgorithm.setSelected(true);
 
         algorithmBox.setManaged(false);
         algorithmBox.setVisible(false);
@@ -197,11 +193,18 @@ public class LoadView extends GridPane {
     }
 
     public void reset() {
-        // TODO: Reset focus on ToggleGroups
+        algorithmGroup.selectToggle(algorithmGroup.getToggles().get(0));
+        roleGroup.selectToggle(roleGroup.getToggles().get(0));
+
         gameListView.getItems().clear();
         ArrayList savedGames = PresentationController.getInstance().requestSavedGames();
         for (Object game : savedGames) {
-            gameListView.getItems().add(new Label((String) game));
+            String[] title = ((String) game).split("-");
+            String name = title[1] + (title[1].equals("Maker") ? " vs " + title[2] : "") +
+                    " " + title[3] + " Pegs " + title[4] + " Colors (" + title[5].replace("_", ":") + ")";
+            Label label = new Label(name);
+            label.setUserData(game);
+            gameListView.getItems().add(label);
         }
     }
 }
