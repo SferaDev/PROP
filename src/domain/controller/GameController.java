@@ -151,12 +151,14 @@ public class GameController {
         currentGame = (Game) gameDataController.get(game);
         gameDataController.remove(game);
 
-        try {
-            currentGame.restoreSavedGame();
-            currentGame.startGame();
-        } catch (FinishGameException e) {
-            currentGame = null;
-        }
+        new Thread(() -> {
+            try {
+                currentGame.restoreSavedGame();
+                currentGame.startGame();
+            } catch (FinishGameException e) {
+                currentGame = null;
+            }
+        }).start();
     }
 
     /**
