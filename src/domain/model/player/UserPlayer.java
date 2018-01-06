@@ -75,7 +75,6 @@ public class UserPlayer extends Player implements java.io.Serializable {
      */
     @Override
     public ControlRow scoreGuess(ColorRow guess) throws FinishGameException, CommandInterruptException {
-        receiveColor(guess);
         int blacks = DomainController.getInstance().getGameInterface().inputControlBlacks();
         int whites = DomainController.getInstance().getGameInterface().inputControlWhites();
         return new ControlRow(blacks, whites);

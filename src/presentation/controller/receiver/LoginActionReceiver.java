@@ -18,7 +18,7 @@ public class LoginActionReceiver implements LoginViewController.LoginListener {
     private final Stage stage;
 
     /**
-     * Recives the stage
+     * Receives the stage
      *
      * @param stage is the stage that will be ust to bild the login
      */

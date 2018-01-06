@@ -142,6 +142,7 @@ public class Game implements java.io.Serializable {
         if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
             mGuess.add(input);
             gameBreaker.receiveColor(input);
+            gameMaker.receiveColor(input);
             gameStatus = Status.CONTROL;
         } else {
             gameBreaker.notifyInvalidInput();
