@@ -23,7 +23,7 @@ public class BoardPane extends GridPane {
 
     public void addColorRow(ColorRow... rows) {
         for (ColorRow row : rows) {
-            TurnLabel label = new TurnLabel(LocaleController.getInstance().getString("TURN") + (posColorRow + 1));
+            TurnLabel label = new TurnLabel(LocaleController.getInstance().getString("TURN") + " " + (posColorRow + 1));
             label.setRotate(-90);
             label.setMinSize(70, 100);
             add(label, 0, posColorRow);

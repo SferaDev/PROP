@@ -44,7 +44,8 @@ public class PresentationController {
             LoginViewController controller = loader.getController();
             controller.setListener(new LoginActionReceiver(stage));
             ComponentUtils.buildScene(getClass(), stage, root, 700, 400);
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -54,7 +55,8 @@ public class PresentationController {
             Parent root = loader.load();
             nebulaController = loader.getController();
             ComponentUtils.buildScene(getClass(), stage, root, 800, 600);
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

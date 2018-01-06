@@ -40,11 +40,12 @@ public class GameView extends GridPane {
         VBox informationPlaceholder = new VBox();
         informationPlaceholder.setAlignment(Pos.CENTER);
         informationPlaceholder.setSpacing(10);
-        if (role.equals(LocaleController.getInstance().getString("MAKER")))
+        if (role.equals("Maker")) {
             informationPlaceholder.getChildren().add(createNewLabel(computer));
-        else
+        } else {
             informationPlaceholder.getChildren().add(createNewLabel(LocaleController.getInstance().getString("ROLE") + ": " + role));
-        informationPlaceholder.getChildren().add(createNewLabel(LocaleController.getInstance().getString("PEGS") + ": " + pegs + "   " + LocaleController.getInstance().getString("COLORS") + ": " + colors));
+        }
+        informationPlaceholder.getChildren().add(createNewLabel(LocaleController.getInstance().getString("PEGS") + ": " + pegs + " " + LocaleController.getInstance().getString("COLORS") + ": " + colors));
 
         HBox buttonBoxHelp = new HBox();
         buttonBoxHelp.setAlignment(Pos.CENTER);
@@ -68,7 +69,7 @@ public class GameView extends GridPane {
         saveButton.setOnMouseClicked(event -> PresentationController.getInstance().requestSaveCurrentGame());
         buttonBoxQuit.getChildren().add(saveButton);
 
-        RaisedButton quitButton = new RaisedButton(LocaleController.getInstance().getString(LocaleController.getInstance().getString("QUIT")));
+        RaisedButton quitButton = new RaisedButton(LocaleController.getInstance().getString("QUIT"));
         quitButton.setOnMouseClicked(event -> PresentationController.getInstance().requestQuitCurrentGame());
         buttonBoxQuit.getChildren().add(quitButton);
 

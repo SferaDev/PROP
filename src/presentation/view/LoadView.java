@@ -76,7 +76,7 @@ public class LoadView extends GridPane {
         pegsComboBox.setOnAction(event -> pegs = pegsComboBox.getSelectionModel().getSelectedItem());
         settingsBox.getChildren().add(pegsComboBox);
 
-        Label labelColors = createLabel(LocaleController.getInstance().getString("COLORS" + ": "));
+        Label labelColors = createLabel(LocaleController.getInstance().getString("COLORS") + ": ");
         labelColors.setFont(Font.font(18));
         settingsBox.getChildren().add(labelColors);
 
