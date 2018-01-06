@@ -59,9 +59,11 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
         try {
             File file = new File(mPath + key);
             if (!file.exists()) FileUtils.createFile(mPath + key);
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false));
+            FileOutputStream fos = new FileOutputStream(file, false);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(item);
             oos.close();
+            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,8 +122,12 @@ public abstract class DataModel<E extends Serializable> implements DataControlle
 
     private E readDisk(String path) {
         try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));
-            return (E) ois.readObject();
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            E object = (E) ois.readObject();
+            ois.close();
+            fis.close();
+            return object;
         } catch (FileNotFoundException e) {
             FileUtils.createFile(path);
             return null;
