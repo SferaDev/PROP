@@ -52,6 +52,10 @@ public class Game implements java.io.Serializable {
      * It is the number of turns the Breaker have used
      */
     private int gameTurn = 1;
+    /**
+     * It is the variable that decides if a game has finished
+     */
+    private boolean gameFinished = false;
 
     /**
      * Instantiates a new Game.
@@ -87,7 +91,7 @@ public class Game implements java.io.Serializable {
      * @throws FinishGameException the finish game exception
      */
     public void startGame() throws FinishGameException {
-        while (gameStatus != Status.CORRECT && gameStatus != Status.FINISHED) {
+        while (gameStatus != Status.CORRECT && !gameFinished) {
             switch (gameStatus) {
                 case START:
                     try {
@@ -169,7 +173,7 @@ public class Game implements java.io.Serializable {
         } else if (gameInfo.mTurns > 0 && (gameTurn + 1) > gameInfo.mTurns) {
             gameBreaker.finishGame();
             gameMaker.finishGame();
-            gameStatus = Status.FINISHED;
+            gameFinished = true;
         } else {
             gameTurn++;
             gameStatus = Status.GUESS;
@@ -208,13 +212,6 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Finish game, set the status FINISHED
-     */
-    public void finishGame() {
-        gameStatus = Status.FINISHED;
-    }
-
-    /**
      * Provides help to the user depending in the status; if the status is GUESS gives a combination to help to guess the correct combination
      * and if the status is CONTROL gives the correct control answer
      */
@@ -243,10 +240,12 @@ public class Game implements java.io.Serializable {
     public void restoreSavedGame() {
         gameInfo.updateStart();
 
+        gameFinished = false;
+
         gameBreaker.startGame(gameInfo.getGameTitle());
         gameMaker.startGame(gameInfo.getGameTitle());
 
-        gameMaker.notifyCorrectGuess(correctGuess);
+        if (correctGuess != null) gameMaker.notifyCorrectGuess(correctGuess);
 
         for (int i = 0; i < mGuess.size(); ++i) {
             if (gameBreaker instanceof UserPlayer) {
@@ -258,6 +257,10 @@ public class Game implements java.io.Serializable {
                 if (mControl.size() > i) gameMaker.receiveControl(mControl.get(i));
             }
         }
+    }
+
+    public void finishGame() {
+        gameFinished = true;
     }
 
     /**
@@ -287,11 +290,7 @@ public class Game implements java.io.Serializable {
         /**
          * Correct status: The breaker wins
          */
-        CORRECT,
-        /**
-         * Finished status: The breakers finished the game because exceeds the number of turns
-         */
-        FINISHED
+        CORRECT
     }
 
     /**
