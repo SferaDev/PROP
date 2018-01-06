@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://raco.fib.upc.edu/home/portada/oriol.borrell.roig -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Portada - Racó de la FIB</title>
+	
+
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="shorcut icon" href="https://raco.fib.upc.edu/racoEstatic/img/favicon.ico">
+
+		
+		<script src="./Portada - Racó de la FIB_files/jquery1.11.3.min.js.baixa"></script>
+		
+		<script src="./Portada - Racó de la FIB_files/jquery-ui1.9.2.min.js.baixa"></script>
+		<link rel="stylesheet" type="text/css" href="./Portada - Racó de la FIB_files/maximo.css" media="all">
+		<link rel="stylesheet" type="text/css" href="./Portada - Racó de la FIB_files/iconize.css" media="all">
+		<link rel="stylesheet" type="text/css" href="./Portada - Racó de la FIB_files/jquery-ui-fib.css" media="all">
+		<link rel="stylesheet" type="text/css" href="./Portada - Racó de la FIB_files/impressio.css" media="print">
+
+		<script type="text/javascript" src="./Portada - Racó de la FIB_files/jquery.ui.datepicker-ca.js.baixa"></script>
+		<script type="text/javascript" src="./Portada - Racó de la FIB_files/jquery.qtip.min.js.baixa"></script>
+
+		<script type="text/javascript" src="./Portada - Racó de la FIB_files/jquery.corners.js.baixa"></script>
+
+
+		<script type="text/javascript" src="./Portada - Racó de la FIB_files/funcions.js.baixa"></script>
+		<script type="text/javascript" src="./Portada - Racó de la FIB_files/javascript.js.baixa"></script>
+
+	
+	
+	
+	
+	
+	<style type="text/css">
+		.ui-sortable-placeholder
+		{
+			visibility: visible !important;
+			border: 0.2em dotted #cccccc;
+			background: white;
+		}
+		
+		.updating
+		{
+			display: none;
+			position: fixed;
+			top: 0.5em;
+			right: 0.5em;
+			z-index: 1000;
+			background: white;
+			border: 0.1em solid #0099cc;
+			padding: 0.5em;
+			-moz-border-radius: 0.2em;
+			border-radius: 0.2em;
+			opacity: 0.6em;
+			-moz-box-shadow: 0 0 0.2em 1px black;
+		}
+		
+		.updating p
+		{
+			margin: 0;
+			padding: 0;
+			font-size: 0.6em;
+			font-weight: bold;
+			color: #0099cc;
+			text-transform: uppercase;
+			padding-left: 25px;
+			background: url('/racoEstatic/img/widgets_updating.gif') left center no-repeat;
+		}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if (!((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))
+				|| (navigator.userAgent.match(/android/i)) || (navigator.userAgent.match(/ZuneWP7/i))))
+			{
+				$('#shareCalendar, #shareRSS').dialog({
+					autoOpen: false,
+					modal: true,
+					resizable: false,
+					width: 600,
+					height: 240
+				});
+				
+				$('#calendar-url, #rss-url').click(function(){
+					$(this).select();
+				});
+				
+				$('.ical').click(function(){
+					showShareCalendarDialog($(this));
+					
+					return false;
+				});
+				
+				$('.rss').click(function(){
+					showShareRSSDialog($(this));
+					
+					return false;
+				});
+			}
+			
+			function showShareCalendarDialog(element)
+			{			
+				$.ajax({
+					url: $(element).attr('href') + "&noredirect=true",
+					success: function(data)
+					{
+						$('#calendar-url').val(data);
+					}
+				});
+				
+				$('#shareCalendar').dialog("open");
+				
+				return false;
+			}
+			
+			function showShareRSSDialog(element)
+			{			
+				$.ajax({
+					url: $(element).attr('href') + "&noredirect=true",
+					success: function(data)
+					{
+						$('#rss-url').val(data);
+					}
+				});
+				
+				$('#shareRSS').dialog("open");
+				
+				return false;
+			}
+			
+			$('#widgetize1, #widgetize2, #widgetize3').sortable({
+				connectWith: ".connected",
+				revert: true,
+				handle: 'h3',
+				cursor: "move",
+				delay: 300,
+				stop: function(event, ui)
+				{
+					var newWidgetOrder;
+					
+					//Columna 1
+					newWidgetOrder = $('#widgetize1').sortable('serialize');
+					$.ajax({
+						url: '/servlet/raco.widgets.UpdateWidgets',
+						data: 'col=1&' + newWidgetOrder,
+						beforeSend: function()
+						{
+							$('.updating').slideDown();
+						},
+						complete: function()
+						{
+							$('.updating').delay(1000).slideUp();
+						}
+					});
+					
+					//Columna 2
+					newWidgetOrder = $('#widgetize2').sortable('serialize');
+					$.ajax({
+						url: '/servlet/raco.widgets.UpdateWidgets',
+						data: 'col=2&' + newWidgetOrder,
+						beforeSend: function()
+						{
+							$('.updating').slideDown();
+						},
+						complete: function()
+						{
+							$('.updating').delay(1000).slideUp();
+						}
+					});
+					
+					//Columna 3
+					newWidgetOrder = $('#widgetize3').sortable('serialize');
+					$.ajax({
+						url: '/servlet/raco.widgets.UpdateWidgets',
+						data: 'col=3&' + newWidgetOrder,
+						beforeSend: function()
+						{
+							$('.updating').slideDown();
+						},
+						complete: function()
+						{
+							$('.updating').delay(1000).slideUp();
+						}
+					});
+				}
+			});
+		});
+	</script>
+
+</head>
+
+<body>
+	<div id="page">
+		<div id="page_centered">
+			<div class="cap">
+				
+
+
+
+
+
+
+<div id="barra">
+	<ul id="links">
+		<li><a href="http://www.fib.upc.edu/">Portal FIB</a></li>
+		<li><a href="http://www.upc.edu/">Portal UPC</a></li>
+		<li class="last"><a href="http://www.upc.edu/webs-upc">Intranets UPC</a></li>
+	</ul>
+	
+	<div class="rightlinks">
+		<ul id="idiomes">
+			
+				<li class="active first">Català</li>
+				<li><a href="https://raco.fib.upc.edu/servlet/Idioma.CambioIdioma?idioma=es">Castellano</a></li>
+				<li><a href="https://raco.fib.upc.edu/servlet/Idioma.CambioIdioma?idioma=en">English</a></li>			
+			
+			
+			
+		</ul>
+		
+		<ul id="eines">
+			<li id="tamany"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#tamany" title="Augmentar lletres"><img src="./Portada - Racó de la FIB_files/augmentat_lletres.gif" alt="Augmentar lletres"></a></li>
+			<li><a id="Inici" href="https://raco.fib.upc.edu/home/portada" title="Inici"><img src="./Portada - Racó de la FIB_files/home.gif" alt="Inici"></a></li>
+			<li><a id="informacio" href="https://raco.fib.upc.edu/beta.jsp" title="Informació"><img src="./Portada - Racó de la FIB_files/informacio.gif" alt="Informació"></a></li>
+			<li><a class="contactar" id="contactar" href="http://suport.fib.upc.edu/" title="Contactar"><img src="./Portada - Racó de la FIB_files/correu.gif" alt="Contactar"></a></li>
+			<li><a id="mapa" href="https://raco.fib.upc.edu/mapa.jsp" title="Mapa del web"><img src="./Portada - Racó de la FIB_files/mapa_web.gif" alt="Mapa del web"></a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="logos">
+	<a href="http://www.upc.edu/"><img id="logoupc" src="./Portada - Racó de la FIB_files/Logo_UPC.gif"></a>
+	<a href="http://www.fib.upc.edu/"><img id="logofib" src="./Portada - Racó de la FIB_files/Logo_FIB.gif"></a>
+	<span id="titol"><a href="https://raco.fib.upc.edu/"><img id="logoraco" src="./Portada - Racó de la FIB_files/logo_raco.png"></a></span>
+	<!--<span id="beta"><img id="logobeta" src="/racoEstatic/img/logo_beta.png" /></span>-->
+</div>
+
+<div class="buscar">
+	<form action="https://raco.fib.upc.edu/cercar.jsp" method="post" onsubmit="cercar($(&#39;#tipus_cerca&#39;).val(),$(&#39;#camp_cerca&#39;).val())">
+		<select id="tipus_cerca" name="tipus">
+			<option value="Cercar...">Cercar... </option>
+			<option selected="" value="estudiants">Estudiants</option>
+			<option value="personal">Personal UPC</option>
+		</select>
+		<input id="camp_cerca" name="q" type="text">
+		<button type="submit" class="search no-text ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" role="button" aria-disabled="false" title="Cercar..."><span class="ui-button-icon-primary ui-icon ui-icon-search"></span><span class="ui-button-text"><span class="ui-button-icon-primary ui-icon ui-icon-search"></span><span class="ui-button-text">Cercar... </span></span></button>
+	</form>
+</div>	
+				
+
+<div class="usuari">
+<div class="pestanya_usuari">
+<div class="sortir">
+<a href="https://raco.fib.upc.edu/logout">Sortir</a>
+</div>
+<div class="nom"><a href="https://raco.fib.upc.edu/perfil.jsp">ORIOL BORRELL ROIG</a></div>
+</div>
+</div>
+			
+				
+
+
+
+<div class="pestanyes">
+
+	
+		<ul id="nav">
+			
+			
+				
+				
+			<li class="sel">
+		 		<a class="home" href="https://raco.fib.upc.edu/home/portada"><span>Inici</span></a> 		
+			</li>	
+			
+				
+					
+				<li class="normal assignatures">
+					<a href="https://raco.fib.upc.edu/home/assignatures"><span>Assignatures</span></a>
+					<ul class="subnav" style="top: 35px;">
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/home/assignatura?espai=270080">ARQUITECTURA DEL SOFTWARE (GRAU-AS)</a>
+						</li>
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/home/assignatura?espai=270107">MINERIA DE DADES (GRAU-MD)</a>
+						</li>
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/home/assignatura?espai=270020">PARAL·LELISME (GRAU-PAR)</a>
+						</li>
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/home/assignatura?espai=270017">PROJECTES DE PROGRAMACIÓ (GRAU-PROP)</a>
+						</li>
+							
+					</ul>	
+				</li>
+			
+			
+			
+					
+			<li class="normal">
+				<a href="https://raco.fib.upc.edu/home/grups" class="t"><span>Grups</span></a>
+				<ul class="subnav" style="top: 35px;">
+					
+					<li>
+					<a href="https://raco.fib.upc.edu/home/grup?espai=-782">Especialitat Enginyeria del Software (ESP-ES)</a>
+					</li>
+						
+				</ul>	
+			</li>
+				
+			
+				
+				
+				
+				<li class="normal">
+					<a href="https://raco.fib.upc.edu/home/gestio"><span>Gestió</span></a>		
+						<ul class="subnav">
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/fitxers/prematricula.jsp">Prematricula</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/gestio/esecretaria.jsp">e-Secretaria</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/horari.jsp">El meu horari</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/gestio/carrega_de_treball.jsp">Càrrega de treball</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/gestio/expedient">Expedient</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/tutories/consulta/tutor_assignat.jsp">Consulta el teu tutor</a>				
+						</li>		
+					
+				</ul>
+			</li>
+				
+			
+				
+				
+				
+				<li class="normal">
+					<a href="https://raco.fib.upc.edu/home/comunitat"><span>Comunitat</span></a>		
+						<ul class="subnav">
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://webmail.fib.upc.edu/">Webmail</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/forum/forums/list.page">Fòrums públics</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/comunitat/buscarConnectats.jsp">Buscar connectats</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/comunitat/cercar-estudiants.jsp">Cercar estudiants</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/borsa/llistatOfertes.jsp">Borsa de treball</a>				
+						</li>		
+					
+				</ul>
+			</li>
+				
+			
+				
+			
+				
+				
+				
+				<li class="normal">
+					<a href="https://raco.fib.upc.edu/home/projectes"><span>Projectes</span></a>		
+						<ul class="subnav">
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/projectes/ofertes/buscar.jsp?ultimes=s">Ofertes de Projectes</a>				
+						</li>		
+					
+				</ul>
+			</li>
+				
+			
+				
+				
+				
+				<li class="normal">
+					<a href="https://raco.fib.upc.edu/home/serveis"><span>Serveis</span></a>		
+						<ul class="subnav">
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/serveis/quotes.jsp">Quotes</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/ReservesWebApp/newReserva.do">Reserva d'equips</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="http://www.fib.upc.edu/fib/serveis/categories/soft.html">Demanar Software</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/ocupacio.jsp">Ocupació de les aules</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/oauth/gestio-api/api.jsp">API del Racó</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://raco.fib.upc.edu/serveis/acces-disc.jsp">Accés al disc</a>				
+						</li>		
+					
+						
+							
+							
+								
+							
+						
+						<li>
+							<a href="https://gn6.upc.edu/puntfib/">Suport FIB</a>				
+						</li>		
+					
+				</ul>
+			</li>
+				
+			
+				
+			
+		</ul>
+	
+	
+
+</div>
+			</div>
+			<div class="contingut_home">
+				
+	<div class="sidebar_right">
+		
+
+
+
+
+
+<div class="usuari">
+	<div class="dintre">
+		<img src="./Portada - Racó de la FIB_files/lcfib.fotos.Foto" alt="" class="foto">	
+		
+				
+			
+			
+				
+			
+						
+				
+					
+					
+						
+					
+				
+				
+					
+						
+					
+					
+					
+					
+					
+					
+					
+				
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+				
+			
+			
+		
+		<p class="rol"><a href="https://raco.fib.upc.edu/rol.jsp?rol=EST" title="Estudiant">Estudiant</a></p>		
+		<div class="accions">
+			<a href="https://raco.fib.upc.edu/perfil.jsp">Editar perfil</a><br>
+			<a href="https://raco.fib.upc.edu/horari.jsp">Horari</a><br>
+			
+				<a href="https://identitatdigital.upc.edu/gcredencials/init/">Canviar contrasenya</a><br>
+			
+			<a href="https://raco.fib.upc.edu/subscripcions.jsp">Modificar subscripcions</a>
+		</div>
+		
+			<div class="assignatures">
+				<h4>Les teves assignatures</h4>
+				<ul>
+				
+					<li>
+						<a href="https://raco.fib.upc.edu/home/assignatura?espai=270080">ARQUITECTURA DEL SOFTWARE (GRAU-AS)</a>
+					</li>
+					
+					<li>
+						<a href="https://raco.fib.upc.edu/home/assignatura?espai=270107">MINERIA DE DADES (GRAU-MD)</a>
+					</li>
+					
+					<li>
+						<a href="https://raco.fib.upc.edu/home/assignatura?espai=270020">PARAL·LELISME (GRAU-PAR)</a>
+					</li>
+					
+					<li>
+						<a href="https://raco.fib.upc.edu/home/assignatura?espai=270017">PROJECTES DE PROGRAMACIÓ (GRAU-PROP)</a>
+					</li>
+						
+				</ul>	
+			</div>
+		
+		
+		<br style="clear: both;">
+	</div>
+	<div class="degradat">
+		<div class="degradatesq">
+		</div>
+		<div class="degradatdre">
+		</div>
+	</div>
+</div>
+		<div id="widgetize3" class="connected ui-sortable" style="min-height: 5em; margin: 1em auto; width: 17.8em;">
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+			
+				
+					
+
+
+
+
+
+	<div id="widget_7" class="widget">
+		<div class="caixa direct_links">
+			<div class="dintre">
+				<h3>Enllaços directes</h3>
+				<div class="text">
+					<ul>
+						
+									
+							
+							
+								
+								
+									
+								
+													
+							<li class="normal">
+								<a href="https://raco.fib.upc.edu/borsa/llistatOfertes.jsp" title="">Borsa de treball</a>				
+							</li>
+						
+									
+							
+							
+								
+								
+									
+								
+													
+							<li class="normal">
+								<a href="http://www.fib.upc.edu/fib/serveis/guies.html" title="">Guies d'utilització</a>				
+							</li>
+						
+									
+							
+							
+								
+								
+									
+								
+													
+							<li class="normal">
+								<a href="http://www.fib.upc.edu/fib/serveis/normativa.html" title="">Normativa d'ús aules informàtiques</a>				
+							</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+				
+			
+				
+					
+
+
+
+
+
+
+
+				
+			
+		</div>
+	</div>
+	<div class="columnes">
+		
+
+
+
+
+<div id="widget_1" class="widget">
+	
+</div>		
+<style type="text/css">
+	.dintre .avis{
+		position: relative;
+	}
+	.dintre .accio{
+		position: absolute;
+		right: 0;
+    	top: 0.4em;
+	}
+	#widget_1 .caixa{
+		margin-bottom: 5px;
+	}
+	#widget_1{
+		margin-bottom: 10px;
+	}
+	.dintre .avis .mostrar, .dintre .avis .ocultar{
+		z-index: 10;
+		width: 100%;
+		text-align: right;
+	}
+	.dintre .avis .mostrar{
+		display: none;
+	}
+	.dintre .avis .ocultar{
+		display: block;
+	}
+	.dintre .avis .llegit .mostrar{
+		display: block;
+	}	
+	.dintre .avis .llegit .ocultar{
+		display: none;
+	}
+	.dintre .avis .llegit .cos_avis{
+		display: none;
+	}
+	.dintre .avis .cos_avis{
+		padding:
+	}
+	.dintre .avis{
+		padding: 3px 10px;
+	}
+	.dintre .avis .llegit h4{
+		padding: 0;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.avis .ocultar').click(function(){
+			var item = $(this);
+			
+			$.ajax({
+				url: $(item).attr('href'),
+				success: function(data)
+				{
+					$('#avis-'+item.attr('data-id_avis')+' div').addClass('llegit');
+				}
+			});
+			
+			return false;
+		});
+		$('.avis .mostrar').click(function(){
+			var item = $(this);
+			$.ajax({
+				url: $(item).attr('href'),
+				success: function(data)
+				{
+					$('#avis-'+item.attr('data-id_avis')+' div').removeClass('llegit');
+				}
+			});
+			
+			return false;
+		});
+	});
+</script>
+		<div class="columna1">
+			<div id="widgetize1" class="connected ui-sortable" style="min-height: 5em;">
+				
+					
+						
+
+
+
+
+
+<div id="widget_2" class="widget">
+	<div class="caixa">
+		<div class="dintre">		
+			<h3 class="exportar-avisos">
+				<a href="https://raco.fib.upc.edu/servlet/out.GeneraURL?url=/extern/rss_avisos.jsp&amp;domini=https://raco.fib.upc.edu" class="rss"><img src="./Portada - Racó de la FIB_files/feed-icon-16x16.gif"></a>
+				Avisos
+			</h3>
+			<div class="text avisos">
+				
+					
+					
+						
+							<h4><a href="https://raco.fib.upc.edu/home/assignatura?espai=270080">ARQUITECTURA DEL SOFTWARE</a> </h4>
+							
+								<div class="assig_atenea" style="border-radius: 0.3em; font-size: 1em; padding: 0.2em 0.5em 0 0.5em;">
+									<p class="msg_atenea"><img alt="" src="./Portada - Racó de la FIB_files/atenea.png" style="height: 2em;"></p>
+									<ul class="links_atenea">
+										
+											<li style="display: inline;"><a target="_blank" style="background: none; padding-left: 0;" class="more" title="Anar a l&#39;Atenea de GRAU-AS " href="http://atenea.upc.edu/moodle/course/view.php?id=42387">
+												
+													
+													Anar a l'Atenea de GRAU-AS
+												
+											</a></li>
+										
+									</ul>
+									<br style="clear: both;">
+								</div>
+								<br>
+							
+							<ul>
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-AS&amp;id=88575">Informació 3er Control</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-AS&amp;id=88574">Enunciat 3r control QP16-17</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-AS&amp;id=88573">Solució pràctica laboratori Sessió 6</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">06/09/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-AS&amp;id=85691">Recordatori data 3er control</a>
+										
+										
+									</li>
+									
+								
+							</ul>
+							<a style="float: left;" class="more" title="Més avisos" href="https://raco.fib.upc.edu/avisos/llista.jsp?espai=270080">Més avisos</a>
+							
+							<br style="clear: both;">
+						
+							<h4><a href="https://raco.fib.upc.edu/home/assignatura?espai=270107">MINERIA DE DADES</a> <span class="grups">(10, 11, 12)</span></h4>
+							
+							<ul>
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">19/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-MD&amp;id=88523">Extra class for tomorrow cancelled</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">19/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-MD&amp;id=88509">Marks: first project</a>
+										
+										
+											<img src="./Portada - Racó de la FIB_files/attachment.png">
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">18/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-MD&amp;id=88484">Mario's Quizzes</a>
+										
+										
+											<img src="./Portada - Racó de la FIB_files/attachment.png">
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">15/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-MD&amp;id=88383">QUIZ II correction</a>
+										
+										
+									</li>
+									
+								
+							</ul>
+							<a style="float: left;" class="more" title="Més avisos" href="https://raco.fib.upc.edu/avisos/llista.jsp?espai=270107">Més avisos</a>
+							
+							<br style="clear: both;">
+						
+							<h4><a href="https://raco.fib.upc.edu/home/assignatura?espai=270020">PARAL·LELISME</a> <span class="grups">(10, 11, 12, 13)</span></h4>
+							
+								<div class="assig_atenea" style="border-radius: 0.3em; font-size: 1em; padding: 0.2em 0.5em 0 0.5em;">
+									<p class="msg_atenea"><img alt="" src="./Portada - Racó de la FIB_files/atenea.png" style="height: 2em;"></p>
+									<ul class="links_atenea">
+										
+											<li style="display: inline;"><a target="_blank" style="background: none; padding-left: 0;" class="more" title="Anar a l&#39;Atenea de GRAU-PAR " href="http://atenea.upc.edu/moodle/course/view.php?id=42386">
+												
+													
+													Anar a l'Atenea de GRAU-PAR
+												
+											</a></li>
+										
+									</ul>
+									<br style="clear: both;">
+								</div>
+								<br>
+							
+							<ul>
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">05/01/18</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PAR&amp;id=88679">EXAMEN PARCIAL (10/01/2018)</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PAR&amp;id=88601">Enquesta electronica de la FIB sobre PAR i els seus professors</a>
+										
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">03/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PAR&amp;id=88091">Notes del primer control, solució i revisió</a>
+										
+										
+											<img src="./Portada - Racó de la FIB_files/attachment.png">
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">18/11/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PAR&amp;id=87668">Material flipped-classroom per la propera sessió de teoria</a>
+										
+										
+									</li>
+									
+								
+							</ul>
+							<a style="float: left;" class="more" title="Més avisos" href="https://raco.fib.upc.edu/avisos/llista.jsp?espai=270020">Més avisos</a>
+							
+							<br style="clear: both;">
+						
+							<h4><a href="https://raco.fib.upc.edu/home/assignatura?espai=270017">PROJECTES DE PROGRAMACIÓ</a> <span class="grups">(10, 11, 12, 13, 20, 21, 22, 23, 24, 40, 41, 42, 43)</span></h4>
+							
+							<ul>
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PROP&amp;id=88619">Notes Parcial</a>
+										
+										
+											<img src="./Portada - Racó de la FIB_files/attachment.png">
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">22/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PROP&amp;id=88614">Slots per la presentació de la pràctica.</a>
+										(13, 41, 42)
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">21/12/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PROP&amp;id=88566">Presentacions orals: prof. Jordi Turmo</a>
+										(12, 24)
+										
+									</li>
+									
+								
+									
+										
+											
+										
+										
+									
+									<li>		
+										<span class="data">29/11/17</span>
+										<a href="https://raco.fib.upc.edu/avisos/veure.jsp?assig=GRAU-PROP&amp;id=87955">Respecte a la convocatòria de l'examen d'avui</a>
+										
+										
+											<img src="./Portada - Racó de la FIB_files/attachment.png">
+										
+									</li>
+									
+								
+							</ul>
+							<a style="float: left;" class="more" title="Més avisos" href="https://raco.fib.upc.edu/avisos/llista.jsp?espai=270017">Més avisos</a>
+							
+							<br style="clear: both;">
+						
+					
+				
+			</div>
+		</div>
+	</div>
+</div>
+					
+				
+					
+						
+
+<div id="widget_3" class="widget">
+	<div class="caixa comunitat">
+		<div class="dintre">
+			<h3>Comunitat FIB</h3>
+			<div class="text">
+				<h4 class="rss_title">Noticies FIB
+					<a class="rss" href="http://www.fib.upc.edu/fib/rss.xml">
+						<img src="./Portada - Racó de la FIB_files/feed-icon-16x16.gif" alt="RSS">
+					</a>
+				</h4>
+				<div id="feedfib" class="rss_content"><h5><a href="http://www.fib.upc.edu/ca/noticies/programa-salsam-2018">Programa SALSA?M 2018</a></h5></div>
+				<h4 class="rss_title">Notícies UPC
+					<a class="rss" href="http://www.upc.edu/saladepremsa/actualitat-upc/RSS?set_language=ca">		
+						<img src="./Portada - Racó de la FIB_files/feed-icon-16x16.gif" alt="RSS">
+					</a>
+				</h4>
+				<div id="feedupc" class="rss_content"><p>El contingut no està disponible en aquest moment.</p></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" style="">
+	$(document).ready(function() {
+		get_rss_feed("/rssfib.jsp","#feedfib",1);
+		get_rss_feed("/rssupc.jsp","#feedupc",1);
+	});
+</script>
+					
+				
+					
+						
+
+
+
+
+
+<div id="widget_4" class="widget">
+	<div class="caixa forums">
+		<div class="dintre">
+			<h3>
+				<a class="rss" href="https://raco.fib.upc.edu/servlet/out.GeneraURL?url=/forum/rss/recentTopics.page.key&amp;domini=https://raco.fib.upc.edu"><img src="./Portada - Racó de la FIB_files/feed-icon-16x16.gif"></a>
+				Fòrums
+			</h3>
+			<div class="text">
+				<div id="feedforum" class="rss_content"><h4 class="rss_title">Taulell d'anuncis (Fòrums generals)</h4><div id="c1802-1" class="rss_content"><h5><a href="https://raco.fib.upc.es/forum/posts/list/867005.page">PhD internship possition at ENAC, Toulouse</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/866605.page">Grup de recerca LARCA-UPC busca desenvolupador per a projecte de recerca</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/847405.page">Programador iOS geolocalizacion</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/776209.page">Oferta pràctiques remunerades amb opció Projecte Final de Carrera</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/882406.page">Beca d'Aprenentatge: Escola de Camins</a></h5></div><h4 class="rss_title">Fòrum de la FIB (Fòrums generals)</h4><div id="c2202-1" class="rss_content"><h5><a href="https://raco.fib.upc.es/forum/posts/list/804005.page">PhD Position in Secure Programming Technology for JavaScript</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/776208.page">Oferta pràctiques remunerades amb opció Projecte Final de Carrera</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/8805.page">Sexta Edición del Master en Tecnologías de Seguridad Informática</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/882006.page">Claus Perdudes</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/880005.page">DNI perdido</a></h5></div><h4 class="rss_title">Informàtica (Fòrums generals)</h4><div id="c1803-1" class="rss_content"><h5><a href="https://raco.fib.upc.es/forum/posts/list/776210.page">Oferta pràctiques remunerades amb opció Projecte Final de Carrera</a></h5></div><h4 class="rss_title">Company de pràctiques (Fòrums generals)</h4><div id="c1801-1" class="rss_content"><h5><a href="https://raco.fib.upc.es/forum/posts/list/882005.page">[Algorismia] Es busca company per al projecte</a></h5><h5><a href="https://raco.fib.upc.es/forum/posts/list/881805.page">[Resolt] [Algorismia] Ens falta 1 company per la practica</a></h5></div></div>
+				<a class="mes" href="https://raco.fib.upc.edu/forum">Més fòrums</a>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" style="">
+$(document).ready(function() {
+	// Carreguem el RSS
+	get_rss_feed("/servlet/out.GeneraURL?url=/forum/rss/recentTopics.page.key", "#feedforum", 15);
+});			
+</script>
+
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			</div>
+		</div>	
+		
+		<div class="columna2">
+			<div id="widgetize2" class="connected ui-sortable" style="min-height: 10em;">
+				
+					
+				
+					
+				
+					
+				
+					
+						
+
+<div id="widget_5" class="widget">
+	<div class="caixa calendari">
+		<div class="dintre">
+			<h3>
+				<a href="https://raco.fib.upc.edu/servlet/out.GeneraURL?url=/ical/portada.ics&amp;domini=webcal://raco.fib.upc.edu" class="ical"><img src="./Portada - Racó de la FIB_files/calendar.png"></a>
+				<a href="https://raco.fib.upc.edu/servlet/out.GeneraURL?url=/ical/portada.rss&amp;domini=https://raco.fib.upc.edu" class="rss"><img src="./Portada - Racó de la FIB_files/feed-icon-16x16.gif"></a>
+				Calendari
+			</h3>
+			
+			<div id="calendari" class="text">
+
+
+
+
+
+<div class="calendari">
+	<a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig?mes=12&amp;any=2017&amp;durada=2" class="anterior">Anterior</a>
+	<a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig?mes=2&amp;any=2018&amp;durada=2" class="seguent">Següent</a>
+	<table class="calendariMes"> 
+<tbody><tr><td class="calendariNomMes" colspan="7">gener</td></tr>
+<tr><td class="calendariDiaSetmana">dl.</td><td class="calendariDiaSetmana">dt.</td><td class="calendariDiaSetmana">dc.</td><td class="calendariDiaSetmana">dj.</td><td class="calendariDiaSetmana">dv.</td><td class="calendariDiaSetmana">ds.</td><td class="calendariDiaSetmana">dg.</td></tr>
+<tr><td class="coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#1">1</a></td>
+<td class="coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#2">2</a></td>
+<td class="coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#3">3</a></td>
+<td class="coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#4">4</a></td>
+<td class="coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#5">5</a></td>
+<td class="festa avui">6</td>
+<td class="festa">7</td>
+</tr>
+<tr><td>8</td>
+<td>9</td>
+<td class="coses coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#10">10</a></td>
+<td>11</td>
+<td>12</td>
+<td class="festa">13</td>
+<td class="festa">14</td>
+</tr>
+<tr><td>15</td>
+<td>16</td>
+<td>17</td>
+<td class="coses coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#18">18</a></td>
+<td class="coses coses"><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#19">19</a></td>
+<td class="festa">20</td>
+<td class="festa">21</td>
+</tr>
+<tr><td>22</td>
+<td>23</td>
+<td>24</td>
+<td>25</td>
+<td>26</td>
+<td class="festa">27</td>
+<td class="festa">28</td>
+</tr>
+<tr><td>29</td>
+<td>30</td>
+<td>31</td>
+<td class="calendariDies">-</td>
+<td class="calendariDies">-</td>
+<td class="calendariDies">-</td>
+<td class="calendariDies">-</td>
+</tr>
+</tbody></table>				
+</div>
+
+<p><button id="addEvent" type="button" class="add ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-circle-plus"></span><span class="ui-button-text">Afegir esdeveniment personal</span></button></p>
+<br>
+
+<div class="avui_tens">
+	
+		<h4 class="majus">Avui tens...</h4>
+		
+			
+				<p style="font-size: 0.9em;">No tens cap classe.</p>
+			
+			
+		
+	
+	<a class="mes" href="https://raco.fib.upc.edu/horari.jsp">Veure tot l'horari</a>
+</div>
+	
+<div class="events">
+	<h4 class="majus">Propers esdeveniments (Fins a 06/03)</h4>
+	
+		
+		
+			<ul>
+				
+							
+					
+					<li class="futur">
+									
+						
+						
+						
+						
+
+						<a name="10">
+						
+									
+							
+							
+							
+								10/01/18 
+								
+								
+								
+									<span class="hora">12:30-14:30h</span>
+								
+											
+							
+							
+										
+						
+						</a>
+						<br>
+						
+							
+							
+							[GRAU-PAR] Examen parcial
+							
+						
+					</li>	
+				
+							
+					
+					<li class="futur">
+									
+						
+						
+						
+						
+
+						<a name="18">
+						
+									
+							
+							
+							
+								18/01/18 
+								
+								
+									<span class="hora">07:59h</span>
+								
+								
+											
+							
+							
+										
+						
+						</a>
+						<br>
+						
+							
+							<a href="https://raco.fib.upc.edu/practiques/practica.jsp?assig=GRAU-PAR&amp;id=47844">[Practica GRAU-PAR] Lab 5 - Deliverable (11)</a>
+							
+							
+						
+					</li>	
+				
+							
+					
+					<li class="futur">
+									
+						
+						
+						
+						
+
+						<a name="19">
+						
+									
+							
+							
+							
+								19/01/18 
+								
+								
+								
+									<span class="hora">15:00-18:00h</span>
+								
+											
+							
+							
+										
+						
+						</a>
+						<br>
+						
+							
+							
+							[GRAU-PAR] Examen final
+							
+						
+					</li>	
+				
+			</ul>
+		
+	
+	<!-- <a href="?durada=5" title="Més events" class="more">Més esdeveniments</a> -->
+</div>
+		
+<script type="text/javascript">
+	function popup(nom, url)
+	{
+		window.name = nom;
+		window.open(url, '_blank', 'menubar=no,toolbar=no,width=750,height=600,resizable=yes,scrollbars=yes,status=yes');
+		opener = self;
+	}
+
+	$(document).ready(function() {
+		$(".calendari a.anterior").click(function(e){
+			$("#calendari").load("/parts/calendari_intern.jsp?mes=12&any=2017&durada=2");
+			e.preventDefault();
+		});
+		
+		$(".calendari a.seguent").click(function(e){
+			$("#calendari").load("/parts/calendari_intern.jsp?mes=2&any=2018&durada=2");
+			e.preventDefault();		
+		});
+		
+		//$(".events ul").scrollTop($(".events .futur").position().top);
+		
+		$('#addEvent').button(
+				{
+					icons:
+					{
+						primary: 'ui-icon-circle-plus'
+					}
+				}
+		).click(function(){
+			popup("Agenda","/servlet/raco.calendari.EditarPersonal");
+		});
+	});
+</script>
+</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" style="">
+	$(document).ready(function() {
+		$('div#calendari').html('<p class="loading">Carregant...</p>');
+		$.ajax({
+			url: "/parts/calendari_intern.jsp",
+			success: function(data)
+			{
+				$("div#calendari").html(data);
+			},
+			error: function(a, b, c)
+			{
+				$('div#calendari').text('No es pot mostrar el contingut en aquest moment.');
+			}
+		});
+	});
+</script>
+
+					
+				
+					
+						
+
+
+
+
+
+
+	<div id="widget_6" class="widget">
+		<div class="caixa webmail">
+			<div class="dintre">
+				<h3>Webmail</h3>
+				<div class="text" id="caixa_mails">
+					<div id="mails_load">
+						
+						<table id="mails">
+						<tbody><tr class="read"><td class="mail_from"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=3&amp;_mbox=INBOX&amp;_action=show" title="info@jutge.org">info@jutge.org</a></td><td class="mail_subject"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=3&amp;_mbox=INBOX&amp;_action=show" title="Jutge.org - You have been invited to a course"></a>Jutge.org - You have been invited to a course</td></tr><tr class="read alt"><td class="mail_from"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=2&amp;_mbox=INBOX&amp;_action=show" title="deganat &lt;deganat@fib.upc.edu&gt;">deganat &lt;deganat@fib.upc.edu&gt;</a></td><td class="mail_subject"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=2&amp;_mbox=INBOX&amp;_action=show" title="Informació Grau Enginyeria Informàtica"></a>Informació Grau Enginyeria Informàtica</td></tr><tr class="read"><td class="mail_from"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=1&amp;_mbox=INBOX&amp;_action=show" title="Oficina per a l&#39;Administració Electrònica UPC &lt;oficina.oae@upc.edu&gt;">Oficina per a l'Administració Electrònica UPC &lt;oficina.oae@upc.edu&gt;</a></td><td class="mail_subject"><a href="https://webmail.fib.upc.edu/?_task=mail&amp;_uid=1&amp;_mbox=INBOX&amp;_action=show" title="Informació carnet UPC/información carné UPC/UPCcard information"></a>Informació carnet UPC/información carné UPC/UPCcard information</td></tr></tbody></table>
+						
+						<div class="infomails" style="">
+							<b><span id="numNoLlegits">0</span> no llegits</b>, <span id="numMails">3</span> rebuts
+						</div>
+					</div>
+					
+					<a href="https://webmail.fib.upc.edu/" class="mes" style="float: left;">Anar al webmail</a>
+					<form action="https://webmail.fib.upc.es/horde/imp/compose.php" method="get" style="float: right;">
+						<button type="submit" class="edit ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">Redactar</span></button>
+					</form>
+					<br style="clear: both;">
+					<br>
+					<a href="https://esecretaria.upc.edu/redirecciocorreu" title="" class="update">Redireccionar el correu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" style="">
+	$(document).ready(function() {
+		$('#mails_load p').html('<p class="loading">Carregant...</p>');
+		try
+		{
+			$.getJSON("https://webmail.fib.upc.edu/check_mail/resum_mail.php?callback=?");
+		}
+		catch(e)
+		{
+			$('#caixa_mails').html('<p>En aquest moment no es poden mostrar els mails.</p>');
+		}
+	});
+	</script>
+
+					
+				
+					
+				
+					
+				
+			</div>
+		</div>
+		<br style="clear:both;">
+	</div>
+	<div class="updating">
+		<p>Guardant...</p>
+	</div>
+	
+	
+		
+			</div>
+			<br style="clear: both;">
+		</div>
+	</div>
+	
+
+
+
+
+<div id="footer">
+  <img src="./Portada - Racó de la FIB_files/logo_fib_peu.png" alt="" class="logo-peu">
+  <p class="copyright">© Facultat d'Informàtica de Barcelona   
+        
+                
+                        <span class="mail"><a href="https://raco.fib.upc.edu/servlet/raco.utils.VersioMobil?mode=1" title="Activa">Versió Mòbil</a></span>
+                
+                
+        
+        <span class="mail"><a href="http://suport.fib.upc.edu/" target="_blank" title="Contacta amb nosaltres">
+  <img src="./Portada - Racó de la FIB_files/banner-suport-fib.jpg">  
+  </a>
+  </span>
+        </p>
+</div>
+<br>
+
+
+
+
+<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" style="display: none; outline: 0px; z-index: 1000;" role="dialog" aria-labelledby="ui-id-1"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title">Afegir el calendari a serveis externs</span><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="shareCalendar" class="dialog ui-dialog-content ui-widget-content" style="display: block;">
+		<img src="./Portada - Racó de la FIB_files/calendar(1).png" alt="" style="float: right; padding: 0 0 1em 1em;">
+		<p style="font-size: 1.1em;">Ara et pots subscriure al teu calendari des de serveis externs que suportin iCal, així com també des de la majoria d'smartphones.</p>
+		<p style="color: #666666; font-size: 0.9em;">Només cal que copiïs l'adreça que et mostrem a continuació i l'afegeixis al teu servei o telèfon mòbil i veuràs els teus esdeveniments igual que si estiguéssis al Racó.</p>
+		<br>
+		<h5>Enllaç de subscripció del calendari:</h5>
+		<div>
+			<input type="text" id="calendar-url" value="Carregant..." readonly="readonly" style="font-size: 1.2em; padding: 0.3em; color: #666666; background: #F2F2F2; border: 1px solid #cccccc; width: 36em;">
+		</div>
+
+	</div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable" tabindex="-1" role="dialog" aria-labelledby="ui-id-2" style="display: none; outline: 0px; z-index: 1000;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-2" class="ui-dialog-title">Afegir la font a serveis externs</span><a href="https://raco.fib.upc.edu/home/portada/oriol.borrell.roig#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="shareRSS" class="dialog ui-dialog-content ui-widget-content" style="display: block;">
+		<img src="./Portada - Racó de la FIB_files/rss.png" alt="" style="float: right; padding: 0 0 1em 1em;">
+		<p style="font-size: 1.1em;">Ara et pots subscriure a avisos, notícies i últims temes del fòrum des del teu lector d'RSS favorit, així com també des de la majoria d'smartphones.</p>
+		<p style="color: #666666; font-size: 0.9em;">Només cal que copiïs l'adreça que et mostrem a continuació i l'afegeixis al teu servei o telèfon mòbil i veuràs la informació igual que si estiguéssis al Racó.</p>
+		<br>
+		<h5>Enllaç de subscripció d'aquesta font:</h5>
+		<div>
+			<input type="text" id="rss-url" value="Carregant..." readonly="readonly" style="font-size: 1.2em; padding: 0.3em; color: #666666; background: #F2F2F2; border: 1px solid #cccccc; width: 36em;">
+		</div>
+
+	</div></div></body></html>
