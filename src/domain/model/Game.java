@@ -125,6 +125,7 @@ public class Game implements java.io.Serializable {
         ColorRow input = gameMaker.makerGuess(gameInfo.mPegs, gameInfo.mColors);
         if (ColorRow.isValid(input, gameInfo.mPegs, gameInfo.mColors)) {
             correctGuess = input;
+            gameMaker.notifyCorrectGuess(correctGuess);
             gameStatus = Status.GUESS;
         } else {
             gameMaker.notifyInvalidInput();
@@ -237,7 +238,7 @@ public class Game implements java.io.Serializable {
     }
 
     /**
-     * Set the actual date in mStart
+     * Restore saved game status and restart it
      */
     public void restoreSavedGame() {
         gameInfo.updateStart();
@@ -245,16 +246,16 @@ public class Game implements java.io.Serializable {
         gameBreaker.startGame(gameInfo.getGameTitle());
         gameMaker.startGame(gameInfo.getGameTitle());
 
+        gameMaker.notifyCorrectGuess(correctGuess);
+
         for (int i = 0; i < mGuess.size(); ++i) {
             if (gameBreaker instanceof UserPlayer) {
                 gameBreaker.receiveColor(mGuess.get(i));
-                if (mControl.size() > i)
-                    gameBreaker.receiveControl(mControl.get(i));
+                if (mControl.size() > i) gameBreaker.receiveControl(mControl.get(i));
             }
             if (gameMaker instanceof UserPlayer) {
                 gameMaker.receiveColor(mGuess.get(i));
-                if (mControl.size() > i)
-                    gameMaker.receiveControl(mControl.get(i));
+                if (mControl.size() > i) gameMaker.receiveControl(mControl.get(i));
             }
         }
     }

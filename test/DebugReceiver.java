@@ -33,8 +33,8 @@ public class DebugReceiver implements Receiver {
     }
 
     @Override
-    public int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        return inputColorRow(pegs, colors);
+    public void notifyCorrectRow(String row) {
+        // no-op
     }
 
     @Override

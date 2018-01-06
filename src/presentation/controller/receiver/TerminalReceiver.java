@@ -68,24 +68,13 @@ public class TerminalReceiver implements Receiver {
     }
 
     /**
-     * Stores a combination given by inputColorRow() as the correct guess.
+     * Stores a combination as the correct guess.
      *
-     * @param pegs   is the number of pegs in the combination
-     * @param colors is the number of different possible colors in a combination
-     * @return the correct color row as a array of ints.
-     * @throws FinishGameException       the finish game exception
-     * @throws CommandInterruptException the command interrupt exception
-     * @see #inputColorRow(int, int)
+     * @param row   is the correct combination
      */
     @Override
-    public int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        int[] result = inputColorRow(pegs, colors);
-        StringBuilder row = new StringBuilder();
-        for (int i = 0; i < pegs; ++i) {
-            row.append(result[i]).append(" ");
-        }
-        TerminalController.getInstance().getCurrentBoard().setCorrectGuess(new Turn(row.toString().trim()));
-        return result;
+    public void notifyCorrectRow(String row) {
+        TerminalController.getInstance().getCurrentBoard().setCorrectGuess(new Turn(row.trim()));
     }
 
     /**

@@ -155,6 +155,14 @@ public abstract class Player implements java.io.Serializable {
     }
 
     /**
+     * Notifies the correct guess of the game to the maker
+     * @param correctGuess the correct row
+     */
+    public void notifyCorrectGuess(ColorRow correctGuess) {
+        // Should never happen unless UserPlayer
+    }
+
+    /**
      * The enum Role.
      */
     public enum Role {

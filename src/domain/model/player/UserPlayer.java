@@ -48,7 +48,7 @@ public class UserPlayer extends Player implements java.io.Serializable {
      */
     @Override
     public ColorRow makerGuess(int pegs, int colors) throws FinishGameException, CommandInterruptException {
-        return new ColorRow(DomainController.getInstance().getGameInterface().inputCorrectColorRow(pegs, colors));
+        return new ColorRow(DomainController.getInstance().getGameInterface().inputColorRow(pegs, colors));
     }
 
     /**
@@ -158,5 +158,10 @@ public class UserPlayer extends Player implements java.io.Serializable {
     @Override
     public void startGame(String gameTitle) {
         DomainController.getInstance().getGameInterface().startGame(gameTitle);
+    }
+
+    @Override
+    public void notifyCorrectGuess(ColorRow correctGuess) {
+        DomainController.getInstance().getGameInterface().notifyCorrectRow(correctGuess.toString());
     }
 }

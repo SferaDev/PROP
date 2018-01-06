@@ -41,13 +41,9 @@ public interface Receiver {
     /**
      * Input the correct combination of colors
      *
-     * @param pegs   is the number of pegs in the combination
-     * @param colors is the number of different possible colors in a combination
-     * @return the combination
-     * @throws FinishGameException       the finish game exception
-     * @throws CommandInterruptException the command interrupt exception
+     * @param row   is the correct row
      */
-    int[] inputCorrectColorRow(int pegs, int colors) throws FinishGameException, CommandInterruptException;
+    void notifyCorrectRow(String row);
 
     /**
      * Output the ControlRow

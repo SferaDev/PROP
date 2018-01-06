@@ -76,15 +76,11 @@ public class GameInterfaceReceiver implements Receiver {
     /**
      * Adds the correct control row.
      *
-     * @param pegs   is the number of pegs in the combination.
-     * @param colors is the number of different possible colors in a combination.
-     * @return Returns the correct control row as a array of ints.
+     * @param row   is the correct combination.
      */
     @Override
-    public int[] inputCorrectColorRow(int pegs, int colors) {
-        ColorRow row = requestColorRow(pegs, colors);
+    public void notifyCorrectRow(String row) {
         ThreadUtils.runAndWait(() -> PresentationController.getInstance().getNebulaController().addCorrectRow(new ColorRow(row.toString())));
-        return row.toIntArray();
     }
 
     private ColorRow requestColorRow(int pegs, int colors) {
