@@ -3,6 +3,11 @@ package presentation.utils;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The Locale Utils
+ *
+ * @author Alexis Rico Carreto
+ */
 public class LocaleUtils {
     private static final LocaleUtils mInstance = new LocaleUtils();
     private Language mLanguage;

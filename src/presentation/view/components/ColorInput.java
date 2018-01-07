@@ -9,6 +9,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import presentation.utils.LocaleUtils;
 
+/**
+ * The Color Input
+ *
+ * @author Alexis Rico Carreto
+ */
 public class ColorInput extends VBox {
     private final ColorRow colorRow;
 

@@ -10,6 +10,11 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * The Help View
+ *
+ * @author Oriol Borrell Roig
+ */
 public class HelpView extends VBox {
     /**
      * Loads the HelpView to nebula

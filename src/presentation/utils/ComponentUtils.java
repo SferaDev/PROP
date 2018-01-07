@@ -10,6 +10,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
+/**
+ * The Component Utils
+ *
+ * @author Oriol Borrell Roig
+ */
 public class ComponentUtils {
 
     /**

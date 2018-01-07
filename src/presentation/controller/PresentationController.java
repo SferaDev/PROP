@@ -30,6 +30,8 @@ public class PresentationController {
 
     private NebulaViewController nebulaController;
 
+    private DomainController domainController = DomainController.getInstance();
+
     private PresentationController() {
     }
 
@@ -122,7 +124,7 @@ public class PresentationController {
      * @throws UserAlreadyExistsException if the user already exists
      */
     private void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
-        DomainController.getInstance().getUserController().createUser(username, password, language);
+        domainController.getUserController().createUser(username, password, language);
     }
 
     /**
@@ -134,7 +136,7 @@ public class PresentationController {
      * @throws UserNotFoundException if the user is not found
      */
     private boolean requestLogin(String username, String password) throws UserNotFoundException {
-        if (!DomainController.getInstance().getUserController().loginUser(username, password)) return false;
+        if (!domainController.getUserController().loginUser(username, password)) return false;
         mUsername = username;
         LocaleUtils.getInstance().setLanguage(requestUserLanguage());
         return true;
@@ -145,7 +147,7 @@ public class PresentationController {
      */
     public void requestSaveCurrentGame() {
         try {
-            DomainController.getInstance().getGameController().saveCurrentGame();
+            domainController.getGameController().saveCurrentGame();
         } catch (FinishGameException e) {
             nebulaController.finishGame();
         }
@@ -156,7 +158,7 @@ public class PresentationController {
      */
     public void requestQuitCurrentGame() {
         try {
-            DomainController.getInstance().getGameController().stopCurrentGame();
+            domainController.getGameController().stopCurrentGame();
         } catch (FinishGameException e) {
             nebulaController.finishGame();
         }
@@ -166,7 +168,7 @@ public class PresentationController {
      * Request a help in the current game.
      */
     public void requestHelpCurrentGame() {
-        DomainController.getInstance().getGameController().provideHelp();
+        domainController.getGameController().provideHelp();
     }
 
     /**
@@ -184,7 +186,7 @@ public class PresentationController {
      * @param gameInterfaceReceiver is the Interface that will be saved.
      */
     public void setGameInterface(VisualGameReceiver gameInterfaceReceiver) {
-        DomainController.getInstance().setGameInterface(gameInterfaceReceiver);
+        domainController.setGameInterface(gameInterfaceReceiver);
     }
 
     /**
@@ -197,7 +199,7 @@ public class PresentationController {
     }
 
     public void requestStartGame(String computerName, String role, int pegs, int colors) {
-        DomainController.getInstance().getGameController().startNewGame(getUsername(),
+        domainController.getGameController().startNewGame(getUsername(),
                 computerName + "Computer", role, pegs, colors, -1);
     }
 
@@ -224,7 +226,7 @@ public class PresentationController {
                     ComponentUtils.showWarningDialog(LocaleUtils.getInstance().getString("SAME_PASSWORD"),
                             LocaleUtils.getInstance().getString("CHOOSE_DIF_PASSWORD"));
                 } else {
-                    DomainController.getInstance().getUserController().changePassword(mUsername, newPassword);
+                    domainController.getUserController().changePassword(mUsername, newPassword);
                     ComponentUtils.showInformationDialog(LocaleUtils.getInstance().getString("PASSWORD_CHANGED"),
                             LocaleUtils.getInstance().getString("CHANGED_SUCCESSFULLY"));
                 }
@@ -245,7 +247,7 @@ public class PresentationController {
      */
     private LocaleUtils.Language requestUserLanguage() {
         if (mUsername == null) return null;
-        return LocaleUtils.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
+        return LocaleUtils.Language.valueOf(domainController.getUserController().getUserLanguage(mUsername));
     }
 
     /**
@@ -256,7 +258,7 @@ public class PresentationController {
     public void requestChangeLanguage(LocaleUtils.Language newLanguage) {
         LocaleUtils.getInstance().setLanguage(newLanguage);
         if (mUsername != null)
-            DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
+            domainController.getUserController().changeLanguage(mUsername, newLanguage.name());
     }
 
     /**
@@ -266,7 +268,7 @@ public class PresentationController {
      */
     public ArrayList requestSavedGames() {
         if (mUsername == null) return null;
-        return DomainController.getInstance().getGameController().getAllGames(mUsername);
+        return domainController.getGameController().getAllGames(mUsername);
     }
 
     /**
@@ -275,14 +277,14 @@ public class PresentationController {
      * @param game the name of the game that will be started.
      */
     public void requestStartSavedGame(String game) {
-        DomainController.getInstance().getGameController().continueGame(game);
+        domainController.getGameController().continueGame(game);
     }
 
     /**
      * Request delete current user
      */
     public void requestDeleteUser() {
-        DomainController.getInstance().getUserController().deleteUser(mUsername);
+        domainController.getUserController().deleteUser(mUsername);
         mUsername = null;
     }
 }

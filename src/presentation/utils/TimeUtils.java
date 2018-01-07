@@ -1,5 +1,10 @@
 package presentation.utils;
 
+/**
+ * The Time Utils
+ *
+ * @author Oriol Borrell Roig
+ */
 public class TimeUtils {
     /**
      * Output Timestamp.

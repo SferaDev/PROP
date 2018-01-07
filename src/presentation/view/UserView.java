@@ -19,6 +19,11 @@ import presentation.utils.ComponentUtils;
 import presentation.utils.LocaleUtils;
 import presentation.view.components.RaisedButton;
 
+/**
+ * The User View
+ *
+ * @author Oriol Borrell Roig
+ */
 public class UserView extends VBox {
 
     /**

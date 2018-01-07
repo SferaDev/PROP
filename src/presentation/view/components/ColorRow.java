@@ -7,6 +7,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import presentation.utils.ColorUtils;
 
+/**
+ * The Color Row
+ *
+ * @author Elena Alonso Rodriguez
+ */
 public class ColorRow extends VBox {
     private final ColorPeg[] mPegs;
 

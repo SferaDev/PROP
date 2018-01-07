@@ -21,6 +21,11 @@ import presentation.view.components.RaisedButton;
 
 import java.util.ArrayList;
 
+/**
+ * The Load View
+ *
+ * @author Alexis Rico Carreto
+ */
 public class LoadView extends GridPane {
     private final JFXListView<Label> gameListView = new JFXListView<>();
     private final ToggleGroup roleGroup = new ToggleGroup();
@@ -152,7 +157,7 @@ public class LoadView extends GridPane {
         button.setOnAction(event -> {
             String computerName = algorithmGroup.getSelectedToggle().getUserData().toString();
             String role = roleGroup.getSelectedToggle().getUserData().toString();
-            PresentationController.getInstance().requestStartGame(computerName, role, pegs, colors); // TODO
+            PresentationController.getInstance().requestStartGame(computerName, role, pegs, colors);
         });
     }
 

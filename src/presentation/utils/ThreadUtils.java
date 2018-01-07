@@ -4,6 +4,11 @@ import javafx.application.Platform;
 
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * The Thread Utils
+ *
+ * @author Alexis Rico Carreto
+ */
 public class ThreadUtils {
     /**
      * Runs the specified {@link Runnable} on the
@@ -13,16 +18,13 @@ public class ThreadUtils {
      * @throws NullPointerException if {@code action} is {@code null}
      */
     public static void runAndWait(Runnable action) {
-        if (action == null)
-            throw new NullPointerException("action");
+        if (action == null) throw new NullPointerException("action");
 
-        // run synchronously on JavaFX thread
         if (Platform.isFxApplicationThread()) {
             action.run();
             return;
         }
 
-        // queue on JavaFX thread and wait for completion
         final CountDownLatch doneLatch = new CountDownLatch(1);
         Platform.runLater(() -> {
             try {
@@ -34,8 +36,7 @@ public class ThreadUtils {
 
         try {
             doneLatch.await();
-        } catch (InterruptedException e) {
-            // ignore exception
+        } catch (InterruptedException ignored) {
         }
     }
 }

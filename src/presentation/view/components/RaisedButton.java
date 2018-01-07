@@ -5,6 +5,11 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.HBox;
 
+/**
+ * The Raised Button
+ *
+ * @author Elena Alonso Rodriguez
+ */
 public class RaisedButton extends JFXButton {
     /**
      * Creates a JFX raised button.

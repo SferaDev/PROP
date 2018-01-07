@@ -11,6 +11,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import presentation.utils.LocaleUtils;
 
+/**
+ * The Control Input
+ *
+ * @author Alexis Rico Carreto
+ */
 public class ControlInput extends VBox {
     private final TextField textField = new TextField();
 

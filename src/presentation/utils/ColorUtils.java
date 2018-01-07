@@ -4,6 +4,11 @@ import javafx.scene.paint.Color;
 
 import java.lang.reflect.Field;
 
+/**
+ * The Color Utils
+ *
+ * @author Alexis Rico Carreto
+ */
 public class ColorUtils {
     private static final String RED = "#F44336";
     private static final String RED_DARK = "#B71C1C";

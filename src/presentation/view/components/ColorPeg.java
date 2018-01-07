@@ -6,6 +6,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import presentation.utils.ColorUtils;
 
+/**
+ * The Color Peg
+ *
+ * @author Elena Alonso Rodriguez
+ */
 public class ColorPeg extends JFXButton {
     private int mColorId;
 

@@ -11,6 +11,11 @@ import presentation.utils.LocaleUtils;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
 
+/**
+ * The Board Pane
+ *
+ * @author Alexis Rico Carreto
+ */
 public class BoardPane extends GridPane {
     private int posColorRow, posControlRow;
 

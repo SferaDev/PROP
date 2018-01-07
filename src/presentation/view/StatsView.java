@@ -18,6 +18,11 @@ import presentation.utils.TimeUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Stats View
+ *
+ * @author Oriol Borrell Roig
+ */
 public class StatsView extends GridPane {
 
     private static final String Column1MapKey = "Column1";

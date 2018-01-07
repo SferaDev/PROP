@@ -5,6 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+/**
+ * The Control Row
+ *
+ * @author Elena Alonso Rodriguez
+ */
 public class ControlRow extends HBox {
     /**
      * Creates a control row.

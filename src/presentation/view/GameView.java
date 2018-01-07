@@ -17,6 +17,11 @@ import presentation.utils.LocaleUtils;
 import presentation.view.components.ColorRow;
 import presentation.view.components.RaisedButton;
 
+/**
+ * The Game View
+ *
+ * @author Alexis Rico Carreto
+ */
 public class GameView extends GridPane {
     private final StackPane controlPane = new StackPane();
     private final ScrollPane scrollPane;

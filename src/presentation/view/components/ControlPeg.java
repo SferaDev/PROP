@@ -4,6 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
+/**
+ * The Control Peg
+ *
+ * @author Elena Alonso Rodriguez
+ */
 public class ControlPeg extends JFXButton {
     /**
      * Creates a ControlPeg
