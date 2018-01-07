@@ -5,6 +5,10 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
 public class ControlPeg extends JFXButton {
+    /**
+     * Creates a ControlPeg
+     * @param type the tipe of the peg (black, white)
+     */
     ControlPeg(Type type) {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("control-peg");

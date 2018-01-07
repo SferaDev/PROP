@@ -12,6 +12,12 @@ import presentation.controller.LocaleController;
 public class ColorInput extends VBox {
     private final ColorRow colorRow;
 
+    /**
+     * Creates a colorInput with th given parameters.
+     * @param title the title of the label in the colorInput.
+     * @param pegs the number of pegs.
+     * @param colors the number of colors.
+     */
     public ColorInput(String title, int pegs, int colors) {
         setAlignment(Pos.CENTER);
         setSpacing(20);
@@ -39,6 +45,10 @@ public class ColorInput extends VBox {
         getChildren().add(button);
     }
 
+    /**
+     * Gets the colorRow of a colorInput.
+     * @return a colorRow
+     */
     public ColorRow getResult() {
         return colorRow;
     }

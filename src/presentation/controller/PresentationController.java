@@ -97,6 +97,9 @@ public class PresentationController {
         return true;
     }
 
+    /**
+     * Request to save the current game.
+     */
     public void requestSaveCurrentGame() {
         try {
             DomainController.getInstance().getGameController().saveCurrentGame();
@@ -105,6 +108,9 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Request to exit the current game without saving.
+     */
     public void requestQuitCurrentGame() {
         try {
             DomainController.getInstance().getGameController().stopCurrentGame();
@@ -113,18 +119,33 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Request a help in the current game.
+     */
     public void requestHelpCurrentGame() {
         DomainController.getInstance().getGameController().provideHelp();
     }
 
+    /**
+     * Closes the stage.
+     * @param stage is the stage that will be closed.
+     */
     public void closeWindow(Stage stage) {
         stage.close();
     }
 
+    /**
+     * Saves the game interface to domain controller.
+     * @param gameInterfaceReceiver is the Interface that will be saved.
+     */
     public void setGameInterface(GameInterfaceReceiver gameInterfaceReceiver) {
         DomainController.getInstance().setGameInterface(gameInterfaceReceiver);
     }
 
+    /**
+     * Gets the nebula controller.
+     * @return the nebula controller.
+     */
     public NebulaViewController getNebulaController() {
         return nebulaController;
     }
@@ -134,10 +155,19 @@ public class PresentationController {
                 computerName + "Computer", role, pegs, colors, -1);
     }
 
+    /**
+     * Gets the username
+     * @return the name of the username.
+     */
     public String getUsername() {
         return mUsername;
     }
 
+    /**
+     * Request to change the password of the current username.
+     * @param oldPassword is the old password, that will be checked if matches with the current user.
+     * @param newPassword is the new password that will be set.
+     */
     public void requestPasswordChange(String oldPassword, String newPassword) {
         if (mUsername == null) return;
         try {
@@ -156,22 +186,38 @@ public class PresentationController {
         }
     }
 
+    /**
+     * Gets the language of the current user.
+     * @return a language.
+     */
     private LocaleController.Language requestUserLanguage() {
         if (mUsername == null) return null;
         return LocaleController.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
     }
 
+    /**
+     * Requaet to change the language of the current user.
+     * @param newLanguage is the new language that will be set.
+     */
     public void requestChangeLanguage(LocaleController.Language newLanguage) {
         LocaleController.getInstance().setLanguage(newLanguage);
         if (mUsername != null)
             DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
     }
 
+    /**
+     * Request all the saved games.
+     * @return all the saved games of the current user.
+     */
     public ArrayList requestSavedGames() {
         if (mUsername == null) return null;
         return DomainController.getInstance().getGameController().getAllGames(mUsername);
     }
 
+    /**
+     * Request to start a saved game.
+     * @param game the name of the game that will be started.
+     */
     public void requestStartSavedGame(String game) {
         DomainController.getInstance().getGameController().continueGame(game);
     }

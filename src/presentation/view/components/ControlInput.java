@@ -14,6 +14,10 @@ import presentation.controller.LocaleController;
 public class ControlInput extends VBox {
     private final TextField textField = new TextField();
 
+    /**
+     * Creates a controlInput with th given parameters.
+     * @param title the title of the label in the controlInput.
+     */
     public ControlInput(String title) {
         setAlignment(Pos.CENTER);
         setSpacing(20);
@@ -44,10 +48,17 @@ public class ControlInput extends VBox {
         getChildren().add(button);
     }
 
+    /**
+     * The textFielf getter.
+     * @return returns a TextField.
+     */
     public String getResult() {
         return textField.getText();
     }
 
+    /**
+     * Request focus on the textField
+     */
     public void requestFocus() {
         textField.requestFocus();
     }

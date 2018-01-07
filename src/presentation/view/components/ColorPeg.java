@@ -28,10 +28,19 @@ public class ColorPeg extends JFXButton {
         setMinSize(35, 35);
     }
 
+    /**
+     * Gets the color id of a peg.
+     * @return the color id
+     */
     public int getColorId() {
         return mColorId;
     }
 
+    /**
+     * Sets the color id of a peg.
+     * @param colorId the new color id
+     * @param color the color that will be set on background
+     */
     public void setColor(int colorId, String color) {
         setStyle("-fx-font-weight: bold; -fx-background-color: " + color);
         mColorId = colorId;

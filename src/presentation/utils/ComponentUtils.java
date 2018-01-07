@@ -13,6 +13,11 @@ import presentation.controller.LocaleController;
 
 public class ComponentUtils {
 
+    /**
+     * Shows a information type alert.
+     * @param header will be the header of the alert.
+     * @param content will be the message of the alert.
+     */
     public static void showInformationDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
@@ -21,6 +26,11 @@ public class ComponentUtils {
         alert.showAndWait();
     }
 
+    /**
+     * Shows a warning type alert.
+     * @param header will be the header of the alert.
+     * @param content will be the message of the alert.
+     */
     public static void showWarningDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
@@ -29,6 +39,11 @@ public class ComponentUtils {
         alert.showAndWait();
     }
 
+    /**
+     * Shows a error type alert.
+     * @param header will be the header of the alert.
+     * @param content will be the message of the alert.
+     */
     public static void showErrorDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
@@ -37,6 +52,11 @@ public class ComponentUtils {
         alert.showAndWait();
     }
 
+    /**
+     * Shows a custom type alert.
+     * @param header will be the header of the alert.
+     * @param item will be the custom graphic of the alert.
+     */
     public static void showCustomDialog(String header, Node item) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
@@ -45,6 +65,14 @@ public class ComponentUtils {
         alert.showAndWait();
     }
 
+    /**
+     * Builds a scene with the given parameters.
+     * @param context the context to get resources
+     * @param stage the stage of the scene.
+     * @param parent the parent of the scene.
+     * @param minWidth the minimum width of the scene
+     * @param minHeight the minimum height of the scene
+     */
     public static void buildScene(Class context, Stage stage, Parent parent, double minWidth, double minHeight) {
         stage.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
         Scene scene = new Scene(parent);
@@ -57,6 +85,11 @@ public class ComponentUtils {
         stage.show();
     }
 
+    /**
+     * Creates a ColumnConstraints with the given width percentage.
+     * @param percent the width percentage.
+     * @return the ColumnConstraints
+     */
     public static ColumnConstraints createColumnConstraint(int percent) {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(percent);
@@ -64,6 +97,11 @@ public class ComponentUtils {
         return columnConstraints;
     }
 
+    /**
+     * Creates a RowConstraints with the given height percentage.
+     * @param percent the height percentage.
+     * @return the RowConstraints.
+     */
     public static RowConstraints createRowConstraint(int percent) {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(percent);
