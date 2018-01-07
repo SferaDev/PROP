@@ -7,7 +7,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import presentation.controller.LocaleController;
+import presentation.utils.LocaleUtils;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
 
@@ -26,11 +26,12 @@ public class BoardPane extends GridPane {
 
     /**
      * Adds ColorRows to the boardpane.
+     *
      * @param rows is the ColorRows that will be added.
      */
     public void addColorRow(ColorRow... rows) {
         for (ColorRow row : rows) {
-            TurnLabel label = new TurnLabel(LocaleController.getInstance().getString("TURN") + " " + (posColorRow + 1));
+            TurnLabel label = new TurnLabel(LocaleUtils.getInstance().getString("TURN") + " " + (posColorRow + 1));
             label.setRotate(-90);
             label.setMinSize(70, 100);
             add(label, 0, posColorRow);
@@ -41,6 +42,7 @@ public class BoardPane extends GridPane {
 
     /**
      * Adds ControlRows to the boardpane.
+     *
      * @param rows the ControlRows that rill be added.
      */
     public void addControlRow(ControlRow... rows) {
@@ -48,7 +50,7 @@ public class BoardPane extends GridPane {
             VBox box = new VBox();
             box.setSpacing(10);
             box.setAlignment(Pos.CENTER);
-            box.getChildren().add(new TurnLabel(LocaleController.getInstance().getString("CONTROL")));
+            box.getChildren().add(new TurnLabel(LocaleUtils.getInstance().getString("CONTROL")));
             box.getChildren().add(row);
             box.setMinSize(170, 100);
             add(box, 2, posControlRow);

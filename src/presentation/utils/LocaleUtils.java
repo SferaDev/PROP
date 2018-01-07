@@ -1,26 +1,28 @@
-package presentation.controller;
+package presentation.utils;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LocaleController {
-    private static final LocaleController mInstance = new LocaleController();
+public class LocaleUtils {
+    private static final LocaleUtils mInstance = new LocaleUtils();
     private Language mLanguage;
 
-    private LocaleController() {
+    private LocaleUtils() {
         // Empty constructor
     }
 
     /**
-     * Gets the instance of the LocaleController.
-     * @return the instance of the LocaleController.
+     * Gets the instance of the LocaleUtils.
+     *
+     * @return the instance of the LocaleUtils.
      */
-    public static LocaleController getInstance() {
+    public static LocaleUtils getInstance() {
         return mInstance;
     }
 
     /**
      * Gets the string in the MessagesBundle from a given key
+     *
      * @param key is the identifier of the string
      * @return the string
      */
@@ -31,6 +33,7 @@ public class LocaleController {
 
     /**
      * Gets the language of the user
+     *
      * @return returns a language
      */
     public Language getLanguage() {
@@ -40,6 +43,7 @@ public class LocaleController {
 
     /**
      * Sets a neew language
+     *
      * @param locale is the neew language
      */
     public void setLanguage(Language locale) {

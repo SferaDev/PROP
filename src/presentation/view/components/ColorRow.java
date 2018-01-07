@@ -5,13 +5,14 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import presentation.controller.ColorController;
+import presentation.utils.ColorUtils;
 
 public class ColorRow extends VBox {
     private final ColorPeg[] mPegs;
 
     /**
      * Creates a empty color row.
+     *
      * @param pegs is the number of pegs of the color row.
      */
     public ColorRow(int pegs) {
@@ -20,6 +21,7 @@ public class ColorRow extends VBox {
 
     /**
      * Creates a color row.
+     *
      * @param row the colors in string format.
      */
     public ColorRow(String row) {
@@ -28,6 +30,7 @@ public class ColorRow extends VBox {
 
     /**
      * Creates a color row.
+     *
      * @param pegs the pegs that will form the row
      */
     public ColorRow(ColorPeg... pegs) {
@@ -66,6 +69,7 @@ public class ColorRow extends VBox {
 
     /**
      * Return a array of empty pegs.
+     *
      * @param pegs is the number of pegs of the array.
      * @return the empty Colorpeg array.
      */
@@ -86,6 +90,7 @@ public class ColorRow extends VBox {
 
     /**
      * Converts a ColorRow to a string.
+     *
      * @return the ColoRow in string format.
      */
     @Override
@@ -97,6 +102,7 @@ public class ColorRow extends VBox {
 
     /**
      * Converts a ColorRow to a array of ints.
+     *
      * @return the ColoRow in array of ints.
      */
     public int[] toIntArray() {
@@ -114,13 +120,14 @@ public class ColorRow extends VBox {
 
     /**
      * Set the Action listener to the pegs.
+     *
      * @param colors the number of colors of the row.
      */
     public void setSelectionActionListener(int colors) {
         for (ColorPeg peg : mPegs) {
             peg.setOnMouseClicked(event -> {
                 int color = (peg.getColorId() % colors) + 1;
-                peg.setColor(color, ColorController.getColor(color));
+                peg.setColor(color, ColorUtils.getColor(color));
             });
         }
     }

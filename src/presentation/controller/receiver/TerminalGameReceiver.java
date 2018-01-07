@@ -4,8 +4,6 @@ import domain.model.Receiver;
 import domain.model.exceptions.CommandInterruptException;
 import domain.model.exceptions.FinishGameException;
 import presentation.controller.TerminalController;
-import presentation.model.Board;
-import presentation.model.Turn;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 import resources.strings.TerminalConstants;
@@ -15,7 +13,7 @@ import resources.strings.TerminalConstants;
  *
  * @author Alexis Rico Carreto
  */
-public class TerminalReceiver implements Receiver {
+public class TerminalGameReceiver implements Receiver {
 
     /**
      * Reads the number of blacks from the terminal
@@ -63,7 +61,7 @@ public class TerminalReceiver implements Receiver {
             result[i] = TerminalUtils.getInstance().readGameInteger();
             row.append(result[i]).append(" ");
         }
-        TerminalController.getInstance().getCurrentBoard().addTurn(new Turn(row.toString().trim()));
+        TerminalController.getInstance().getCurrentBoard().addTurn(new TerminalController.Turn(row.toString().trim()));
         return result;
     }
 
@@ -74,7 +72,7 @@ public class TerminalReceiver implements Receiver {
      */
     @Override
     public void notifyCorrectRow(String row) {
-        TerminalController.getInstance().getCurrentBoard().setCorrectGuess(new Turn(row.trim()));
+        TerminalController.getInstance().getCurrentBoard().setCorrectGuess(new TerminalController.Turn(row.trim()));
     }
 
     /**
@@ -98,7 +96,7 @@ public class TerminalReceiver implements Receiver {
      */
     @Override
     public void outputColorRow(String row) {
-        TerminalController.getInstance().getCurrentBoard().addTurn(new Turn(row.trim()));
+        TerminalController.getInstance().getCurrentBoard().addTurn(new TerminalController.Turn(row.trim()));
         TerminalController.getInstance().getCurrentBoard().printTerminal();
     }
 
@@ -188,7 +186,7 @@ public class TerminalReceiver implements Receiver {
      */
     @Override
     public void startGame(String title) {
-        TerminalController.getInstance().setCurrentBoard(new TerminalController.BoardController(new Board(title)));
+        TerminalController.getInstance().setCurrentBoard(new TerminalController.BoardController(new TerminalController.Board(title)));
         TerminalController.getInstance().getCurrentBoard().printTerminal();
     }
 }

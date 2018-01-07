@@ -9,13 +9,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import presentation.controller.LocaleController;
+import presentation.utils.LocaleUtils;
 
 public class ControlInput extends VBox {
     private final TextField textField = new TextField();
 
     /**
      * Creates a controlInput with th given parameters.
+     *
      * @param title the title of the label in the controlInput.
      */
     public ControlInput(String title) {
@@ -39,7 +40,7 @@ public class ControlInput extends VBox {
         setMargin(textField, new Insets(0, 30, 0, 30));
         getChildren().add(textField);
 
-        RaisedButton button = new RaisedButton(LocaleController.getInstance().getString("SEND"));
+        RaisedButton button = new RaisedButton(LocaleUtils.getInstance().getString("SEND"));
         button.setOnMouseClicked(event -> {
             synchronized (this) {
                 notify();
@@ -50,6 +51,7 @@ public class ControlInput extends VBox {
 
     /**
      * The textFielf getter.
+     *
      * @return returns a TextField.
      */
     public String getResult() {

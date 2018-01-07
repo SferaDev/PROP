@@ -10,8 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
+import presentation.utils.LocaleUtils;
 import presentation.view.*;
 import presentation.view.components.ColorRow;
 import presentation.view.components.ControlRow;
@@ -34,7 +34,8 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Inicialize the nebula view controller
-     * @param location is the url where to find the Nebula.fxml
+     *
+     * @param location  is the url where to find the Nebula.fxml
      * @param resources is the recoure bundle
      */
     @Override
@@ -78,10 +79,11 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Starts a game with the given parameters
-     * @param role is the role of the user.
+     *
+     * @param role     is the role of the user.
      * @param computer is the computer who you want to play against
-     * @param pegs number of pegs of the game
-     * @param colors number of colors of the game
+     * @param pegs     number of pegs of the game
+     * @param colors   number of colors of the game
      */
     public void startGame(String role, String computer, int pegs, int colors) {
         isPlaying = true;
@@ -101,6 +103,7 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Adds the control of the last turn
+     *
      * @param blacks is the number of black pegs of the control row
      * @param whites is the number of whites pegs of the control row
      */
@@ -110,6 +113,7 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Adds a color row to the board pane.
+     *
      * @param colorRow is the color row that will be added.
      */
     public void addTurn(ColorRow colorRow) {
@@ -118,6 +122,7 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Adds a action pane to the GameView
+     *
      * @param pane the Node that will be added
      */
     public void addActionPane(Node pane) {
@@ -137,7 +142,7 @@ public class NebulaViewController implements Initializable {
     private JFXButton createDrawerButton(String textId) {
         JFXButton button = new JFXButton();
         button.setPrefWidth(100);
-        button.setText(LocaleController.getInstance().getString(textId));
+        button.setText(LocaleUtils.getInstance().getString(textId));
         button.setTextFill(Color.WHITE);
         button.setStyle("-fx-background-radius: 0px");
         button.setFont(new Font(20));
@@ -147,6 +152,7 @@ public class NebulaViewController implements Initializable {
 
     /**
      * Adds the correct row to the GameView
+     *
      * @param row is the row that will be added
      */
     public void addCorrectRow(ColorRow row) {

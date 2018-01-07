@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 public class ControlPeg extends JFXButton {
     /**
      * Creates a ControlPeg
+     *
      * @param type the tipe of the peg (black, white)
      */
     ControlPeg(Type type) {

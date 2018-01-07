@@ -14,9 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import presentation.controller.LocaleController;
 import presentation.controller.PresentationController;
 import presentation.utils.ComponentUtils;
+import presentation.utils.LocaleUtils;
 import presentation.view.components.RaisedButton;
 
 public class UserView extends VBox {
@@ -29,7 +29,7 @@ public class UserView extends VBox {
         setPadding(new Insets(30));
         setAlignment(Pos.TOP_CENTER);
 
-        Label textUsernameLabel = createLabel(LocaleController.getInstance().getString("WELCOME") + ", " +
+        Label textUsernameLabel = createLabel(LocaleUtils.getInstance().getString("WELCOME") + ", " +
                 PresentationController.getInstance().getUsername() + "!", 25);
 
         GridPane mainContent = new GridPane();
@@ -39,15 +39,15 @@ public class UserView extends VBox {
 
         getChildren().addAll(textUsernameLabel, mainContent);
 
-        Label textPasswordLabel = createLabel(LocaleController.getInstance().getString("CHANGE_PASSWORD"), 20);
-        Label textLanguageLabel = createLabel(LocaleController.getInstance().getString("INTERFACE_LANGUAGE"), 20);
+        Label textPasswordLabel = createLabel(LocaleUtils.getInstance().getString("CHANGE_PASSWORD"), 20);
+        Label textLanguageLabel = createLabel(LocaleUtils.getInstance().getString("INTERFACE_LANGUAGE"), 20);
 
-        JFXPasswordField oldPasswordField = createPasswordField(LocaleController.getInstance().getString("OLD_PASSWORD"));
-        JFXPasswordField newPasswordField = createPasswordField(LocaleController.getInstance().getString("NEW_PASSWORD"));
+        JFXPasswordField oldPasswordField = createPasswordField(LocaleUtils.getInstance().getString("OLD_PASSWORD"));
+        JFXPasswordField newPasswordField = createPasswordField(LocaleUtils.getInstance().getString("NEW_PASSWORD"));
 
         oldPasswordField.requestFocus();
 
-        RaisedButton changePasswordButton = new RaisedButton(LocaleController.getInstance().getString("CHANGE"));
+        RaisedButton changePasswordButton = new RaisedButton(LocaleUtils.getInstance().getString("CHANGE"));
         changePasswordButton.setOnAction(event -> {
             PresentationController.getInstance().requestPasswordChange(oldPasswordField.getText(), newPasswordField.getText());
             oldPasswordField.setText("");
@@ -67,13 +67,13 @@ public class UserView extends VBox {
 
         JFXComboBox<String> languageComboBox = new JFXComboBox<>();
         languageComboBox.setBackground(new Background(new BackgroundFill(Color.web("#cfd8dc"), null, null)));
-        for (LocaleController.Language language : LocaleController.Language.values()) {
+        for (LocaleUtils.Language language : LocaleUtils.Language.values()) {
             languageComboBox.getItems().add(language.name());
         }
-        languageComboBox.getSelectionModel().select(LocaleController.getInstance().getLanguage().name());
+        languageComboBox.getSelectionModel().select(LocaleUtils.getInstance().getLanguage().name());
         languageComboBox.setOnAction(event -> {
             PresentationController.getInstance().requestChangeLanguage(
-                    LocaleController.Language.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
+                    LocaleUtils.Language.valueOf(languageComboBox.getSelectionModel().getSelectedItem()));
             Stage stage = (Stage) getScene().getWindow();
             stage.close();
             PresentationController.getInstance().launchNebulaForm(stage);

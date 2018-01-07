@@ -1,10 +1,10 @@
-package presentation.controller;
+package presentation.utils;
 
 import javafx.scene.paint.Color;
 
 import java.lang.reflect.Field;
 
-public class ColorController {
+public class ColorUtils {
     private static final String RED = "#F44336";
     private static final String RED_DARK = "#B71C1C";
     private static final String PURPLE = "#4A148C";
@@ -39,12 +39,13 @@ public class ColorController {
 
     /**
      * Gets the color in hexadecimal.
+     *
      * @param name is the name of the color.
      * @return the color in hexadecimal.
      */
     public static String getColor(String name) {
         try {
-            Field field = ColorController.class.getDeclaredField(name);
+            Field field = ColorUtils.class.getDeclaredField(name);
             field.setAccessible(true);
             return (String) field.get(String.class);
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -54,6 +55,7 @@ public class ColorController {
 
     /**
      * Gets the color as a string.
+     *
      * @param color the color as a int.
      * @return the color as a string.
      */
@@ -63,6 +65,7 @@ public class ColorController {
 
     /**
      * Gets the dark color as a string.
+     *
      * @param color the color as a int.
      * @return the color as a string.
      */
@@ -73,6 +76,7 @@ public class ColorController {
 
     /**
      * Gets the contrast(Black or white) of the color.
+     *
      * @param color the color which is needed to calculate the contrast.
      * @return the contrast as a string.
      */

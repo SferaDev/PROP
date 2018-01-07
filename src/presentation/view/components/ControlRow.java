@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 public class ControlRow extends HBox {
     /**
      * Creates a control row.
+     *
      * @param blacks is the number of blacks of the row.
      * @param whites is the number of whites of the row.
      */

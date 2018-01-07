@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import presentation.controller.LocaleController;
+import presentation.utils.LocaleUtils;
 import presentation.view.components.RaisedButton;
 
 import java.net.URL;
@@ -39,12 +39,13 @@ public class LoginViewController implements Initializable {
 
     /**
      * Inicialize the LoginView
-     * @param url is the url where to find Login.fxml
+     *
+     * @param url    is the url where to find Login.fxml
      * @param bundle is the recoure bundle
      */
     @FXML
     public void initialize(URL url, ResourceBundle bundle) {
-        title.setText(LocaleController.getInstance().getString("WELCOME"));
+        title.setText(LocaleUtils.getInstance().getString("WELCOME"));
         setUpImageViews();
         setUpTextFields();
         setUpButtons();
@@ -52,6 +53,7 @@ public class LoginViewController implements Initializable {
 
     /**
      * Sets the listener to private class variable
+     *
      * @param listener the listener to set
      */
     public void setListener(LoginListener listener) {
@@ -69,14 +71,14 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpTextFields() {
-        usernameField.setPromptText(LocaleController.getInstance().getString("USERNAME"));
+        usernameField.setPromptText(LocaleUtils.getInstance().getString("USERNAME"));
         usernameField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && !passwordField.getText().equals(""))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
             else if (event.getCode().equals(KeyCode.ENTER)) passwordField.requestFocus();
         });
 
-        passwordField.setPromptText(LocaleController.getInstance().getString("PASSWORD"));
+        passwordField.setPromptText(LocaleUtils.getInstance().getString("PASSWORD"));
         passwordField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER))
                 listener.onLoginButton(usernameField.getText(), passwordField.getText());
@@ -84,7 +86,7 @@ public class LoginViewController implements Initializable {
     }
 
     private void setUpButtons() {
-        RaisedButton loginButton = new RaisedButton(LocaleController.getInstance().getString("LOGIN"));
+        RaisedButton loginButton = new RaisedButton(LocaleUtils.getInstance().getString("LOGIN"));
         loginButton.setOnMouseClicked(event ->
                 listener.onLoginButton(usernameField.getText(), passwordField.getText()));
         loginButton.setOnKeyPressed(event -> {
@@ -93,7 +95,7 @@ public class LoginViewController implements Initializable {
         });
         buttonPlaceholder.getChildren().add(loginButton);
 
-        RaisedButton registerButton = new RaisedButton(LocaleController.getInstance().getString("REGISTER"));
+        RaisedButton registerButton = new RaisedButton(LocaleUtils.getInstance().getString("REGISTER"));
         registerButton.setOnMouseClicked(event ->
                 listener.onRegisterButton(usernameField.getText(), passwordField.getText()));
         registerButton.setOnKeyPressed(event -> {

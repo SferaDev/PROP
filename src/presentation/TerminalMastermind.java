@@ -3,8 +3,8 @@ package presentation;
 import domain.controller.DomainController;
 import domain.model.exceptions.UserAlreadyExistsException;
 import domain.model.exceptions.UserNotFoundException;
-import presentation.controller.LocaleController;
-import presentation.controller.receiver.TerminalReceiver;
+import presentation.controller.receiver.TerminalGameReceiver;
+import presentation.utils.LocaleUtils;
 import presentation.utils.TerminalMenuBuilder;
 import presentation.utils.TerminalUtils;
 import presentation.utils.TimeUtils;
@@ -20,14 +20,11 @@ import java.util.Map;
  * @author Alexis Rico Carreto
  */
 public class TerminalMastermind {
-    private final DomainController domainController = DomainController.getInstance();
-    private final TerminalUtils terminalUtils = TerminalUtils.getInstance();
-
     /**
      * Starts the Mastermind in a terminal
      */
     public void startTerminalApplication() {
-        domainController.setGameInterface(new TerminalReceiver());
+        DomainController.getInstance().setGameInterface(new TerminalGameReceiver());
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.MAIN_MENU);
@@ -63,7 +60,7 @@ public class TerminalMastermind {
     }
 
     private void showContinueGameMenu(String userName) {
-        ArrayList games = domainController.getGameController().getAllGames(userName);
+        ArrayList games = DomainController.getInstance().getGameController().getAllGames(userName);
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.PREVIOUS_GAME_MENU);
         for (Object game : games)
@@ -102,24 +99,24 @@ public class TerminalMastermind {
         // Request pegs and colors
         int pegs, colors;
         do {
-            terminalUtils.printLine(TerminalConstants.NEW_GAME_INSERT_PEGS);
-            pegs = terminalUtils.readInteger();
+            TerminalUtils.getInstance().printLine(TerminalConstants.NEW_GAME_INSERT_PEGS);
+            pegs = TerminalUtils.getInstance().readInteger();
         } while (pegs == -1);
 
         do {
-            terminalUtils.printLine(TerminalConstants.NEW_GAME_INSERT_COLORS);
-            colors = terminalUtils.readInteger();
+            TerminalUtils.getInstance().printLine(TerminalConstants.NEW_GAME_INSERT_COLORS);
+            colors = TerminalUtils.getInstance().readInteger();
         } while (colors == -1);
 
         newGame(userName, role, computerName, pegs, colors);
     }
 
     private void newGame(String userName, String role, String computerName, int pegs, int colors) {
-        domainController.getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
+        DomainController.getInstance().getGameController().startNewGame(userName, computerName, role, pegs, colors, 12);
     }
 
     private void continueGame(String game) {
-        domainController.getGameController().continueGame(game);
+        DomainController.getInstance().getGameController().continueGame(game);
     }
 
     private void showUserMenu(TerminalMenuBuilder originalBuilder, String username) {
@@ -141,7 +138,7 @@ public class TerminalMastermind {
     }
 
     private void deleteUser(TerminalMenuBuilder builder, TerminalMenuBuilder originalBuilder, String username) {
-        domainController.getUserController().deleteUser(username);
+        DomainController.getInstance().getUserController().deleteUser(username);
         builder.finishExecution();
         originalBuilder.finishExecution();
     }
@@ -150,34 +147,34 @@ public class TerminalMastermind {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.APP_TITLE + ": " + TerminalConstants.USER_CHANGE_PASSWORD);
         builder.execute();
-        domainController.getUserController().changePassword(username, inputPassword());
+        DomainController.getInstance().getUserController().changePassword(username, inputPassword());
     }
 
     private void login() {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.APP_TITLE + ": " + TerminalConstants.MAIN_LOGIN);
         builder.execute();
-        terminalUtils.printLine(TerminalConstants.INSERT_USERNAME);
-        String userName = terminalUtils.readString();
+        TerminalUtils.getInstance().printLine(TerminalConstants.INSERT_USERNAME);
+        String userName = TerminalUtils.getInstance().readString();
 
-        if (!domainController.getUserController().existsUser(userName)) {
-            terminalUtils.errorLine(TerminalConstants.ERROR_USER_NOT_FOUND);
+        if (!DomainController.getInstance().getUserController().existsUser(userName)) {
+            TerminalUtils.getInstance().errorLine(TerminalConstants.ERROR_USER_NOT_FOUND);
             return;
         }
 
         boolean login = false;
         for (int i = 0; !login && i < 3; i++) {
-            if (i > 0) terminalUtils.errorLine(TerminalConstants.WRONG_PASSWORD);
-            terminalUtils.printLine(TerminalConstants.INSERT_PASSWORD);
+            if (i > 0) TerminalUtils.getInstance().errorLine(TerminalConstants.WRONG_PASSWORD);
+            TerminalUtils.getInstance().printLine(TerminalConstants.INSERT_PASSWORD);
             try {
-                login = domainController.getUserController().loginUser(userName, terminalUtils.readString());
+                login = DomainController.getInstance().getUserController().loginUser(userName, TerminalUtils.getInstance().readString());
             } catch (UserNotFoundException e) {
                 e.printStackTrace();
             }
         }
 
         if (!login) {
-            terminalUtils.errorLine(TerminalConstants.WRONG_PASSWORD_3_TIMES);
+            TerminalUtils.getInstance().errorLine(TerminalConstants.WRONG_PASSWORD_3_TIMES);
         } else showPlayMenu(userName);
     }
 
@@ -185,14 +182,14 @@ public class TerminalMastermind {
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.APP_TITLE + ": " + TerminalConstants.MAIN_REGISTER);
         builder.execute();
-        terminalUtils.printLine(TerminalConstants.INSERT_USERNAME);
-        String username = terminalUtils.readString();
-        if (domainController.getUserController().existsUser(username)) {
-            terminalUtils.errorLine(TerminalConstants.USER_ALREADY_EXISTS);
+        TerminalUtils.getInstance().printLine(TerminalConstants.INSERT_USERNAME);
+        String username = TerminalUtils.getInstance().readString();
+        if (DomainController.getInstance().getUserController().existsUser(username)) {
+            TerminalUtils.getInstance().errorLine(TerminalConstants.USER_ALREADY_EXISTS);
         } else {
             try {
-                domainController.getUserController().createUser(username, inputPassword(),
-                        LocaleController.getInstance().getLanguage().name());
+                DomainController.getInstance().getUserController().createUser(username, inputPassword(),
+                        LocaleUtils.getInstance().getLanguage().name());
                 showPlayMenu(username);
             } catch (UserAlreadyExistsException e) {
                 e.printStackTrace();
@@ -204,11 +201,11 @@ public class TerminalMastermind {
         String password1, password2;
         int i = 1;
         do {
-            if (i++ > 1) terminalUtils.errorLine(TerminalConstants.PASSWORD_DONT_MATCH);
-            terminalUtils.printLine(TerminalConstants.INSERT_PASSWORD);
-            password1 = terminalUtils.readString();
-            terminalUtils.printLine(TerminalConstants.REPEAT_PASSWORD);
-            password2 = terminalUtils.readString();
+            if (i++ > 1) TerminalUtils.getInstance().errorLine(TerminalConstants.PASSWORD_DONT_MATCH);
+            TerminalUtils.getInstance().printLine(TerminalConstants.INSERT_PASSWORD);
+            password1 = TerminalUtils.getInstance().readString();
+            TerminalUtils.getInstance().printLine(TerminalConstants.REPEAT_PASSWORD);
+            password2 = TerminalUtils.getInstance().readString();
         } while (!password1.equals(password2));
         return password1;
     }
@@ -223,7 +220,7 @@ public class TerminalMastermind {
     }
 
     private void showPointStats() {
-        Map<String, Long> pointRanking = domainController.getStatController().getPointRanking();
+        Map<String, Long> pointRanking = DomainController.getInstance().getStatController().getPointRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.APP_TITLE + ": " + TerminalConstants.STATS_POINTS);
@@ -237,7 +234,7 @@ public class TerminalMastermind {
     }
 
     private void showTimeStats() {
-        Map<String, Long> timeRanking = domainController.getStatController().getTimeRanking();
+        Map<String, Long> timeRanking = DomainController.getInstance().getStatController().getTimeRanking();
 
         TerminalMenuBuilder builder = new TerminalMenuBuilder();
         builder.addTitle(TerminalConstants.APP_TITLE + ": " + TerminalConstants.STATS_TIME);

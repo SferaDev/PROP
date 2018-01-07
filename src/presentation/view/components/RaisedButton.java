@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 public class RaisedButton extends JFXButton {
     /**
      * Creates a JFX raised button.
+     *
      * @param text the text of the button.
      */
     public RaisedButton(String text) {

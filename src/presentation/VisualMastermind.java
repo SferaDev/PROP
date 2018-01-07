@@ -3,7 +3,7 @@ package presentation;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import presentation.controller.PresentationController;
-import presentation.controller.receiver.GameInterfaceReceiver;
+import presentation.controller.receiver.VisualGameReceiver;
 
 /**
  * The type Visual mastermind.
@@ -20,7 +20,7 @@ public class VisualMastermind extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        presentationController.setGameInterface(new GameInterfaceReceiver());
+        presentationController.setGameInterface(new VisualGameReceiver());
         presentationController.launchLoginForm(primaryStage);
     }
 }

@@ -9,18 +9,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import presentation.controller.LocaleController;
 
 public class ComponentUtils {
 
     /**
      * Shows a information type alert.
-     * @param header will be the header of the alert.
+     *
+     * @param header  will be the header of the alert.
      * @param content will be the message of the alert.
      */
     public static void showInformationDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -28,12 +28,13 @@ public class ComponentUtils {
 
     /**
      * Shows a warning type alert.
-     * @param header will be the header of the alert.
+     *
+     * @param header  will be the header of the alert.
      * @param content will be the message of the alert.
      */
     public static void showWarningDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -41,12 +42,13 @@ public class ComponentUtils {
 
     /**
      * Shows a error type alert.
-     * @param header will be the header of the alert.
+     *
+     * @param header  will be the header of the alert.
      * @param content will be the message of the alert.
      */
     public static void showErrorDialog(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
@@ -54,12 +56,13 @@ public class ComponentUtils {
 
     /**
      * Shows a custom type alert.
+     *
      * @param header will be the header of the alert.
-     * @param item will be the custom graphic of the alert.
+     * @param item   will be the custom graphic of the alert.
      */
     public static void showCustomDialog(String header, Node item) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
+        alert.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         alert.setHeaderText(header);
         alert.setGraphic(item);
         alert.showAndWait();
@@ -67,14 +70,15 @@ public class ComponentUtils {
 
     /**
      * Builds a scene with the given parameters.
-     * @param context the context to get resources
-     * @param stage the stage of the scene.
-     * @param parent the parent of the scene.
-     * @param minWidth the minimum width of the scene
+     *
+     * @param context   the context to get resources
+     * @param stage     the stage of the scene.
+     * @param parent    the parent of the scene.
+     * @param minWidth  the minimum width of the scene
      * @param minHeight the minimum height of the scene
      */
     public static void buildScene(Class context, Stage stage, Parent parent, double minWidth, double minHeight) {
-        stage.setTitle(LocaleController.getInstance().getString("APP_TITLE"));
+        stage.setTitle(LocaleUtils.getInstance().getString("APP_TITLE"));
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.setMinWidth(minWidth);
@@ -87,6 +91,7 @@ public class ComponentUtils {
 
     /**
      * Creates a ColumnConstraints with the given width percentage.
+     *
      * @param percent the width percentage.
      * @return the ColumnConstraints
      */
@@ -99,6 +104,7 @@ public class ComponentUtils {
 
     /**
      * Creates a RowConstraints with the given height percentage.
+     *
      * @param percent the height percentage.
      * @return the RowConstraints.
      */

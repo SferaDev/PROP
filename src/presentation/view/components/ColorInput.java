@@ -7,15 +7,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import presentation.controller.LocaleController;
+import presentation.utils.LocaleUtils;
 
 public class ColorInput extends VBox {
     private final ColorRow colorRow;
 
     /**
      * Creates a colorInput with th given parameters.
-     * @param title the title of the label in the colorInput.
-     * @param pegs the number of pegs.
+     *
+     * @param title  the title of the label in the colorInput.
+     * @param pegs   the number of pegs.
      * @param colors the number of colors.
      */
     public ColorInput(String title, int pegs, int colors) {
@@ -36,7 +37,7 @@ public class ColorInput extends VBox {
         setMargin(colorRow, new Insets(0, 30, 0, 30));
         getChildren().add(colorRow);
 
-        RaisedButton button = new RaisedButton(LocaleController.getInstance().getString("SEND"));
+        RaisedButton button = new RaisedButton(LocaleUtils.getInstance().getString("SEND"));
         button.setOnMouseClicked(event -> {
             synchronized (this) {
                 notify();
@@ -47,6 +48,7 @@ public class ColorInput extends VBox {
 
     /**
      * Gets the colorRow of a colorInput.
+     *
      * @return a colorRow
      */
     public ColorRow getResult() {

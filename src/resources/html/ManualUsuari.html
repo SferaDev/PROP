@@ -1,65 +1,372 @@
 <!DOCTYPE html>
-    <html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-        <style>
-/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 12px; line-height: 22px; word-wrap: break-word; } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } img { max-width: 100%; max-height: 100%; } a { color: #4080D0; text-decoration: none; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } a:hover { color: #4080D0; text-decoration: underline; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left: 5px solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ .vscode-light { color: rgb(30, 30, 30); } .vscode-dark { color: #DDD; } .vscode-high-contrast { color: white; } .vscode-light code { color: #A31515; } .vscode-dark code { color: #D7BA7D; } .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } .vscode-light blockquote, .vscode-dark blockquote { background: rgba(127, 127, 127, 0.1); border-color: rgba(0, 122, 204, 0.5); } .vscode-high-contrast blockquote { background: transparent; border-color: #fff; }
-</style>
-<style>
-/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
-</style>
-<style>
-ul.contains-task-list { padding-left: 0; } ul ul.contains-task-list { padding-left: 40px; } .task-list-item { list-style-type: none; } .task-list-item-checkbox { vertical-align: middle; }
-</style>
-        <style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-    </head>
-    <body>
-        <h1 id="manual-dusuari">Manual d’usuari</h1>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <style>
+        /*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/
+        body {
+            font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+            font-size: 14px;
+            padding: 0 12px;
+            line-height: 22px;
+            word-wrap: break-word;
+        }
+
+        body.scrollBeyondLastLine {
+            margin-bottom: calc(100vh - 22px);
+        }
+
+        body.showEditorSelection .code-line {
+            position: relative;
+        }
+
+        body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -12px;
+            height: 100%;
+        }
+
+        body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before {
+            left: -30px;
+        }
+
+        .vscode-light.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .vscode-light.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(0, 0, 0, 0.40);
+        }
+
+        .vscode-dark.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .vscode-dark.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 255, 255, 0.60);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-active-line:before {
+            border-left: 3px solid rgba(255, 160, 0, 0.7);
+        }
+
+        .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+            border-left: 3px solid rgba(255, 160, 0, 1);
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        a {
+            color: #4080D0;
+            text-decoration: none;
+        }
+
+        a:focus, input:focus, select:focus, textarea:focus {
+            outline: 1px solid -webkit-focus-ring-color;
+            outline-offset: -1px;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            border-bottom: 2px solid;
+        }
+
+        h1 {
+            padding-bottom: 0.3em;
+            line-height: 1.2;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+        }
+
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+
+        h1 code, h2 code, h3 code, h4 code, h5 code, h6 code {
+            font-size: inherit;
+            line-height: auto;
+        }
+
+        a:hover {
+            color: #4080D0;
+            text-decoration: underline;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table > thead > tr > th {
+            text-align: left;
+            border-bottom: 1px solid;
+        }
+
+        table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td {
+            padding: 5px 10px;
+        }
+
+        table > tbody > tr + tr > td {
+            border-top: 1px solid;
+        }
+
+        blockquote {
+            margin: 0 7px 0 5px;
+            padding: 0 16px 0 10px;
+            border-left: 5px solid;
+        }
+
+        code {
+            font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+            font-size: 14px;
+            line-height: 19px;
+        }
+
+        body.wordWrap pre {
+            white-space: pre-wrap;
+        }
+
+        .mac code {
+            font-size: 12px;
+            line-height: 18px;
+        }
+
+        code > div {
+            padding: 16px;
+            border-radius: 3px;
+            overflow: auto;
+        }
+
+        /** Theming */
+        .vscode-light {
+            color: rgb(30, 30, 30);
+        }
+
+        .vscode-dark {
+            color: #DDD;
+        }
+
+        .vscode-high-contrast {
+            color: white;
+        }
+
+        .vscode-light code {
+            color: #A31515;
+        }
+
+        .vscode-dark code {
+            color: #D7BA7D;
+        }
+
+        .vscode-light code > div {
+            background-color: rgba(220, 220, 220, 0.4);
+        }
+
+        .vscode-dark code > div {
+            background-color: rgba(10, 10, 10, 0.4);
+        }
+
+        .vscode-high-contrast code > div {
+            background-color: rgb(0, 0, 0);
+        }
+
+        .vscode-high-contrast h1 {
+            border-color: rgb(0, 0, 0);
+        }
+
+        .vscode-light table > thead > tr > th {
+            border-color: rgba(0, 0, 0, 0.69);
+        }
+
+        .vscode-dark table > thead > tr > th {
+            border-color: rgba(255, 255, 255, 0.69);
+        }
+
+        .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td {
+            border-color: rgba(0, 0, 0, 0.18);
+        }
+
+        .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td {
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .vscode-light blockquote, .vscode-dark blockquote {
+            background: rgba(127, 127, 127, 0.1);
+            border-color: rgba(0, 122, 204, 0.5);
+        }
+
+        .vscode-high-contrast blockquote {
+            background: transparent;
+            border-color: #fff;
+        }
+    </style>
+    <style>
+        /* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */
+        .hljs-comment, .hljs-quote {
+            color: #8e908c;
+        }
+
+        /* Tomorrow Red */
+        .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion {
+            color: #c82829;
+        }
+
+        /* Tomorrow Orange */
+        .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link {
+            color: #f5871f;
+        }
+
+        /* Tomorrow Yellow */
+        .hljs-attribute {
+            color: #eab700;
+        }
+
+        /* Tomorrow Green */
+        .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition {
+            color: #718c00;
+        }
+
+        /* Tomorrow Blue */
+        .hljs-title, .hljs-section {
+            color: #4271ae;
+        }
+
+        /* Tomorrow Purple */
+        .hljs-keyword, .hljs-selector-tag {
+            color: #8959a8;
+        }
+
+        .hljs {
+            display: block;
+            overflow-x: auto;
+            color: #4d4d4c;
+            padding: 0.5em;
+        }
+
+        .hljs-emphasis {
+            font-style: italic;
+        }
+
+        .hljs-strong {
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        ul.contains-task-list {
+            padding-left: 0;
+        }
+
+        ul ul.contains-task-list {
+            padding-left: 40px;
+        }
+
+        .task-list-item {
+            list-style-type: none;
+        }
+
+        .task-list-item-checkbox {
+            vertical-align: middle;
+        }
+    </style>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+<h1 id="manual-dusuari">Manual d’usuari</h1>
 <p>En aquest manual explicarem com utilitzar correctament cadascuna de les funcionalitats ofertes pel Mastermind.</p>
 <h2 id="1-registrar-se-identificar-se">1. Registrar-se/ Identificar-se</h2>
 <p>Per poder accedir al joc, és obligatori dur a terme una d’aquestes dues opcions.</p>
 <p>Només executar el programa, apareixerà la següent vista:</p>
-<p>Per poder registrar-se o identificar-se és necessari omplir els camps de Nom d’usuari i Contrasenya. Un cop s’han introduit les dades necessàries, s’ha de prèmer el botó Identificar-se si l’usuari ja havia sigut registrat prèviament; o Registrar-se, altrament.</p>
+<p>Per poder registrar-se o identificar-se és necessari omplir els camps de Nom d’usuari i Contrasenya. Un cop s’han
+    introduit les dades necessàries, s’ha de prèmer el botó Identificar-se si l’usuari ja havia sigut registrat
+    prèviament; o Registrar-se, altrament.</p>
 <p>Problemes que es poden presentar en cas de no haver introduït de manera correcta les dades:</p>
 <ul>
-<li>Entrada invàlida: Es dona quan qualsevol dels dos camps no s’ha omplert. Per continuar només s’ha de tancar l’avís prement la X, i omplir novament les dades corresponents.</li>
-<li>L’usuari no s’ha trobat: El nom d’usuari introduit a l’hora de identificar-se  no es troba a la base de dades. Per continuar, les opcions disponibles són prèmer el botó Registrar-se per tal de crear un nou usuari amb aquell nom, o provar d’introduir un altre nom d’usuari que si que existeixi a la base de dades.</li>
-<li>Contrasenya incorrecta: El nom d’usuari és correcte, però la contrasenya introduida per identificar-se no coincideix amb la que està guardada a la base de dades. Per continuar, es pot provar amb una altra contrasenya o crear un nou usuari, ja que, com que el programa no demana més dades personals que el nom d’usuari i la contrasenya, no hi ha cap manera de recuperar la contrasenya en cas de no  recordar-la.</li>
-<li>L’usuari ja existeix: El nom d’usuari introduït per registrar-se ja existeix a la base de dades, per tant serà necessari triar un altre nom d’usuari, o si l’usuari existent va ser creat per la mateixa persona, prèmer el botó Identificar-se en comptes de Registrar-se.</li>
+    <li>Entrada invàlida: Es dona quan qualsevol dels dos camps no s’ha omplert. Per continuar només s’ha de tancar
+        l’avís prement la X, i omplir novament les dades corresponents.
+    </li>
+    <li>L’usuari no s’ha trobat: El nom d’usuari introduit a l’hora de identificar-se no es troba a la base de dades.
+        Per continuar, les opcions disponibles són prèmer el botó Registrar-se per tal de crear un nou usuari amb aquell
+        nom, o provar d’introduir un altre nom d’usuari que si que existeixi a la base de dades.
+    </li>
+    <li>Contrasenya incorrecta: El nom d’usuari és correcte, però la contrasenya introduida per identificar-se no
+        coincideix amb la que està guardada a la base de dades. Per continuar, es pot provar amb una altra contrasenya o
+        crear un nou usuari, ja que, com que el programa no demana més dades personals que el nom d’usuari i la
+        contrasenya, no hi ha cap manera de recuperar la contrasenya en cas de no recordar-la.
+    </li>
+    <li>L’usuari ja existeix: El nom d’usuari introduït per registrar-se ja existeix a la base de dades, per tant serà
+        necessari triar un altre nom d’usuari, o si l’usuari existent va ser creat per la mateixa persona, prèmer el
+        botó Identificar-se en comptes de Registrar-se.
+    </li>
 </ul>
 <h2 id="2-jugar-una-partida">2. Jugar una partida</h2>
-<p>Un cop registrat o identificat, per defecte, accedirà a una pantalla que li permetrà configurar una nova partida o carregar una antiga que hagués sigut guardada pel mateix usuari.</p>
+<p>Un cop registrat o identificat, per defecte, accedirà a una pantalla que li permetrà configurar una nova partida o
+    carregar una antiga que hagués sigut guardada pel mateix usuari.</p>
 <h3 id="21-jugar-una-partida-nova">2.1. Jugar una partida nova</h3>
-<p>Jugar una partida nova requereix primerament la seva configuració. A continuació s’expliquen els camps a decidir, com fer-ho, i el seu impacte en el lloc.</p>
+<p>Jugar una partida nova requereix primerament la seva configuració. A continuació s’expliquen els camps a decidir, com
+    fer-ho, i el seu impacte en el lloc.</p>
 <ul>
-<li>Nombre de fitxes i nombre de colors: Tant el nombre de fitxes, com el de colors, es trien a través d’un desplegable que permet triar des del nombre 3 fins al 9. En augmentar el nombre de fitxes i colors, també ho fa la dificultat i, en conseqüència el temps de resposta de l’ordinador.</li>
-<li>Rol: El Mastermind permet jugar com a Breaker o com a Maker.
-Breaker: és el jugador que ha d’endevinar la combinació escollida pel Maker, a través de les respostes obtingudes per aquest, en haver provat alguna combinació.
-Maker: és el jugador que tria una combinació de fitxes, que el Breaker haurà d’endevinar, i dona resposta a les combinacions provades pel Breaker.
-El rol que no sigui triat per l’usuari, evidentment, el durà a terme l’ordinador.</li>
-<li>Algorisme: Aquesta opció només s’ha de triar en cas de ser Maker, ja que decideix quin algorisme farà servir el Breaker (l’ordinador) per endevinar la combinació. Aquesta versió del Mastermind, permet jugar de manera que la combinació correcta sigui endevinada per l’algorisme Five Guess o pel Genètic. En un entorn en que el nombre de fitxes és 4 o inferior, i el nombre de colors és màxim 6, és millor el Five Guess, ja que assegura que la combinació serà endevinada en 5 o menys torns. Mentre que per condicions superiors, és millor emprar el Genètic, ja que el temps de resposta és més petit.</li>
+    <li>Nombre de fitxes i nombre de colors: Tant el nombre de fitxes, com el de colors, es trien a través d’un
+        desplegable que permet triar des del nombre 3 fins al 9. En augmentar el nombre de fitxes i colors, també ho fa
+        la dificultat i, en conseqüència el temps de resposta de l’ordinador.
+    </li>
+    <li>Rol: El Mastermind permet jugar com a Breaker o com a Maker.
+        Breaker: és el jugador que ha d’endevinar la combinació escollida pel Maker, a través de les respostes
+        obtingudes per aquest, en haver provat alguna combinació.
+        Maker: és el jugador que tria una combinació de fitxes, que el Breaker haurà d’endevinar, i dona resposta a les
+        combinacions provades pel Breaker.
+        El rol que no sigui triat per l’usuari, evidentment, el durà a terme l’ordinador.
+    </li>
+    <li>Algorisme: Aquesta opció només s’ha de triar en cas de ser Maker, ja que decideix quin algorisme farà servir el
+        Breaker (l’ordinador) per endevinar la combinació. Aquesta versió del Mastermind, permet jugar de manera que la
+        combinació correcta sigui endevinada per l’algorisme Five Guess o pel Genètic. En un entorn en que el nombre de
+        fitxes és 4 o inferior, i el nombre de colors és màxim 6, és millor el Five Guess, ja que assegura que la
+        combinació serà endevinada en 5 o menys torns. Mentre que per condicions superiors, és millor emprar el Genètic,
+        ja que el temps de resposta és més petit.
+    </li>
 </ul>
-<p>Un cop configurats tots els camps, s’haurà de prèmer el botó Començar partida, i apareixerà una vista que permetrà jugar directament.</p>
+<p>Un cop configurats tots els camps, s’haurà de prèmer el botó Començar partida, i apareixerà una vista que permetrà
+    jugar directament.</p>
 <h4 id="211-jugar-una-partida-com-a-breaker">2.1.1. Jugar una partida com a Breaker</h4>
-<p>Com ja s’havia explicat prèviament, el Breaker haurà de fer combinacions per tal d’endevinar la combinació triada pel Maker.</p>
-<p>Per poder provar una combinació, primerament s’han de triar cadascun dels colors de les fitxes d’aquesta. Per triar el color d’una fitxa, s’ha de prèmer sobre d’aquesta, de manera que aquesta canviarà de color. La fitxa es premerà tants cops com sigui necessari per poder triar el color desitjat.</p>
-<p>Un cop triada la combinació, s’haurà d’enviar prement el botó Send. De manera inmediata s’obtindrà la resposta i es podrà continuar provant opcions. L resposta constarà del nombre de blanques i el nombre de negres que hi ha entre la nostra última combinació i la combinació a endevinar. El nombre de blanques fa referència al nombre de fitxes que coincideixen en color però no en posició; i el nombre de negres, a les que coincideixen en color i posició.</p>
-<p>Un cop sigui endevinada la combinació, s’obrirà una pantalla com aquesta, i en tancar-la reconduirà de nou al jugador al menú per jugar una partida.</p>
-<h4 id="212-jugar-una-partida-com-a-maker">2.1.2. Jugar una partida com a  Maker</h4>
-<p>Primerament s’haurà de triar la combinació que haurà de ser endevinada pel Breaker. Per fer-ho s’ha de triar cadascun dels colors de les fitxes. Per canviar el color d’una fitxa s’ha de prèmer a sobre d’aquesta fins que aparegui el color desitjat. Un cop estigui la combinació completa, s’ha de prèmer el botó d’Enviar.</p>
-<p>Depenent del nombre de fitxes i colors de la partida s’obtindrà l’intent del Breaker, de manera més o menys ràpida. A continuació, el programa demanarà el nombre de negres i blanques corresponents entre la combinació del Breaker i la triada pel Maker inicialment. El nombre de negres fa referència al nombre de fitxes que coincideixen en color i posició en ambdues combinacions. Mentre que el nombre de blanques fa referència a aquelles que només coincideixen en color. Per indicar el nombre de negres i blanques, s’ha d’intruduir un nombre del 0 al nombre màxim de fitxes seleccionat previament.</p>
-<p>En cas que el nombre de blanques i negres introduit no sigui el correcte, l’ordinador ho detectarà i enviarà directament la resposta correcta.</p>
+<p>Com ja s’havia explicat prèviament, el Breaker haurà de fer combinacions per tal d’endevinar la combinació triada pel
+    Maker.</p>
+<p>Per poder provar una combinació, primerament s’han de triar cadascun dels colors de les fitxes d’aquesta. Per triar
+    el color d’una fitxa, s’ha de prèmer sobre d’aquesta, de manera que aquesta canviarà de color. La fitxa es premerà
+    tants cops com sigui necessari per poder triar el color desitjat.</p>
+<p>Un cop triada la combinació, s’haurà d’enviar prement el botó Send. De manera inmediata s’obtindrà la resposta i es
+    podrà continuar provant opcions. L resposta constarà del nombre de blanques i el nombre de negres que hi ha entre la
+    nostra última combinació i la combinació a endevinar. El nombre de blanques fa referència al nombre de fitxes que
+    coincideixen en color però no en posició; i el nombre de negres, a les que coincideixen en color i posició.</p>
+<p>Un cop sigui endevinada la combinació, s’obrirà una pantalla com aquesta, i en tancar-la reconduirà de nou al jugador
+    al menú per jugar una partida.</p>
+<h4 id="212-jugar-una-partida-com-a-maker">2.1.2. Jugar una partida com a Maker</h4>
+<p>Primerament s’haurà de triar la combinació que haurà de ser endevinada pel Breaker. Per fer-ho s’ha de triar cadascun
+    dels colors de les fitxes. Per canviar el color d’una fitxa s’ha de prèmer a sobre d’aquesta fins que aparegui el
+    color desitjat. Un cop estigui la combinació completa, s’ha de prèmer el botó d’Enviar.</p>
+<p>Depenent del nombre de fitxes i colors de la partida s’obtindrà l’intent del Breaker, de manera més o menys ràpida. A
+    continuació, el programa demanarà el nombre de negres i blanques corresponents entre la combinació del Breaker i la
+    triada pel Maker inicialment. El nombre de negres fa referència al nombre de fitxes que coincideixen en color i
+    posició en ambdues combinacions. Mentre que el nombre de blanques fa referència a aquelles que només coincideixen en
+    color. Per indicar el nombre de negres i blanques, s’ha d’intruduir un nombre del 0 al nombre màxim de fitxes
+    seleccionat previament.</p>
+<p>En cas que el nombre de blanques i negres introduit no sigui el correcte, l’ordinador ho detectarà i enviarà
+    directament la resposta correcta.</p>
 <h3 id="22-carregar-una-partida">2.2. Carregar una partida</h3>
 <h2 id="3-veure-ranking-i-records">3. Veure ranking i rècords</h2>
 <h2 id="4-modificar-la-configuracio-de-lusuari">4. Modificar la configuració de l’usuari</h2>
 <h2 id="5-ajuda">5. Ajuda</h2>
 <h2 id="6-log-out">6. Log out</h2>
 
-    </body>
-    </html>
+</body>
+</html>

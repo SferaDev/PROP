@@ -10,6 +10,7 @@ import presentation.VisualMastermind;
 public class MainApplication {
     /**
      * Starts the Mastermind application
+     *
      * @param args are the arguments entered by terminal
      */
     public static void main(String[] args) {

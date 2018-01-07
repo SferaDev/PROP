@@ -7,11 +7,11 @@ import domain.model.exceptions.UserNotFoundException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import presentation.controller.receiver.GameInterfaceReceiver;
-import presentation.controller.receiver.LoginActionReceiver;
+import presentation.controller.receiver.VisualGameReceiver;
 import presentation.controller.view.LoginViewController;
 import presentation.controller.view.NebulaViewController;
 import presentation.utils.ComponentUtils;
+import presentation.utils.LocaleUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ public class PresentationController {
 
     /**
      * Gets the instance of the PresentationController.
+     *
      * @return the instance of the PresentationController.
      */
     public static PresentationController getInstance() {
@@ -43,6 +44,7 @@ public class PresentationController {
 
     /**
      * Launch the login view
+     *
      * @param stage the stage that we will use to built the scene
      */
     public void launchLoginForm(Stage stage) {
@@ -50,7 +52,45 @@ public class PresentationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(LOGIN_FXML_PATH));
             Parent root = loader.load();
             LoginViewController controller = loader.getController();
-            controller.setListener(new LoginActionReceiver(stage));
+            controller.setListener(new LoginViewController.LoginListener() {
+                @Override
+                public void onLoginButton(String username, String password) {
+                    if (username.isEmpty() || password.isEmpty()) {
+                        ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"),
+                                LocaleUtils.getInstance().getString("TRY_AGAIN"));
+                    } else {
+                        try {
+                            boolean loginSuccessful = requestLogin(username, password);
+                            if (loginSuccessful) {
+                                closeWindow(stage);
+                                launchNebulaForm(stage);
+                            } else {
+                                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"),
+                                        LocaleUtils.getInstance().getString("TRY_AGAIN"));
+                            }
+                        } catch (UserNotFoundException e) {
+                            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"),
+                                    LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
+                        }
+                    }
+                }
+
+                @Override
+                public void onRegisterButton(String username, String password) {
+                    if (username.isEmpty() || password.isEmpty()) {
+                        ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_INPUT"),
+                                LocaleUtils.getInstance().getString("TRY_AGAIN"));
+                    } else {
+                        try {
+                            requestRegister(username, password, LocaleUtils.getInstance().getLanguage().name());
+                            onLoginButton(username, password);
+                        } catch (UserAlreadyExistsException e) {
+                            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_EXISTS"),
+                                    LocaleUtils.getInstance().getString("CHANGE_USERNAME"));
+                        }
+                    }
+                }
+            });
             ComponentUtils.buildScene(getClass(), stage, root, 700, 400);
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +99,7 @@ public class PresentationController {
 
     /**
      * Launch the nebula view
+     *
      * @param stage the stage that we will use to built the scene
      */
     public void launchNebulaForm(Stage stage) {
@@ -74,26 +115,28 @@ public class PresentationController {
 
     /**
      * Request the register of a user
+     *
      * @param username the username that will be registered
      * @param password the password that will be tested
      * @param language the language of the user
      * @throws UserAlreadyExistsException if the user already exists
      */
-    public void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
+    private void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
         DomainController.getInstance().getUserController().createUser(username, password, language);
     }
 
     /**
      * Checks if the username and the password match
+     *
      * @param username the username that will be registered
      * @param password the password that will be tested
      * @return Returns if the user and password match or not
      * @throws UserNotFoundException if the user is not found
      */
-    public boolean requestLogin(String username, String password) throws UserNotFoundException {
+    private boolean requestLogin(String username, String password) throws UserNotFoundException {
         if (!DomainController.getInstance().getUserController().loginUser(username, password)) return false;
         mUsername = username;
-        LocaleController.getInstance().setLanguage(requestUserLanguage());
+        LocaleUtils.getInstance().setLanguage(requestUserLanguage());
         return true;
     }
 
@@ -128,22 +171,25 @@ public class PresentationController {
 
     /**
      * Closes the stage.
+     *
      * @param stage is the stage that will be closed.
      */
-    public void closeWindow(Stage stage) {
+    private void closeWindow(Stage stage) {
         stage.close();
     }
 
     /**
      * Saves the game interface to domain controller.
+     *
      * @param gameInterfaceReceiver is the Interface that will be saved.
      */
-    public void setGameInterface(GameInterfaceReceiver gameInterfaceReceiver) {
+    public void setGameInterface(VisualGameReceiver gameInterfaceReceiver) {
         DomainController.getInstance().setGameInterface(gameInterfaceReceiver);
     }
 
     /**
      * Gets the nebula controller.
+     *
      * @return the nebula controller.
      */
     public NebulaViewController getNebulaController() {
@@ -157,6 +203,7 @@ public class PresentationController {
 
     /**
      * Gets the username
+     *
      * @return the name of the username.
      */
     public String getUsername() {
@@ -165,6 +212,7 @@ public class PresentationController {
 
     /**
      * Request to change the password of the current username.
+     *
      * @param oldPassword is the old password, that will be checked if matches with the current user.
      * @param newPassword is the new password that will be set.
      */
@@ -173,40 +221,47 @@ public class PresentationController {
         try {
             if (PresentationController.getInstance().requestLogin(mUsername, oldPassword)) {
                 if (oldPassword.equals(newPassword)) {
-                    ComponentUtils.showWarningDialog(LocaleController.getInstance().getString("SAME_PASSWORD"), LocaleController.getInstance().getString("CHOOSE_DIF_PASSWORD"));
+                    ComponentUtils.showWarningDialog(LocaleUtils.getInstance().getString("SAME_PASSWORD"),
+                            LocaleUtils.getInstance().getString("CHOOSE_DIF_PASSWORD"));
                 } else {
                     DomainController.getInstance().getUserController().changePassword(mUsername, newPassword);
-                    ComponentUtils.showInformationDialog(LocaleController.getInstance().getString("PASSWORD_CHANGED"), LocaleController.getInstance().getString("CHANGED_SUCCESSFULLY"));
+                    ComponentUtils.showInformationDialog(LocaleUtils.getInstance().getString("PASSWORD_CHANGED"),
+                            LocaleUtils.getInstance().getString("CHANGED_SUCCESSFULLY"));
                 }
             } else {
-                ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("INVALID_PASSWORD"), LocaleController.getInstance().getString("OLD_PASSWORD_INCORRECT"));
+                ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("INVALID_PASSWORD"),
+                        LocaleUtils.getInstance().getString("OLD_PASSWORD_INCORRECT"));
             }
         } catch (UserNotFoundException e) {
-            ComponentUtils.showErrorDialog(LocaleController.getInstance().getString("USER_NOT_FOUND"), LocaleController.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
+            ComponentUtils.showErrorDialog(LocaleUtils.getInstance().getString("USER_NOT_FOUND"),
+                    LocaleUtils.getInstance().getString("USER_NOT_FOUND_EXPLANATION"));
         }
     }
 
     /**
      * Gets the language of the current user.
+     *
      * @return a language.
      */
-    private LocaleController.Language requestUserLanguage() {
+    private LocaleUtils.Language requestUserLanguage() {
         if (mUsername == null) return null;
-        return LocaleController.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
+        return LocaleUtils.Language.valueOf(DomainController.getInstance().getUserController().getUserLanguage(mUsername));
     }
 
     /**
      * Requaet to change the language of the current user.
+     *
      * @param newLanguage is the new language that will be set.
      */
-    public void requestChangeLanguage(LocaleController.Language newLanguage) {
-        LocaleController.getInstance().setLanguage(newLanguage);
+    public void requestChangeLanguage(LocaleUtils.Language newLanguage) {
+        LocaleUtils.getInstance().setLanguage(newLanguage);
         if (mUsername != null)
             DomainController.getInstance().getUserController().changeLanguage(mUsername, newLanguage.name());
     }
 
     /**
      * Request all the saved games.
+     *
      * @return all the saved games of the current user.
      */
     public ArrayList requestSavedGames() {
@@ -216,9 +271,18 @@ public class PresentationController {
 
     /**
      * Request to start a saved game.
+     *
      * @param game the name of the game that will be started.
      */
     public void requestStartSavedGame(String game) {
         DomainController.getInstance().getGameController().continueGame(game);
+    }
+
+    /**
+     * Request delete current user
+     */
+    public void requestDeleteUser() {
+        DomainController.getInstance().getUserController().deleteUser(mUsername);
+        mUsername = null;
     }
 }
