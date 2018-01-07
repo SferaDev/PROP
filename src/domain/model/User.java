@@ -17,6 +17,7 @@ User implements java.io.Serializable {
      *
      * @param name     the user name
      * @param password the user password
+     * @param language the user language
      */
     public User(String name, String password, String language) {
         playerName = name;

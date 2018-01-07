@@ -309,6 +309,7 @@ public class Game implements java.io.Serializable {
          *
          * @param user   the user that is playing the game
          * @param role   the role of the user
+         * @param computer the computer that plays against the user
          * @param pegs   the number of pegs in a combination
          * @param colors the number of possible colors in a combination
          * @param turns  the number of maxim turns in the game

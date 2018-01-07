@@ -33,6 +33,7 @@ public class UserController {
      *
      * @param username the new username
      * @param password the new password
+     * @param language the new language
      * @throws UserAlreadyExistsException the user already exists exception
      */
     public void createUser(String username, String password, String language) throws UserAlreadyExistsException {

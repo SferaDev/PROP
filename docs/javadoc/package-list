@@ -11,7 +11,9 @@ persistence.utils
 presentation
 presentation.controller
 presentation.controller.receiver
+presentation.controller.view
 presentation.model
 presentation.utils
 presentation.view
 presentation.view.components
+resources.strings

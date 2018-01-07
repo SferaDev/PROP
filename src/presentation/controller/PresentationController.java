@@ -77,7 +77,7 @@ public class PresentationController {
      * @param username the username that will be registered
      * @param password the password that will be tested
      * @param language the language of the user
-     * @throws UserAlreadyExistsException
+     * @throws UserAlreadyExistsException if the user already exists
      */
     public void requestRegister(String username, String password, String language) throws UserAlreadyExistsException {
         DomainController.getInstance().getUserController().createUser(username, password, language);
@@ -88,7 +88,7 @@ public class PresentationController {
      * @param username the username that will be registered
      * @param password the password that will be tested
      * @return Returns if the user and password match or not
-     * @throws UserNotFoundException
+     * @throws UserNotFoundException if the user is not found
      */
     public boolean requestLogin(String username, String password) throws UserNotFoundException {
         if (!DomainController.getInstance().getUserController().loginUser(username, password)) return false;
