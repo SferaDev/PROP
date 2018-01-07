@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 /**
  * The Raised Button
  *
- * @author Elena Alonso Rodriguez
+ * @author Oriol Borrell Roig
  */
 public class RaisedButton extends JFXButton {
     /**

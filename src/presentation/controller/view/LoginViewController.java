@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * The login View Controller.
  *
- * @author Oriol Borrell Roig
+ * @author Alexis Rico Carreto
  */
 public class LoginViewController implements Initializable {
     /**

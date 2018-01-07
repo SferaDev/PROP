@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 /**
  * The Color Utils
  *
- * @author Alexis Rico Carreto
+ * @author Oriol Borrell Roig
  */
 public class ColorUtils {
     private static final String RED = "#F44336";

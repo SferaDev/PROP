@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * The nebula View Controller.
  *
- * @author Oriol Borrell Roig
+ * @author Alexis Rico Carreto
  */
 public class NebulaViewController implements Initializable {
     private final LoadView loadView = new LoadView();
@@ -38,7 +38,7 @@ public class NebulaViewController implements Initializable {
     private boolean isPlaying = false;
 
     /**
-     * Inicialize the nebula view controller
+     * Initialize the nebula view controller
      *
      * @param location  is the url where to find the Nebula.fxml
      * @param resources is the recoure bundle

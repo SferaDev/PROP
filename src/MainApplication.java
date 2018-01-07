@@ -5,7 +5,7 @@ import presentation.VisualMastermind;
 /**
  * The type Master mind.
  *
- * @author Alexis Rico Carreto
+ * @author Oriol Borrell Roig
  */
 public class MainApplication {
     /**

@@ -8,7 +8,7 @@ import presentation.controller.receiver.VisualGameReceiver;
 /**
  * The type Visual mastermind.
  *
- * @author Alexis Rico Carreto
+ * @author Oriol Borrell Roig
  */
 public class VisualMastermind extends Application {
     private final PresentationController presentationController = PresentationController.getInstance();
