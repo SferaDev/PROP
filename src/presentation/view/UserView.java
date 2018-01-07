@@ -21,6 +21,9 @@ import presentation.view.components.RaisedButton;
 
 public class UserView extends VBox {
 
+    /**
+     * Loads the UserView to nebula.
+     */
     public UserView() {
         setSpacing(10);
         setPadding(new Insets(30));

@@ -26,6 +26,9 @@ public class StatsView extends GridPane {
     private TableView tableViewPoints = new TableView<>();
     private TableView tableViewTime = new TableView<>();
 
+    /**
+     * Loads the StatsView to nebula.
+     */
     public StatsView() {
         setAlignment(Pos.CENTER);
         setPadding(new Insets(10));
@@ -72,6 +75,9 @@ public class StatsView extends GridPane {
         return borderPane;
     }
 
+    /**
+     * Resets the view, in order to actualize it
+     */
     public void reset() {
         tableViewPoints.getItems().clear();
         tableViewTime.getItems().clear();

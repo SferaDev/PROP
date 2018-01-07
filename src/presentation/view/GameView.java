@@ -23,6 +23,14 @@ public class GameView extends GridPane {
 
     private ColorRow correctGuess;
 
+    /**
+     * Loads the GameView to nebula.
+     * @param boardPane is where GameView will be loaded.
+     * @param role is the role of the user in the game.
+     * @param computer is the computer who the user plays against.
+     * @param pegs is the number of pegs of the game.
+     * @param colors is the number of colors of the game.
+     */
     public GameView(BoardPane boardPane, String role, String computer, int pegs, int colors) {
         scrollPane = new ScrollPane(boardPane);
         scrollPane.setFitToHeight(true);
@@ -92,15 +100,26 @@ public class GameView extends GridPane {
         return label;
     }
 
+    /**
+     * Adds a node to the controlPane.
+     * @param pane is the node that will be added.
+     */
     public void addActionPane(Node pane) {
         controlPane.getChildren().clear();
         controlPane.getChildren().add(pane);
     }
 
+    /**
+     * Clears the actionPane.
+     */
     public void removeActionPane() {
         controlPane.getChildren().clear();
     }
 
+    /**
+     * Adds the correct guess.
+     * @param correctRow is the corrct guess.
+     */
     public void addCorrectRow(ColorRow correctRow) {
         correctGuess = correctRow;
     }

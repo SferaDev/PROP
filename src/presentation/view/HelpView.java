@@ -11,6 +11,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class HelpView extends VBox {
+    /**
+     * Loads the HelpView to nebula
+     */
     public HelpView() {
         setSpacing(10);
         setPadding(new Insets(5));

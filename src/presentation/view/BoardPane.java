@@ -14,6 +14,9 @@ import presentation.view.components.ControlRow;
 public class BoardPane extends GridPane {
     private int posColorRow, posControlRow;
 
+    /**
+     * Loads the BoardPane to nebula.
+     */
     public BoardPane() {
         getStylesheets().add(getClass().getResource("/resources/css/Board.css").toExternalForm());
         getStyleClass().add("board-background");
@@ -21,6 +24,10 @@ public class BoardPane extends GridPane {
         posColorRow = posControlRow = 0;
     }
 
+    /**
+     * Adds ColorRows to the boardpane.
+     * @param rows is the ColorRows that will be added.
+     */
     public void addColorRow(ColorRow... rows) {
         for (ColorRow row : rows) {
             TurnLabel label = new TurnLabel(LocaleController.getInstance().getString("TURN") + " " + (posColorRow + 1));
@@ -32,6 +39,10 @@ public class BoardPane extends GridPane {
         }
     }
 
+    /**
+     * Adds ControlRows to the boardpane.
+     * @param rows the ControlRows that rill be added.
+     */
     public void addControlRow(ControlRow... rows) {
         for (ControlRow row : rows) {
             VBox box = new VBox();

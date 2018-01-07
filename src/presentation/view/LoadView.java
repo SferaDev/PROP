@@ -29,6 +29,9 @@ public class LoadView extends GridPane {
     private Integer pegs = 3;
     private Integer colors = 3;
 
+    /**
+     * Loads the LoadView tho nebula, where it will let the user configure the game.
+     */
     public LoadView() {
         setVgap(10);
         VBox newGameBox = new VBox();
@@ -192,6 +195,9 @@ public class LoadView extends GridPane {
         return result;
     }
 
+    /**
+     * Resets the view, in order to actualize it
+     */
     public void reset() {
         algorithmGroup.selectToggle(algorithmGroup.getToggles().get(0));
         roleGroup.selectToggle(roleGroup.getToggles().get(0));
