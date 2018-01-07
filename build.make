@@ -2,7 +2,7 @@
 ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 # Source files
-SOURCES := $(shell find $(ROOT_DIR) -name '*.java')
+SOURCES := $(shell find $(ROOT_DIR)/src/ -name '*.java')
 
 # Handle the default make command with the program generation
 all: clean
@@ -11,10 +11,13 @@ all: clean
 	cd $(ROOT_DIR)/out/; ln -s $(ROOT_DIR)/data data; cd $(ROOT_DIR)
 
 jar: all
-	cd $(ROOT_DIR)/out/; jar cfe $(ROOT_DIR)/Mastermind.jar Main .; cd $(ROOT_DIR)
+	cd $(ROOT_DIR)/out/; jar cfe $(ROOT_DIR)/Mastermind.jar MainApplication .; cd $(ROOT_DIR)
 
-run:
-	cd $(ROOT_DIR)/out/; java -cp ".:$(ROOT_DIR)/.libs/*" Main; cd $(ROOT_DIR)/out/
+run: all
+	cd $(ROOT_DIR)/out/; java -cp ".:$(ROOT_DIR)/.libs/*" MainApplication; cd $(ROOT_DIR)/out/
+
+runterminal: all
+	cd $(ROOT_DIR)/out/; java -cp ".:$(ROOT_DIR)/.libs/*" MainApplication --terminal; cd $(ROOT_DIR)/out/
 
 runjar:
 	java -jar $(ROOT_DIR)/Mastermind.jar
