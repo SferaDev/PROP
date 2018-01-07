@@ -54,8 +54,10 @@ public class VisualGameReceiver implements Receiver {
         int result = 0;
         try {
             result = Integer.parseInt(controlInput.getResult());
+            if (result < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            outputMessage(LocaleUtils.getInstance().getString("NUMBER_FORMAT_EX"));
+            notifyInvalidInput();
+            requestControl(title);
         }
         return result;
     }
