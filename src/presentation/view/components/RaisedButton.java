@@ -20,7 +20,7 @@ public class RaisedButton extends JFXButton {
         setButtonType(ButtonType.RAISED);
         setContentDisplay(ContentDisplay.CENTER);
         setMnemonicParsing(false);
-        setStyle("-fx-font-size:14px; -fx-background-color:WHITE;");
+        setStyle("-fx-font-size:13px; -fx-background-color:WHITE;");
 
         HBox.setMargin(this, new Insets(10, 10, 10, 10));
 
