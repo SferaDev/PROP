@@ -1,4 +1,4 @@
-**Repartició de classes per membre del grup**
+﻿**Repartició de classes per membre del grup**
 
 **Alexis Rico Carreto:**
 domain/controller/data/UserDataController.java
@@ -16,11 +16,23 @@ domain/model/Game.java
 domain/model/row/ControlRow.java
 domain/model/row/ColorRow.java
 presentation/controller/PresentationController.java
+presentation/controller/TerminalController.java
 presentation/controller/receivers/TerminalReceiver.java
+presentation/controller/receivers/VisualGameReceiver.java
+presentation/utils/ColorUtils.java
+presentation/utils/LocaleUtils.java
 presentation/utils/TerminalUtils.java
 presentation/utils/TerminalMenuBuilder.java
+presentation/utils/ThreadUtils.java
 presentation/TerminalMastermind.java
+presentation/VisualMastermind.java
+presentation/view/components/ColorInput.java
+presentation/view/components/ControlInput.java
+presentation/view/BoardPane.java
+presentation/view/GameView.java
+presentation/view/LoadView.java
 persistence/utils/FileUtils.java
+MainApplication.java
 persistence/utils/Base64Encoder.java
 persistence/DataModel.java
 
@@ -37,6 +49,11 @@ domain/model/User.java
 presentation/utils/Constants.java
 presentation/model/Turn.java
 presentation/model/Board.java
+presentation/view/components/ColorPeg.java
+presentation/view/components/ColorRow.java
+presentation/view/components/ControlPeg.java
+presentation/view/components/ControlRow.java
+presentation/view/components/RaisedButton.java
 presentation/view/BoardView.java
 presentation/controller/BoardController.java
 persistence/model/UserDataModel.java
@@ -55,4 +72,10 @@ domain/test/drivers/FiveGuessComputerDriver.java
 domain/test/drivers/GeneticComputerDriver.java
 domain/test/unit/GameUnitTest.java
 domain/model/player/computer/GeneticComputer.java
-presentation/TestMastermind.java
+presentation/controller/view/LoginViewControler.java
+presentation/controller/view/NebulaViewControler.java
+presentation/utils/ComponentUtils.java
+presentation/utils/TimeUtils.java
+presentation/view/HelpView.java
+presentation/view/StatsView.java
+presentation/view/UserView.java

@@ -19,6 +19,11 @@ import presentation.view.components.ControlRow;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The nebula View Controller.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class NebulaViewController implements Initializable {
     private final LoadView loadView = new LoadView();
     private final StatsView statsView = new StatsView();

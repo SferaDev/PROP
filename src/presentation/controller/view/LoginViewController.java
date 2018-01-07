@@ -16,6 +16,11 @@ import presentation.view.components.RaisedButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The login View Controller.
+ *
+ * @author Oriol Borrell Roig
+ */
 public class LoginViewController implements Initializable {
     /**
      * The title of the view
