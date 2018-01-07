@@ -3,6 +3,7 @@ ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 # Source files
 SOURCES := $(shell find $(ROOT_DIR)/src/ -name '*.java')
+RESOURCES := $(ROOT_DIR)/src/resources/
 
 # Handle the default make command with the program generation
 all: clean
