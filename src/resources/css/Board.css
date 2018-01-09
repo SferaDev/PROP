@@ -1,0 +1,31 @@
+.color-peg {
+    -fx-pref-width: 35px;
+    -fx-pref-height: 35px;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 3px;
+    -fx-border-color: WHITE;
+}
+
+.control-peg {
+    -fx-pref-width: 35px;
+    -fx-pref-height: 35px;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 3px;
+    -fx-border-color: WHITE;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 15;
+}
+
+.control-peg-black {
+    -fx-background-color: #212121;
+}
+
+.board-background {
+    -fx-background-color: #37474F;
+}
+
+.control-background {
+    -fx-background-color: #D7CCC8;
+}
