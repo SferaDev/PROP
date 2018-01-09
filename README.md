@@ -17,16 +17,12 @@ Rico Carreto, Alexis <alexis.rico@est.fib.upc.edu>
 
 **out/:** Contains the binary code of the build.
 
-**test/:** Contains some execution test entries for basic functionality.
+**test/:** Contains some execution tests.
 
 ## How to run and compile Mastermind
 
 Execute 'make' to compile the distributed code.
 
 Execute 'make run' to run the compiled code.
-
-Execute 'make jar' to generate a portable jar file.
-
-Execute 'make runjar' to run the compiled jar file.
 
 Execute 'make clean' to clean up the out folder.
